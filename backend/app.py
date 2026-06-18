@@ -14,7 +14,7 @@ app.add_middleware(
 )
 
 # Always look relative to this file's location
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = "/opt/render/project/src/backend"
 CORPUS_PATH = os.environ.get("CORPUS_PATH", os.path.join(BASE_DIR, "tagged.json"))
 EMBEDDINGS_PATH = os.path.join(BASE_DIR, "embeddings.npy")
 
