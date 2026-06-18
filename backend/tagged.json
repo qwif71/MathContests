@@ -1,0 +1,2281 @@
+[
+  {
+    "id": "ARML2025-TEAM-1",
+    "contest": "ARML 2025",
+    "round": "Team Round",
+    "number": 1,
+    "statement": "Sunny and Moonbeam are at the two ends of a straight 1-mile walking trail. They begin walking toward each other along the trail at the same time. Sunny walks at 4 miles per hour, and Moonbeam walks at 3 miles per hour. They meet at point A and continue their respective walks. At point B, Sunny turns around and starts walking in the same direction as Moonbeam. They both reach the end of the trail at the same time. Compute the number of miles in AB.",
+    "answer": "\\dfrac{2}{21}",
+    "solution": "The locations of points A and B can be independently computed as follows. Sunny and Moonbeam first meet after they have collectively walked 1 mile, and this occurs after 1 = 1 hours. Hence point A is 4+3 7 4 · 1 = 4 miles from Sunny’s starting point. 7 7 4 mph 3 mph Sunny Moonbeam 4 A 3 7 7 The second meeting occurs after Moonbeam has walked 1 mile, the length of the entire trail. Because Sunny walks at 4 the rate of Moonbeam, it follows that Sunny walked a total of 4/3 miles. Thus B is 2/3 miles from Sunny’s starting point. 4 mph 3 mph Sunny Moonbeam 2 B Therefore the number of miles in AB is |2/3 − 4/7| = 2/21. Problem 2. A square is circumscribed about the graph of |x|+|y| = 20 and is inscribed in the graph of |x|+|y| = 25. Compute the area of this square. √",
+    "sources": [
+      "ARML 2025"
+    ],
+    "difficulty_score": 4.0,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "relative motion",
+      "distance-rate-time",
+      "meeting points"
+    ],
+    "techniques": [
+      "arithmetic series"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests distance-rate-time reasoning to find two meeting points of walkers on a trail."
+  },
+  {
+    "id": "ARML2025-TEAM-2",
+    "contest": "ARML 2025",
+    "round": "Team Round",
+    "number": 2,
+    "statement": "A square is circumscribed about the graph of |x|+|y| = 20 and is inscribed in the graph of |x|+|y| = 25. Compute the area of this square. √ √",
+    "answer": "1000",
+    "solution": "The graph G of |x| + |y| = 20 is a square with side length 20 2. The graph G of |x| + |y| = 25 is a 1 √ 2 square with side length 25 2. Let the inscribed square S in the problem statement have side length s. Corresponding sides of G and G are parallel to each other. Hence the angles between a side of G and the 1 2 1 two sides of S touching it are congruent to the angles between a side of S and the two sides of G touching it. It follows that the similarity ratio between G and S equals that between S and G . This implies 1 2 √ 25 2 s = √ , s 20 2 so the desired area is √ √ s2 = 20 2 · 25 2 = 1000. Alternate Solution: As before, let the inscribed square S in the problem statement have side length s. Impose a coordinate system where one of the vertices of S is (a, b), with a + b = 25 and a, b > 0. Then the other three vertices are (−b, a), (−a, −b), and (b, −a). The line passing through (a, b) and (−b, a) must pass through (0, 20), so it follows that b − 20 a − 20 = =⇒ a2 + b2 = 20(a + b) = 500. a − 0 −b − 0 The side length of the square is given by » » √ s = (a + b)2 + (b − a)2 = 2(a2 + b2) = 2 · 500, so s2 = 1000. Note that solving for (a, b) from a + b = 25 and a2 + b2 = 500 yields the solutions {a, b} = ¶ √ © 5 (5 ± 15) . √ √ Problem 3. Suppose that △ABC has tan A + tan B = 2025 and cot A + cot B = 1976. Given that tan C = q r, where q is a rational number and r is a squarefree integer, compute r.",
+    "sources": [
+      "ARML 2025"
+    ],
+    "difficulty_score": 4.3,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "squares",
+      "absolute value graphs",
+      "geometric mean"
+    ],
+    "techniques": [
+      "similar triangles",
+      "geometric series"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests recognizing geometric mean of two concentric squares via similarity ratios."
+  },
+  {
+    "id": "ARML2025-TEAM-3",
+    "contest": "ARML 2025",
+    "round": "Team Round",
+    "number": 3,
+    "statement": "Suppose that △ABC has tan A + tan B = 2025 and cot A + cot B = 1976. Given that tan C = q r, where q is a rational number and r is a squarefree integer, compute r.",
+    "answer": "494",
+    "solution": "Notice that 1 1 tan B + tan A 2025 1976 = + = = , tan A tan B tan A tan B tan A tan B which implies tan A tan B = 2025 . Because tan C = tan(180◦ − (A + B)) = − tan(A + B), it follows that tan A + tan B 2025 2025 tan C = − = − = · 1976. 1 − tan A tan B 1 − 2025/1976 49 √ √ √ Thus tan C = 45 · 1976 = 90 494. Because 494 = 2 · 13 · 19 is squarefree, it follows that r = 494. 7 7 Alternate Solution: Rearranging the fractions 2025 tan A + tan B = = cot B + cot A = 1976, tan A tan B tan A tan B it follows that tan A tan B = 2025 . For any triangle ABC, recall the identity tan A + tan B + tan C = tan A tan B tan C. √ √ √ This leads to 2025 + tan C = 2025 tan C, thus tan C = 2025·1976 and tan C = 45 1976 = 90 494. Again, 1976 49 7 7 r = 494. Problem 4. Consider the cubic polynomials p(x) = x3 + 7x2 + 14x + 8 and q(x) = ax3 + bx2 + cx + d. Suppose that the graphs of y = p(x) and y = q(x) are symmetric across the point (4, 5). Compute the unique real solution to the equation q(x) + 130 = 0.",
+    "sources": [
+      "ARML 2025"
+    ],
+    "difficulty_score": 4.7,
+    "area": [
+      "Algebra",
+      "Geometry"
+    ],
+    "subtopics": [
+      "trigonometric identities",
+      "triangle angle relations",
+      "tangent and cotangent"
+    ],
+    "techniques": [
+      "trigonometric identities",
+      "angle chasing"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests manipulation of tan/cot sums in a triangle to find tan C in simplified radical form."
+  },
+  {
+    "id": "ARML2025-TEAM-4",
+    "contest": "ARML 2025",
+    "round": "Team Round",
+    "number": 4,
+    "statement": "Consider the cubic polynomials p(x) = x3 + 7x2 + 14x + 8 and q(x) = ax3 + bx2 + cx + d. Suppose that the graphs of y = p(x) and y = q(x) are symmetric across the point (4, 5). Compute the unique real solution to the equation q(x) + 130 = 0.",
+    "answer": "5",
+    "solution": "Instead of solving q(x) = −130, reflect the line y = −130 across the point (4, 5) to get the line y = 140. First consider the equation p(x) = 140, which is equivalent to x3 + 7x2 + 14x − 132 = 0, and note that p(3) = 140, which implies that x = 3 is a solution. This is the only real solution because x3 + 7x2 + 14x − 132 = (x − 3)(x2 + 10x + 44), and for all real x, x2 + 10x + 44 = (x + 5)2 + 19 > 0. Finally, reflecting the point (3, 140) in (4, 5) yields (5, −130), so x = 5 is the desired solution. Alternate Solution: Note that p(x) = x3 + 7x2 + 14x + 8 = (x + 1)(x2 + 6x + 8) = (x + 1)(x + 2)(x + 4). Because the graphs of y = p(x) and y = q(x) are symmetric about the point (4, 5), it follows that p(4 − x) + (cid:0) (cid:1) (cid:0) (cid:1) q(4 + x) = 10; that is, (4, 5) is the midpoint of the segment with endpoints 4 − x, p(4 − x) and 4 + x, q(4 + x) . Therefore q(x + 4) = 10 − p(4 − x) = 10 − (5 − x)(6 − x)(8 − x) = (x − 5)(x − 6)(x − 8) + 10, so q(x) = (x − 9)(x − 10)(x − 12) + 10. Thus (x − 9)(x − 10)(x − 12) + 10 = −130, which implies (x − 9)(x − 10)(x − 12) = −140 = (−4)(−5)(−7), hence x − 9 = −4, so x = 5. Problem 5. The sport of llama slabber requires four players from a team for each game. For any two games that a team plays in a season, they must use exactly two of the same players in both games, and no two players can play together in more than two games. Let G be the maximum number of games that a team can play in a season, and let P be the minimum number of players that a team needs in order to play G games in a season. Compute the ordered pair (G, P ).",
+    "sources": [
+      "ARML 2025"
+    ],
+    "difficulty_score": 5.0,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "cubic polynomials",
+      "point symmetry",
+      "polynomial roots"
+    ],
+    "techniques": [
+      "polynomial roots",
+      "factor theorem"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests understanding of point symmetry between two cubics to find a specific root."
+  },
+  {
+    "id": "ARML2025-TEAM-5",
+    "contest": "ARML 2025",
+    "round": "Team Round",
+    "number": 5,
+    "statement": "The sport of llama slabber requires four players from a team for each game. For any two games that a team plays in a season, they must use exactly two of the same players in both games, and no two players can play together in more than two games. Let G be the maximum number of games that a team can play in a season, and let P be the minimum number of players that a team needs in order to play G games in a season. Compute the ordered pair (G, P ). ←→",
+    "answer": "(7, 7)",
+    "solution": "Denote the players by capital letters A, B, and so on. Call the players in the first game of the season A, B, C, and D. Each subsequent game after the first must use a distinct subset of those four players. Hence there are a maximum of (cid:0)4(cid:1) = 6 additional games, thus G ≤ 1 + 6 = 7. To give an example that uses 7 games, note that the roster ABCD, ABEF, ACEG, ADFG, BCEG, BDFG, CDEF is an example of seven games satisfying the requirements. Hence G = 7, and moreover, P ≤ 7. It remains to verify that P ≥ 7, i.e., to verify there is no construction of seven games using fewer than 7 players. In order for seven games to take place, after the first game, the remaining (cid:0)4(cid:1) = 6 games must have exactly two players among {A, B, C, D} and two new players not among {A, B, C, D}. If there were only two new players (say, only E and F), then one cannot have them play in all six games. Hence a seventh player is necessary, so it follows that P ≥ 7. In summary, (G, P ) = (7, 7). ←→ Problem 6. Let △ABC be isosceles with AB = 1. Suppose that there is exactly one point C′ on BC, distinct from B and C, such that △ABC′ is also isosceles. Compute the sum of all distinct possible lengths AC. ←→",
+    "sources": [
+      "ARML 2025"
+    ],
+    "difficulty_score": 5.3,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "combinatorial design",
+      "set systems",
+      "counting"
+    ],
+    "techniques": [
+      "binomial theorem",
+      "casework"
+    ],
+    "difficulty": "medium",
+    "summary": "Find the maximum games and minimum players for a combinatorial team-sport scheduling constraint."
+  },
+  {
+    "id": "ARML2025-TEAM-6",
+    "contest": "ARML 2025",
+    "round": "Team Round",
+    "number": 6,
+    "statement": "Let △ABC be isosceles with AB = 1. Suppose that there is exactly one point C′ on BC, distinct from B and C, such that △ABC′ is also isosceles. Compute the sum of all distinct possible lengths AC.",
+    "answer": "1 + \\sqrt{2} + \\sqrt{3}",
+    "solution": "Let ℓ be the line BC for shorthand. Call a point on ℓ a potential location for C′ if two of AB, BC′, and C′A are equal. Call a potential location a valid location if, additionally, it is distinct from B and C. The problem statement requires exactly one valid location on ℓ. All possible potential locations are as follows: (cid:136) The potential locations with AB = AC′ are B and the reflection of B over the perpendicular from A to ℓ. Call this point W . (cid:136) The potential locations with BC′ = BA are the points on ℓ that are 1 unit away from B. Let X be the one on the same side of B as C, and Y be the one on the opposite side. (cid:136) The only potential location with C′A = C′B is the intersection of the perpendicular bisector of AB with ℓ, if it exists. Call this point Z. A Z Y W B C X Note that Y is always valid, and X is always distinct from B and Y . Thus the condition of a unique valid location is equivalent to W ∈ {B, C, Y }, X = C, and either Z does not exist or Z ∈ {B, C, Y }. First, observe that the condition that X = C is equivalent to BC = 1. The configuration is thus characterized by the angle θ between AB and BC. Next, analyze the condition on W . (cid:136) If W = B, then AB ⊥ ℓ. This gives θ = 90◦. (cid:136) If W = C, then △ABC is equilateral. This gives θ = 60◦. (cid:136) If W = Y , then θ is obtuse and BW = 1. So △ABW is equilateral, which gives θ = 120◦. Thus the condition on W is equivalent to θ ∈ {60◦, 90◦, 120◦}. Finally, analyze the condition on Z. (cid:136) If Z does not exist, then AB ⊥ ℓ. This gives θ = 90◦. (cid:136) Note that Z cannot equal B. (cid:136) If Z = C, then △ABC is equilateral. This gives θ = 60◦. (cid:136) If Z = Y , then θ is obtuse and BZ = 1. So △ABZ is equilateral, which gives θ = 120◦. Thus the condition on Z is equivalent to θ ∈ {60◦, 90◦, 120◦}. A A A Y B C = W = X = Z Y B = W C = X Y = W = Z B C = X Thus the condition of a unique valid location is equivalent to BC = 1 and m∠ABC ∈ {60◦, 90◦, 120◦}. This √ √ √ √ corresponds to AC being 1, 2, and 3, respectively. Thus the sum of all possible distances AC is 1+ 2+ 3. Problem 7. Silas lines up 12 fair coins and flips each of them. Marnie then removes any coin that shows the same face as one or both of its neighbors. Compute the probability that at most one coin remains.",
+    "sources": [
+      "ARML 2025"
+    ],
+    "difficulty_score": 5.7,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "isosceles triangles",
+      "locus of points",
+      "angle analysis"
+    ],
+    "techniques": [
+      "casework",
+      "Law of Cosines"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests systematic enumeration of isosceles triangle configurations via angle and locus analysis."
+  },
+  {
+    "id": "ARML2025-TEAM-7",
+    "contest": "ARML 2025",
+    "round": "Team Round",
+    "number": 7,
+    "statement": "Silas lines up 12 fair coins and flips each of them. Marnie then removes any coin that shows the same face as one or both of its neighbors. Compute the probability that at most one coin remains.",
+    "answer": "\\dfrac{329}{2048}",
+    "solution": "Assume without loss of generality that the first flip is heads. Then denote each subsequent flip by an S if it is the same as the previous flip and a D if it is different. Appending an S to each end of the resulting sequence, there will be at most one coin remaining if there is at most one instance of two consecutive Ds in the sequence. For a set of n coins, let a be the number of such sequences (of length n + 1) that contain exactly n one instance of two consecutive Ds, and b be the number of such sequences (of length n + 1) that contain no n two consecutive Ds. Then note that a = 0 and b = 1. For n > 2, it follows that 2 2 b = b + b + · · · + b + 1 n n−2 n−3 2 because a sequence of length n can be created from a sequence of length n − k (k ≥ 2), followed by k − 1 Ds and an S, or from the sequence SDD. . . DS. Similarly, a = b + a + a + · · · + a + 1, because a n n−1 n−2 n−3 2 sequence that has two consecutive Ds can be created in the same way as above, or by appending one more D to a sequence that does not have two consecutive Ds. Use this recursive formula to compute a and b for n = 3, 4, n n . . . , 12, ending with a = 240 and b = 89. The number of possible sequences is 211, so the probability is 329 . 12 12 2048 Alternate Solution: Each of the 212 sequences of H and T corresponds to a way to write 12 as a sum of the repeat-lengths of Hs or Ts. For example, HHHHTTTTHHTH becomes the ordered partition 12 = 4+4+2+1+1. Moreover, each ordered partition corresponds to two sequences of coins. Begin by computing the number of ordered partitions of n that have at most one 1. If there are no 1s, find the number of solutions to 12 = x + x + · · · + x , where x ≥ 2. For a fixed k (1 ≤ k ≤ 6), this is the number of nonnegative integer 1 2 k i solutions to 12 − 2k = y + y + · · · + y , which, by the sticks-and-stones method, equals (cid:0)11−k(cid:1) . Summing 1 2 k k−1 from k = 1, . . . , 6 gives 6 Ç å Ç å Ç å Ç å Ç å Ç å Ç å (cid:88) 11 − k 10 9 8 7 6 5 = + + + + + = 89. k − 1 0 1 2 3 4 5 k=1 (In fact, if 11 is replaced by the odd number m ≥ 1, this can be shown to equal the mth Fibonacci number, F . In this case, F = 89.) If there is one 1, find the number of solutions to 12 = x + x + · · · + x , where m 11 1 2 k some x = 1 and x ≥ 2 for i ̸= t. For fixed k, there are k ways of selecting t; then again, applying the t i sticks-and-stones method gives (cid:0)11−k(cid:1) solutions. Hence the total in this case is k−2 6 Ç å (cid:88) 11 − k k = 240. k − 2 k=2 In total, there are 89 + 240 = 329 ordered partitions in which at most a single element is 1. Thus the answer is 2·329 = 329 . 212 2048 Problem 8. An unfair die has faces labeled 1 through 6 like a standard die, where the face k appears with probability p . Suppose that: k (cid:136) Each of p , p , p , p is at least 1 , and p = p = 1 . 1 4 5 6 7 2 3 6 (cid:136) The expected value of a single roll matches that of a fair die. (cid:136) The expected value of the square of a single roll matches that of a fair die. Compute the least possible value of p .",
+    "sources": [
+      "ARML 2025"
+    ],
+    "difficulty_score": 6.0,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "probability",
+      "recurrence relations",
+      "ordered partitions"
+    ],
+    "techniques": [
+      "recurrence relation",
+      "stars and bars",
+      "Fibonacci/Lucas"
+    ],
+    "difficulty": "hard",
+    "summary": "Tests counting coin-flip sequences where at most one coin survives removal, via recurrences and partition enumeration."
+  },
+  {
+    "id": "ARML2025-TEAM-8",
+    "contest": "ARML 2025",
+    "round": "Team Round",
+    "number": 8,
+    "statement": "An unfair die has faces labeled 1 through 6 like a standard die, where the face k appears with probability p . Suppose that: k (cid:136) Each of p , p , p , p is at least 1 , and p = p = 1 . 1 4 5 6 7 2 3 6 (cid:136) The expected value of a single roll matches that of a fair die. (cid:136) The expected value of the square of a single roll matches that of a fair die. Compute the least possible value of p .",
+    "answer": "\\dfrac{52}{315}",
+    "solution": "Let p = 1 + t for k ∈ {1, 4, 5, 6}. Then the given conditions imply k 6 k t + t + t + t = 0 1 4 5 6 t + 4t + 5t + 6t = 0 1 4 5 6 t + 16t + 25t + 36t = 0, 1 4 5 6 or equivalently, t + t + t = −t 4 5 6 1 4t + 5t + 6t = −t 4 5 6 1 16t + 25t + 36t = −t . 4 5 6 1 Solving for t , t , t yields 4 5 6 t = −10t 4 1 t = 15t 5 1 t = −6t . 6 1 The first bulleted condition from the problem implies that min(t , t , t ) ≥ 1 − 1 = − 1 . In other words, the 4 5 6 7 6 42 range of possible values of t is exactly 1 1 1 1 − · ≤ t ≤ · . 42 15 1 42 10 The least possible value of p is therefore 1 1 1 52 p = − · = . 1 6 42 15 315 Problem 9. For each prime p, let U denote the set of ordered triples (a, b, c) ∈ {1, 2, . . . , p}3 for which p (cid:136) there exists an integer x for which p divides x2 − a, (cid:136) there exists an integer y for which p divides y3 − b, (cid:136) there exists an integer z for which p divides z5 − c, and (cid:136) p divides a + b + c. Compute the least prime p for which |U | > 2025. p",
+    "sources": [
+      "ARML 2025"
+    ],
+    "difficulty_score": 6.3,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "probability distributions",
+      "expected value",
+      "linear systems"
+    ],
+    "techniques": [
+      "arithmetic series",
+      "substitution"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests setting up and solving a linear system from expected value constraints on an unfair die."
+  },
+  {
+    "id": "ARML2025-TEAM-9",
+    "contest": "ARML 2025",
+    "round": "Team Round",
+    "number": 9,
+    "statement": "For each prime p, let U denote the set of ordered triples (a, b, c) ∈ {1, 2, . . . , p}3 for which p (cid:136) there exists an integer x for which p divides x2 − a, (cid:136) there exists an integer y for which p divides y3 − b, (cid:136) there exists an integer z for which p divides z5 − c, and (cid:136) p divides a + b + c. Compute the least prime p for which |U | > 2025. p",
+    "answer": "83",
+    "solution": "Assume p > 5 is a prime, and work with a, b, c modulo p. The solution proceeds in three steps. Claim: |U | ≤ p (cid:0) p+1 (cid:1) . p 2 To prove the claim, note that a and b uniquely determine c. Further note that there are exactly p+1 choices of a, and there are at most p choices of b. This implies the result. Consequently |U | ≥ 2025 would imply p p(p + 1) > 2025 · 2, meaning p ≥ 67. Claim: If p ≡ 1 (mod h) for h ∈ {3, 5}, then |U | < (cid:0) p+1 (cid:1) · (cid:0) p−1 + 1 (cid:1) . p 2 h To prove the claim, consider that if h = 3, then there are at most p−1 + 1 cubes modulo p, thus at most p−1 + 1 3 3 values of b are allowed; then the value of a uniquely determines c. The argument is identical for h = 5, with the roles of b and c swapped. Thus the primes p = 67, p = 71, p = 73, and p = 79 can be ruled out because in these cases, p − 1 has factors of 3, 5, 3, and 3, respectively. On the other hand, note that U has in fact exactly 83 (cid:0) 83+1 (cid:1) = 3486 > 2025 83 2 triples because every residue modulo 83 is both a perfect cube and a perfect fifth power, so the answer is 83. Problem 10. The trisectors of ∠A in △ABC intersect the circumcircle of the triangle at points D and E so that the points A, B, D, E, and C lie on the circumcircle in this order. Given that AB = 4, AD = 16, and AC = 14, compute BC.",
+    "sources": [
+      "ARML 2025"
+    ],
+    "difficulty_score": 6.7,
+    "area": [
+      "Number Theory"
+    ],
+    "subtopics": [
+      "quadratic residues",
+      "cubic and quintic residues modulo a prime",
+      "counting solutions"
+    ],
+    "techniques": [
+      "quadratic residues",
+      "order of an element",
+      "primitive roots"
+    ],
+    "difficulty": "hard",
+    "summary": "Find the least prime p so that the count of triples (a,b,c) that are quadratic, cubic, and quintic residues summing to 0 mod p exceeds 2025."
+  },
+  {
+    "id": "ARML2025-TEAM-10",
+    "contest": "ARML 2025",
+    "round": "Team Round",
+    "number": 10,
+    "statement": "The trisectors of ∠A in △ABC intersect the circumcircle of the triangle at points D and E so that the points A, B, D, E, and C lie on the circumcircle in this order. Given that AB = 4, AD = 16, and AC = 14, compute BC.",
+    "answer": "5\\sqrt{11}",
+    "solution": "Let BC = a, AB = b, AC = c, AD = d, AE = e, BD = DE = EC = x, and BE = CD = y. A b = 4 c = 14 B C a e d = 16 y x x y D x E Using Ptolemy’s Theorem in quadrilaterals ABDE and ACED, it follows that (b + e)x = dy and (c + d)x = ey. Therefore y b + e c + d 4 + e 30 = = =⇒ = =⇒ e = 20. x d e 16 e Applying the Law of Cosines in triangles ABD and ADE yields Å ∠BAC ã b2 + d2 − x2 d2 + e2 − x2 cos = = . 3 2bd 2de Hence b(d2 + e2 − x2) = e(b2 + d2 − x2), so e(b2 + d2) − b(d2 + e2) 20(42 + 162) − 4(162 + 202) x2 = = = 176. e − b 20 − 4 √ √ Therefore x = 4 11, and because y = 3 , it follows that y = 6 11. Using Ptolemy’s Theorem in quadrilateral x 2 √ BDEC, it follows that ax + x2 = y2, so a = 5 11. Alternate Solution: Let ∠BAC = 3θ < 180◦. Because triangles ABC, ABD, and ACD have the same circumcircle (of radius 2R), by the Extended Law of Sines, it follows that BC = 2R sin 3θ, BD = 2R sin θ, and CD = 2R sin 2θ. Using Ptolemy’s Theorem in quadrilateral ABDC,, it follows that 4 · CD + 14 · BD = 16 · BC. Thus 8 sin 3θ = 2 sin 2θ + 7 sin θ. Using the triple and double angle identities for the sin function, it follows that 8(3 sin θ − 4 sin3 θ) = 2 sin θ cos θ + 7 sin θ ⇐⇒ 17 − 32 sin2 θ = 4 cos θ ⇐⇒ 17 − 32(1 − cos2 θ) = 4 cos θ ⇐⇒ 0 = 32 cos2 θ − 4 cos θ − 15 = (8 cos θ + 5)(4 cos θ − 3). Hence cos θ = 3 or cos θ = − 5 . However, because θ < 60◦, it follows that cos θ = 3 . Applying the Law of 4 8 4 Cosines in triangle BAC yields BC2 = 42 + 142 − 2 · 4 · 14 · cos 3θ Ç Å 3 ã3 3 å = 212 − 112 4 · − 3 · 4 4 = 275, √ so BC = 5 11.",
+    "sources": [
+      "ARML 2025"
+    ],
+    "difficulty_score": 7.0,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "circumcircle",
+      "angle trisectors",
+      "cyclic polygon"
+    ],
+    "techniques": [
+      "Ptolemy",
+      "extended Law of Sines",
+      "trigonometric identities",
+      "Law of Cosines"
+    ],
+    "difficulty": "hard",
+    "summary": "Tests use of Ptolemy's theorem and angle trisector properties on a circumcircle to find a side length."
+  },
+  {
+    "id": "ARML2025-INDIVIDUAL-1",
+    "contest": "ARML 2025",
+    "round": "Individual Round",
+    "number": 1,
+    "statement": "Compute the least integer N for which is an integer. (N + 3)(N + 4)(N + 5)",
+    "answer": "11",
+    "solution": "Note that if any of N + 3, N + 4, and N + 5 is prime, then the given fraction will not be an integer because that prime will not divide N !. Therefore look for three consecutive composite numbers. The least three consecutive composite numbers are 8, 9, and 10, but if N + 5 = 10, then N = 5, and 5! = 120 < 720 = 8 · 9 · 10. The next least three consecutive composite numbers are 14, 15, 16, and because 11! = 11880 is an integer, 14·15·16 the answer is 11. Problem 2. Compute the number of ways in which an 87 × 1 grid can be fully tiled with rectangles of size 8 × 1 and 7 × 1.",
+    "sources": [
+      "ARML 2025"
+    ],
+    "difficulty_score": 6.0,
+    "area": [
+      "Number Theory",
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "factorial divisibility",
+      "consecutive composite numbers",
+      "primality"
+    ],
+    "techniques": [
+      "prime factorization",
+      "divisibility"
+    ],
+    "difficulty": "medium",
+    "summary": "Find the least integer N so that N! is divisible by the product of three consecutive integers."
+  },
+  {
+    "id": "ARML2025-INDIVIDUAL-2",
+    "contest": "ARML 2025",
+    "round": "Individual Round",
+    "number": 2,
+    "statement": "Compute the number of ways in which an 87 × 1 grid can be fully tiled with rectangles of size 8 × 1 and 7 × 1.",
+    "answer": "231",
+    "solution": "The tiling must use at least (cid:6) 87 (cid:7) = 11 tiles, and at most (cid:4) 87 (cid:5) = 12 tiles. If there are 11 tiles, then 8 7 there must be ten 8 × 1 tiles and one 7 × 1 tile; there are (cid:0)11(cid:1) = 11 such tilings, because the order of the tiles matters. If there are 12 tiles, then there must be three 8 × 1 tiles and nine 7 × 1 tiles. In this case, there are (cid:0)12(cid:1) = 220 such tilings. Thus the total number of tilings is 11 + 220 = 231. Problem 3. Compute the number of positive integers N for which 0.20 + > 0.25. N",
+    "sources": [
+      "ARML 2025"
+    ],
+    "difficulty_score": 6.3,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "tiling",
+      "counting arrangements",
+      "linear grid"
+    ],
+    "techniques": [
+      "casework",
+      "binomial theorem"
+    ],
+    "difficulty": "easy",
+    "summary": "Count tilings of an 87×1 grid with 8×1 and 7×1 tiles by casework on tile counts."
+  },
+  {
+    "id": "ARML2025-INDIVIDUAL-3",
+    "contest": "ARML 2025",
+    "round": "Individual Round",
+    "number": 3,
+    "statement": "Compute the number of positive integers N for which 0.20 + > 0.25. N (cid:112) √ (cid:112) √ √ 3 + 5 + 3 − 5 √",
+    "answer": "19",
+    "solution": "Notice that 0.25 = 25 and 0.20 = 20 , so it follows that 1 > 5 → N < 99 . Thus N < 19.8, so the 99 99 N 99 5 answer is 19. (cid:112) √ (cid:112) √ √ 3 + 5 + 3 − 5 √ Problem 4. The number 5 · (cid:112) √ can be expressed as a + b c, where a, b, and c are positive 3 − 8 integers and c is squarefree. Compute the ordered triple (a, b, c).",
+    "sources": [
+      "ARML 2025"
+    ],
+    "difficulty_score": 6.7,
+    "area": [
+      "Number Theory",
+      "Algebra"
+    ],
+    "subtopics": [
+      "decimal inequalities",
+      "integer bounds"
+    ],
+    "techniques": [
+      "arithmetic series"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests converting decimals to fractions and solving a simple inequality to count positive integer solutions."
+  },
+  {
+    "id": "ARML2025-INDIVIDUAL-4",
+    "contest": "ARML 2025",
+    "round": "Individual Round",
+    "number": 4,
+    "statement": "The number 5 · (cid:112) √ can be expressed as a + b c, where a, b, and c are positive 3 − 8 integers and c is squarefree. Compute the ordered triple (a, b, c).",
+    "answer": "(10, 5, 2)",
+    "solution": "Because √ √ √ √ Ä ä2 2 − 1 = 2 + 1 − 2 2 = 3 − 2 2 = 3 − 8, it follows that » √ √ 3 − 8 = 2 − 1 > 0. (cid:112) √ (cid:112) √ Let S = 3 + 5 + 3 − 5. It follows that Å» √ » √ ã2 S2 = 3 + 5 + 3 − 5 Ä √ ä Ä √ ä Å» √ ã Å» √ ã = 3 + 5 + 3 − 5 + 2 · 3 + 5 · 3 − 5 √ = 6 + 2 9 − 5 = 10, √ so S = 10. Finally, the desired fraction can be written as (cid:112) √ (cid:112) √ √ √ 3 + 5 + 3 − 5 √ 10 5 · (cid:112) √ = 5 · √ 3 − 8 2 − 1 √ √ 50( 2 + 1) = √ √ ( 2 − 1)( 2 + 1) √ √ √ = 100 + 50 = 10 + 5 2. Thus the desired ordered triple is (a, b, c) = (10, 5, 2). Problem 5. Similar right triangles DEF and XY Z have right angles at D and X, respectively. Let DF intersect XY at G, let DF intersect Y Z at H, and let DE intersect XZ at I. Segments EF and Y Z are parallel, and X lies on EF so that XG = ZI = DH. Given that Y G = F G = 8, compute the greater of [DEF ] and [XY Z]. E X I Z F G H D Y",
+    "sources": [
+      "ARML 2025"
+    ],
+    "difficulty_score": 7.0,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "nested radicals",
+      "radical simplification"
+    ],
+    "techniques": [
+      "completing the square"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests simplification of nested radicals by recognizing perfect square forms."
+  },
+  {
+    "id": "ARML2025-INDIVIDUAL-5",
+    "contest": "ARML 2025",
+    "round": "Individual Round",
+    "number": 5,
+    "statement": "Similar right triangles DEF and XY Z have right angles at D and X, respectively. Let DF intersect XY at G, let DF intersect Y Z at H, and let DE intersect XZ at I. Segments EF and Y Z are parallel, and X lies on EF so that XG = ZI = DH. Given that Y G = F G = 8, compute the greater of [DEF ] and [XY Z]. E X I Z F G H D Y",
+    "answer": "196",
+    "solution": "Let Y Z intersect DE at J, as shown below. E X I Z J F G H D Y Let XG = ZI = DH = x. By parallel lines, it follows that △XGF ∼ △Y GH ∼ △JDH ∼ △JIZ. Furthermore, because ZI = DH, it follows that △JDH ∼ = △JIZ. Thus JD = JI. Because XG = ID, it follows that JD = JI = x/2. Then XG/F G = JD/HD = 1/2, so x = 8 · 1 = 4. Now Y G/HG = 1/2, so HG = 16, and so DF = 28. Also XI = GD = 20, so XZ = 24. So the larger of △DEF and △XY Z is △DEF . To compute [DEF ], it suffices to find DE because DF is already known. Because EI/XI = 1/2, it follows that EI = 10, and so DE = 14. Thus [DEF ] = 1 · 28 · 14 = 196. Problem 6. Compute the least positive multiple of 7 (expressed as a base-ten number) that has exactly seven 1s in its binary representation.",
+    "sources": [
+      "ARML 2025"
+    ],
+    "difficulty_score": 7.3,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "similar triangles",
+      "parallel lines",
+      "area of triangles"
+    ],
+    "techniques": [
+      "similar triangles",
+      "congruent triangles"
+    ],
+    "difficulty": "hard",
+    "summary": "Tests use of similar and congruent triangles from parallel lines to find lengths and compute triangle area."
+  },
+  {
+    "id": "ARML2025-INDIVIDUAL-6",
+    "contest": "ARML 2025",
+    "round": "Individual Round",
+    "number": 6,
+    "statement": "Compute the least positive multiple of 7 (expressed as a base-ten number) that has exactly seven 1s in its binary representation.",
+    "answer": "623",
+    "solution": "If a positive integer n has exactly seven 1s in its binary representation, it must be equal to 2a1 + 2a2 + · · · + 2a7 for distinct nonnegative integers a > a > · · · > a . The least possible value of a is 6. Check the possible values of a in increasing order. Suppose that a = 6. Then (a , a , . . . , a ) = (6, 5, 4, 3, 2, 1, 0). So n = 26 + 25 + · · · + 20 = 127. This is not a 1 1 2 7 multiple of 7. Suppose that a = 7. Then n = 27+26+· · ·+20−2b = 255−2b for some b ∈ {0, . . . , 6}. Then n ≡ 3−2b (mod 7). But 2b (mod 7) ∈ {1, 2, 4}, so n is not a multiple of 7. Suppose that a = 8. Then n = 28 + 27 + · · · + 20 − 2b − 2c = 511 − 2b − 2c for some distinct b, c ∈ {0, . . . , 7}. Then n ≡ −2b − 2c (mod 7). But 2b (mod 7) ∈ {1, 2, 4} and 2c (mod 7) ∈ {1, 2, 4}, so n is not a multiple of 7. Suppose that a = 9. Then n = 29 + 28 + · · · + 20 − 2b − 2c − 2d = 1023 − 2b − 2c − 2d for some distinct b, c, d ∈ {0, . . . , 8}. Then n ≡ 1 − 2b − 2c − 2d (mod 7). In order for n to be a multiple of 7, this requires 2b, 2c, and 2d (mod 7) to be equivalent to 2, 2, and 4 (mod 7) in some order. To find the least possible n, it suffices to make 2b + 2c + 2d as great as possible. The values of k ∈ {0, . . . , 8} such that 2k ≡ 2 (mod 7) are 1, 4, and 7. The values of k ∈ {0, . . . , 8} such that 2k ≡ 4 (mod 7) are 2, 5, and 8. Thus the greatest possible value of 2b + 2c + 2d under these conditions is 28 + 27 + 24. It follows that the least possible n is 1023 − 28 − 27 − 24 = 623. Problem 7. Let x satisfy log (log 2x) = 1 . Compute log x. 50(502) 2(5050) 100 50",
+    "sources": [
+      "ARML 2025"
+    ],
+    "difficulty_score": 7.7,
+    "area": [
+      "Number Theory"
+    ],
+    "subtopics": [
+      "binary representation",
+      "multiples and divisibility",
+      "modular arithmetic"
+    ],
+    "techniques": [
+      "modular arithmetic",
+      "base representation",
+      "casework"
+    ],
+    "difficulty": "medium",
+    "summary": "Find the least positive multiple of 7 whose binary representation contains exactly seven 1s."
+  },
+  {
+    "id": "ARML2025-INDIVIDUAL-7",
+    "contest": "ARML 2025",
+    "round": "Individual Round",
+    "number": 7,
+    "statement": "Let x satisfy log (log 2x) = 1 . Compute log x. 50(502) 2(5050) 100 50",
+    "answer": "75",
+    "solution": "Let log x = y. Then x = 50y, so log 2x = x = 50y = 50y−50. Thus log (log 2x) = 50 2(5050) 5050 5050 50(502) 2(5050) log 50y−50 = y−50 . Setting this equal to 1 yields the equation y − 50 = 25, so y = 75. 50(502) 2500 100 Problem 8. The polynomial f has integer coefficients, and √ √ Ä ä f 20 + 2 + 5 = 2025. Compute the least possible positive value of f (1). √ √",
+    "sources": [
+      "ARML 2025"
+    ],
+    "difficulty_score": 8.0,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "logarithms",
+      "logarithmic equations"
+    ],
+    "techniques": [
+      "logarithm properties"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests ability to simplify nested logarithms with different bases using logarithm properties."
+  },
+  {
+    "id": "ARML2025-INDIVIDUAL-8",
+    "contest": "ARML 2025",
+    "round": "Individual Round",
+    "number": 8,
+    "statement": "The polynomial f has integer coefficients, and √ √ Ä ä f 20 + 2 + 5 = 2025. Compute the least possible positive value of f (1).",
+    "answer": "41",
+    "solution": "Take the minimal polynomial1 of 20 + 2 + 5, namely g(X) = Ä (X − 5)2 − 22 ä2 − 160. √ √ (Note that the four roots of this polynomial are ± 20 ± 2 + 5.) It must divide f (X) − 2025, meaning that f (X) = 2025 + g(X) · q(X), for some polynomial q with integer coefficients. Thus f (1) = 2025 + g(1) · q(1). However, g(1) = Ä (1 − 5)2 − 22 ä2 − 160 = (16 − 22)2 − 160 = −124. Hence the necessary and sufficient condition for possible values of f (1) is f (1) ≡ 2025 ≡ 41 (mod 124). The answer is thus 41. Problem 9. Compute the number of permutations of the digits of 123456789 for which the odd digits are in increasing order.",
+    "sources": [
+      "ARML 2025"
+    ],
+    "difficulty_score": 8.3,
+    "area": [
+      "Algebra",
+      "Number Theory"
+    ],
+    "subtopics": [
+      "minimal polynomial",
+      "polynomials with integer coefficients",
+      "modular arithmetic"
+    ],
+    "techniques": [
+      "minimal polynomial",
+      "modular arithmetic"
+    ],
+    "difficulty": "hard",
+    "summary": "Tests finding the least positive value of an integer-coefficient polynomial at 1, using minimal polynomials and modular constraints."
+  },
+  {
+    "id": "ARML2025-INDIVIDUAL-9",
+    "contest": "ARML 2025",
+    "round": "Individual Round",
+    "number": 9,
+    "statement": "Compute the number of permutations of the digits of 123456789 for which the odd digits are in increasing order.",
+    "answer": "3024",
+    "solution": "The positions of the odd digits determine their individual locations, and there are (cid:0)9(cid:1) = 9·8·7·6 = 126 5 4·3·2·1 ways to place them. The even digits can then be arranged in 4! = 24 ways for a total of 126 · 24 = 3024 permutations whose odd digits are in increasing order. 1The minimal polynomial of a complex number z is the least-degree monic polynomial with rational coefficients that has z as a root (if such a polynomial exists). Problem 10. Let △ABC be an acute triangle with incenter I. Suppose csc A, csc B, and csc C form an arithmetic progression with common difference 1 , and AI2, BI2, and CI2 form an arithmetic progression with common difference 25. Compute [ABC].",
+    "sources": [
+      "ARML 2025"
+    ],
+    "difficulty_score": 8.7,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "permutations",
+      "ordering constraints",
+      "digit arrangements"
+    ],
+    "techniques": [
+      "binomial theorem",
+      "stars and bars"
+    ],
+    "difficulty": "easy",
+    "summary": "Count permutations of digits 1–9 where the five odd digits appear in increasing order."
+  },
+  {
+    "id": "ARML2025-INDIVIDUAL-10",
+    "contest": "ARML 2025",
+    "round": "Individual Round",
+    "number": 10,
+    "statement": "Let △ABC be an acute triangle with incenter I. Suppose csc A, csc B, and csc C form an arithmetic progression with common difference 1 , and AI2, BI2, and CI2 form an arithmetic progression with common difference 25. Compute [ABC].",
+    "answer": "250",
+    "solution": "Let a = BC, b = CA, c = AB, s = (a + b + c)/2, and let r be the inradius of △ABC. Note that AI2 − BI2 = (cid:0) (s − a)2 + r2(cid:1) − (cid:0) (s − b)2 + r2(cid:1) (cid:0) (cid:1) (cid:0) (cid:1) = (s − a) + (s − b) · (s − a) − (s − b) = c · (b − a) = cb − ca Å 1 1 ã = 2[ABC] · − sin A sin B = 2[ABC] · (csc A − csc B) . Hence AI2 − BI2 25 [ABC] = = = 250. 2(csc A − csc B) 2 · 1 Remark: This solution does not use the entire arithmetic progression. In fact, it shows that as long as csc A, csc B, csc C are an arithmetic progression, then the lengths AI2, BI2, CI2 are an arithmetic progression as well, with the common difference scaled by 2[ABC]. Consequently, even though the problem seems to specify four conditions, one of them is redundant. The unique choice of angles that yield the desired progression are ∠A ≈ 64.457◦, ∠B ≈ 59.691◦, ∠C ≈ 55.852◦.",
+    "sources": [
+      "ARML 2025"
+    ],
+    "difficulty_score": 9.0,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "triangle incenter",
+      "arithmetic progressions of triangle quantities",
+      "area of a triangle"
+    ],
+    "techniques": [
+      "inradius/circumradius formulas",
+      "Law of Sines",
+      "area ratios"
+    ],
+    "difficulty": "hard",
+    "summary": "Tests the relationship between distances from the incenter and trigonometric progressions to compute triangle area."
+  },
+  {
+    "id": "ARML2025-TIEBREAKER-1",
+    "contest": "ARML 2025",
+    "round": "Tiebreaker Round",
+    "number": 1,
+    "statement": "Suppose m and n are integers that satisfy the system m + n2 + mn = 497 n + 2m2 = 546. Compute m + n. √",
+    "answer": "-15",
+    "solution": "The problem statement implies (n − m) + (2m2 − n2 − mn) = 546 − 497 = 49. Note that (m − n) can be factored from the left-hand side: (m − n)(2m + n − 1) = 49. So m − n and 2m + n − 1 must be (possibly negative) factors of 49 that multiply to 49. Furthermore, the sum of the two factors is 3m − 1 and thus must be equivalent to 2 mod 3. So (m − n, 2m + n − 1) is one of (1, 49), (7, 7), or (49, 1). In each case, (m, n) is determined by solving the systems of equations implied by the first two columns of the following table. m − n 2m + n − 1 m n 1 49 17 16 7 7 5 −2 49 1 17 −32 Now substitute back in to the original system. In the pair (m, n) = (5, −2), note that m and |n| are too small to satisfy the original system. If m = 17, then 2m2 = 578, so n must be −32 for the second of the given equations to hold. Then the first given equation also holds, so the answer is 17 + (−32) = −15. √ Problem 2. Compute the lattice point (a, b) closest to the origin for which (a − b) a + b = 999.",
+    "sources": [
+      "ARML 2025"
+    ],
+    "difficulty_score": 7.0,
+    "area": [
+      "Algebra",
+      "Number Theory"
+    ],
+    "subtopics": [
+      "systems of equations",
+      "integer factorizations",
+      "Diophantine equations"
+    ],
+    "techniques": [
+      "factoring",
+      "divisibility",
+      "modular arithmetic"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests solving an integer system by subtracting equations, factoring, and checking factor pairs of 49."
+  },
+  {
+    "id": "ARML2025-TIEBREAKER-2",
+    "contest": "ARML 2025",
+    "round": "Tiebreaker Round",
+    "number": 2,
+    "statement": "Compute the lattice point (a, b) closest to the origin for which (a − b) a + b = 999. min T",
+    "answer": "(96, -15)",
+    "solution": "First note that because a and b are integers, a + b must be a perfect square. Moreover, because the factor of (a − b) is multiplied by a positive integer, it follows that a − b is also a positive integer. Now consider the following table. a − b a + b 1 9992 3 3332 9 1112 27 372 37 272 111 92 333 32 999 12 The problem is to find the ordered pair (a, b) that minimizes a2 + b2. Now consider the pair of equations a − b = 333 and a + b = 9. This is satisfied by (a, b) = (171, −162). Note that unless a − b = 111 and a + b = 81, each of the other pairs of equations implied by the above table lead to a ≥ 171 and |b| ≥ 162. On the other hand, the pair of equations a − b = 111 and a + b = 81 is satisfied by (96, −15), which is the desired point because 962 + (−15)2 < 1712 + 1622. min T Problem 3. Let S = {1, 2, 3, 4, 5, 6}. Compute the number of nonempty subsets T of S for which ∈ S. |T |",
+    "sources": [
+      "ARML 2025"
+    ],
+    "difficulty_score": 8.5,
+    "area": [
+      "Number Theory",
+      "Algebra"
+    ],
+    "subtopics": [
+      "lattice points",
+      "perfect squares",
+      "distance minimization"
+    ],
+    "techniques": [
+      "prime factorization",
+      "divisibility"
+    ],
+    "difficulty": "medium",
+    "summary": "Find the lattice point closest to the origin satisfying a product equation by factoring and comparing distances."
+  },
+  {
+    "id": "ARML2025-TIEBREAKER-3",
+    "contest": "ARML 2025",
+    "round": "Tiebreaker Round",
+    "number": 3,
+    "statement": "Let S = {1, 2, 3, 4, 5, 6}. Compute the number of nonempty subsets T of S for which ∈ S. |T |",
+    "answer": "15",
+    "solution": "Suppose that |T | = 1. Then there is only one element in the subset T , and that element is the minimum of the subset. Thus there are 6 such subsets T . Suppose that |T | = 2. Then the minimum of T can be either 2 or 4. If min T = 2, then there are 4 other elements that could possibly be in T . If instead min T = 4, then there are 2 other elements that could possibly be in T . Thus there are 4 + 2 = 6 subsets T of this type. Suppose that |T | = 3. Then the minimum of T can be only 3. The other two possible elements of T can be chosen in (cid:0)3(cid:1) = 3 ways, so there are 3 subsets T of this type. If |T | > 3, then min T > 3, but then this implies that |T | ≤ 3, which contradicts the assumption that |T | > 3. Thus the final answer is 6 + 6 + 3 = 15.",
+    "sources": [
+      "ARML 2025"
+    ],
+    "difficulty_score": 10.0,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "subsets",
+      "minimum element",
+      "counting"
+    ],
+    "techniques": [
+      "casework"
+    ],
+    "difficulty": "easy",
+    "summary": "Count nonempty subsets of {1,...,6} where the minimum element equals the subset's size."
+  },
+  {
+    "id": "ARML2026-TEAM-1",
+    "contest": "ARML 2026",
+    "round": "Team Round",
+    "number": 1,
+    "statement": "Given that the product 20262025 × 20262023 is the fifteen-digit number 410549A165765B5, compute the ordered pair (A, B).",
+    "answer": "(6, 7)",
+    "solution": "Observing that 20262024 is a multiple of 3, express this product generally as (3n+1)(3n−1) = 9n2 −1 for some value of n. This means that 410549A165765B6 is a multiple of 9, and so the sum of its digits must be divisible by 9. Thus 4 + 1 + 5 + 4 + 9 + A + 1 + 6 + 5 + 7 + 6 + 5 + B + 6 + 1 = 59 + A + B must be a multiple of 9. Quick inspection of the product 25 · 23 = 575 implies that B must be equal to 7. Thus 66 + A must be 72, so A = 6, and the answer is (6, 7). Problem 2. Consider the following cross-number puzzle. No answer has a leftmost digit of 0. 1-Across: Sum of the cubes of the digits in 4-Across 4-Across: A perfect cube 5-Across: Prime with a digit sum of 16 1 A 2 B 3 C 4 D E F 1-Down: Its digits form an increasing arithmetic sequence 5 G H I 2-Down: A Fibonacci number 3-Down: Decimal representation of 1101000101 Compute A B C + D E F + G H I.",
+    "sources": [
+      "ARML 2026"
+    ],
+    "difficulty_score": 4.0,
+    "area": [
+      "Number Theory"
+    ],
+    "subtopics": [
+      "divisibility",
+      "digit sum",
+      "modular arithmetic"
+    ],
+    "techniques": [
+      "modular arithmetic",
+      "divisibility"
+    ],
+    "difficulty": "easy",
+    "summary": "Find missing digits in a product by using divisibility by 9 and last-digit inspection."
+  },
+  {
+    "id": "ARML2026-TEAM-2",
+    "contest": "ARML 2026",
+    "round": "Team Round",
+    "number": 2,
+    "statement": "Consider the following cross-number puzzle. No answer has a leftmost digit of 0. 1-Across: Sum of the cubes of the digits in 4-Across 4-Across: A perfect cube 5-Across: Prime with a digit sum of 16 1 A 2 B 3 C 4 D E F 1-Down: Its digits form an increasing arithmetic sequence 5 G H I 2-Down: A Fibonacci number 3-Down: Decimal representation of 1101000101 Compute A B C + D E F + G H I.",
+    "answer": "1008",
+    "solution": "Although one can convert the number in 3-Down (call it N ) to decimal, one could also estimate N > 29 + 28 > 700 , so as a decimal, the leftmost digit of N (which is C) must be at least 7. Because 2-Down and 4-Across share the same middle digit, it is useful to list three-digit Fibonacci numbers and perfect cubes. Note that 144 is a Fibonacci number and shares its middle digit with 343, a perfect cube. Note also that 610 is a Fibonacci number and shares its middle digit with the perfect cubes 216 and 512. However, the sums of the cubes of the digits of 216 and 512 (as required by 1-Across) are 225 and 134, respectively, and in both cases, the units digits are less than 7. Thus 2-Down is 144, 4-Across is 343, and 1-Across is 33 + 43 + 33 = 118. The clue for 1-Down implies that G = 5. Because 5-Across has a digit sum of 16, it follows that I = 16 − (5 + 4) = 7, and one can verify that 547 is indeed prime. The value of I can also be determined by adding up units digits of appropriate powers of 2. Thus A B C + D E F + G H I = 118 + 343 + 547 = 1008. The completed grid is shown below. 1 1 8 3 4 3 5 4 7 Problem 3. Let RAIS be a square with rational side length. Point T lies on side AI so that [STAR] = 10. Given [SIT ] that T S2 is an integer, compute the least possible value of T S2.",
+    "sources": [
+      "ARML 2026"
+    ],
+    "difficulty_score": 4.3,
+    "area": [
+      "Combinatorics",
+      "Number Theory"
+    ],
+    "subtopics": [
+      "crossword/cross-number puzzle",
+      "Fibonacci numbers",
+      "perfect cubes"
+    ],
+    "techniques": [
+      "casework",
+      "base representation",
+      "divisibility"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests identification of Fibonacci numbers, perfect cubes, and primes satisfying cross-number puzzle constraints."
+  },
+  {
+    "id": "ARML2026-TEAM-3",
+    "contest": "ARML 2026",
+    "round": "Team Round",
+    "number": 3,
+    "statement": "Let RAIS be a square with rational side length. Point T lies on side AI so that [STAR] = 10. Given [SIT ] that T S2 is an integer, compute the least possible value of T S2. √ √ √ √ √",
+    "answer": "5",
+    "solution": "Let the side length of RAIS be s, and let T I = ks. Then [SIT ] = 1 ks2 and [ST AR] = (1 − 1 k)s2, 2 2 so 1 − 1 k 2 = 10, 1 k so k = 2 . Thus T S2 = 125 s2. 11 121 A s R T ks I s S If T S2 is an integer, then it must be divisible by 5. Indeed, the exponent of 5 in the (rational) prime factorization of T S2 must be odd and hence at least 1. Note that T S2 = 5 is achievable by taking s = 11 . So the least possible integral value of T S2 is 5. √ √ √ √ √ Problem 4. Let P be the infinite product 3 2 × 9 4 × 27 8 × 81 16 × · · · × 3n 2n × · · · . Compute P 4.",
+    "sources": [
+      "ARML 2026"
+    ],
+    "difficulty_score": 4.7,
+    "area": [
+      "Geometry",
+      "Number Theory"
+    ],
+    "subtopics": [
+      "area ratios in squares",
+      "rational side lengths",
+      "p-adic valuation"
+    ],
+    "techniques": [
+      "area ratios",
+      "p-adic valuation"
+    ],
+    "difficulty": "medium",
+    "summary": "Find the least integer value of TS² in a square with rational side, using area ratios and divisibility of rational squares."
+  },
+  {
+    "id": "ARML2026-TEAM-4",
+    "contest": "ARML 2026",
+    "round": "Team Round",
+    "number": 4,
+    "statement": "Let P be the infinite product 3 2 × 9 4 × 27 8 × 81 16 × · · · × 3n 2n × · · · . Compute P 4.",
+    "answer": "8",
+    "solution": "Note that log P = 1 + 2 + 3 + 4 + · · · and 1 log P = 0 + 1 + 2 + 3 + · · · . Subtracting, 2 3 9 27 81 3 2 3 9 27 81 2 log P = 1 + 1 + 1 + 1 + · · · = 1 . Thus log P = 3 so P 4 = 8. 3 2 3 9 27 81 2 2 4 Alternate Solution: Note that P = 2S, where ∞ (cid:88) k S = . 3k k=1 Writing out S term by term and multiplying the resulting equation by 1 yields 1 2 3 4 S = + + + + · · · 3 9 27 81 1 1 2 3 4 S = + + + + · · · . 3 9 27 81 243 Taking the differences of both sides of the above equation yields 2 S = 1 + 1 + 1 + 1 + · · · = 1/3 = 1 , 3 31 32 33 34 1−1/3 2 hence S = 3 , and P 4 = (23/4)4 = 23 = 8. Problem 5. Compute the number of ways to tile the grid shown at right with 2 × 1 and 1 × 2 rectangles.",
+    "sources": [
+      "ARML 2026"
+    ],
+    "difficulty_score": 5.0,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "infinite products",
+      "series summation",
+      "arithmetico-geometric series"
+    ],
+    "techniques": [
+      "logarithm properties",
+      "geometric series",
+      "telescoping"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests evaluation of an infinite product by converting to a sum via logarithms and summing an arithmetico-geometric series."
+  },
+  {
+    "id": "ARML2026-TEAM-5",
+    "contest": "ARML 2026",
+    "round": "Team Round",
+    "number": 5,
+    "statement": "Compute the number of ways to tile the grid shown at right with 2 × 1 and 1 × 2 rectangles.",
+    "answer": "25632",
+    "solution": "It can be readily shown that the number of ways to tile a 2 × N rectangle with 2 × 1 rectangles is F , the (N + 1)st Fibonacci number (with F = 0 and F = 1). N+1 0 1 Accordingly, the problem can be broken down by how the four squares at the intersection of the horizontal and vertical 2 × 12 parts are tiled. If the four squares are tiled by two horizontal or vertical tiles, then there are (F )2 ways to tile the remaining 2 × 10 and 10 × 2 rectangles. If the squares are covered by one horizontal tile against the bottom boundary and two vertical tiles covering the other two squares (or similarly, one vertical tile against the rightmost boundary and two horizontal tiles covering the other two squares), then there are F ·F 11 10 ways to tile the remaining rectangles. Because F = 55 and F = 89, the answer is 2·892 +2·89·55 = 25632. 10 11 Problem 6. Compute the least real number c such that the graphs of y = x2 + c and x = y2 + c intersect at an odd number of points.",
+    "sources": [
+      "ARML 2026"
+    ],
+    "difficulty_score": 5.3,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "domino tiling",
+      "grid tilings",
+      "Fibonacci numbers"
+    ],
+    "techniques": [
+      "Fibonacci/Lucas",
+      "recursion",
+      "casework"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests counting domino tilings of a cross-shaped grid using Fibonacci number recurrences and case analysis at the intersection."
+  },
+  {
+    "id": "ARML2026-TEAM-6",
+    "contest": "ARML 2026",
+    "round": "Team Round",
+    "number": 6,
+    "statement": "Compute the least real number c such that the graphs of y = x2 + c and x = y2 + c intersect at an odd number of points.",
+    "answer": "\\dfrac{1}{4}",
+    "solution": "For most c ≥ 0, there are 2 intersection points for small c and none for large c. Because the two parabolas are reflections over the line y = x, the transition happens when the two parabolas intersect along the axis of reflection, so x = x2 + c has a unique solution, or x2 − x + c is a perfect square, which happens when c = 1/4. For c < 0, the number of intersections goes from 2 to 4, but without a transition of 3 intersection points. Instead there are two intersections when c ≥ −3/4 and four intersections when c < −3/4. One way to see this is that intersections happen when x = (x2 + c)2 + c, or 0 = x4 + 2cx2 − x + c2 + c = (x2 − x + c)(x2 + x + 1 + c). The first factor has a double root when c = 1/4, as already found, and the second has a double root when the discriminant 1 − 4 − 4c = 0, or c = −3/4. But when c = −3/4, the first factor x2 − x − 3/4 is 0 when x = −1/2 or 3/2, while the second factor x2 + x + 1/4 has its double root at x = −1/2, so the degree-four polynomial has a triple root at −1/2 and single root at 3/2 thus the parabolas intersect twice. Therefore an odd number of intersections only happens when c is 1 . Problem 7. An Alphabubu Blind Box is a box containing one tile, on which is one letter of the alphabet. When Glenn opens a box, the tile inside is equally likely to contain each of the 26 letters of the alphabet. Compute the expected number of boxes that Glenn would need to open in order to spell GLENN with his tiles.",
+    "sources": [
+      "ARML 2026"
+    ],
+    "difficulty_score": 5.7,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "intersection of parabolas",
+      "polynomial roots",
+      "conic sections"
+    ],
+    "techniques": [
+      "factor theorem",
+      "discriminant"
+    ],
+    "difficulty": "hard",
+    "summary": "Find the least c where two reflected parabolas intersect at an odd number of points by analyzing a factored quartic."
+  },
+  {
+    "id": "ARML2026-TEAM-7",
+    "contest": "ARML 2026",
+    "round": "Team Round",
+    "number": 7,
+    "statement": "An Alphabubu Blind Box is a box containing one tile, on which is one letter of the alphabet. When Glenn opens a box, the tile inside is equally likely to contain each of the 26 letters of the alphabet. Compute the expected number of boxes that Glenn would need to open in order to spell GLENN with his tiles.",
+    "answer": "\\dfrac{1625}{24}",
+    "solution": "The expected number of boxes to open is the reciprocal of the probability of opening those tiles. For example, there are four letter tiles needed, the expected number of boxes to open any one of the G, L, E, or N is 26 = 6.5 boxes, so in order to spell GLEN, the total expected number of boxes needed to open is 26 + 26 + 26 + 26 = 3256. Proceed by breaking the problem into four cases, depending on whether or not the 4 3 2 1 first of the two Ns needed is opened first, second, third, or fourth: (cid:136) Case 1: The first N is opened first. Then 26 + 26 + 26 + 26 + 26 = 182 . 4 4 3 2 1 3 (cid:136) Case 2: The first N is opened second. Then 26 + 26 + 26 + 26 + 26 = 377 . 4 3 3 2 1 6 (cid:136) Case 3: The first N is opened third. Then 26 + 26 + 26 + 26 + 26 = 403 . 4 3 2 2 1 6 (cid:136) Case 4: The first N is opened fourth. Then 26 + 26 + 26 + 26 + 26 = 481 . 4 3 2 1 1 6 Summing the expectations of the four cases, each term 26 , 26 , 26 , 26 is added five times, and each of these four 4 3 2 1 cases is equally likely, so compute 5 ( 26 + 26 + 26 + 26 ) = 1625 , (which is approximately 67.7 boxes). 4 4 3 2 1 24 Problem 8. In rectangle ARM L, point X lies on side AR, and point Y lies on side RM . The line that passes ←−→ ←−→ ←−→ through Y and is perpendicular to M X intersects M X and M A at P and Q, respectively. Given that AX = 14, XR = 10, and 7 · Y P = 13 · P Q, compute [ARM L].",
+    "sources": [
+      "ARML 2026"
+    ],
+    "difficulty_score": 6.0,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "expected value",
+      "coupon collector variant",
+      "probability"
+    ],
+    "techniques": [
+      "expected value",
+      "casework",
+      "linearity of expectation"
+    ],
+    "difficulty": "hard",
+    "summary": "Compute the expected number of random draws to collect a specific multiset of letters including a repeated letter."
+  },
+  {
+    "id": "ARML2026-TEAM-8",
+    "contest": "ARML 2026",
+    "round": "Team Round",
+    "number": 8,
+    "statement": "In rectangle ARM L, point X lies on side AR, and point Y lies on side RM . The line that passes ←−→ ←−→ ←−→ through Y and is perpendicular to M X intersects M X and M A at P and Q, respectively. Given that AX = 14, XR = 10, and 7 · Y P = 13 · P Q, compute [ARM L]. a + b √ 2",
+    "answer": "120\\sqrt{6}",
+    "solution": "Let the line passing through R and parallel to Y Q intersect M X and M A in points U and V , where 7 · RU = 13 · U V . L M Q V P Y U A X R ←−→ Using Menelaus’ Theorem for triangle ARV and transversal M X yields AX RU M V 14 13 M V 1 = · · = · · , XR U V M A 10 7 M A ←→ hence MV = 5 and MV = 5 . Using Menelaus’ Theorem for triangle AM X and transversal V R yields MA 13 V A 8 AV M U XR 8 M U 10 1 = · · = · · , V M U X RA 5 U X 24 hence MU = 3 . Thus let M U = 3x and U X = 2x. Because RU is an altitude in right triangle M RX, from UX 2 √ similar triangles XU R and XRM , it follows that XR2 = XU · XM . Therefore 102 = 2x · 5x, so x = 10, and √ √ √ thus M X = 5x = 5 10, M R = 5 6. Because AR = 24, it follows that [ARM L] = 120 6. a + b √ 2 Problem 9. Let a and b be positive real numbers such that , ab, and are integers with sum 335. 2 1 + 1 a b Compute |a − b|.",
+    "sources": [
+      "ARML 2026"
+    ],
+    "difficulty_score": 6.3,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "rectangle",
+      "area computation",
+      "transversals"
+    ],
+    "techniques": [
+      "Menelaus",
+      "similar triangles",
+      "Pythagorean theorem"
+    ],
+    "difficulty": "hard",
+    "summary": "Tests applying Menelaus' theorem twice and similar triangles in a rectangle to find its area."
+  },
+  {
+    "id": "ARML2026-TEAM-9",
+    "contest": "ARML 2026",
+    "round": "Team Round",
+    "number": 9,
+    "statement": "Let a and b be positive real numbers such that , ab, and are integers with sum 335. 2 1 + 1 a b Compute |a − b|.",
+    "answer": "210\\sqrt{5}",
+    "solution": "Note that AH = G2. Let n = gcd(A, H), so A and H are relatively prime positive integers whose n n product is a perfect square. Hence they must themselves be perfect squares; say p2 and q2. Henceforth, write A = np2, G = npq, H = nq2 for integers n and p ≥ q > 0. Thus n(p2 + pq + q2) = 5 · 67. Because p2 + pq + q2 = (p − q)2 + 3pq is 0 mod 3 or 1 mod 3, we must have p2 + pq + q2 = 67, and n = 5. The only possible (p, q) is (7, 2) so (A, G, H) = (245, 70, 20). Thus (a − b)2 = (a + b)2 − 4ab = (2A)2 − 4G2 = 4902 − 4 · 702 = 702(72 − 4) √ √ and so |a − b| = 70 5 · 9 = 210 5. Problem 10. Let △ABC be a nondegenerate acute triangle. A student computes the six standard trigonometric functions (i.e., sin, cos, tan, csc, sec, and cot) of each of the three angles of △ABC, resulting in k distinct values. Compute the sum of all possible values of k.",
+    "sources": [
+      "ARML 2026"
+    ],
+    "difficulty_score": 6.7,
+    "area": [
+      "Algebra",
+      "Number Theory"
+    ],
+    "subtopics": [
+      "arithmetic mean, geometric mean, harmonic mean",
+      "Diophantine equations",
+      "integer constraints"
+    ],
+    "techniques": [
+      "AM-GM",
+      "prime factorization",
+      "gcd/lcm"
+    ],
+    "difficulty": "hard",
+    "summary": "Find |a−b| given that the arithmetic mean, geometric mean, and harmonic mean of a and b are integers summing to 335."
+  },
+  {
+    "id": "ARML2026-TEAM-10",
+    "contest": "ARML 2026",
+    "round": "Team Round",
+    "number": 10,
+    "statement": "Let △ABC be a nondegenerate acute triangle. A student computes the six standard trigonometric functions (i.e., sin, cos, tan, csc, sec, and cot) of each of the three angles of △ABC, resulting in k distinct values. Compute the sum of all possible values of k.",
+    "answer": "113",
+    "solution": "Before delving into casework, here are some observations that help in all cases. Define a new operator tot(t) = min{tan t, cot t}. Note that tot(t) < 1 for 0◦ < t < 90◦ and t ̸= 45◦. Next, let ϵ be the number of angles A, B, C which are equal to 45◦. Note that ϵ = 0 or ϵ = 1. Then k is ϵ less than twice the number of values in the following 3 × 3 matrix:   sin A cos A tot A M = sin B cos B tot B . sin C cos C tot C Note that within each column, two entries can only be equal only if the corresponding angles are equal. (For the tot column, this requires acuteness of the triangle.) Also, sin A = cos B and similar equations are impossible because ABC is an acute triangle; and sin A = cos A can only occur if A = 45◦. It will also be necessary to analyze the equations sin(x) = tot(x) and cos(x) = tot(x). For acute angles x, note that sin(x) = tot(x) occurs only if 45◦ < x < 90◦ and sin(x) = cot(x) = cos(x) ; this is equivalent to √ sin(x) cos2 x + cos x = 1, which occurs only when cos(x) = 1 (−1 + 5). In other words, sin(x) = tot(x) has a unique 2√ solution, henceforth denoted by ϕ = arccos (cid:0) 1 (−1 + 5) (cid:1) . (For concreteness, it turns out that ϕ ≈ 51.827◦.) By a symmetric analysis, cos(x) = tot(x) can only occur when x = 90◦ − ϕ. Proceed with case analysis as follows. Call a real number evil if it appears more than once in M in different columns, and does not occur because sin 45◦ = cos 45◦. Then the above properties imply that besides duplicate rows for an isosceles triangle, an evil number must appear exactly twice: once in the tot column and once in a sin or cos column. Let n be the number of evil numbers, and let r be the number of different rows (that is, r = 1, 2, 3 if ABC is equilateral, isosceles and non-equilateral, or scalene, respectively). Note that n ≤ r − ϵ because all evil numbers appear once in the last column and lie in the interval (0, 1). Then k = 2(3r − n − ϵ) − ϵ = 6r − 2n − 3ϵ. The table below shows the possible cases in consideration, together with a triangle achieving each possible configuration. In the cases where an angle is underspecified, the choice should be made “sufficiently generically”, so that no unexpected equalities arise. ϵ = 0 n = 0 n = 1 n = 2 n = 3 60◦ || || 60◦ 60◦ || Equilateral r = 1 k = 6 ϕ || || || || Isosceles Impossible r = 2 k = 12 k = 10 k = 8 ϕ ϕ Scalene ρ Impossible r = 3 k = 18 k = 16 k = 14 k = 12 ϵ = 1 n = 0 n = 1 n = 2 n = 3 45◦ || || Isosceles Impossible r = 2 k = 9 k = 7 ϕ Scalene 45◦ 45◦ Impossible r = 3 k = 15 k = 13 k = 11 In the exceptional case where (ϵ, n, r) = (0, 2, 3), the angle ϕ is defined so that 45◦ < ϕ < 90◦ and the equation sin (cid:0) 180◦ − (ϕ + ρ) (cid:1) = cot ρ holds. This is possible because if ρ were equal to 45◦, the right-hand side of the above equation would be greater while when ρ = 90◦, the left-hand side would be greater, so continuity guarantees the existence of one such ρ. (For concreteness, it turns out that ρ ≈ 45.217◦.) It remains to show that the cases marked “Impossible” indeed never occur. The basic heuristic argument is that in each of these cases, one could consider writing down a system of equations in terms of the angles. In all these cases, there is one more equation than variable, so the resulting equation should never have any solutions. Thus one can rule out these cases based solely on intuition; hence the sum of the possible values of k is 6 + 12 + 10 + 18 + 16 + 14 + 9 + 15 + 13 = 113. For completeness, a proof of the impossible cases is sketched below. In order to make the story more readable, machine-based numerical approximations are used to describe the solutions to one-variable equations, even though this does not constitute a rigorous proof. To write an airtight formal proof, the numerical approxi- mations should be replaced by working with the values of sin θ and cos θ directly, showing that the pairs of equations cannot hold simultaneously. The organizers of the competition stress that it is not expected that contestants would carry out these proofs. (cid:136) The case where ϵ = 1 and r = 2 is easy because any isosceles acute triangle with an angle equal to 45◦ must in fact have the other two angles equal to 67.5◦, i.e., there is only one triangle up to similarity, and it satisfies n = 0. (cid:136) Consider the case (ϵ, n, r) = (0, 2, 2). If any of the angles are equal to ϕ or 90◦ − ϕ, then n = 1. Otherwise, let A = 2θ, B = C = 90◦ − θ, where 0◦ < θ < 45◦. The angle θ would have to obey tot(90◦ − θ) ∈ {sin 2θ, cos 2θ} tot(2θ) ∈ {sin θ, cos θ} . However, the unique angle 0 < θ < 45◦ for which the first equation holds is θ ≈ 28.532◦ for which tan θ = cos(2θ); this does not satisfy the second equation. (cid:136) Consider the case (ϵ, n, r) = (1, 2, 3). If any of the angles are equal to ϕ or 90◦ − ϕ, then n = 1. Otherwise, let A = θ and B = 135◦ − θ, where 45◦ < θ < 90◦. In order for n ≥ 2 to occur, the angle θ would have to obey ß 1 ™ tot(θ) ∈ sin(135◦ − θ), cos(135◦ − θ), √ ß 1 ™ tot(135◦ − θ) ∈ sin θ, cos θ, √ . √ However, the only angles 45◦ < θ < 90◦ satisfying the first equation are θ = arctan( 2) ≈ 54.736◦ and θ ≈ 68.366◦, for which cot θ = cos(135◦ − θ). This does not satisfy the second equation. (cid:136) The case (ϵ, n, r) = (0, 3, 3) is the most difficult because the family of scalene triangles is parametrized by two variables. Therefore, even given numerical analysis, this case cannot be easily dispatched. However, handling this is also not necessary for the problem at hand! This case yields the value k = 12, which was already covered by (ϵ, n, r) = (0, 0, 2). Therefore, while this case does turn out to be impossible, proving the impossibility is irrelevant to the final answer.",
+    "sources": [
+      "ARML 2026"
+    ],
+    "difficulty_score": 7.0,
+    "area": [
+      "Algebra",
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "trigonometric functions of triangle angles",
+      "counting distinct values",
+      "casework on triangle types"
+    ],
+    "techniques": [
+      "casework",
+      "trigonometric identities"
+    ],
+    "difficulty": "hard",
+    "summary": "Count distinct values among six trig functions of each angle in an acute triangle, summing all possible totals."
+  },
+  {
+    "id": "ARML2026-INDIVIDUAL-1",
+    "contest": "ARML 2026",
+    "round": "Individual Round",
+    "number": 1,
+    "statement": "Given that x and y are real numbers such that x2 + y2 = 202 and x − y = 6, compute |x + y|.",
+    "answer": "4\\sqrt{23}",
+    "solution": "Note that (x − y)2 = x2 − 2xy + y2 = 36. Because x2 + y2 = 202, it follows that 2xy = 166. Then √ √ note that (x + y)2 = x2 + 2xy + y2 = 202 + 166 = 368, hence |x + y| = 368 = 4 23. Problem 2. Let P be a polynomial each of whose coefficients is either 0, 2, or 6. Given that P (4) = 2026, compute P (10).",
+    "sources": [
+      "ARML 2026"
+    ],
+    "difficulty_score": 6.0,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "systems of equations",
+      "algebraic identities"
+    ],
+    "techniques": [
+      "completing the square"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests use of difference-of-squares and sum-of-squares identities to find |x+y| from given constraints."
+  },
+  {
+    "id": "ARML2026-INDIVIDUAL-2",
+    "contest": "ARML 2026",
+    "round": "Individual Round",
+    "number": 2,
+    "statement": "Let P be a polynomial each of whose coefficients is either 0, 2, or 6. Given that P (4) = 2026, compute P (10).",
+    "answer": "66622",
+    "solution": "Let Q(x) = 1 P (x), so Q(x) = a xn + a xn−1 + · · · + a , where a ∈ {0, 1, 3} for all 0 ≤ i ≤ n. 2 n n−1 0 i Then Q(4) = a 4n + a 4n−1 + · · · + a = 1013. Note that a ≡ 1013 mod 4, and hence a = 1. Similarly, n n−1 0 0 0 4a + a and 16a + 4a + a are congruent to 1013 modulo 16 and 64, respectively, which yields a = 1 and 1 0 2 1 0 1 a = 3. Continuing in this fashion, note that this process is precisely computing the base-4 representation of P (4); that is, the coefficients of Q will be the digits of 1013 when written in base 4. Because 1013 = 33311 , it follows that Q(x) = 3x4 + 3x3 + 3x2 + x + 1, hence P (10) = 2 · Q(10) = 66622. Problem 3. Jannik rolls two standard fair six-sided dice and tells Carlos the product of the two numbers rolled. Carlos guesses the sum of the two numbers rolled, by choosing the most likely sum based on the product Jannik told him. Compute the probability that Carlos guesses correctly.",
+    "sources": [
+      "ARML 2026"
+    ],
+    "difficulty_score": 6.3,
+    "area": [
+      "Algebra",
+      "Number Theory"
+    ],
+    "subtopics": [
+      "polynomials with restricted coefficients",
+      "base representation",
+      "digit extraction"
+    ],
+    "techniques": [
+      "base representation",
+      "modular arithmetic"
+    ],
+    "difficulty": "medium",
+    "summary": "Find a polynomial with coefficients in {0,2,6} satisfying P(4)=2026, then evaluate P(10) via base-4 digit extraction."
+  },
+  {
+    "id": "ARML2026-INDIVIDUAL-3",
+    "contest": "ARML 2026",
+    "round": "Individual Round",
+    "number": 3,
+    "statement": "Jannik rolls two standard fair six-sided dice and tells Carlos the product of the two numbers rolled. Carlos guesses the sum of the two numbers rolled, by choosing the most likely sum based on the product Jannik told him. Compute the probability that Carlos guesses correctly.",
+    "answer": "\\dfrac{31}{36}",
+    "solution": "If the product is a number that can be expressed in only one way as the product of two factors no greater than 6, then Carlos can determine what the two die numbers are and will be able to guess the sum precisely. If the product is 4 (2 · 2 or 1 · 4) or 6 (2 · 3 or 1 · 6) or 12 (2 · 6 or 3 · 4), then Carlos should guess one of the possible sums. Either sum is equally likely, except in the case where the product is 4. Then Carlos should guess that the sum is 5, not 4, because it is twice as likely that the rolls are 1 and 4, rather than 2 and 2. Those three cases occur with probabilities 3 , 4 , and 4 , respectively, with Carlos guessing correctly 2 , 36 36 36 3 1 , and 1 of the time. The remaining 25 of the time, Carlos always guesses correctly. Thus Carlos can guess 2 2 36 correctly with probability 31 . Problem 4. Compute sin2 42◦ + sin2 78◦ − sin 42◦ sin 78◦.",
+    "sources": [
+      "ARML 2026"
+    ],
+    "difficulty_score": 6.7,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "probability",
+      "dice",
+      "conditional reasoning"
+    ],
+    "techniques": [
+      "casework",
+      "conditional probability"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests enumeration of dice products and conditional probability to find Carlos's correct-guess probability."
+  },
+  {
+    "id": "ARML2026-INDIVIDUAL-4",
+    "contest": "ARML 2026",
+    "round": "Individual Round",
+    "number": 4,
+    "statement": "Compute sin2 42◦ + sin2 78◦ − sin 42◦ sin 78◦.",
+    "answer": "\\dfrac{3}{4}",
+    "solution": "Note that the given expression equals sin2(60◦ − A) + sin2(60◦ + A) − sin(60◦ − A) sin(60◦ + A), where A = 18◦. By a double-angle identity and then addition/subtraction identities, sin2(60◦ − A) + sin2(60◦ + A) = 1 (cid:0) (1 − cos(120◦ − 2A)) + (1 − cos(120◦ + 2A)) (cid:1) cos(120◦ − 2A) + cos(120◦ + 2A) = 1 − (cos 120◦ cos 2A + sin 120◦ sin 2A) + (cos 120◦ cos 2A − sin 120◦ sin 2A) = 1 − cos 2A = 1 + . By a product-to-sum identity, cos(−2A) − cos 120◦ sin(60◦ − A) sin(60◦ + A) = cos 2A 1 = + . 2 4 Hence the required expression is 1 + cos 2A − ( cos 2A + 1 ) = 3 (independent of A). 2 2 4 4 Alternate Solution: Let x = sin 42◦, y = sin 78◦, a = cos 42◦, and b = cos 78◦. Then note that sin 120◦ = √ sin(42◦ + 78◦) = bx + ay = 3 , and cos 120◦ = ab − xy = − 1 . Square both equations to obtain 2 2 b2x2 + 2abxy + a2y2 = a2b2 − 2abxy + x2y2 = . Subtract these two equations and factor to obtain (x2 − a2)(b2 − y2) + 4abxy = . Because a2 + x2 = b2 + y2 = 1, it follows that Å 1 ã 1 (2x2 − 1)(1 − 2y2) + 4xy xy − = , 2 2 or equivalently, 2x2 + 2y2 − 1 − 2xy = 1 , from which x2 + y2 − xy = 3 . Note that this would still hold if 42◦ 2 4 and 78◦ were replaced by any two angles summing to 120◦. Alternate Solution: Let x and y be the values of the angles 42◦ and 78◦ in radians, respectively. The sin3 x + sin3 y desired quantity is . Let α = eix and β = eiy. Then sin x + sin y 1 1 Å 1 ã 1 Å 1 ã sin x = (eix − e−ix) = α − and sin y = β − . 2i 2i α 2i β Then note that x + y = 2 3 π , so αβ = ei· 2 3 π , which is a cube root of unity, thus (αβ)3 = 1 and α3 = β 1 3 . This implies 1 ñÅ 1 ã3 Å 1 ã3ô sin3 x + sin3 y = − α − + β − 8i α β 1 Å 3 1 3 1 ã = − α3 − 3α + − + β3 − 3β + − 8i α α3 β β3 1 Å 3 3 ã = − −3α + − 3β + 8i α β 3 ÅÅ 1 ã Å 1 ãã = α − + β + 8i α β = (sin x + sin y). Thus the desired quantity is 3 , and in fact is independent of the actual angles, provided that their sum is 120◦. Problem 5. Compute the greatest possible number of sides of a convex polygon whose angle measures (in degrees) in some order are distinct consecutive integers.",
+    "sources": [
+      "ARML 2026"
+    ],
+    "difficulty_score": 7.0,
+    "area": [
+      "Algebra",
+      "Geometry"
+    ],
+    "subtopics": [
+      "trigonometric expressions",
+      "angle identities",
+      "sum of squares of sines"
+    ],
+    "techniques": [
+      "double-angle",
+      "product-to-sum",
+      "roots of unity"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests simplification of a trigonometric expression using double-angle and product-to-sum identities."
+  },
+  {
+    "id": "ARML2026-INDIVIDUAL-5",
+    "contest": "ARML 2026",
+    "round": "Individual Round",
+    "number": 5,
+    "statement": "Compute the greatest possible number of sides of a convex polygon whose angle measures (in degrees) in some order are distinct consecutive integers.",
+    "answer": "16",
+    "solution": "Let n be the number of sides of the polygon. In degrees, the average angle will be a = 180 − 360 , n so that will be the median of the list of consecutive integer measures. If a is an integer, then n must be odd, and the angles will be a, a ± 1, a ± 2, . . . , a ± n−1 . For convexity, 180 > a + n−1 = 180 − 360 + n−1 , which 2 2 n 2 simplifies to n(n − 1) < 720, so n ≤ 27 is a divisor of 360. The odd divisors of 360 are divisors of 45, and the greatest of these less than 27 is 15. However, there is also the possibility that n is even and a is a half-integer, in which case the angles will be a ± 1 , a ± 3 , . . . , a ± n−1 . For convexity, 180 > 180 − 360 + n−1 , which again 2 2 2 n 2 simplifies to n(n − 1) < 720, so n ≤ 27 and 360 is a half-integer, thus n is 16 times an odd divisor of 45. The n only such number is 16, which is greater than 15 and is thus the greatest possible number of sides. Problem 6. Suppose that △P QR has P Q = QR = 2026 and P R = 4051. Let △ABC have integer side lengths and m∠C ≤ m∠R. Compute the minimum possible perimeter of △ABC.",
+    "sources": [
+      "ARML 2026"
+    ],
+    "difficulty_score": 7.3,
+    "area": [
+      "Geometry",
+      "Number Theory"
+    ],
+    "subtopics": [
+      "convex polygons",
+      "interior angle sums",
+      "divisibility"
+    ],
+    "techniques": [
+      "arithmetic series",
+      "divisibility"
+    ],
+    "difficulty": "hard",
+    "summary": "Find the greatest number of sides of a convex polygon with distinct consecutive integer angle measures."
+  },
+  {
+    "id": "ARML2026-INDIVIDUAL-6",
+    "contest": "ARML 2026",
+    "round": "Individual Round",
+    "number": 6,
+    "statement": "Suppose that △P QR has P Q = QR = 2026 and P R = 4051. Let △ABC have integer side lengths and m∠C ≤ m∠R. Compute the minimum possible perimeter of △ABC.",
+    "answer": "93",
+    "solution": "Let a = BC, b = AC, and c = AB. Assume, without loss of generality, that ∠C is the smallest angle in △ABC, and then that ∠A is the largest, so that c ≤ b ≤ a. By the Law of Cosines, cos C = a2+b2−c2 , and 2ab reducing c while holding a and b fixed will always (provided this does not violate the Triangle Inequality) result in a triangle with smaller perimeter and a smaller ∠C, so assume that b + c = a + 1. The perimeter of ABC is a + b + c = 2a + 1, so it suffices to minimize a. Substitute for c in the Law of Cosines, obtaining cos C = a2+b2−(a−b+1)2 , which simplifies to 1 + 1 − 1 − 1 . It follows that cos C ≤ 1 − 1 because b ≤ a. Applying 2ab a b 2ab 2a2 the Law of Cosines to △P QR gives cos R = 20262+40512−20262 = 4051 . If ∠C ≤ ∠R, then cos C ≥ cos R, so 2·2026·4051 4052 1 ≤ 1 . This gives a2 ≥ 2026, and because a is an integer, a ≥ 46. The minimum possible perimeter of 2a2 4052 △ABC is then 2 · 46 + 1 = 93. Problem 7. In triangle ABC, a circle that is tangent to side BC intersects side AB at points P and Q, where P is the point closer to A, and intersects side AC at points R and S, where R is the point closer to A, as shown. Given that AB = 13, AC = 15, AP = 4, AQ = 9, and AR = 3, compute BC. A P R Q S B C",
+    "sources": [
+      "ARML 2026"
+    ],
+    "difficulty_score": 7.7,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "triangle angles",
+      "Law of Cosines",
+      "integer side lengths"
+    ],
+    "techniques": [
+      "Law of Cosines",
+      "triangle inequality"
+    ],
+    "difficulty": "medium",
+    "summary": "Find the minimum integer-sided triangle perimeter subject to an angle constraint using Law of Cosines."
+  },
+  {
+    "id": "ARML2026-INDIVIDUAL-7",
+    "contest": "ARML 2026",
+    "round": "Individual Round",
+    "number": 7,
+    "statement": "In triangle ABC, a circle that is tangent to side BC intersects side AB at points P and Q, where P is the point closer to A, and intersects side AC at points R and S, where R is the point closer to A, as shown. Given that AB = 13, AC = 15, AP = 4, AQ = 9, and AR = 3, compute BC. A P R Q S B C",
+    "answer": "12",
+    "solution": "By the Power of a Point Theorem, AR · AS = AP · AQ, so 3AS = 4 · 9 and AS = 12. Hence BQ = 13 − 9 = 4 and CS = 15 − 12 = 3. Let D be the point where the circle intersects BC. Applying √ Power of a Point from B and C, respectively, BD2 = BQ · BP , so BD = 4 · 9 = 6 and CD2 = CS · CR, so √ CD = 3 · 12 = 6. Thus BC = BD + CD = 6 + 6 = 12. Problem 8. The 60 students of the West Coast ARML team and the 120 students of the East Coast ARML team are at a party. A total of 1800 handshakes occur between a West Coast student and an East Coast student, with no pair of people shaking hands more than once and no other handshakes occurring. For each pair of students at the party, the coaches record how many students shook hands with both. Compute the minimum possible average of the (cid:0)180(cid:1) numbers recorded by the coaches.",
+    "sources": [
+      "ARML 2026"
+    ],
+    "difficulty_score": 8.0,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "circle tangent to a side",
+      "power of a point",
+      "triangle with secants"
+    ],
+    "techniques": [
+      "Power of a Point"
+    ],
+    "difficulty": "easy",
+    "summary": "Uses Power of a Point from each vertex to find segment lengths and compute BC."
+  },
+  {
+    "id": "ARML2026-INDIVIDUAL-8",
+    "contest": "ARML 2026",
+    "round": "Individual Round",
+    "number": 8,
+    "statement": "The 60 students of the West Coast ARML team and the 120 students of the East Coast ARML team are at a party. A total of 1800 handshakes occur between a West Coast student and an East Coast student, with no pair of people shaking hands more than once and no other handshakes occurring. For each pair of students at the party, the coaches record how many students shook hands with both. Compute the minimum possible average of the (cid:0)180(cid:1) numbers recorded by the coaches.",
+    "answer": "\\dfrac{430}{179}",
+    "solution": "It suffices to compute the sum of the numbers recorded; that is, the sum over all pairs of students of the number of students that shook hands with both. Consider the number of times each student is counted in this sum. If student s shook hands with d people, then s is counted once in (cid:0)ds (cid:1) different terms of the sum. s 2 Thus the sum is equal to Ç å (cid:88) d s , s where s ranges across all students at the party. Break the sum up into two parts, one sum over the West Coast (WC) students and one sum over the East Coast (EC) students. The sum over the West Coast is Ç å (cid:88) d s = 1 (cid:88) d2 − 1 (cid:88) d . 2 2 s 2 s s∈WC s∈WC s∈WC By the Cauchy–Schwarz Inequality, it follows that (cid:32) (cid:33) (cid:32) (cid:33) (cid:32) (cid:33)2 (cid:88) (cid:88) (cid:88) 1 d2 ≥ d , s s s∈WC s∈WC s∈WC so Ç å (cid:32) (cid:33)2 (cid:88) d s ≥ 1 (cid:88) d − 1 (cid:88) d . 2 2 · 60 s 2 s s∈WC s∈WC s∈WC By grouping the handshakes by which West Coast student is involved, observe that (cid:88) d s s∈WC is precisely the total number of handshakes, which is 1800. It follows that Ç å (cid:88) d s ≥ 18002 − 1800 = 900 · 29. 2 2 · 60 2 s∈WC Similarly, it follows that Ç å (cid:88) d s ≥ 18002 − 1800 = 900 · 14. 2 2 · 120 2 s∈EC Thus the average number recorded is Ç å 1 (cid:88) d s ≥ 1 (900 · 29 + 900 · 14) = 430 . (cid:0)180(cid:1) 2 90 · 179 179 2 s It remains to check that this is attainable. Equality in the Cauchy–Schwarz applications requires d to be s constant across all West Coast students and constant across all East Coast students. Divide the party into 4 groups, each with 15 West Coast students and 30 East Coast students. Within each group, suppose each of the 15 · 30 possible handshakes occur. Then 1800 total handshakes occur. Then d is 30 for each of the West s Coast students and 15 for each of the East Coast students, which gives an equality case. Thus the minimum possible average is 430 . Problem 9. Compute the second least positive integer n such that n + 1 and 5n + 1 are perfect squares.",
+    "sources": [
+      "ARML 2026"
+    ],
+    "difficulty_score": 8.3,
+    "area": [
+      "Combinatorics",
+      "Algebra"
+    ],
+    "subtopics": [
+      "handshake counting",
+      "optimization of averages",
+      "bipartite graphs"
+    ],
+    "techniques": [
+      "double counting",
+      "Cauchy-Schwarz"
+    ],
+    "difficulty": "hard",
+    "summary": "Minimize the average number of mutual handshake partners over all pairs, using double counting and Cauchy-Schwarz."
+  },
+  {
+    "id": "ARML2026-INDIVIDUAL-9",
+    "contest": "ARML 2026",
+    "round": "Individual Round",
+    "number": 9,
+    "statement": "Compute the second least positive integer n such that n + 1 and 5n + 1 are perfect squares.",
+    "answer": "24",
+    "solution": "Do casework on the value of n + 1. The least positive integer n such that n + 1 is a perfect square is 3. For this value, 5·3+1 = 42. The number n+1 is also a perfect square for n = 8, 15, 24, 35, . . . , and the respective values of 5n + 1 are 41, 76, 121, 176, . . . . Noting that 121 = 112, it follows that n = 24 is the desired value of n. Alternate Solution: Let n+1 = x2 and 5n+1 = y2 for positive integers x and y. Noting that n = x2 −1 from the first equation, this can be substituted into the second equation to get 5(x2 − 1) + 1 = y2 or y2 − 5x2 = −4. The Lucas numbers L , defined by L = 2, L = 1, and L = L + L for n ≥ 2 and the Fibonacci n 0 1 n n−1 n−2 numbers F , defined by F = 1, F = 1, F = F + F for n ≥ 2 have the relationship L2 − 5F 2 = 4(−1)n, n 0 1 n n−1 n−2 n n meaning that the solutions to this problem correspond to the odd-indexed values of these sequences. The first pairs are (1, 1), (2, 4), and (5, 11), and the corresponding values of n are 0, 3, and 24. Problem 10. Let △ABC be a triangle with incenter I and incircle ω which is tangent to sides BC, CA, and AB at D, E, and F , respectively. Let T D be a diameter of ω. Suppose that the angle bisector of ∠BAC splits △ABC into two triangles, one of which is isosceles with vertex angle at A. Given that T D = 4 and [F IT ] − [T IE] = 35 , compute AI · [F IE].",
+    "sources": [
+      "ARML 2026"
+    ],
+    "difficulty_score": 8.7,
+    "area": [
+      "Number Theory",
+      "Algebra"
+    ],
+    "subtopics": [
+      "perfect squares",
+      "Pell-like equations",
+      "Fibonacci/Lucas sequences"
+    ],
+    "techniques": [
+      "Pell equation",
+      "Fibonacci/Lucas"
+    ],
+    "difficulty": "medium",
+    "summary": "Find the second least positive integer n where both n+1 and 5n+1 are perfect squares, using a Pell-like equation and Lucas/Fibonacci identities."
+  },
+  {
+    "id": "ARML2026-INDIVIDUAL-10",
+    "contest": "ARML 2026",
+    "round": "Individual Round",
+    "number": 10,
+    "statement": "Let △ABC be a triangle with incenter I and incircle ω which is tangent to sides BC, CA, and AB at D, E, and F , respectively. Let T D be a diameter of ω. Suppose that the angle bisector of ∠BAC splits △ABC into two triangles, one of which is isosceles with vertex angle at A. Given that T D = 4 and [F IT ] − [T IE] = 35 , compute AI · [F IE].",
+    "answer": "\\dfrac{70 - 2\\sqrt{141}}{1}",
+    "solution": "Because BDIF is a cyclic quadrilateral (two opposite angles of 90◦), it follows that ∠DIF = 180◦ − B, so ∠T IF = B. Similarly, ∠T IE = C. Let r be the radius of ω. Then r = T D = 2, and 1 1 B + C B − C A B − C [F IT ] − [T IE] = r2 sin B − r2 sin C = r2 cos sin = r2 sin sin . 2 2 2 2 2 2 Thus sin A sin B−C = 35 . Let the angle bisector of ∠BAC meet BC at P . If △ABP is isosceles, then 2 2 108 ∠AP B = B. But ∠AP B = ∠P AC + ∠ACP = A + C, so it follows that B − C = A . Similarly, if △ACP is 2 2 isosceles, then C − B = A . From sin A sin B−C = 35 , it must be the case that sin B−C is positive, so B − C 2 2 2 108 2 is also positive. Thus B − C = A , so sin A sin A = 35 . Then 2 2 4 108 35 A A A A Å A ã A = sin sin = 2 sin2 cos = 2 1 − cos2 cos , 108 2 4 4 4 4 4 so cos A − cos3 A = 35 . One solution to x − x3 = 35 is x = 1 . This implies that the other two solutions 4 4 216 √ 216 6 √ satisfy x2 + 1 x − 35 = 0, so they are x = −1± 141 . Observe that 0◦ < A < 45◦, so 2 < cos A < 1. The values √6 36 12 4 √ 2 4 1 and −1− 141 are too small to be cos A , so it must be that cos A = −1+ 141 . Now compute 6 12 4 4 12 r 1 r3 sin A AI · [F IE] = · r2 sin(180◦ − A) = sin A 2 2 sin A 2 2 √ A Å A ã Ç 35 − 141 å = r3 cos = r3 2 cos2 − 1 = 8 2 4 36 √ 70 − 2 141 = .",
+    "sources": [
+      "ARML 2026"
+    ],
+    "difficulty_score": 9.0,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "incircle and incenter",
+      "angle bisector",
+      "triangle area"
+    ],
+    "techniques": [
+      "cyclic quadrilateral",
+      "angle chasing",
+      "trigonometric identities",
+      "double-angle"
+    ],
+    "difficulty": "hard",
+    "summary": "Tests incircle geometry, cyclic quadrilateral angle relations, and trigonometric identities to find AI times a triangle area."
+  },
+  {
+    "id": "ARML2026-TIEBREAKER-1",
+    "contest": "ARML 2026",
+    "round": "Tiebreaker Round",
+    "number": 1,
+    "statement": "Suppose that m and n are positive integers such that 99 is a divisor of gcd(20m + 26n + 73, 17m + 76n + 12). Compute the least possible value of mn.",
+    "answer": "442",
+    "solution": "An equivalent condition on m and n is that they satisfy the system of congruences 20m + 26n + 73 ≡ 0 (mod 99) 17m + 76n + 12 ≡ 0 (mod 99). Suppose that m and n satisfy these congruences. Reducing modulo 9 gives 2m − n + 1 ≡ 0 (mod 9) −m + 4n + 3 ≡ 0 (mod 9). Adding twice the second congruence to the first gives 7n + 7 ≡ 0 (mod 9), so n ≡ −1 (mod 9). Feeding this into the second congruence above yields m ≡ 4n + 3 ≡ −1 (mod 9). Let m = 9a − 1 and n = 9b − 1 for some positive integers a and b. Plugging this back in to the original system of congruences yields (after reducing coefficients modulo 99) 81a + 36b + 27 ≡ 0 (mod 99) 54a + 90b + 18 ≡ 0 (mod 99), which is equivalent to 9a + 4b + 3 ≡ 0 (mod 11) 6a + 10b + 2 ≡ 0 (mod 11). Multiplying the first congruence by 5 and the second congruence by 2 both yield a − 2b + 4 ≡ 0 (mod 11), so the original system is equivalent to this single congruence. The solutions (a, b) modulo 11 are (7, 0), (9, 1), (0, 2), (2, 3), (4, 4), (6, 5), (8, 6), (10, 7), (1, 8), (3, 9), and (5, 10). Except for (7, 0) and (0, 2), these ordered pairs are also the smallest possible pair (a, b) of positive integers in the residue classes of the solutions. For (7, 0) and (0, 2), the smallest pairs of positive integers in the residue classes are (7, 11) and (11, 2), respectively. Larger pairs in a fixed residue class will lead to larger products (9a − 1)(9b − 1), so these are the only pairs to consider. It suffices to determine which of these pairs has the least possible value of (9a − 1)(9b − 1). The pair (2, 3) leads to a smaller product than any pair with one component at least 2 and the other component at least 3, so that leaves (9, 1), (2, 3), and (1, 8) as candidates. Similarly, (1, 8) leads to a smaller product than (9, 1), so that leaves (2, 3) and (1, 8) as candidates. Check that (9 · 2 − 1)(9 · 3 − 1) = 442 while (9 · 1 − 1)(9 · 8 − 1) = 568, so the least possible product is 442 (attained when m = 17 and n = 26). Problem 2. Suppose that positive real numbers a, b, and c satisfy a b c a + b + c = = = − 4. b + c + 4 c + a + 8 a + b + 12 4 Compute a + b + c.",
+    "sources": [
+      "ARML 2026"
+    ],
+    "difficulty_score": 7.0,
+    "area": [
+      "Number Theory",
+      "Algebra"
+    ],
+    "subtopics": [
+      "systems of linear congruences",
+      "gcd conditions",
+      "optimization over integers"
+    ],
+    "techniques": [
+      "modular arithmetic",
+      "Chinese Remainder Theorem"
+    ],
+    "difficulty": "hard",
+    "summary": "Find positive integers m, n minimizing mn subject to a divisibility condition on a gcd via systems of congruences."
+  },
+  {
+    "id": "ARML2026-TIEBREAKER-2",
+    "contest": "ARML 2026",
+    "round": "Tiebreaker Round",
+    "number": 2,
+    "statement": "Suppose that positive real numbers a, b, and c satisfy a b c a + b + c = = = − 4. b + c + 4 c + a + 8 a + b + 12 4 Compute a + b + c.",
+    "answer": "3 + \\sqrt{201}",
+    "solution": "Let s = a + b + c. The key idea is that if a b c = = , b + c + 4 c + a + 8 a + b + 12 then this quantity also equals the sum of the ratios a + b + c s = . (b + c + 4) + (c + a + 8) + (a + b + 12) 2s + 24 Thus s s − 4 = ⇐⇒ s2 − 6s − 192 = 0. 4 2s + 24 √ Solving the above quadratic equation and taking the positive solution gives s = 3 + 201. Note: In fact, the exact values of a, b, and c can be calculated, and they are indeed positive. For exam- ple, as established in the solution, a a s = = . (∗) b + c + 4 s − a + 4 2s + 24 √ √ Note that (∗) is a linear equation in a because s is fixed. Using s = 3 + 201, it follows that a = − 9 + 7 201 ≈ √ √ 5 15 4.8161, and similarly, b = 1 + 201 ≈ 5.7258 and c = 19 + 201 ≈ 6.6355. 3 5 5 Problem 3. Compute the least integer n for which (cid:4)n−1(cid:5) 12 + 22 − 32 − 42 + 52 + 62 − 72 − 82 + · · · + (−1) 2 · n2 is greater than 2026.",
+    "sources": [
+      "ARML 2026"
+    ],
+    "difficulty_score": 8.5,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "equal ratios",
+      "quadratic equations",
+      "systems of equations"
+    ],
+    "techniques": [
+      "equal ratios property (componendo)",
+      "discriminant"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests use of the equal ratios property to reduce a three-way proportion to a quadratic in the sum."
+  },
+  {
+    "id": "ARML2026-TIEBREAKER-3",
+    "contest": "ARML 2026",
+    "round": "Tiebreaker Round",
+    "number": 3,
+    "statement": "Compute the least integer n for which (cid:4)n−1(cid:5) 12 + 22 − 32 − 42 + 52 + 62 − 72 − 82 + · · · + (−1) 2 · n2 is greater than 2026.",
+    "answer": "46",
+    "solution": "Let S denote the given sum: n S n = 12 + 22 − 32 − 42 + 52 + 62 − 72 − 82 + · · · + (−1) ⌊ n− 2 1 ⌋ · n2. Group every four terms, skipping the first one: 22−32−42+52 = (2+3)(2−3)+(4+5)(5−4) = −(2+3)+(4+5) = 4. Similarly, 62 − 72 − 82 + 92 = (6 + 7)(6 − 7) + (8 + 9)(9 − 8) = 4. Observe that this pattern continues. Thus S = S + 4 for all nonnegative integers k and, because S = 1, it follows that S = 4k + 1 4k+5 4k+1 1 4k+1 for all nonnegative integers k. Furthermore, it follows that S = S + (4k + 2)2 = 4k + 1 + (4k + 2)2 = 4k+2 4k+1 (4k + 2)(4k + 3) − 1. Observe also that S < S < S . Thus the least n such that S > 2026 is the least n of the form 4k+4 4k+3 4k+2 n 4k + 2 such that n(n + 1) − 1 > 2026. Because 42 · 43 − 1 < 2026 < 46 · 47 − 1, the answer is 46. Alternate Solution: After checking the first few partial sums of the given series, observe that S = 1, S = 5, and S = 9. The following argument by induction shows that for integers n ≥ 0, 5 9 4n+1 S n = (cid:88) (−1) ⌊ k− 2 1 ⌋ · k2 = 4n + 1. (∗) k=1 The base case of n = 0 is readily verified. As the induction hypothesis, assume that (∗) holds for some nonnegative integer j. Then 4j+5 S j+1 = (cid:88) (−1) ⌊ (k− 2 1) ⌋ · k2 k=1 4j+5 = 4j + 1 + (cid:88) (−1) ⌊ (k− 2 1) ⌋ · k2 k=4j+2 = 4j + 1 + (4j + 2)2 − (4j + 3)2 − (4j + 4)2 + (4j + 5)2 = (4j + 1) + (16j2 + 16j + 4) + (−16j2 − 24j − 9) + (−16j2 − 32j − 16) + (16j2 + 40j + 25) = 4j + 5 = 4(j + 1) + 1, as desired. Thus S = 45, and because 442 = 1936, it is not possible for the partial sums to exceed 2026 before this 45th term. Therefore the 46th partial sum must be the first to exceed 2026.",
+    "sources": [
+      "ARML 2026"
+    ],
+    "difficulty_score": 10.0,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "partial sums",
+      "alternating series",
+      "telescoping pattern"
+    ],
+    "techniques": [
+      "telescoping",
+      "induction"
+    ],
+    "difficulty": "medium",
+    "summary": "Find the least integer n for which a sign-alternating sum of squares exceeds 2026, using grouping and induction."
+  },
+  {
+    "id": "MMATHS2025-INDIVIDUAL-1",
+    "contest": "MMATHS 2025",
+    "round": "Individual Round",
+    "number": 1,
+    "statement": "Lily writes 10 consecutive two-digit numbers on a sheet of paper. Given that the digit 1 appears seven times, how many times does the digit 2 appear?",
+    "answer": "5",
+    "solution": "Since there are 10 consecutive numbers, each digit 0 through 9 inclusive will always appear exactly once in the ones place. Hence, the fact that there are 7 ones means there are 6 ones in the tens places. For two digit numbers, this can only occur with the numbers 10 to 19, and hence the other numbers in the set must be in 20 to 29, meaning there will be 6 numbers with a one in the tens place, 4 numbers with a two in the tens place, and thus 4 + 1 = 5 twos.",
+    "sources": [
+      "MMATHS 2025"
+    ],
+    "difficulty_score": 5.0,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "digit counting",
+      "consecutive integers"
+    ],
+    "techniques": [
+      "casework"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests counting digit occurrences across 10 consecutive two-digit numbers given a constraint."
+  },
+  {
+    "id": "MMATHS2025-INDIVIDUAL-2",
+    "contest": "MMATHS 2025",
+    "round": "Individual Round",
+    "number": 2,
+    "statement": "How many ordered pairs of real numbers (x, y) satisfy the equation (x + y − 1)2 + (cid:0) x2 + y2 − 1 (cid:1)2 = 0?",
+    "answer": "2",
+    "solution": "By the trivial inequality, (x + y − 1)2 ≥ 0 and (x2 + y2 − 1) ≥ 0, so the only way the sum can equal zero is if both are zero, meaning x + y = 1 and x2 + y2 = 1. This means 0 = 12 − 1 = (x + y)2 − (x2 + y2) = 2xy, so xy = 0, and hence either x or y is equal to 0, and since they sum to 1, the other equals 1. The possible solutions are therefore (0, 1) and (1, 0), which gives a final answer of 2 .",
+    "sources": [
+      "MMATHS 2025"
+    ],
+    "difficulty_score": 5.3,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "system of equations",
+      "sum of squares",
+      "real solutions"
+    ],
+    "techniques": [
+      "SOS (sum of squares)"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests recognizing that a sum of squares equals zero forces each square to vanish, reducing to a simple system."
+  },
+  {
+    "id": "MMATHS2025-INDIVIDUAL-3",
+    "contest": "MMATHS 2025",
+    "round": "Individual Round",
+    "number": 3,
+    "statement": "Let ABCD be a parallelogram with AB (cid:107) CD and AD (cid:107) BC. Extend AD past D to meet the angle bisector of ∠ABC at a point E. If AB = 55 and BC = 45, what is the length of DE?",
+    "answer": "10",
+    "solution": "Since AD is parallel to BC, we have that ∠EBC = ∠AEB. Moreover, since EB is a bisector, we have ∠ABE = ∠EBC. Thus ∠ABE = ∠AEB, and so ABE is isosceles with AB = AE. Thus 55 = AD + DE =⇒ DE = 55 − 45 = 10",
+    "sources": [
+      "MMATHS 2025"
+    ],
+    "difficulty_score": 5.5,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "parallelograms",
+      "angle bisectors",
+      "isosceles triangles"
+    ],
+    "techniques": [
+      "angle chasing",
+      "isosceles triangles"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests angle chasing with parallel lines and an angle bisector to identify an isosceles triangle in a parallelogram."
+  },
+  {
+    "id": "MMATHS2025-INDIVIDUAL-4",
+    "contest": "MMATHS 2025",
+    "round": "Individual Round",
+    "number": 4,
+    "statement": "Cat and Claire are discussing their favorite two-digit positive integers. Cat: Do you think 49 is a divisor of the product of our numbers? I can’t tell. Claire: I can’t tell either. Cat: Oh, now I’m sure the product is divisible by 49. Claire: Interesting! That means the sum of our numbers can’t possibly be divisible by 11. Cat: The sum of our numbers is definitely divisible by 13, though. Let Cat’s and Claire’s numbers be A and B, respectively. What is 100A + B?",
+    "answer": "6328",
+    "solution": "Let’s work through the logic line-by-line. • Line #1. This tells us Cat’s favorite number isn’t divisible by 49, because otherwise, she would be able to tell. • Line #2. Claire knows that Cat’s favorite number is not divisible by 49. Therefore, if Claire’s number were not divisible by 7, then she would be certain that the product is not divisible by 49. But Claire says she doesn’t know! Thus, Claire’s number must be divisible by 7, but not by 49. • Line #3. Cat knows that Claire’s favorite number is divisible by 7 but not by 49. In order to claim that the product is divisible by 49, Cat must also have a number divisible by 7 but not by 49. Thus, Cat’s and Claire’s numbers are 7m and 7n for positive integers m (cid:54)= 7 and n (cid:54)= 7 between 2 and 13, inclusive. • Line #4. The sum of Cat’s and Claire’s numbers is 7(m+n). Claire claims that 7(m+n) cannot be divisible by 11. In other words, Claire—knowing the value of n—deduces that m + n cannot equal either 11 or 22. Observe that when n = 4 (and only when n = 4), this deduction is possible! This is because when n = 4, the conditions m + n = 11 and m + n = 22 imply m = 7 or m = 18, both of which are impossible. Thus, n = 4. • Line #5. Cat now knows that Claire’s number is 28. The only value of m for which 7m + 28 = 7(m + 4) is divisible by 13 is m = 13 − 4 = 9. Thus, m = 9. In conclusion, Cat’s number is A = 63, and Claire’s number is B = 28, so the answer is 6328 .",
+    "sources": [
+      "MMATHS 2025"
+    ],
+    "difficulty_score": 5.8,
+    "area": [
+      "Combinatorics",
+      "Number Theory"
+    ],
+    "subtopics": [
+      "logic puzzles",
+      "divisibility",
+      "two-digit integers"
+    ],
+    "techniques": [
+      "casework",
+      "divisibility"
+    ],
+    "difficulty": "hard",
+    "summary": "Tests iterative logical deduction from mutual knowledge statements about divisibility of a product and sum."
+  },
+  {
+    "id": "MMATHS2025-INDIVIDUAL-5",
+    "contest": "MMATHS 2025",
+    "round": "Individual Round",
+    "number": 5,
+    "statement": "There is a magical bee in Catherine’s room! Every minute, magical bees decide between two choices, each with probability 1 : either sting Catherine and disappear, or split into three new magical bees, who each then act independently. Thus, after one minute, Catherine has been stung with probability 1 or there are now three bees in the room. The expected number of times that Catherine has been stung after four minutes can be expressed as m , where m and n n are relatively prime positive integers. Find m + n.",
+    "answer": "81",
+    "solution": "Let E(n) be the expected number of stings after n minutes. First, let B(n) be the expected number of bees after n minutes, with B(0) = 1 and clearly B(n) = 3 B(n − 1). Since stings are cumulative and at each minute the expected number of stings added is half the expected number of bees in the previous minute, we can get 1 B(0) 3 1 1 3 E(n) = (B(n−1)+B(n−2)+· · ·+B(0)) = + (B(n−2)+· · ·+B(0)) = + E(n−1) 2 2 2 2 2 2 Clearly E(0) = 0. We can now repeatedly use this recursion (and the given E(1) = 0.5). 1 3 E(4) = + E(3) 2 2 1 3 1 3 9 + E(3) = + + E(2) 2 2 2 4 4 1 3 9 1 3 9 27 + + E(2) = + + + E(1) 2 4 4 2 4 8 8 1 3 9 27 1 3 9 27 + + + E(1) = + + + 2 4 8 8 2 4 8 16 1 3 9 27 65 + + + = 2 4 8 16 16 so our final answer is 65 + 16 = 81",
+    "sources": [
+      "MMATHS 2025"
+    ],
+    "difficulty_score": 6.1,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "expected value",
+      "stochastic processes",
+      "recurrence relation"
+    ],
+    "techniques": [
+      "linearity of expectation",
+      "recurrence relation",
+      "geometric series"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests computing expected cumulative stings from a branching bee process using recurrence and linearity of expectation."
+  },
+  {
+    "id": "MMATHS2025-INDIVIDUAL-6",
+    "contest": "MMATHS 2025",
+    "round": "Individual Round",
+    "number": 6,
+    "statement": "Let a, b, and c be the distinct roots of 2x3 − x2 + x − 1. Find the value of (cid:80)∞ an + bn + cn. n=1",
+    "answer": "2",
+    "solution": "We begin by adding a0 + b0 + c0 − 3 = 0 to the summation so the summation becomes ∞ (cid:88) 1 1 1 −3 + an + bn + cn = −3 + + + 1 − a 1 − b 1 − c n=0 By combining the fractions, we find this equals 3 − 2(a + b + c) + ab + bc + ca −3 + (1 − a)(1 − b)(1 − c) By Vieta’s formulas, we compute that the numerator is equal to 3 − 2( 1 ) + (− 1 ). Since the 2 2 roots of 2x3 − x2 + x − 1 are a, b, c, it follows that 2(x − a)(x − b)(x − c) = 2x3 − x2 + x − 1. So plugging in x = 1 gives 2(1 − a)(1 − b)(1 − c) = 1, so the denominator is 1 . Thus our final answer is: 3 − 1 + 1 −3 + 2 = −3 + 5 = 2",
+    "sources": [
+      "MMATHS 2025"
+    ],
+    "difficulty_score": 6.4,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "infinite series",
+      "polynomial roots",
+      "symmetric functions"
+    ],
+    "techniques": [
+      "geometric series",
+      "Vieta's formulas",
+      "factor theorem"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests converting an infinite power sum of roots into a closed form using geometric series, Vieta's formulas, and root evaluation."
+  },
+  {
+    "id": "MMATHS2025-INDIVIDUAL-7",
+    "contest": "MMATHS 2025",
+    "round": "Individual Round",
+    "number": 7,
+    "statement": "How many integers x with 3 ≤ x ≤ 1000 satisfy the property that for every power of three 3k between 3 and x, inclusive, x − (cid:4) x (cid:5) is at least 1 , where (cid:98)z(cid:99) denotes the greatest integer 3k 3k 3 less than or equal to z?",
+    "answer": "124",
+    "solution": "Consider x expressed in base 3. The fractional part of x/3k being at least 1 means that after shifting the decimal point to the left by k places, the first digit after it is 1 or 2. Applying this to all such k means that a necessary and sufficient criterion is that the base-3 representation of x consists entirely of 1’s and 2’s. Since x ≥ 3, x must have at least 2 digits. Since 1000 10 = 1101001 3 , but the smallest 7-digit base-3 number with only 1’s and 2’s is 1111111 3 , all valid integers x must have exactly 2, 3, 4, 5, or 6 dig- its in base 3. Since each digit has 2 choices (1 or 2), the total number of such integers is 22 + 23 + 24 + 25 + 26 = 4 + 8 + 16 + 32 + 64 = 124 .",
+    "sources": [
+      "MMATHS 2025"
+    ],
+    "difficulty_score": 6.6,
+    "area": [
+      "Number Theory",
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "base representation",
+      "digit constraints",
+      "counting"
+    ],
+    "techniques": [
+      "base representation",
+      "geometric series"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests whether integers satisfy a fractional-part condition by analyzing their base-3 digit representations."
+  },
+  {
+    "id": "MMATHS2025-INDIVIDUAL-8",
+    "contest": "MMATHS 2025",
+    "round": "Individual Round",
+    "number": 8,
+    "statement": "Let ABC be an equilateral triangle with side length 2025. The set of all points P that satisfy √ the equation P A = P B + P C traces out a curve of length m nπ, where m and n are positive integers and n is not divisible by the square of any prime. Find m + n.",
+    "answer": "453",
+    "solution": "Suppose that A, B, and C are arranged clockwise. Consider any such P . Rotate P by 60◦ counterclockwise about A to another point P (cid:48). Note that P P (cid:48) = AP = BP + CP = BP + BP (cid:48), and thus B lies on segment P P (cid:48). Thus ∠BP A = ∠P (cid:48)P A = 60◦, and P lies on the circumcircle of (cid:52)ABC. It’s clear that P must lie on minor a√rc B(cid:100)C, and all such points satisfy the given equation. The length of B(cid:100)C is 1 · 2 · 2√025 π = 450 3π, giving an 3 3 answer of 453 .",
+    "sources": [
+      "MMATHS 2025"
+    ],
+    "difficulty_score": 6.9,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "equilateral triangle",
+      "circumcircle",
+      "arc length"
+    ],
+    "techniques": [
+      "rotation",
+      "cyclic quadrilateral",
+      "inradius/circumradius formulas"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests identifying the locus satisfying Ptolemy-like condition on equilateral triangle as a circular arc."
+  },
+  {
+    "id": "MMATHS2025-INDIVIDUAL-9",
+    "contest": "MMATHS 2025",
+    "round": "Individual Round",
+    "number": 9,
+    "statement": "Let {a n } be a sequence of nonnegative real numbers such that a 0 is a proper divisor of 20252025, and for all positive integers n, a n an+1 = (cid:12) (cid:12)20252025 − a 0 n (cid:12) (cid:12). What is the value of a 0 a1?",
+    "answer": "1",
+    "solution": "Consider k = 202 a 5 0 2025 . Since a 0 is a proper divisor of 20252025, we have that k is a positive integer and k > 1, meaning that k − 1 is also a positive integer. First, consider n = k. We get that aa k k+1 = |20252025 − a 0 k| = |a 0 k − a 0 k| = 0. Since both a k and a k+1 are nonnegative reals, we must have a k = 0 for this to be possible. Now consider n = k − 1. We get 1 = a0 k−1 = aa k k −1 = |a 0 k − a 0 (k − 1)| = |a 0 | and since a 0 is nonnegative we must have a 0 = 1, so our final answer is aa 0 1 = 1a1 = 1",
+    "sources": [
+      "MMATHS 2025"
+    ],
+    "difficulty_score": 7.2,
+    "area": [
+      "Number Theory",
+      "Algebra"
+    ],
+    "subtopics": [
+      "divisors",
+      "sequences of real numbers",
+      "absolute value recurrence"
+    ],
+    "techniques": [
+      "divisibility",
+      "casework"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests finding a specific term in a sequence defined by an absolute value recurrence, using divisor properties."
+  },
+  {
+    "id": "MMATHS2025-INDIVIDUAL-10",
+    "contest": "MMATHS 2025",
+    "round": "Individual Round",
+    "number": 10,
+    "statement": "Benjamin has 1000 t-shirts, labeled 1, 2, . . . , 1000. These labels also correspond to his pref- erences for shirts: he prefers shirt i to shirt j if and only if i < j. On day 0, Benjamin randomly arranges the shirts into two stacks of 500 shirts each. Let a k denote the kth shirt in the first stack (from the top), and b k denote the kth shirt in the second stack in this initial arrangement. Each subsequent day, Benjamin looks at the top shirt of each stack and wears the one he likes more, removing it from the stack. Benjamin continues this process until both stacks are empty. Given that Benjamin prefers a 20 to b 25, the probability that b 25 is worn before a 20 can be expressed as m n , where m and n are relatively prime positive integers. Find m + n.",
+    "answer": "64",
+    "solution": "We only need to consider the set S = {a , . . . , a , b , . . . , b } 1 20 1 25 since any shirts below a 20 or b 25 cannot affect which of the two is worn first. Now consider the shirt M ∈ S with the maximum label (the shirt Benjamin likes the least). Since b 25 > a 20, M (cid:54)= a 20. If M ∈ {a 1 , . . . , a 19 }, then all of b 1 , . . . , b 25 will be selected before a 20. Similarly, if M ∈ {b 1 , . . . , b 25 }, then all of a 1 , . . . , a 20 will be selected before b 25. So the probability b 25 is selected before a 20 is, by Bayes’ Theorem: P (a < b | M ∈ {a , . . . , a }) · P (M ∈ {a , . . . , a }) P (M ∈ {a , . . . , a } | a < b ) = 20 25 1 19 1 19 . 1 19 20 25 P (a < b ) 20 25 Since the shirts are randomly distributed, the denominator is 1 , and the right term of the numerator is 19 . For the left term of the numerator, the position of the maximum does not affect the ordering of a 20 and b 25, so the left term is just 1 2 . So our desired probability is 1 4 9 5 which gives an answer 64 .",
+    "sources": [
+      "MMATHS 2025"
+    ],
+    "difficulty_score": 7.5,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "probability",
+      "random arrangements",
+      "order statistics"
+    ],
+    "techniques": [
+      "Bayes' theorem",
+      "symmetry"
+    ],
+    "difficulty": "hard",
+    "summary": "Tests conditional probability by identifying the maximum-label shirt among a relevant subset and applying Bayes' theorem."
+  },
+  {
+    "id": "MMATHS2025-INDIVIDUAL-11",
+    "contest": "MMATHS 2025",
+    "round": "Individual Round",
+    "number": 11,
+    "statement": "Let σ(n) denote the sum of the positive divisors of n, and let ϕ(n) denote the number of positive integers less than or equal to n that are relatively prime to n. There exists a unique polynomial P such that P (n) ≥ 2σ(n) + nϕ(n) for all positive integers n, with equality holding for infinitely many such n. Find P (10).",
+    "answer": "112",
+    "solution": "Notice that by symmetry, when n > 1, the sum of all integers (define this sum f (n)) less than or equal to n that are relatively prime with n will be equal to nϕ(n) , so our expression is equal to 2(σ(n) + f (n)) and the only integer that can be both a divisor of n and relatively prime with n is 1, so n (cid:88) (cid:88) 2(σ(n) + f (n)) = 2(2 + i) ≤ 2(2 + i) = n2 + n + 2 1<i≤n,gcd (i,n)∈{1,i} i=2 We achieve equality when all integers less than or equal to n are either divisors of n or rel- atively prime to n. This occurs when n is prime, which happens infinitely many times, so P (n) = n2 + n + 2 and our answer is P (10) = 112 . Remark: There is a rather clean way to show that equality only holds when n is prime or equal to 4. Simply let p be the smallest prime divisor of composite n > 4, and since n is composite, n ≥ p2 ≥ 2p (equality can only hold when p = 2 and n = 4) so n < n − p < n which means n − p cannot be a divisor of n, but it also shares the factor p so it is not coprime either and hence equality cannot hold.",
+    "sources": [
+      "MMATHS 2025"
+    ],
+    "difficulty_score": 7.7,
+    "area": [
+      "Number Theory",
+      "Algebra"
+    ],
+    "subtopics": [
+      "sum of divisors",
+      "Euler's totient function",
+      "polynomial interpolation"
+    ],
+    "techniques": [
+      "divisibility",
+      "symmetric functions"
+    ],
+    "difficulty": "hard",
+    "summary": "Tests properties of σ(n) and ϕ(n) to identify a polynomial bounding their combination, using divisor/coprimality structure."
+  },
+  {
+    "id": "MMATHS2025-INDIVIDUAL-12",
+    "contest": "MMATHS 2025",
+    "round": "Individual Round",
+    "number": 12,
+    "statement": "Let ABC be a triangle with AB = 13, BC = 14, and AC = 15. Let ω be the incircle of (cid:52)ABC. There exists a circle Γ passing through B and C that is internally tangent to ω at a point P . The line tangent to ω and Γ at P meets AB and AC at points K and L, respectively. The length of KL can be expressed as m , where m and n are relatively prime n positive integers. Find m + n.",
+    "answer": "\\dfrac{314}{55}",
+    "solution": "Denote the intersections of ω and AB, BC, AC as R, D, S respectively, let KM meet line BC at Q Since QP is tangent to ω and Γ, let QB = x, QP = QD = x + 6, by Power of a Point with respect to Γ, we have x(x + 14) = (x + 6)2, x = 18. Now we compute: since the inradius of (cid:52)ABC is 4, KP = 4 tan ∠KIP , where ∠KIP = 1 (∠P ID − ∠RID) = ∠IBD − ∠IQD; similar reasoning yields ∠M IP = 1 (360◦ − ∠P ID − ∠SID) = 1 (∠ACD + 2 2 ∠P ID) = ∠ICD + ∠IQD. We have tan ∠IQD = 1 , tan ∠IBD = 2 , tan ∠ICD = 1 ; tangent 6 3 2 addition and subtraction yields tan ∠KIP = 2 3 − 1 6 = 9 , KP = 9 tan ∠M IP = 1 6 + 1 2 = 1+ 1 · 2 20 5 1− 1 · 1 6 3 6 2 8 , M P = 32 . Sum up 9 + 32 = 259 to get 314 . 11 11 5 11 55",
+    "sources": [
+      "MMATHS 2025"
+    ],
+    "difficulty_score": 8.0,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "incircle",
+      "tangent lines",
+      "power of a point"
+    ],
+    "techniques": [
+      "Power of a Point",
+      "inradius/circumradius formulas",
+      "trigonometric identities",
+      "angle chasing"
+    ],
+    "difficulty": "hard",
+    "summary": "Tests properties of incircle, a circle through B and C internally tangent to it, and the common tangent line length."
+  },
+  {
+    "number": 1,
+    "statement": "Andy and Betsy both live in Mathville. Andy leaves Mathville on his bicycle at 1:30, traveling due north at a steady 8 miles per hour. Betsy leaves on her bicycle from the same point at 2:30, traveling due east at a steady 12 miles per hour. At what time will they be exactly the same distance from their common starting point?",
+    "answer": "4:30",
+    "solution": "Let t be the amount of time (in hours) Andy rides until they are the same distance from their starting point. Then 8t = 12(t − 1), so 4t = 12. This gives t = 3 hours, so their distances will be equal at 4:30. OR The answer will be the same if both riders travel in the same direction. Andy has a head start: he covers 8 miles before Betsy begins. After Betsy starts at 2:30, she gains on Andy at a rate of 12 − 8 = 4 miles per hour. Therefore it will take her 8 ÷ 4 = 2 hours to catch up to him, and 2 hours after 2:30 is 4:30.",
+    "id": "AMC202510A-INDIVIDUAL-1",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 5.0,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "distance-rate-time",
+      "linear equations"
+    ],
+    "techniques": [
+      "distance-rate-time",
+      "system of linear equations"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests setting up and solving a linear equation from a distance-rate-time scenario."
+  },
+  {
+    "number": 2,
+    "statement": "A box contains 10 pounds of a nut mix that is 50 percent peanuts, 20 percent cashews, and 30 percent almonds. A second nut mix containing 20 percent peanuts, 40 percent cashews, and 40 percent almonds is added to the box resulting in a new nut mix that is 40 percent peanuts. How many pounds of cashews are now in the box?",
+    "answer": "4",
+    "solution": "Originally the box contains 50 · 10 = 5 pounds of peanuts and 20 · 10 = 2 pounds 100 100 of cashews. When x pounds of the second nut mix are added to the box, the box then contains 10 + x pounds of nut mix and 5 + 20 · x = 5 + x pounds of peanuts. Because the new nut mix is 100 5 40% peanuts, it follows that 5 + x 40 2 5 = = . 10 + x 100 5 Clearing fractions gives 25 + x = 20 + 2x, so x = 5. Because the weight of cashews added to the box is 40 · 5 = 2 pounds, the weight of the cashews now in the box is 2 + 2 = 4 pounds. OR The original mix has 50% peanuts and the second mix has 20% peanuts. The new mix has 40% peanuts. Because 40 is twice as close to 50 as it is to 20, the amount of the original mix in the new mix needs to be twice the amount of the second mix in the new mix. Therefore 1 · 10 = 5 pounds of the second mix must be used. Those 5 pounds contain 40 · 5 = 2 pounds of cashews, and the original mix had 20 · 10 = 2 pounds of cashews, so the new mix has 2 + 2 = 4 pounds of cashews.",
+    "id": "AMC202510A-INDIVIDUAL-2",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 5.1,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "mixture problems",
+      "weighted averages",
+      "percent composition"
+    ],
+    "techniques": [
+      "mixture problems",
+      "weighted averages"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests setting up and solving a mixture equation to find the total weight of cashews after combining two nut mixes."
+  },
+  {
+    "number": 3,
+    "statement": "How many isosceles triangles are there with positive area whose side lengths are all positive integers and whose longest side has length 2025 ?",
+    "answer": "3037",
+    "solution": "If there are at least two sides of length 2025, then the length of the third side is between 1 and 2025, inclusive. If there is only one side of length 2025, then the two congruent sides must have lengths between 1013 and 2024, inclusive, in order to satisfy the Triangle Inequality. Therefore there are 2025 + (2024 − 1012) = 3037 such triangles.",
+    "id": "AMC202510A-INDIVIDUAL-3",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 5.2,
+    "area": [
+      "Combinatorics",
+      "Geometry"
+    ],
+    "subtopics": [
+      "isosceles triangles",
+      "integer side lengths",
+      "triangle inequality"
+    ],
+    "techniques": [
+      "triangle inequality",
+      "casework"
+    ],
+    "difficulty": "medium",
+    "summary": "Count isosceles triangles with positive integer sides where the longest side is 2025, using the triangle inequality."
+  },
+  {
+    "number": 4,
+    "statement": "A team of students is going to compete against a team of teachers in a trivia contest. The total number of students and teachers is 15. Ash, a cousin of one of the students, wants to join the contest. If Ash plays with the students, the average age on that team will increase from 12 to 14. If Ash plays with the teachers, the average age on that team will decrease from 55 to 52. How old is Ash?",
+    "answer": "28",
+    "solution": "Let a be Ash’s age, and let t be the number of teachers. Then 15 − t is the number of students. Because the average age of the teachers is 55, the sum of the teachers’ ages is 55t. Because the average age of the students is 12, the sum of the students’ ages is 12(15−t) = 180−12t. With Ash, the average age of the teacher team decreases to 52, so 55t + a = 52(t + 1) = 52t + 52, yielding 3t + a = 52. If Ash instead joins the student team, their average age increases to 14, so 180 − 12t + a = 14(15 − t + 1) = 224 − 14t, yielding 2t + a = 44. Because a (Ash’s age) is requested, eliminate t to yield −6t − 2a = −2(52) = −104 6t + 3a = 3(44) = 132 a = 28. Thus Ash’s age is 28. OR Let s be the number of students. Then the number of teachers is 15 − s. The sum of the ages of the students is 12s. If Ash plays with the students, the sum of the ages on that team will be 14(s + 1), so Ash’s age is the difference 14(s + 1) − 12s = 2s + 14. The sum of the ages of the teachers is 55(15 − s). If Ash plays with the teachers, the sum of the ages on that team will be 52(15 − s + 1) = 52(15 − s) + 52, so Ash’s age is the difference 52(15 − s) + 52 − 55(15 − s) = 52 − 3(15 − s) = 52 − 45 + 3s = 3s + 7. Equating the two expressions for Ash’s age gives 3s + 7 = 2s + 14, from which s = 7. There are 7 students, and Ash’s age is 2s + 14 = 2 · 7 + 14 = 28. It may be checked that Ash’s age also equals 3s + 7 = 3 · 7 + 7 = 28.",
+    "id": "AMC202510A-INDIVIDUAL-4",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 5.4,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "averages",
+      "system of linear equations",
+      "word problems"
+    ],
+    "techniques": [
+      "system of linear equations",
+      "weighted average"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests setting up and solving a system of equations from average age conditions."
+  },
+  {
+    "number": 5,
+    "statement": "Consider the sequence of positive integers 1, 2, 1, 2, 3, 2, 1, 2, 3, 4, 3, 2, 1, 2, 3, 4, 5, 4, 3, 2, 1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1, 2, . . . . What is the 2025th term in this sequence?",
+    "answer": "45",
+    "solution": "Define a bounce to be the terms in the sequence that begin with a 1 and end at the 2 preceding the next 1. Thus the first bounce is 1, 2; the second bounce is 1, 2, 3, 2; the third bounce is 1, 2, 3, 4, 3, 2; and so on. The number of terms in the kth bounce is 2k, and its peak value is k + 1. Therefore the first k bounces use a total of 2 + 4 + 6 + · · · + 2k terms. Now 2 + 4 + 6 + · · · + 2k = 2(1 + 2 + 3 + · · · + k) = k(k + 1). When k = 44, this sum is 44 · 45 = 1980. Then the 45th bounce begins in position 1981, and the terms in this bounce will increase until they reach 45 (on the way to 46) in position 2025. Thus the 2025th term in the sequence is 45. OR For k ≥ 1, define the kth block to begin with the first appearance of k and end before the first appearance of k + 1. Then block k is k, k − 1, k − 2, . . . , 2, 1, 2, . . . , k − 2, k − 1, k. Note that there are 2k − 1 terms in this block. Observe also that the last term in the block is also k. The number of terms to reach the end of block k is k (cid:88) (2i − 1) = k2. i=1 In particular, 2025 = 452 terms are needed to reach the end of block 45, whose last term is 45.",
+    "id": "AMC202510A-INDIVIDUAL-5",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 5.5,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "integer sequences",
+      "pattern recognition",
+      "arithmetic series"
+    ],
+    "techniques": [
+      "arithmetic series",
+      "block/period identification"
+    ],
+    "difficulty": "medium",
+    "summary": "Find the 2025th term of a sequence built from symmetric \"bounce\" or \"block\" patterns by summing block lengths."
+  },
+  {
+    "number": 6,
+    "statement": "In an equilateral triangle each interior angle is trisected by a pair of rays. The intersection of the interiors of the middle 20◦-angle at each vertex is the interior of a convex hexagon. What is the degree measure of the smallest angle of this hexagon?",
+    "answer": "100^\\circ",
+    "solution": "The figure below shows equilateral triangle △ABC with its trisectors, creating convex hexagon DEF GHI. C H I G D F E A B Because the angles have been trisected, the base angles in △ABH have measure ∠HAB = ∠ABH = 2 · 60◦ = 40◦, so ∠AHB = 180◦ − 2 · 40◦ = 100◦. Similarly, in triangle △ABE, ∠EAB = ∠ABE = 1 · 60◦ = 20◦, so ∠AEB = 180◦ − 2 · 20◦ = 140◦; and by vertical angles, ∠DEF = 140◦. By symmetry the other four angles of the hexagon also measure either 100◦ or 140◦, so the measure of the smallest angle of the hexagon is 100◦.",
+    "id": "AMC202510A-INDIVIDUAL-6",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 5.6,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "angle trisection",
+      "equilateral triangle",
+      "convex hexagon"
+    ],
+    "techniques": [
+      "angle chasing"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests angle chasing in an equilateral triangle with trisected angles to find the smallest angle of the resulting hexagon."
+  },
+  {
+    "number": 7,
+    "statement": "Suppose a and b are real numbers. When the polynomial x3 + x2 + ax + b is divided by x − 1, the remainder is 4. When the polynomial is divided by x − 2, the remainder is 6. What is b − a ?",
+    "answer": "18",
+    "solution": "Carrying out the indicated operations using polynomial division gives remainders of a + b + 2 and 2a + b + 12, respectively. (The corresponding quotients are x2 + 2x + a + 2 and x2 + 3x + a + 6.) Thus a + b + 2 = 4 and 2a + b + 12 = 6. Solving this system of linear equations gives a = −8 and b = 10. The requested difference is 10 − (−8) = 18. OR The remainders can also be obtained by using the Remainder Theorem, which states that the remainder when a polynomial in x is divided by x − c is the value of the polynomial at x = c. Letting x = 1 gives 13 + 12 + a · 1 = a + b + 2, and letting x = 2 gives 23 + 22 + a · 2 + b = 2a + b + 12, as in the first solution. The rest of the solution is identical.",
+    "id": "AMC202510A-INDIVIDUAL-7",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 5.8,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "polynomial division",
+      "remainder theorem",
+      "system of linear equations"
+    ],
+    "techniques": [
+      "remainder theorem",
+      "system of linear equations"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests applying the Remainder Theorem to set up and solve a linear system for polynomial coefficients."
+  },
+  {
+    "number": 8,
+    "statement": "Agnes writes the following four statements on a blank piece of paper. (cid:136) At least one of these statements is true. (cid:136) At least two of these statements are true. (cid:136) At least two of these statements are false. (cid:136) At least one of these statements is false. Each statement is either true or false. How many false statements did Agnes write on the paper?",
+    "answer": "1",
+    "solution": "If the third statement were true, then the fourth statement would also be true, but that would make the first two statements true as well, and therefore the third statement would in fact be false. Therefore the third statement is false and there is at most one false statement on the paper, which means that the first, second, and fourth statements are true. These conclusions are consistent with the content of those three statements. Thus there is 1 false statement on the paper. OR The first and fourth statements cannot both be false because there are four statements on the paper, each of which is true or false. Therefore at least one of them is true. That makes the first statement true. Similarly, because there are four statements in all, there must be at least two true statements or at least two false statements, which makes at least one of the second and third statements true. This makes the second statement true. If there were no false statement among the four statements, that would make the third and the fourth statements false, which is a contradiction. Therefore there exists at least one false statement on the paper. This makes the fourth statement true. This gives a total of at least three true statements, so the third statement (and only this) must be false. Thus there is 1 false statement on the paper. OR Consider the following observations: (cid:136) First, note that it is impossible for all four statements be true. This follows because then the third and fourth statements would be false, a contradiction. (cid:136) If exactly three statements are true, then the first, second, and fourth statements would be true and the third statement would be false. Thus, this scenario is possible. (cid:136) If exactly two statements are true, then all four statements would be true, a contradiction. (cid:136) If exactly one statement is true, then the first, third, and fourth statements would be true, a contradiction. (cid:136) If none of the statements are true, then the third and fourth statements would be true, again a contradiction. Thus there is exactly 1 false statement written on the paper.",
+    "id": "AMC202510A-INDIVIDUAL-8",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 5.9,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "logic puzzles",
+      "self-referential statements",
+      "truth values"
+    ],
+    "techniques": [
+      "casework",
+      "logical deduction"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests logical reasoning by determining how many of four self-referential true/false statements are false."
+  },
+  {
+    "number": 9,
+    "statement": "Let f (x) = 100x3 − 300x2 + 200x. For how many real numbers a does the graph of y = f (x − a) pass through the point (1, 25) ?",
+    "answer": "3",
+    "solution": "The graph of y = f (x − a) is the same as the graph of y = f (x), but shifted a units to the right. The given cubic polynomial can be factored as f (x) = 100x(x − 1)(x − 2). The graph of y = f (x) has x-intercepts at x = 0, 1, and 2 and has the familiar shape shown below. 1 2 Note that f (0.5) = 100 · 0.125 − 300 · 0.25 + 200 · 0.5 = 37.5, so the local maximum of f (x) over the interval (0, 1) is greater than 25. Therefore shifting the given graph horizontally by an appropriate amount will cause either the leftmost rising portion of the curve or the middle falling portion of the curve or the rightmost rising portion of the curve to pass through the point (1, 25), as seen in the figure below, with the original graph shown dashed. (These intersections follow from the Intermediate Value Theorem.) −1 1 2 3 The graph of y = f (x − a) is precisely this shifted graph, so there are 3 such values of a. Note: The values of a are approximately 0.84, 0.27, and −1.11.",
+    "id": "AMC202510A-INDIVIDUAL-9",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 6.0,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "polynomial functions",
+      "graph transformations",
+      "cubic polynomials"
+    ],
+    "techniques": [
+      "polynomial factorization",
+      "Intermediate Value Theorem"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests counting horizontal shifts of a cubic polynomial so its graph passes through a given point."
+  },
+  {
+    "number": 10,
+    "statement": "A semicircle has diameter AB and chord CD of length 16 parallel to AB. A smaller semicircle with diameter on AB and tangent to CD is cut from the larger semicircle, as shown below. C D A B What is the area of the resulting figure, shown shaded?",
+    "answer": "32\\pi",
+    "solution": "Let O on AB be the center of the larger semicircle, let P be the midpoint of CD, let r = OP , and let R = OD. Then r is the radius of the smaller semicircle, and R is the radius of the larger semicircle. Note that P D = 8. P 8 C D r R A O B By the Pythagorean Theorem R2 − r2 = 64. The area of the shaded region is πR2 πr2 π · 64 − = = 32π. 2 2 2 Note: The area does not depend on the radii of the semicircles, but only on the difference of their squares.",
+    "id": "AMC202510A-INDIVIDUAL-10",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 6.1,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "semicircles",
+      "area of regions",
+      "chords"
+    ],
+    "techniques": [
+      "Pythagorean theorem"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests computing the area difference of two semicircles using the Pythagorean theorem with a parallel chord."
+  },
+  {
+    "number": 11,
+    "statement": "The sequence 1, x, y, z is arithmetic. The sequence 1, p, q, z is geometric. Both sequences are strictly increasing and contain only integers, and z is as small as possible. What is the value of x + y + z + p + q ?",
+    "answer": "149",
+    "solution": "Let d be the common difference of the arithmetic sequence. Note that p is the common ratio of the geometric sequence. Then z = 1 + 3d = 1 · p3. Thus z is 1 greater than a multiple of 3. Try integer values of p, beginning with 2 (because the sequences are increasing), seeking a value of p3 that is 1 greater than a multiple of 3. Although 23 = 8 and 33 = 27 do not work, p = 4 yields p3 = 64 = 1+3·21. Thus d = 21, the arithmetic sequence is 1, 22, 43, 64, and the geometric sequence is 1, 4, 16, 64. The requested sum is x+y +z +p+q = 22+43+64+4+16 = 149.",
+    "id": "AMC202510A-INDIVIDUAL-11",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 6.2,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "arithmetic sequences",
+      "geometric sequences",
+      "integer constraints"
+    ],
+    "techniques": [
+      "arithmetic series",
+      "geometric series",
+      "casework"
+    ],
+    "difficulty": "easy",
+    "summary": "Find integer arithmetic and geometric sequences sharing endpoints with minimal last term."
+  },
+  {
+    "number": 12,
+    "statement": "Carlos uses a 4-digit passcode to unlock his computer. In his passcode, exactly one digit is even, exactly one (possibly different) digit is prime, and no digit is 0. How many 4-digit passcodes satisfy these conditions?",
+    "answer": "464",
+    "solution": "The even digit can be placed into any of the 4 positions. Assume that it is in the first position, and multiply by 4 at the end to obtain the correct answer. If the even digit is prime, it must be 2, and the 3 odd digits must each be either 1 or 9, so this case accounts for 1 · 23 = 8 passcodes. If one of the odd digits is prime, it must be 3, 5, or 7. The other two odd digits must be either 1 or 9, and the even digit must be 4, 6, or 8. Also the prime digit can occupy any of 3 positions, so this case accounts for 3 · 22 · 3 · 3 = 108 passcodes. Multiplying by 4 gives the total number of possible 4-digit passcodes as 4(8 + 108) = 464.",
+    "id": "AMC202510A-INDIVIDUAL-12",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 6.4,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "counting",
+      "digit constraints",
+      "casework"
+    ],
+    "techniques": [
+      "casework",
+      "multiplication principle"
+    ],
+    "difficulty": "medium",
+    "summary": "Count 4-digit passcodes where exactly one digit is even, exactly one is prime, and no digit is 0."
+  },
+  {
+    "number": 13,
+    "statement": "In the figure below, the outside square contains infinitely many squares, each of them with the same center and sides parallel to the outside square. The ratio of the side length of a square to the side length of the next inner square is k, where 0 < k < 1. The spaces between squares are alternately shaded, as shown in the figure (which is not necessarily drawn to scale). The area of the shaded portion of the figure is 64% of the area of the original square. What is k ? 3 16 2 3 4",
+    "answer": "k = \\dfrac{3}{4}",
+    "solution": "Assume without loss of generality that the side length of the original square is 1. The lengths of the sides of the square from the outside toward the center form the geometric sequence 1, k, k2, k3, . . ., so the shaded area is given by 1 − k2 + k4 − k6 + · · · . This is a geometric series with ratio −k2, so the total shaded area is . 1 + k2 Because the shaded area is 64% = 16 of the total area, this gives 1 = 16 . Therefore 1 + k2 = 25 , 25 1+k2 25 16 so k2 = 9 and k = 3 . 16 4 OR Assume without loss of generality that the side length of the original square is 1. By the way the figure is constructed, each pair consisting of an unshaded ring and the shaded ring immediately surrounding it is similar to the largest such pair. Therefore the 64% ratio also holds true for that largest pair. The shaded area in that pair is 1 − k2, and the total area is 1 − (k2)2 = 1 − k4. Therefore 1 − k2 1 − k2 1 64% = = = , 1 − k4 (1 + k2)(1 − k2) 1 + k2 as in the first solution.",
+    "id": "AMC202510A-INDIVIDUAL-13",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 6.5,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "geometric series",
+      "infinite series",
+      "area of nested squares"
+    ],
+    "techniques": [
+      "geometric series",
+      "polynomial factorization"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests summing an infinite geometric series to find the shaded area fraction of nested squares."
+  },
+  {
+    "number": 14,
+    "statement": "Six chairs are arranged around a round table. Two students and two teachers randomly select four of the chairs to sit in. What is the probability that the two students will sit in two adjacent chairs and the two teachers will also sit in two adjacent chairs? 1 1 2 3 1",
+    "answer": "\\dfrac{1}{5}",
+    "solution": "The probability that the second student sits next to the first student is 2 . If that happens, then there are (cid:0)4(cid:1) = 6 ways for the teachers to sit in the remaining chairs, and in 3 of those ways, the teachers are adjacent. Therefore the requested probability is 2 · 3 = 1 . 5 6 5 OR There are (cid:18) (cid:19) 6 6! = = 90 2, 2, 2 2! · 2! · 2! equally likely ways to assign two chairs to students, two chairs to teachers, and two chairs to be left unoccupied. There are 6 pairs of adjacent chairs around the circle where the students could be seated side-by-side. Having selected those two chairs, there are 3 positions remaining in which two teachers could be seated side-by-side. Thus the requested probability is 6·3 = 1 . 90 5",
+    "id": "AMC202510A-INDIVIDUAL-14",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 6.6,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "circular arrangements",
+      "probability",
+      "adjacent seating"
+    ],
+    "techniques": [
+      "circular arrangements",
+      "multiplication principle",
+      "complementary counting"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests counting adjacent seating arrangements around a circular table to compute a probability."
+  },
+  {
+    "number": 15,
+    "statement": "In the figure below, ABEF is a rectangle, AD ⊥ DE, AF = 7, AB = 1, and AD = 5. A B C F D E What is the area of △ABC ? 3 4 1 √ 7 1 √",
+    "answer": "\\dfrac{3}{8}",
+    "solution": "Let x = BC. Then AC = 1 + x2, CE = 7 − x, and CD = 5 − 1 + x2. Because △ABC is similar to △EDC, √ 7 − x 5 − 1 + x2 √ = . 1 + x2 x √ Clearing denominators gives 7x − x2 = 5 1 + x2 − (1 + x2). Simplifying and squaring yields 1 + 14x + 49x2 = 25 + 25x2, so 24x2 + 14x − 24 = 0, which gives 2(4x − 3)(3x + 4) = 0. The only positive solution is x = 3 . The area of △ABC is 1 · 3 · 1 = 3 . 4 2 4 8",
+    "id": "AMC202510A-INDIVIDUAL-15",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 6.8,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "similar triangles",
+      "rectangles",
+      "area of a triangle"
+    ],
+    "techniques": [
+      "similar triangles",
+      "quadratic equations"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests identifying similar triangles in a rectangle configuration to find an unknown length and compute area."
+  },
+  {
+    "number": 16,
+    "statement": "There are three jars. Each of three coins is placed in one of the three jars, chosen at random and independently of the placements of the other coins. What is the expected number of coins in a jar with the most coins? 4 39 5 17",
+    "answer": "\\dfrac{17}{9}",
+    "solution": "There are 3 · 3 · 3 = 27 equally likely ways to assign coins to jars. There are 3! = 6 ways to assign one coin to each jar, 3 ways to assign all the coins to one jar, and 27 − 6 − 3 = 18 ways to assign 2 coins to one jar and 1 coin to a different jar. Therefore the requested expected value is 1 · 6 + 2 · 18 + 3 · 3 17 = . 27 9",
+    "id": "AMC202510A-INDIVIDUAL-16",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 6.9,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "expected value",
+      "discrete probability",
+      "counting distributions"
+    ],
+    "techniques": [
+      "expected value",
+      "casework",
+      "multiplication principle"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests computing expected value of the maximum bin count when distributing 3 coins into 3 jars."
+  },
+  {
+    "number": 17,
+    "statement": "Let N be the unique positive integer such that dividing 273436 by N leaves a remainder of 16 and dividing 272760 by N leaves a remainder of 15. What is the tens digit of N ?",
+    "answer": "4",
+    "solution": "The number 273436 − 16 = 273420 must be a multiple of N , and so must be the number 272760 − 15 = 272745. Then 273420 − 272745 = 675 is also a multiple of N . Because 272745 = 404 · 675 + 45, the number 45 must also be a multiple of N . Because division by N gives a remainder of 16, the value of N must be greater than 16. The only divisor of 45 that is greater than 16 is 45. Indeed, 273436 = 45 · 6076 + 16 and 272760 = 45 · 6061 + 15. Therefore N = 45, and the tens digit of N is 4.",
+    "id": "AMC202510A-INDIVIDUAL-17",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 7.0,
+    "area": [
+      "Number Theory"
+    ],
+    "subtopics": [
+      "divisibility",
+      "remainders",
+      "gcd"
+    ],
+    "techniques": [
+      "Euclidean algorithm",
+      "divisibility"
+    ],
+    "difficulty": "easy",
+    "summary": "Find a unique divisor N using remainder conditions and the Euclidean algorithm on the differences."
+  },
+  {
+    "number": 18,
+    "statement": "The harmonic mean of a collection of numbers is the reciprocal of the arithmetic mean of the reciprocals of the numbers in the collection. For example, the harmonic mean of 4, 4, and 5 is 1 30 = . 1 (cid:0) 1 + 1 + 1 (cid:1) 7 3 4 4 5 What is the harmonic mean of all the real roots of the 4050th degree polynomial (cid:89) (kx2 − 4x − 3) = (x2 − 4x − 3)(2x2 − 4x − 3)(3x2 − 4x − 3) · · · (2025x2 − 4x − 3) ? k=1 5 3 6 5 2",
+    "answer": "-\\dfrac{3}{2}",
+    "solution": "The discriminant of kx2 −4x−3 is 16+12k, which is positive when k ≥ 1. Therefore kx2 − 4x − 3 has two distinct real roots x and x . Furthermore, roots corresponding to different 1 2 values of k must be distinct, because 0 is not a root and if k x2 − 4x − 3 = k x2 − 4x − 3 for some 1 2 x ̸= 0, then k = k . By Vieta’s Formulas x + x = 4 and x x = −3 . Therefore the sum of the 1 2 1 2 k 1 2 k reciprocals of these two roots of the given polynomial is 1 1 x + x 4 1 2 + = = − . x x x x 3 1 2 1 2 It follows that the sum of the reciprocals of all the roots of the given polynomial is 2025 · (cid:0) − 4 (cid:1) , and the arithmetic mean of these reciprocals is (cid:18) (cid:19) 1 4 2 · 2025 · − = − . 4050 3 3 The required harmonic mean is the reciprocal of this arithmetic mean of reciprocals, namely − 3 . OR If a is a nonzero solution of the polynomial equation p(x) = 0, then 1 is a solution of the equation a p (cid:0) 1 (cid:1) = 0, and vice versa. Therefore if a and b are the roots of the polynomial kx2 − 4x − 3, then x neither equals 0, and 1 and 1 are the roots of the polynomial k − 4x − 3x2. From Vieta’s Formulas a b it follows that 1 + 1 = − 4 . Thus the arithmetic mean of the reciprocals of the roots of a b 3 (cid:89) (kx2 − 4x − 3) k=1 is 2025 · (cid:0) − 4 (cid:1) 2 3 = − . 4050 3 The required harmonic mean is its reciprocal, − 3 .",
+    "id": "AMC202510A-INDIVIDUAL-18",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 7.1,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "harmonic mean",
+      "polynomial roots",
+      "quadratic equations"
+    ],
+    "techniques": [
+      "Vieta's formulas",
+      "arithmetic series"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests applying Vieta's formulas to find the harmonic mean of all real roots of a product of quadratics."
+  },
+  {
+    "number": 19,
+    "statement": "An array of numbers is constructed beginning with the numbers −1 3 1 in the top row. Each adjacent pair of numbers is summed to produce a number in the next row. Each row will begin and end with the numbers −1 and 1, respectively. The first three rows are shown below. −1 3 1 −1 2 4 1 −1 1 6 5 1 If the process continues, one of the rows will sum to 12,288. In that row, what is the third number from the left?",
+    "answer": "-29",
+    "solution": "The first three row sums are 3, 6, and 12, doubling each time. The doubling is due to the array construction method: each number in a row is used twice to produce values for the next row, and the −1 and 1 at the ends contribute 0. Thus the sum of each row will be double the sum of the previous row. If the topmost row is considered the 0th row with a sum of 3, then the sum of the nth row will be 3 · 2n. The row with a sum of 12,288 = 3 · 212 will thus be the 12th. To find the third number in the 12th row, first note that the diagonal at the left edge of the array contains −1s. The second diagonal from the left contains the decreasing sequence 3, 2, 1, 0, . . . , because each number is the sum of the previous number and −1. In the third diagonal, each number is the sum of previous number plus a number in the second diagonal. Because the second diagonal begins with a sequence of positive numbers, the numbers in the third diagonal will increase at first, then decrease once the sequence in the second diagonal reaches 0 in row 3. −1 3 1 −1 2 4 1 −1 1 6 5 1 −1 0 7 − − 1 −1 −1 7 − − − 1 −1 −2 6 − − − − 1 −1 −3 4 − − − − − 1 Thus for n ≥ 4, the number in the third diagonal in the nth row will equal (n − 4)(n − 3) 7 − (0 + 1 + 2 + · · · + (n − 4)) = 7 − . Therefore the third number in the 12th row will be 7 − 8·9 = −29.",
+    "id": "AMC202510A-INDIVIDUAL-19",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 7.2,
+    "area": [
+      "Combinatorics",
+      "Algebra"
+    ],
+    "subtopics": [
+      "Pascal-like arrays",
+      "row sums",
+      "diagonal sequences"
+    ],
+    "techniques": [
+      "geometric series",
+      "arithmetic series"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests pattern recognition in a Pascal-like array by tracking row sums and diagonal sequences."
+  },
+  {
+    "number": 20,
+    "statement": "A silo (right circular cylinder) with diameter 20 meters stands in a field. MacDonald is located 20 meters west and 15 meters south of the center of the silo. McGregor is located 20 meters east and g > 0 meters south of the center of the silo. The line of sight between MacDonald and McGregor √ is tangent to the silo. The value of g can be written as a b−c , where a, b, c, and d are positive d integers, b is not divisible by the square of any prime, and d is relatively prime to the greatest common divisor of a and c. What is a + b + c + d ?",
+    "answer": "119",
+    "solution": "The figure below shows the given situation, where S is the center of the silo, D is the position of MacDonald, G is the position of McGregor, T is the point at which DG is tangent to the circle representing the silo, line CD runs east-west, and lines BD and N C run north-south. (Point H is used in the second solution.) B 20 S 20 N e H g 15 G 15 − g T D 40 C Repeated applications of the Pythagorean Theorem give (cid:112) GS = g2 + 202 (using triangle △GN S), (cid:112) GT = g2 + 202 − 102 (using triangle △GT S), (cid:112) DS = 152 + 202 = 25 (using triangle △DBS), √ (cid:112) DT = 252 − 102 = 525 (using triangle △DT S), (cid:112) DG = 402 + (15 − g)2 (using triangle △DCG). Therefore √ (cid:112) (cid:112) 402 + (15 − g)2 = DG = DT + GT = 525 + g2 + 202 − 102. Squaring both sides, simplifying, squaring again, and simplifying yields 3g2 + 150g − 925 = 0, and the Quadratic Formula gives the positive solution √ 20 21 − 75 g = . The requested sum is 20 + 21 + 75 + 3 = 119. OR Draw the figure as in the first solution. Let H be the intersection of lines BN and DG, and let e = HN . Because △HN G ∼ △HBD ∼ △HT S, it follows that (cid:112) e e + 40 (e + 20)2 − 102 = = . g 15 10 √ The second equality simplifies to e2 + 8e − 740 = 0, yielding e = 6 21 − 4. Then from the first equality, √ √ 15e 90 21 − 60 20 21 − 75 g = = √ = , e + 40 6 21 + 36 3 as in the first solution. OR Draw the figure from the first solution in the coordinate plane, with S at the origin and D at (−20, −15). The equation of the circle representing the silo is x2 + y2 = 102. The equation of line DG is y + 15 = m(x + 20), where m is the slope that will give tangency to the circle at T . Substituting the value of y at T gives x2 + (m(x + 20) − 15)2 = 100. This can be rewritten as (m2 + 1)x2 + (40m2 − 30m)x + (400m2 − 600m + 125) = 0. The discriminant after simplifying is −1200m2 + 2400m − 500. The line will be tangent to the circle if and only if the discriminant equals 0, that is, √ 6 ± 21 m = . Choose the minus sign to get the line tangent at T , rather than the steeper tangent line that touches the circle in its upper left quadrant. Thus the y-coordinate of G is √ √ 6 − 21 75 − 20 · 21 · (20 + 20) − 15 = . 6 3 This is negative, so the distance that G is south of the east-west line through the center of the silo is √ 20 21 − 75 g = , as in the first solution.",
+    "id": "AMC202510A-INDIVIDUAL-20",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 7.4,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "tangent lines to circles",
+      "right circular cylinder cross-section",
+      "coordinate geometry"
+    ],
+    "techniques": [
+      "Pythagorean theorem",
+      "tangent-secant",
+      "quadratic formula",
+      "similar triangles"
+    ],
+    "difficulty": "hard",
+    "summary": "Find a distance using tangency of a line of sight to a circular silo via the Pythagorean theorem and quadratic formula."
+  },
+  {
+    "number": 21,
+    "statement": "A set of numbers is called sum-free if whenever x and y are (not necessarily distinct) elements of the set, x + y is not an element of the set. For example, {1, 4, 6} and the empty set are sum-free, but {2, 4, 5} is not. What is the greatest possible number of elements in a sum-free subset of {1, 2, 3, . . . , 20} ?",
+    "answer": "10",
+    "solution": "A largest such subset has at least 10 elements, because both {1, 3, 5, . . . , 19} and {11, 12, 13, . . . , 20} are sum-free. In the former case, the sum of two odd numbers is even, and in the latter case, the sum of two numbers greater than 10 is greater than 21. It remains to prove that there are no sum-free subsets with 11 or more elements. If 20 is in a sum-free subset of {1, 2, 3, . . . , 20}, then there can be at most 9 other elements in such a subset, because 10 cannot be in the subset and at most one element of each of {1, 19}, {2, 18}, {3, 17}, . . . , {9, 11} can be in the subset. A similar argument applies if the greatest element in the sum-free subset of {1, 2, 3, . . . , 20} is less than 20. Indeed, if the greatest element is m, then there can be at most one element from each of {1, m − 1}, {2, m − 2}, {3, m − 3}, . . . , (cid:8)(cid:4) m (cid:5) , (cid:6) m (cid:7)(cid:9) , for a total of 2 2 at most (cid:4) m (cid:5) + 1 ≤ 9 + 1 = 10 elements. Note: In fact, the only other sum-free subset of {1, 2, 3, . . . , 20} is {10, 11, 12, . . . , 19}. For more information on sum-free sets, see A007865 in The On-Line Encyclopedia of Integer Sequences. It was proved in 2004 that the number of sum-free subsets of {1, 2, 3, . . . , n} grows at a rate proportional √ to 2n. It was proved in 2025 that any set of integers with n elements has a sum-free subset with at least n + c log(log n) elements for some constant c.",
+    "id": "AMC202510A-INDIVIDUAL-21",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 7.5,
+    "area": [
+      "Combinatorics",
+      "Number Theory"
+    ],
+    "subtopics": [
+      "sum-free sets",
+      "extremal combinatorics",
+      "subset selection"
+    ],
+    "techniques": [
+      "complementary counting",
+      "pairing argument",
+      "casework"
+    ],
+    "difficulty": "medium",
+    "summary": "Find the maximum size of a sum-free subset of {1, 2, ..., 20} using pairing and bounding arguments."
+  },
+  {
+    "number": 22,
+    "statement": "A circle of radius r is surrounded by three circles, whose radii are 1, 2, and 3, all externally tangent to the inner circle and externally tangent to each other, as shown in the diagram below. What is r ? 1 6 3 5 3",
+    "answer": "r = \\dfrac{6}{23}",
+    "solution": "Let A, B, C, and D be the centers of the circles of radii 1, 2, 3, and r, respectively. Then AB = 3, AC = 4, and BC = 5. Triangle △ABC is a 3 – 4 – 5 right triangle with right angle at A. Let A(0, 0) be the origin of a rectangular coordinate system with circle centers at B(3, 0), C(0, 4), and D(x, y). Let E(x, 0) and F (0, y) be the projections of D onto AB and AC, respectively. C F D A B E Using the Pythagorean Theorem in triangles △AED, △BED, and △CF D gives the following three equations. x2 + y2 = (1 + r)2 (3 − x)2 + y2 = (2 + r)2 x2 + (4 − y)2 = (3 + r)2 Subtracting the first equation from the second gives 9−6x = 3+2r, which is equivalent to x = 1− r . Subtracting the first equation from the third gives 16−8y = 8+4r, which is equivalent to y = 1− r . Substituting these expressions for x and y in the first displayed equation above yields (cid:16) r (cid:17)2 (cid:16) r (cid:17)2 (1 + r)2 = 1 − + 1 − . 3 2 Expanding, simplifying, and factoring leads to (23r − 6)(r + 6) = 0, and it follows that r = 6 . OR Descartes’ Theorem states that the radii, r , r , r , r , of four mutually tangent circles are related 1 2 3 4 by the equation (cid:114) 1 1 1 1 1 1 1 1 1 1 = + + ± 2 · + · + · . r r r r r r r r r r 4 1 2 3 1 2 2 3 3 1 Setting r = 1, r = 2, r = 3, and r = r gives 1 2 3 4 (cid:114) 1 1 1 1 1 1 11 = 1 + + ± 2 + + = ± 2. r 2 3 2 6 3 6 Choosing the plus sign leads to r = 6 , and choosing the minus sign leads to r = −6. Note: The negative solution to the quadratic equation in each solution, r = −6, corresponds to the circle of radius 6 to which the circles of radii 1, 2, and 3 are internally tangent.",
+    "id": "AMC202510A-INDIVIDUAL-22",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 7.6,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "tangent circles",
+      "Descartes' Circle Theorem",
+      "coordinate geometry"
+    ],
+    "techniques": [
+      "Pythagorean theorem",
+      "coordinate geometry",
+      "Descartes' Circle Theorem"
+    ],
+    "difficulty": "medium",
+    "summary": "Find the radius of a circle internally tangent to three mutually externally tangent circles of radii 1, 2, and 3."
+  },
+  {
+    "number": 23,
+    "statement": "Triangle △ABC has side lengths AB = 80, BC = 45, and AC = 75. The bisector of ∠B and the altitude to side AB intersect at point P . What is BP ?",
+    "answer": "21",
+    "solution": "Let D be the intersection of the bisector of ∠B with AC, and let E be the foot of the altitude from C to AB, as shown in the figure below. A 75 80 D P E C B By the Angle Bisector Theorem AD = 75−AD . This gives AD = 48 and CD = 75 − 48 = 27. 80 45 Triangle △BCD has ∠BCD with adjacent sides of lengths 45 and 27, and triangle △ACB has ∠ACB with adjacent sides of lengths 75 and 45. By Side-Angle-Side these triangles are similar with size ratio 3 . This implies that BD = 3 AB = 48. Thus △ADB is isosceles with AD = BD 5 5 and ∠DAB = ∠DBA. Let this angle be called θ. Then ∠DBC = θ and ∠CDB = ∠CBA = 2θ. Another pair of similar triangles is △ACE and △BP E, each with a right angle and an angle θ. The third angles in these triangles must also be equal: ∠ACE = ∠BP E. It follows that ∠DP C is equal to these two by vertical angles. Therefore △CDP is isosceles with CD = P D = 27. Finally, BP = BD − P D = 48 − 27 = 21. OR As in the first solution, the Angle Bisector Theorem gives AD = 48 and CD = 27. Let x = BE and h = CE; then AE = 80 − x. By the Pythagorean Theorem x2 + h2 = 452 and (80 − x)2 + h2 = 752. Subtracting and solving for x yields x = 35 and h2 = 452 − (cid:0) 35 (cid:1)2 . Applying the Angle Bisector 2 2 Theorem to △CBE gives P E 35 7 = 2 = , h 45 + 35 25 so P E = 7 h. Applying the Pythagorean Theorem to △BP E gives (cid:18) (cid:19)2 (cid:18) (cid:19)2 BP 2 = + · h2 2 25 (cid:32) (cid:33) (cid:18) (cid:19)2 (cid:18) (cid:19)2 (cid:18) (cid:19)2 = + · 452 − 2 25 2 (cid:18) (cid:19)2 (cid:18) (cid:19)2 (cid:18) (cid:19) = + · 81 − 2 5 4 (cid:18) (cid:19)2 49 275 = + · 2 25 4 (cid:18) 7 · 5 (cid:19)2 = + · 11 2 4 = · (25 + 11) = 49 · 9, and BP = 7 · 3 = 21. OR The semiperimeter of △ABC is 1 (80 + 45 + 75) = 100. Heron’s Formula gives the area of the triangle as √ (cid:112) 100(100 − 80)(100 − 45)(100 − 75) = 500 11. Then √ 500 11 25 √ CE = = 11, 40 2 where E is the foot of the altitude from C to AB. By the Pythagorean Theorem (cid:114) (cid:114) (cid:112) 625 · 11 15625 125 AE = 752 − CE2 = 5625 − = = . 4 4 2 Then BE = 80 − AE = 35 . Applying the Angle Bisector Theorem to △CBE gives P C = BC . Adding 1 to both sides gives P E BE CE 45 + 35 = 2 . P E 35 √ √ Because CE = 25 11, it follows that P E = 7 · 11. A final application of the Pythagorean 2 2 Theorem gives (cid:115) (cid:18) 35 (cid:19)2 (cid:18) 7 √ (cid:19)2 √ BP = + 11 = 441 = 21. 2 2",
+    "id": "AMC202510A-INDIVIDUAL-23",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 7.8,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "angle bisector",
+      "altitude",
+      "triangle similarity"
+    ],
+    "techniques": [
+      "angle bisector theorem",
+      "similar triangles",
+      "Pythagorean theorem",
+      "Heron's formula"
+    ],
+    "difficulty": "medium",
+    "summary": "Find the length BP where the angle bisector of ∠B and the altitude to AB intersect in a triangle."
+  },
+  {
+    "number": 24,
+    "statement": "Call a positive integer fair if no digit is used more than once, it has no 0s, and no digit is adjacent to two greater digits. For example, 23, 196, and 12463 are fair, but 1546, 320, and 34321 are not fair. How many fair positive integers are there?",
+    "answer": "9841",
+    "solution": "A fair positive integer must have a greatest digit, m, preceded by zero or more digits in increasing order and followed by zero or more digits in decreasing order. Otherwise m is preceded by digits b a with b > a, or m precedes digits a b with b > a. In either case the least digit between m and b is adjacent to greater digits on both sides. Suppose the number has k digits for some k ∈ {1, 2, 3, . . . , 9}, with m its greatest digit. There are (cid:0)9(cid:1) ways to select the k digits to be used. A subset S of the k − 1 digits less than m go before m k and the rest go after m. There are 2k−1 ways to choose S. Once S is chosen, the number is determined: the digits in S go first in increasing order, then comes m, then come the remaining digits in decreasing order. This works even if S is empty or its complement is empty. Therefore the number of k-digit fair positive integers is (cid:0)9(cid:1) 2k−1. These integers may have from 1 k to 9 digits, so by the Binomial Theorem the total number of fair positive integers is 9 (cid:18) (cid:19) 9 (cid:18) (cid:19) (cid:88) 9 2k−1 = 1 (cid:88) 9 2k19−k = 1 (cid:0) (2 + 1)9 − 1 (cid:1) = 1 (cid:0) 39 − 1 (cid:1) = 9,841. k 2 k 2 2 k=1 k=1",
+    "id": "AMC202510A-INDIVIDUAL-24",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 7.9,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "digit problems",
+      "combinatorial counting",
+      "subsets"
+    ],
+    "techniques": [
+      "binomial theorem",
+      "permutations/combinations"
+    ],
+    "difficulty": "medium",
+    "summary": "Count positive integers where digits form a unimodal sequence with no repeats or zeros."
+  },
+  {
+    "number": 25,
+    "statement": "A point P is chosen at random inside square ABCD. The probability that AP is neither the √ shortest nor the longest side of △AP B can be written as a+bπ−c d , where a, b, c, d, and e are e positive integers, gcd(a, b, c, e) = 1, and d is not divisible by the square of any prime. What is a + b + c + d + e ?",
+    "answer": "25",
+    "solution": "Without loss of generality let A = (0, 0), B = (1, 0), C = (1, 1), and D = (0, 1) (cid:16) √ (cid:17) in the coordinate plane. Let Q = (cid:0) 1 , 0 (cid:1) , R = (cid:0) 1 , 1 (cid:1) , and S = 1 , 3 . Draw the quarter circle 2 2 2 2 of radius 1 centered at A extending from B to D, as shown in the figure below, where the region inside rectangle AQRD but outside the quarter circle has been shaded, as has the region inside the quarter circle but outside of rectangle AQRD. Note that S lies on the quarter circle and △ABS is equilateral. R D C S A B Q It may be assumed that P does not lie on a line segment or arc in the figure, because the probability of such happening is 0. Note that if P lies in the smaller shaded region, then AP < BP and AP > AB, so P satisfies the given condition that AP is neither the shortest nor the longest side of △AP B. Similarly, if P lies in the larger shaded region, then AP > BP and AP < AB, so P again satisfies the given condition. On the other hand, if P lies in the leftmost unshaded region, then AP is the shortest side of △AP B, and if P lies in the rightmost unshaded region, then AP is the longest side of △AP B. It remains to compute the area of the shaded regions. √ Because ∠QAS = 60◦, sector BAS has area π . Also, △QAS has area 1 3, so the larger shaded 6 8 region has area √ π 1 √ 4π − 3 3 − 3 = . 6 8 24 The left-most unshaded region consists of 1 of a disk of radius 1 together with a triangle of area √ 12 1 3, so the area of the smaller shaded region is √ 1 π 1 √ 12 − 2π − 3 3 − − 3 = . 2 12 8 24 Because the square has area 1, the requested probability is √ √ √ 4π − 3 3 12 − 2π − 3 3 6 + π − 3 3 + = . 24 24 12 The requested sum is 6 + 1 + 3 + 3 + 12 = 25. Problems and solutions were contributed and edited by Taiki Aiba, Theodore Alper, David Altizio, Risto Atanasov, Bela Bajnok, Owen Byer, Silva Chang, Steven Davis, Thinula De Silva, Steve Dunbar, Marta Eso, Zuming Feng, Zachary Franco, Gary Gordon, Jon Graetz, Andrea Grof, Jerrold Grossman, Thomas Howell, Chris Jeuell, Daniel Jordan, Jonathan Kane, Ed Keppelmann, Azar Khosravani, Joseph Li, Ken Liu, Ioana Mihaila, Hugh Montgomery, Bryan Nevarez, David Scott, Lucian Sega, Matyas Sustik, Kate Thompson, Agnes Tuska, David Wells, Kathleen Wong, Andrew Wu, Dai Yang, Carl Yerger, Jesse Zhang, and Alexander Zhu.",
+    "id": "AMC202510A-INDIVIDUAL-25",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 8.0,
+    "area": [
+      "Geometry",
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "geometric probability",
+      "areas of circular sectors and triangles",
+      "triangle side comparisons"
+    ],
+    "techniques": [
+      "coordinate geometry",
+      "area ratios",
+      "arcs and inscribed angles"
+    ],
+    "difficulty": "hard",
+    "summary": "Find the probability that AP is neither the shortest nor longest side of triangle APB using geometric regions."
+  }
+]
