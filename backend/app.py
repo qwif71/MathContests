@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import json, os, httpx
+import json, os
 from typing import Optional
 import numpy as np
 
