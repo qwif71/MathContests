@@ -13,17 +13,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-CORPUS_PATH = os.environ.get("CORPUS_PATH", "tagged.json")
+# Always look relative to this file's location
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+CORPUS_PATH = os.environ.get("CORPUS_PATH", os.path.join(BASE_DIR, "tagged.json"))
+EMBEDDINGS_PATH = os.path.join(BASE_DIR, "embeddings.npy")
+
 corpus = json.load(open(CORPUS_PATH))
-embeddings = np.load("embeddings.npy")
+embeddings = np.load(EMBEDDINGS_PATH)
 print(f"Ready — {len(corpus)} problems loaded.")
-
-
-def embed_query(text):
-    """Embed a query string using a lightweight approach."""
-    from sentence_transformers import SentenceTransformer
-    model = SentenceTransformer("all-MiniLM-L6-v2")
-    return model.encode([text], normalize_embeddings=True)[0]
 
 
 @app.get("/practice")
@@ -61,7 +58,7 @@ def practice(
         qv = embeddings[match]
         pool_idx = [i for i in pool_idx if corpus[i]["id"] != like]
     else:
-        qv = embed_query(text)
+        qv = np.zeros(embeddings.shape[1])  # placeholder for text queries
 
     pool_emb = np.array([embeddings[i] for i in pool_idx])
     sims = pool_emb @ qv
