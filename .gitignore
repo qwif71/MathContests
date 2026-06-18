@@ -1,0 +1,7 @@
+venv/
+__pycache__/
+*.pyc
+amc_only.json
+amc_tagged.json
+*_raw.json
+.env
