@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Math Practice</title>
+  <script>MathJax = {tex: {inlineMath: [["$","$"],["\\(","\\)"]]}};</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -11,6 +13,8 @@
       background: #f5f5f5;
       color: #222;
       padding: 2rem;
+      max-width: 860px;
+      margin: 0 auto;
     }
     h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
     .subtitle { color: #666; margin-bottom: 2rem; font-size: 0.95rem; }
@@ -56,11 +60,7 @@
       margin-left: auto;
     }
     .filters button:hover { background: #1d4ed8; }
-    .stats {
-      color: #666;
-      font-size: 0.85rem;
-      margin-bottom: 1rem;
-    }
+    .stats { color: #666; font-size: 0.85rem; margin-bottom: 1rem; }
     .results { display: flex; flex-direction: column; gap: 1rem; }
     .card {
       background: white;
@@ -86,8 +86,7 @@
       font-weight: 600;
       white-space: nowrap;
     }
-    .card-summary { font-size: 0.95rem; margin-bottom: 0.75rem; color: #333; }
-    .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
     .tag {
       background: #f3f4f6;
       border-radius: 6px;
@@ -97,39 +96,18 @@
     }
     .tag.area { background: #ecfdf5; color: #065f46; }
     .tag.difficulty { background: #fff7ed; color: #92400e; }
-    .expand-btn {
-      margin-top: 0.75rem;
-      background: none;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      padding: 0.3rem 0.75rem;
-      font-size: 0.85rem;
-      cursor: pointer;
-      color: #444;
-    }
-    .expand-btn:hover { background: #f9fafb; }
-    .problem-detail {
-      margin-top: 0.75rem;
-      padding-top: 0.75rem;
-      border-top: 1px solid #eee;
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
-    .problem-detail h4 { font-size: 0.8rem; color: #888; margin-bottom: 0.25rem; margin-top: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
     .loading { text-align: center; color: #888; padding: 2rem; }
     .error { color: #dc2626; padding: 1rem; background: #fef2f2; border-radius: 8px; }
     .empty { color: #888; text-align: center; padding: 2rem; }
   </style>
-<script>MathJax = {tex: {inlineMath: [["$","$"],["\\(","\\)"]]}};</script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 <body>
 
 <h1>Math Practice</h1>
-<p class="subtitle">Search by topic, technique, or describe a problem type</p>
+<p class="subtitle">Find practice problems by topic, technique, or description</p>
 
 <div class="search-box">
-  <textarea id="query" placeholder="Describe a problem type, e.g. 'find the remainder when a large power is divided by a prime'..."></textarea>
+  <textarea id="query" placeholder="Describe what you want to practice, e.g. 'problems using modular arithmetic and Fermat's little theorem'..."></textarea>
   <div class="filters">
     <select id="area">
       <option value="">All areas</option>
@@ -144,7 +122,7 @@
       <option value="medium">Medium</option>
       <option value="hard">Hard</option>
     </select>
-    <input id="technique" placeholder="Technique, e.g. Vieta's formulas" style="width:220px">
+    <input id="technique" placeholder="Technique, e.g. inclusion-exclusion" style="width:220px">
     <input id="k" type="number" value="5" min="1" max="20" style="width:70px">
     <button onclick="search()">Search</button>
   </div>
@@ -161,7 +139,7 @@
       const res = await fetch(`${API}/stats`);
       const data = await res.json();
       document.getElementById("stats").textContent =
-        `${data.total} problems across ${Object.keys(data.by_contest).length} contests`;
+        `${data.total} problems — ${Object.entries(data.by_area).map(([k,v]) => `${v} ${k}`).join(", ")}`;
     } catch(e) {}
   }
 
@@ -187,7 +165,7 @@
       renderResults(data.results || []);
     } catch(e) {
       document.getElementById("results").innerHTML =
-        `<div class="error">Could not reach the API. Is the backend running?</div>`;
+        `<div class="error">Could not reach the API. It may be waking up — try again in 30 seconds.</div>`;
     }
   }
 
@@ -197,38 +175,23 @@
       el.innerHTML = '<div class="empty">No problems found.</div>';
       return;
     }
-    el.innerHTML = results.map((r, i) => `
+    el.innerHTML = results.map(r => `
       <div class="card">
         <div class="card-header">
           <div>
             <div class="card-id">${r.id}</div>
-            <div class="card-meta">${(r.sources || [r.contest]).join(" / ")} &middot; L${r.difficulty_score}</div>
+            <div class="card-meta">${(r.sources || [r.contest]).join(" / ")} &middot; Difficulty ${r.difficulty_score}/10</div>
           </div>
           ${r.match_pct !== undefined ? `<div class="match-pct">${r.match_pct}% match</div>` : ""}
         </div>
-        <div class="card-summary">${r.summary || ""}</div>
         <div class="tags">
           ${(r.area || []).map(a => `<span class="tag area">${a}</span>`).join("")}
           ${(r.techniques || []).map(t => `<span class="tag">${t}</span>`).join("")}
           ${r.difficulty ? `<span class="tag difficulty">${r.difficulty}</span>` : ""}
         </div>
-        <button class="expand-btn" onclick="toggleDetail(${i})">Show problem</button>
-        <div id="detail-${i}" class="problem-detail" style="display:none">
-          <h4>Statement</h4>
-          <p>${r.statement || "—"}</p>
-          <h4>Answer</h4>
-          <p>${r.answer || "—"}</p>
-        </div>
       </div>
     `).join("");
-  }
-
-  function toggleDetail(i) {
-    const el = document.getElementById(`detail-${i}`);
-    const btn = el.previousElementSibling;
-    const hidden = el.style.display === "none";
-    el.style.display = hidden ? "block" : "none";
-    btn.textContent = hidden ? "Hide problem" : "Show problem";
+    if (window.MathJax) MathJax.typesetPromise();
   }
 
   loadStats();
