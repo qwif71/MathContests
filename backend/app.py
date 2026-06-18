@@ -1,8 +1,7 @@
-from fastapi import FastAPI, Query
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import json, os
 from typing import Optional
-from sentence_transformers import SentenceTransformer
 import numpy as np
 
 app = FastAPI()
@@ -14,17 +13,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-CORPUS_PATH = os.environ.get("CORPUS_PATH", "../tagged.json")
+CORPUS_PATH = os.environ.get("CORPUS_PATH", "tagged.json")
 corpus = json.load(open(CORPUS_PATH))
-model = SentenceTransformer("all-MiniLM-L6-v2")
-
-def embed_text(r):
-    techs = "; ".join(r.get("techniques", []))
-    return f"{r['statement']} || techniques: {techs}; {techs}"
-
-print("Computing embeddings...")
-embeddings = model.encode([embed_text(r) for r in corpus], normalize_embeddings=True)
+embeddings = np.load("embeddings.npy")
 print(f"Ready — {len(corpus)} problems loaded.")
+
+
+def embed_query(text):
+    """Embed a query string using a lightweight approach."""
+    from sentence_transformers import SentenceTransformer
+    model = SentenceTransformer("all-MiniLM-L6-v2")
+    return model.encode([text], normalize_embeddings=True)[0]
 
 
 @app.get("/practice")
@@ -62,7 +61,7 @@ def practice(
         qv = embeddings[match]
         pool_idx = [i for i in pool_idx if corpus[i]["id"] != like]
     else:
-        qv = model.encode([text], normalize_embeddings=True)[0]
+        qv = embed_query(text)
 
     pool_emb = np.array([embeddings[i] for i in pool_idx])
     sims = pool_emb @ qv
