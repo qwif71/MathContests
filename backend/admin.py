@@ -88,9 +88,9 @@ async def admin_login(request: Request):
     resp = JSONResponse({"ok": True})
     resp.set_cookie(
         COOKIE_NAME, token,
-        max_age=SESSION_MAX_AGE, httponly=True,
+        max_age=SESSION_MAX_AGE, httponly=True, path="/",
         samesite=COOKIE_SAMESITE, secure=COOKIE_SECURE,
-    )
+)
     return resp
 
 
