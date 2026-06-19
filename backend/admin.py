@@ -97,9 +97,10 @@ async def admin_login(request: Request):
 @router.post("/admin/logout")
 async def admin_logout():
     resp = JSONResponse({"ok": True})
-    resp.delete_cookie(COOKIE_NAME)
+    resp.delete_cookie(
+        COOKIE_NAME, samesite=COOKIE_SAMESITE, secure=COOKIE_SECURE, path="/",
+    )
     return resp
-
 
 @router.get("/admin/me")
 async def admin_me(admin_session: str | None = Cookie(default=None)):
