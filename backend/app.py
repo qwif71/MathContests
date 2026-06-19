@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import json, os
 from typing import Optional
 import numpy as np
+from admin import router as admin_router
 
 app = FastAPI()
 
@@ -12,6 +13,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(admin_router)
 
 BASE_DIR = "/opt/render/project/src/backend"
 CORPUS_PATH = os.environ.get("CORPUS_PATH", os.path.join(BASE_DIR, "tagged.json"))
