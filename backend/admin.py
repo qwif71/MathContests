@@ -13,6 +13,10 @@ Persistence: Render's disk is ephemeral, so every successful import commits
 the updated tagged.json (and embeddings.npy, if present) straight to GitHub
 via the contents API. The in-memory corpus in app.py is updated in place too,
 so new problems show up in /practice immediately without a redeploy.
+
+Settings: a small admin-only toggle for whether /practice is allowed to call
+the Anthropic API to parse free-text queries (see settings.py + app.py's
+ai_parse_query). Defaults OFF; only an authenticated admin can flip it.
 """
 import base64
 import json
@@ -27,6 +31,7 @@ from fastapi.responses import JSONResponse
 import requests
 
 import tag_and_compare as tc
+import settings as st
 
 router = APIRouter()
 
@@ -109,6 +114,34 @@ async def admin_me(admin_session: str | None = Cookie(default=None)):
     except HTTPException:
         return {"logged_in": False}
     return {"logged_in": True}
+
+
+# --------------------------------------------------------------------------
+# Settings — currently just the AI-assisted query toggle.
+# --------------------------------------------------------------------------
+
+@router.get("/admin/settings")
+async def get_settings(admin_session: str | None = Cookie(default=None)):
+    require_admin(admin_session)
+    return {"ai_query_enabled": st.get_ai_query_enabled()}
+
+
+@router.post("/admin/settings")
+async def update_settings(
+    request: Request,
+    admin_session: str | None = Cookie(default=None),
+):
+    """Body: {ai_query_enabled: bool}. Persists locally and commits to GitHub
+    (best-effort) so the flag survives a redeploy on Render's ephemeral disk."""
+    require_admin(admin_session)
+    body = await request.json()
+    if "ai_query_enabled" not in body:
+        raise HTTPException(400, "ai_query_enabled is required.")
+    github_result = st.set_ai_query_enabled(bool(body["ai_query_enabled"]))
+    return {
+        "ai_query_enabled": st.get_ai_query_enabled(),
+        "github": github_result,
+    }
 
 
 # --------------------------------------------------------------------------
