@@ -5,3 +5,5 @@ amc_only.json
 amc_tagged.json
 *_raw.json
 .env
+Problem Archive/
+.DS_Store
