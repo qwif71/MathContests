@@ -8,32 +8,96 @@
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f5f5;
+      --fg: #222;
+      --fg-muted: #666;
+      --fg-faint: #888;
+      --card-bg: #ffffff;
+      --card-shadow: rgba(0,0,0,0.08);
+      --border: #ddd;
+      --border-soft: #eee;
+      --statement-bg: #fafafa;
+      --tag-bg: #f3f4f6;
+      --tag-fg: #444;
+      --tag-area-bg: #ecfdf5;
+      --tag-area-fg: #065f46;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --accent-soft-bg: #eff6ff;
+      --error-bg: #fef2f2;
+      --error-fg: #dc2626;
+    }
+    [data-theme="dark"] {
+      --bg: #15171c;
+      --fg: #e6e6e6;
+      --fg-muted: #a0a4ad;
+      --fg-faint: #777c87;
+      --card-bg: #1e2128;
+      --card-shadow: rgba(0,0,0,0.4);
+      --border: #333741;
+      --border-soft: #2a2d35;
+      --statement-bg: #20232b;
+      --tag-bg: #2a2d35;
+      --tag-fg: #c4c7cf;
+      --tag-area-bg: #0d2b22;
+      --tag-area-fg: #5fd6a8;
+      --accent: #3b82f6;
+      --accent-hover: #60a5fa;
+      --accent-soft-bg: #16243f;
+      --error-bg: #3a1414;
+      --error-fg: #f87171;
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f5f5f5;
-      color: #222;
+      background: var(--bg);
+      color: var(--fg);
       padding: 2rem;
       max-width: 860px;
       margin: 0 auto;
+      transition: background 0.15s, color 0.15s;
+    }
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
     }
     h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
-    .subtitle { color: #666; margin-bottom: 2rem; font-size: 0.95rem; }
+    .subtitle { color: var(--fg-muted); margin-bottom: 2rem; font-size: 0.95rem; }
+
+    .theme-toggle {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.4rem 0.9rem;
+      font-size: 0.85rem;
+      color: var(--fg);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .theme-toggle:hover { border-color: var(--accent); }
+
     .search-box {
-      background: white;
+      background: var(--card-bg);
       border-radius: 12px;
       padding: 1.5rem;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      box-shadow: 0 1px 4px var(--card-shadow);
       margin-bottom: 1.5rem;
     }
     .search-box textarea {
       width: 100%;
-      border: 1px solid #ddd;
+      border: 1px solid var(--border);
       border-radius: 8px;
       padding: 0.75rem;
       font-size: 1rem;
       resize: vertical;
       min-height: 80px;
       font-family: inherit;
+      background: var(--card-bg);
+      color: var(--fg);
     }
     .filters {
       display: flex;
@@ -43,14 +107,15 @@
       align-items: center;
     }
     .filters select, .filters input {
-      border: 1px solid #ddd;
+      border: 1px solid var(--border);
       border-radius: 8px;
       padding: 0.5rem 0.75rem;
       font-size: 0.9rem;
-      background: white;
+      background: var(--card-bg);
+      color: var(--fg);
     }
     .filters button {
-      background: #2563eb;
+      background: var(--accent);
       color: white;
       border: none;
       border-radius: 8px;
@@ -59,21 +124,61 @@
       cursor: pointer;
       margin-left: auto;
     }
-    .filters button:hover { background: #1d4ed8; }
+    .filters button:hover { background: var(--accent-hover); }
     .filters button.secondary {
-      background: white;
-      color: #444;
-      border: 1px solid #ddd;
+      background: var(--card-bg);
+      color: var(--fg);
+      border: 1px solid var(--border);
       margin-left: 0;
     }
-    .filters button.secondary:hover { background: #f9fafb; }
-    .stats { color: #666; font-size: 0.85rem; margin-bottom: 1rem; }
-    .results { display: flex; flex-direction: column; gap: 1rem; }
-    .card {
-      background: white;
+    .filters button.secondary:hover { background: var(--statement-bg); }
+
+    .stats { color: var(--fg-muted); font-size: 0.85rem; margin-bottom: 1rem; }
+
+    /* --- Techniques panel --- */
+    .techniques-panel {
+      background: var(--card-bg);
       border-radius: 12px;
       padding: 1.25rem 1.5rem;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      box-shadow: 0 1px 4px var(--card-shadow);
+      margin-bottom: 1.5rem;
+    }
+    .techniques-panel summary {
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      list-style: none;
+    }
+    .techniques-panel summary::-webkit-details-marker { display: none; }
+    .techniques-panel summary::before {
+      content: "▸ ";
+      color: var(--fg-faint);
+    }
+    .techniques-panel[open] summary::before { content: "▾ "; }
+    .technique-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.9rem;
+    }
+    .technique-chip {
+      background: var(--tag-bg);
+      color: var(--tag-fg);
+      border: none;
+      border-radius: 999px;
+      padding: 0.3rem 0.75rem;
+      font-size: 0.82rem;
+      cursor: pointer;
+    }
+    .technique-chip:hover { background: var(--accent-soft-bg); color: var(--accent); }
+    .technique-chip .count { color: var(--fg-faint); margin-left: 0.3rem; }
+
+    .results { display: flex; flex-direction: column; gap: 1rem; }
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 1px 4px var(--card-shadow);
     }
     .card-header {
       display: flex;
@@ -83,66 +188,71 @@
       gap: 1rem;
     }
     .card-id { font-weight: 600; font-size: 0.95rem; }
-    .card-meta { font-size: 0.8rem; color: #666; margin-top: 0.2rem; }
-    .card-meta a { color: #2563eb; text-decoration: none; }
+    .card-meta { font-size: 0.8rem; color: var(--fg-muted); margin-top: 0.2rem; }
+    .card-meta a { color: var(--accent); text-decoration: none; }
     .card-meta a:hover { text-decoration: underline; }
     .match-pct {
-      background: #eff6ff;
-      color: #2563eb;
+      background: var(--accent-soft-bg);
+      color: var(--accent);
       border-radius: 6px;
       padding: 0.25rem 0.6rem;
       font-size: 0.85rem;
       font-weight: 600;
       white-space: nowrap;
     }
-    .card-summary { font-size: 0.95rem; margin-bottom: 0.75rem; color: #333; }
+    .card-summary { font-size: 0.95rem; margin-bottom: 0.75rem; color: var(--fg); }
     .card-statement {
       font-size: 0.95rem;
       line-height: 1.6;
-      color: #222;
-      background: #fafafa;
-      border: 1px solid #eee;
+      color: var(--fg);
+      background: var(--statement-bg);
+      border: 1px solid var(--border-soft);
       border-radius: 8px;
       padding: 0.85rem 1rem;
       margin-bottom: 0.75rem;
     }
     .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
     .tag {
-      background: #f3f4f6;
+      background: var(--tag-bg);
       border-radius: 6px;
       padding: 0.2rem 0.6rem;
       font-size: 0.8rem;
-      color: #444;
+      color: var(--tag-fg);
     }
-    .tag.area { background: #ecfdf5; color: #065f46; }
+    .tag.area { background: var(--tag-area-bg); color: var(--tag-area-fg); }
     .expand-btn {
       margin-top: 0.75rem;
       background: none;
-      border: 1px solid #ddd;
+      border: 1px solid var(--border);
       border-radius: 6px;
       padding: 0.3rem 0.75rem;
       font-size: 0.85rem;
       cursor: pointer;
-      color: #444;
+      color: var(--fg);
     }
-    .expand-btn:hover { background: #f9fafb; }
+    .expand-btn:hover { background: var(--statement-bg); }
     .problem-detail {
       margin-top: 0.75rem;
       padding-top: 0.75rem;
-      border-top: 1px solid #eee;
+      border-top: 1px solid var(--border-soft);
       font-size: 0.9rem;
       line-height: 1.6;
     }
-    .problem-detail h4 { font-size: 0.8rem; color: #888; margin-bottom: 0.25rem; margin-top: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
-    .loading { text-align: center; color: #888; padding: 2rem; }
-    .error { color: #dc2626; padding: 1rem; background: #fef2f2; border-radius: 8px; }
-    .empty { color: #888; text-align: center; padding: 2rem; }
+    .problem-detail h4 { font-size: 0.8rem; color: var(--fg-faint); margin-bottom: 0.25rem; margin-top: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .loading { text-align: center; color: var(--fg-faint); padding: 2rem; }
+    .error { color: var(--error-fg); padding: 1rem; background: var(--error-bg); border-radius: 8px; }
+    .empty { color: var(--fg-faint); text-align: center; padding: 2rem; }
   </style>
 </head>
 <body>
 
-<h1>Problem Finder</h1>
-<p class="subtitle">Browse the full catalogue, or search by topic, technique, or description</p>
+<div class="top-row">
+  <div>
+    <h1>Problem Finder</h1>
+    <p class="subtitle">Browse the full catalogue, or search by topic, technique, or description</p>
+  </div>
+  <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙 Dark mode</button>
+</div>
 
 <div class="search-box">
   <textarea id="query" placeholder="Describe what you want to practice, e.g. 'problems using modular arithmetic and Fermat's little theorem'..."></textarea>
@@ -160,6 +270,13 @@
   </div>
 </div>
 
+<details class="techniques-panel" id="techniquesPanel">
+  <summary>Browse all techniques</summary>
+  <div class="technique-list" id="techniqueList">
+    <span class="loading" style="padding:0">Loading...</span>
+  </div>
+</details>
+
 <div id="stats" class="stats"></div>
 <div id="results" class="results"></div>
 
@@ -167,12 +284,37 @@
   const API = "https://matchcontests-api.onrender.com";
   let TOTAL = 0;
 
+  // --- Theme ---
+  function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    document.getElementById("themeToggle").textContent =
+      theme === "dark" ? "☀️ Light mode" : "🌙 Dark mode";
+    localStorage.setItem("theme", theme);
+  }
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    applyTheme(current === "dark" ? "light" : "dark");
+  }
+  (function initTheme() {
+    const saved = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    applyTheme(saved || (prefersDark ? "dark" : "light"));
+  })();
+
   // A "link" is only meaningful if sources[0] actually looks like a URL —
   // older non-AIMO records use sources for a plain contest name like
   // "AMC 2025 10A", which is not a link and shouldn't render as one.
   function sourceLink(r) {
     const s = (r.sources || [])[0];
     return s && /^https?:\/\//.test(s) ? s : null;
+  }
+
+  // Problem ids carry an internal dataset prefix ("AMIO-...") that has no
+  // meaning to users — it's just where the data came from, not part of the
+  // problem's identity. Strip it for display only; the real id (used in API
+  // calls) is untouched.
+  function displayId(id) {
+    return (id || "").replace(/^AMIO-/i, "");
   }
 
   async function loadStats() {
@@ -183,6 +325,32 @@
       document.getElementById("stats").textContent =
         `${data.total} problems across ${Object.keys(data.by_contest).length} contests`;
     } catch(e) {}
+  }
+
+  async function loadTechniques() {
+    const el = document.getElementById("techniqueList");
+    try {
+      const res = await fetch(`${API}/techniques`);
+      const data = await res.json();
+      const list = data.techniques || [];
+      if (!list.length) {
+        el.innerHTML = '<span class="loading" style="padding:0">No techniques tagged yet.</span>';
+        return;
+      }
+      el.innerHTML = list.map(t =>
+        `<button class="technique-chip" onclick="searchTechnique('${t.name.replace(/'/g, "\\'")}')">` +
+        `${t.name}<span class="count">${t.count}</span></button>`
+      ).join("");
+    } catch (e) {
+      el.innerHTML = '<span class="loading" style="padding:0">Could not load techniques.</span>';
+    }
+  }
+
+  function searchTechnique(name) {
+    document.getElementById("technique").value = name;
+    document.getElementById("query").value = "";
+    showCatalogue();
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   // Catalogue view: every tagged problem, no query/ranking — just the filters
@@ -249,13 +417,13 @@
     el.innerHTML = results.map((r, i) => {
       const link = sourceLink(r);
       const sourceLabel = link
-        ? `<a href="${link}" target="_blank" rel="noopener">${r.contest || r.id}</a>`
+        ? `<a href="${link}" target="_blank" rel="noopener">${r.contest || displayId(r.id)}</a>`
         : (r.sources || [r.contest]).join(" / ");
       return `
       <div class="card">
         <div class="card-header">
           <div>
-            <div class="card-id">${r.id}</div>
+            <div class="card-id">${displayId(r.id)}</div>
             <div class="card-meta">${sourceLabel}</div>
           </div>
           ${r.match_pct !== undefined ? `<div class="match-pct">${r.match_pct}% match</div>` : ""}
@@ -291,6 +459,7 @@
   }
 
   loadStats().then(showCatalogue);
+  loadTechniques();
 </script>
 </body>
 </html>
