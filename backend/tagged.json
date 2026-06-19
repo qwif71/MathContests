@@ -2277,5 +2277,1113 @@
     ],
     "difficulty": "hard",
     "summary": "Find the probability that AP is neither the shortest nor longest side of triangle APB using geometric regions."
+  },
+  {
+    "id": "AMIO-AMC10A-2023-P1",
+    "statement": "Cities $A$ and $B$ are $45$ miles apart. Alicia lives in $A$ and Beth lives in $B$ . Alicia bikes towards $B$ at 18 miles per hour. Leaving at the same time, Beth bikes toward $A$ at 12 miles per hour. How many miles from City $A$ will they be when they meet? $\\textbf{(A) }20\\qquad\\textbf{(B) }24\\qquad\\textbf{(C) }25\\qquad\\textbf{(D) }26\\qquad\\textbf{(E) }27$",
+    "solution": "This is a $d=st$ problem, so let $x$ be the time it takes to meet. We can write the following equation: \\[12x+18x=45\\] Solving gives us $x=1.5$ . The $18x$ is Alicia so $18\\times1.5=\\boxed{27}$",
+    "candidates": [
+      "The relative speed of the two is $18+12=30$ , so $\\frac{3}{2}$ hours would be required to travel $45$ miles. $d=st$ , so $x=18\\cdot\\frac{3}{2}=\\boxed{27}$",
+      "Since $18$ mph is $\\frac{3}{2}$ times $12$ mph, Alicia will travel $\\frac{3}{2}$ times as far as Beth. If $x$ is the distance Beth travels, \\[\\frac{3}{2}x+x=45\\] \\[\\frac{5}{2}x=45\\] \\[x=18\\] Since this is the amount Beth traveled, the amount that Alicia traveled was \\[45-18=\\boxed{27}\\]",
+      "Alice and Barbara close in on each other at 30mph. Since they are 45 miles apart, they will meet in t = d/s = 45miles / 30mph = 3/2 hours. We can either calculate the distance Alice travels at 18mph or the distance Barbara travels at 12mph; since we want the distance from Alice, we go with the former. Alice (and Barbara) will meet in 1 1/2 hours at 18mph x 3/2 hours = 27 miles from A. $\\boxed{27}$",
+      "We know that Beth starts 45 miles away from City A, let’s create two equations: Alice-> $18t=d$ Beth-> $-12t+45=d$ [-12 is the slope; 45 is the y-intercept] Solve the system: $18t=-12t+45 30t=45 t=1.5$ So, $18(1.5)=$ $\\boxed{27}$",
+      "Since Alicia and Beth's speeds are constant, they are directly proportional to their distances covered, so the ratio of their speeds is equal to the ratio of their covered distances. Since Alicia travels $\\frac{18}{30} = \\frac{3}{5}$ of their combined speed, she travels $\\frac{3}{5}\\cdot 45 = \\boxed{27}$ of the total distance."
+    ],
+    "contest": "AMC 10A 2023",
+    "round": "Individual Round",
+    "number": 1,
+    "answer": "27",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10A_Problems/Problem_1"
+    ],
+    "difficulty_score": 5.0,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "distance-rate-time",
+      "linear equations"
+    ],
+    "techniques": [
+      "distance-rate-time"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests setting up and solving a meeting-point problem using distance equals rate times time."
+  },
+  {
+    "id": "AMIO-AMC10A-2023-P3",
+    "statement": "How many positive perfect squares less than $2023$ are divisible by $5$ $\\textbf{(A) } 8 \\qquad\\textbf{(B) }9 \\qquad\\textbf{(C) }10 \\qquad\\textbf{(D) }11 \\qquad\\textbf{(E) } 12$",
+    "solution": "Note that $40^2=1600$ but $45^{2}=2025$ (which is over our limit of $2023$ ). Therefore, the list is $5^2,10^2,15^2,20^2,25^2,30^2,35^2,40^2$ . There are $8$ elements, so the answer is $\\boxed{8}$",
+    "candidates": [
+      "Since $\\left \\lfloor{\\sqrt{2023}}\\right \\rfloor = 44$ , there are $\\left \\lfloor{\\frac{44}{5}}\\right \\rfloor = \\boxed{8}$ perfect squares less than 2023.",
+      "Since $5$ is prime, each solution must be divisible by $5^2=25$ . We take $\\left \\lfloor{\\frac{2023}{25}}\\right \\rfloor = 80$ and see that there are $\\boxed{8}$ positive perfect squares no greater than $80$",
+      "We know the highest value would be at least $40$ but less than $50$ so we check $45$ , prime factorizing 45. We get $3^2 \\cdot 5$ . We square this and get $81 \\cdot 25$ . We know that $80 \\cdot 25 = 2000$ , then we add 25 and get $2025$ , which does not satisfy our requirement of having the square less than $2023$ . The largest multiple of $5$ that satisfies this is $40$ and the smallest multiple of $5$ that works is $5$ so all multiples of $5$ from $5$ to $40$ satisfy the requirements. Now we divide each element of the set by $5$ and get $1-8$ so there are $\\boxed{8}$ solutions."
+    ],
+    "contest": "AMC 10A 2023",
+    "round": "Individual Round",
+    "number": 3,
+    "answer": "8",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10A_Problems/Problem_3"
+    ],
+    "difficulty_score": 5.2,
+    "area": [
+      "Number Theory"
+    ],
+    "subtopics": [
+      "perfect squares",
+      "divisibility",
+      "counting"
+    ],
+    "techniques": [
+      "divisibility",
+      "perfect squares/cubes"
+    ],
+    "difficulty": "easy",
+    "summary": "Count perfect squares less than 2023 that are divisible by 5."
+  },
+  {
+    "id": "AMIO-AMC10A-2023-P4",
+    "statement": "A quadrilateral has all integer sides lengths, a perimeter of $26$ , and one side of length $4$ . What is the greatest possible length of one side of this quadrilateral? $\\textbf{(A) }9\\qquad\\textbf{(B) }10\\qquad\\textbf{(C) }11\\qquad\\textbf{(D) }12\\qquad\\textbf{(E) }13$",
+    "solution": "Let's use the triangle inequality. We know that for a triangle, the sum of the 2 shorter sides must always be longer than the longest side. This is because if the longest side were to be as long as the sum of the other sides, or longer, we would only have a line. Similarly, for a convex quadrilateral, the sum of the shortest 3 sides must always be longer than the longest side. Thus, the answer is $\\frac{26}{2}-1=13-1=\\boxed{12}$",
+    "candidates": [
+      "Say the chosen side is $a$ and the other sides are $b,c,d$ By the Generalised Polygon Inequality, $a<b+c+d$ . We also have $a+b+c+d=26\\Rightarrow b+c+d=26-a$ Combining these two, we get $a<26-a\\Rightarrow a<13$ The largest length that satisfies this is $a=\\boxed{12}$",
+      "The quadrilateral can by cyclic only when it is an isosceles triangle. Without Loss of Generality, lets assume that this quadrilateral is a trapezoid. We can assume this as if we inscribe a trapezoid in a triangle, the base can be the diameter of the circle which is the longest chord in the circle, therefore maximizing the side length. By Brahmagupta's Formula, the area of the quadrilateral is defined by $\\sqrt{(s-a)(s-b)(s-c)(s-d)}$ where $s$ is the semi-perimeter. If the perimeter of the quadrilateral is $26$ , then the semi-perimeter will be $13$ . The area of the quadrilateral must be positive so the difference between the semi-perimeter and a side length must be greater than $0$ as otherwise, the area will be $0$ or negative. Therefore, the longest a side can be in this quadrilateral is $\\boxed{12}$",
+      "This is an AMC 10 problem 4, so there is no need for any complex formulas. The largest singular side length from a quadrilateral comes from a trapezoid. So we can set the $2$ sides of the trapezoid equal to $4$ . Next we can split the trapezoid into $5$ triangles, where each base length of the triangle equals $4$ . So the top side equals $8$ , and the bottom side length equals $4+4+4$ $=$ $\\boxed{12}$ ~ kabbybear"
+    ],
+    "contest": "AMC 10A 2023",
+    "round": "Individual Round",
+    "number": 4,
+    "answer": "12",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10A_Problems/Problem_4"
+    ],
+    "difficulty_score": 5.4,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "quadrilaterals",
+      "integer side lengths",
+      "perimeter"
+    ],
+    "techniques": [
+      "triangle inequality"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests the generalized triangle inequality for quadrilaterals to maximize one side length."
+  },
+  {
+    "id": "AMIO-AMC10A-2023-P5",
+    "statement": "How many digits are in the base-ten representation of $8^5 \\cdot 5^{10} \\cdot 15^5$ $\\textbf{(A)}~14\\qquad\\textbf{(B)}~15\\qquad\\textbf{(C)}~16\\qquad\\textbf{(D)}~17\\qquad\\textbf{(E)}~18\\qquad$",
+    "solution": "Prime factorizing this gives us $2^{15}\\cdot3^{5}\\cdot5^{15}=10^{15}\\cdot3^5=243\\cdot10^{15}$ $10^{15}$ gives us $15$ digits and $243$ gives us $3$ digits. $15+3=\\text{\\boxed{18}$",
+    "candidates": [
+      "Multiplying it out, we get that $8^5 \\cdot 5^{10} \\cdot 15^5 = 243000000000000000$ . Counting, we have the answer is $\\text{\\boxed{18}$ ~andliu766"
+    ],
+    "contest": "AMC 10A 2023",
+    "round": "Individual Round",
+    "number": 5,
+    "answer": "18",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10A_Problems/Problem_5"
+    ],
+    "difficulty_score": 5.6,
+    "area": [
+      "Number Theory",
+      "Algebra"
+    ],
+    "subtopics": [
+      "prime factorization",
+      "digit counting",
+      "powers of 10"
+    ],
+    "techniques": [
+      "prime factorization"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests prime factorization and counting digits by expressing a product as a power of 10 times a small integer."
+  },
+  {
+    "id": "AMIO-AMC10A-2023-P6",
+    "statement": "An integer is assigned to each vertex of a cube. The value of an edge is defined to be the sum of the values of the two vertices it touches, and the value of a face is defined to be the sum of the values of the four edges surrounding it. The value of the cube is defined as the sum of the values of its six faces. Suppose the sum of the integers assigned to the vertices is $21$ . What is the value of the cube? $\\textbf{(A) } 42 \\qquad \\textbf{(B) } 63 \\qquad \\textbf{(C) } 84 \\qquad \\textbf{(D) } 126 \\qquad \\textbf{(E) } 252$",
+    "solution": "Each of the vertices is counted $3$ times because each vertex is shared by three different edges. Each of the edges is counted $2$ times because each edge is shared by two different faces. Since the sum of the integers assigned to all vertices is $21$ , the final answer is $21\\times3\\times2=\\boxed{126}$",
+    "candidates": [
+      "Note that each vertex is counted $2\\times 3=6$ times. Thus, the answer is $21\\times6=\\boxed{126}$",
+      "Just set one vertice equal to $21$ , it is trivial to see that there are $3$ faces with value $42$ , and $42 \\cdot 3=\\boxed{126}$",
+      "Since there are 8 vertices in a cube, there are $\\dfrac{21}4$ vertices for two edges. There are $4$ edges per face, and $6$ faces in a cube, so the value of the cube is $\\dfrac{21}4 \\cdot 24 = \\boxed{126}$",
+      "Set each vertex to value 1, so the sum of the vertices is 8. We find that the value of the cube, if all vertices are 1, is 48. We conclude that the value of the cube is 6 times the value of the sum of the vertices. Therefore, we choose $21\\times6=\\boxed{126}$",
+      "The wording of the problem implies that the answer should hold for any valid combination of integers. Thus, we choose the numbers $21, 0, 0, 0, 0, 0, 0, 0$ , which are indeed $8$ integers that add to $21$ . Doing this, we find three edges that have a value of $21$ , and from there, we get three faces with a value of $42$ (while the other three faces have a value of $0$ ). Adding the three faces together, we get $42+42+42 = \\boxed{126}$"
+    ],
+    "contest": "AMC 10A 2023",
+    "round": "Individual Round",
+    "number": 6,
+    "answer": "126",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10A_Problems/Problem_6"
+    ],
+    "difficulty_score": 5.8,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "counting on graphs",
+      "cube structure",
+      "weighted sums"
+    ],
+    "techniques": [
+      "double counting"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests how many times each vertex contributes to the cube's total value via double counting."
+  },
+  {
+    "id": "AMIO-AMC10A-2023-P8",
+    "statement": "Barb the baker has developed a new temperature scale for her bakery called the Breadus scale, which is a linear function of the Fahrenheit scale. Bread rises at $110$ degrees Fahrenheit, which is $0$ degrees on the Breadus scale. Bread is baked at $350$ degrees Fahrenheit, which is $100$ degrees on the Breadus scale. Bread is done when its internal temperature is $200$ degrees Fahrenheit. What is this in degrees on the Breadus scale? $\\textbf{(A) }33\\qquad\\textbf{(B) }34.5\\qquad\\textbf{(C) }36\\qquad\\textbf{(D) }37.5\\qquad\\textbf{(E) }39$",
+    "solution": "To solve this question, you can use $y = mx + b$ where the $x$ is Fahrenheit and the $y$ is Breadus. We have $(110,0)$ and $(350,100)$ . We want to find the value of $y$ in $(200,y)$ that falls on this line. The slope for these two points is $\\frac{5}{12}$ $y = \\frac{5}{12}x + b$ . Solving for $b$ using $(110, 0)$ $\\frac{550}{12} = -b$ . We get $b = \\frac{-275}{6}$ . Plugging in $(200, y), \\frac{1000}{12}-\\frac{550}{12}=y$ . Simplifying, $\\frac{450}{12} = \\boxed{37.5}$",
+    "candidates": [
+      "Let $^\\circ B$ denote degrees Breadus. We notice that $200^\\circ F$ is $90^\\circ F$ degrees to $0^\\circ B$ , and $150^\\circ F$ to $100^\\circ B$ . This ratio is $90:150=3:5$ ; therefore, $200^\\circ F$ will be $\\dfrac3{3+5}=\\dfrac38$ of the way from $0$ to $100$ , which is $\\boxed{37.5.}$",
+      "From $110$ to $350$ degrees Fahrenheit, the Breadus scale goes from $1$ to $100$ $110$ to $350$ degrees is a span of $240$ , and we can use this to determine how many Fahrenheit each Breadus unit is worth. $240$ divided by $100$ is $2.4$ , so each Breadus unit is $2.4$ Fahrenheit, starting at $110$ Fahrenheit. For example, $1$ degree on the Breadus scale is $110 + 2.4$ , or $112.4$ Fahrenheit. Using this information, we can figure out how many Breadus degrees $200$ Fahrenheit is. $200-110$ is $90$ , so we divide $90$ by $2.4$ to find the answer, which is $\\boxed{37.5}$",
+      "We note that the range of F temperatures that $0-100$ $\\text{Br}^\\circ$ represents is $350-110 = 240$ $\\text{F}^\\circ$ $200$ $\\text{F}^\\circ$ is $(200-110) = 90$ $\\text{F}^\\circ$ along the way to getting to $240$ $\\text{F}^\\circ$ , the end of this range, or $90/240 = 9/24 = 3/8 = 0.375$ of the way. Therefore if we switch to the Br scale, we are $0.375$ of the way to $100$ from $0$ , or at $\\boxed{37.5}^\\circ$",
+      "We have the points $(0, 110)$ and $(100, 350)$ . We want to find $(x, 200)$ . The equation of the line is $y=\\frac{12}{5}x+110$ . We use this to find $x=\\frac{75}{2}=37.5$ , or $\\boxed{37.5}$ . ~MC413551"
+    ],
+    "contest": "AMC 10A 2023",
+    "round": "Individual Round",
+    "number": 8,
+    "answer": "37.5",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10A_Problems/Problem_8"
+    ],
+    "difficulty_score": 5.9,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "linear functions",
+      "unit conversion",
+      "slope-intercept form"
+    ],
+    "techniques": [
+      "system of linear equations"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests setting up and evaluating a linear function given two points to convert between temperature scales."
+  },
+  {
+    "id": "AMIO-AMC10A-2023-P9",
+    "statement": "A digital display shows the current date as an $8$ -digit integer consisting of a $4$ -digit year, followed by a $2$ -digit month, followed by a $2$ -digit date within the month. For example, Arbor Day this year is displayed as 20230428. For how many dates in $2023$ will each digit appear an even number of times in the 8-digital display for that date? $\\textbf{(A)}~5\\qquad\\textbf{(B)}~6\\qquad\\textbf{(C)}~7\\qquad\\textbf{(D)}~8\\qquad\\textbf{(E)}~9$",
+    "solution": "Do careful casework by each month. In the month and the date, we need a $0$ , a $3$ , and two digits repeated (which has to be $1$ and $2$ after consideration). After the casework, we get $\\boxed{9}$ . For curious readers, the numbers (in chronological order) are:",
+    "candidates": [
+      "There is one $3$ , so we need one more (three more means that either the month or units digit of the day is $3$ ). For the same reason, we need one more $0$ If $3$ is the units digit of the month, then the $0$ can be in either of the three remaining slots. For the first case (tens digit of the month), then the last two digits must match ( $11, 22$ ). For the second (tens digit of the day), we must have the other two be $1$ , as a month can't start with $2$ or $0$ . There are $3$ successes this way. If $3$ is the tens digit of the day, then $0$ can be either the tens digit of the month or the units digit of the day. For the first case, $1$ must go in the other slots. For the second, the other two slots must be $1$ as well. There are $2$ successes here. If $3$ is the units digit of the day, then $0$ could go in any of the $3$ remaining slots again. If it's the tens digit of the day, then the other digits must be $1$ . If $0$ is the units digit of the day, then the other two slots must both be $1$ . If $0$ is the tens digit of the month, then the other two slots can be either both $1$ or both $2$ . In total, there are $4$ successes here. Summing through all cases, there are $3 + 2 + 4 = \\boxed{9}$ dates.",
+      "We start with $2023----$ we need an extra $0$ and an extra $3$ . So we have at least one of those extras in the days, except we can have the month $03$ . We now have $6$ possible months $01,02,03,10,11,12$ . For month $1$ we have two cases, we now have to add in another 1, and the possible days are $13,31$ . For month $2$ we need an extra $2$ so we can have the day $23$ note that we can't use $32$ because it is to large. Now for month $3$ we can have any number and multiply it by $11$ so we have the solution $11,22$ . For October we need a $1$ and a $3$ so we have $13,31$ as our choices. For November we have two choices which are $03,30$ .Now for December we have $0$ options. Summing $2+1+2+2+2$ we get $\\boxed{9}$ solutions."
+    ],
+    "contest": "AMC 10A 2023",
+    "round": "Individual Round",
+    "number": 9,
+    "answer": "9",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10A_Problems/Problem_9"
+    ],
+    "difficulty_score": 6.1,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "digit counting",
+      "calendar problems",
+      "even frequency digits"
+    ],
+    "techniques": [
+      "casework"
+    ],
+    "difficulty": "medium",
+    "summary": "Count dates in 2023 where every digit appears an even number of times in the 8-digit display."
+  },
+  {
+    "id": "AMIO-AMC10A-2023-P10",
+    "statement": "Maureen is keeping track of the mean of her quiz scores this semester. If Maureen scores an $11$ on the next quiz, her mean will increase by $1$ . If she scores an $11$ on each of the next three quizzes, her mean will increase by $2$ . What is the mean of her quiz scores currently? $\\textbf{(A) }4\\qquad\\textbf{(B) }5\\qquad\\textbf{(C) }6\\qquad\\textbf{(D) }7\\qquad\\textbf{(E) }8$",
+    "solution": "Let $a$ represent the amount of tests taken previously and $x$ the mean of the scores taken previously. We can write the following equations: \\[\\frac{ax+11}{a+1}=x+1\\qquad (1)\\] \\[\\frac{ax+33}{a+3}=x+2\\qquad (2)\\] Multiplying $(x+1)$ by $(a+1)$ and solving, we get: \\[ax+11=ax+a+x+1\\] \\[11=a+x+1\\] \\[a+x=10\\qquad (3)\\] Multiplying $(2)$ by $(a+3)$ and solving, we get: \\[ax+33=ax+2a+3x+6\\] \\[33=2a+3x+6\\] \\[2a+3x=27\\qquad (4)\\] Solving the system of equations for $(3)$ and $(4)$ , we find that $a=3$ and $x=\\boxed{7}$",
+    "candidates": [
+      "Suppose Maureen took $n$ tests with an average of $m$ If she takes another test, her new average is $\\frac{(nm+11)}{(n+1)}=m+1$ Cross-multiplying: $nm+11=nm+n+m+1$ , so $n+m=10$ If she takes $3$ more tests, her new average is $\\frac{(nm+33)}{(n+3)}=m+2$ Cross-multiplying: $nm+33=nm+2n+3m+6$ , so $2n+3m=27$ But $2n+3m$ can also be written as $2(n+m)+m=20+m$ . Therefore $m=27-20=\\boxed{7}$",
+      "Let $s$ represent the sum of Maureen's test scores previously and $t$ be the number of scores taken previously. So, $\\frac{s+11}{t+1} = \\frac{s}{t}+1$ and $\\frac{s+33}{t+3} = \\frac{s}{t}+2$ We can use the first equation to write $s$ in terms of $t$ We then substitute this into the second equation: $\\frac{-t^2+10t+33}{t+3} = \\frac{-t^2+10}{t}+2$ From here, we solve for t, getting $t=3$ We substitute this to get $s=21$ Therefore, the solution to the problem is $\\frac{21}{3}=$ $\\boxed{7}$",
+      "Let's consider all the answer choices. If the average is $8$ , then, we can assume that all her test choices were $8$ . We can see that she must have gotten $8$ twice, in order for another score of $11$ to bring her average up by one. However, adding three $11$ 's will not bring her score up to 10. Continuing this process for the answer choices, we see that the answer is $\\boxed{7}$ ~andliu766"
+    ],
+    "contest": "AMC 10A 2023",
+    "round": "Individual Round",
+    "number": 10,
+    "answer": "7",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10A_Problems/Problem_10"
+    ],
+    "difficulty_score": 6.3,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "arithmetic mean",
+      "system of equations",
+      "quiz score averages"
+    ],
+    "techniques": [
+      "system of linear equations"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests setting up and solving a system of equations from conditions on a changing arithmetic mean."
+  },
+  {
+    "id": "AMIO-AMC10A-2023-P12",
+    "statement": "How many three-digit positive integers $N$ satisfy the following properties? $\\textbf{(A) } 13 \\qquad \\textbf{(B) } 14 \\qquad \\textbf{(C) } 15 \\qquad \\textbf{(D) } 16 \\qquad \\textbf{(E) } 17$",
+    "solution": "Multiples of $5$ will always end in $0$ or $5$ , and since the numbers have to be a three-digit numbers (otherwise it would be a two-digit number), it cannot start with 0, narrowing our choices to 3-digit numbers starting with $5$ . Since the numbers must be divisible by 7, all possibilities have to be in the range from $7 \\cdot 72$ to $7 \\cdot 85$ inclusive. $85 - 72 + 1 = 14$ $\\boxed{14}$",
+    "candidates": [
+      "Let $N=\\overline{cab}=100c+10a+b.$ We know that $\\overline{bac}$ is divisible by $5$ , so $c$ is either $0$ or $5$ . However, since $c$ is the first digit of the three-digit number $N$ , it can not be $0$ , so therefore, $c=5$ . Thus, $N=\\overline{5ab}=500+10a+b.$ There are no further restrictions on digits $a$ and $b$ aside from $N$ being divisible by $7$ The smallest possible $N$ is $504$ . The next smallest $N$ is $511$ , then $518$ , and so on, all the way up to $595$ . Thus, our set of possible $N$ is $\\{504,511,518,\\dots,595\\}$ . Dividing by $7$ for each of the terms will not affect the cardinality of this set, so we do so and get $\\{72,73,74,\\dots,85\\}$ . We subtract $71$ from each of the terms, again leaving the cardinality unchanged. We end up with $\\{1,2,3,\\cdots,14\\}$ , which has a cardinality of $14$ . Therefore, our answer is $\\boxed{14.}$",
+      "We first proceed as in the above solution, up to $N=500+10a+b$ . We then use modular arithmetic: \\begin{align*} 0&\\equiv N \\:(\\text{mod }7)\\\\ &\\equiv500+10a+b\\:(\\text{mod }7)\\\\ &\\equiv3+3a+b\\:(\\text{mod }7)\\\\ 3a+b&\\equiv-3\\:(\\text{mod }7)\\\\ &\\equiv4\\:(\\text{mod }7)\\\\ \\end{align*} We know that $0\\le a,b<10$ . We then look at each possible value of $a$ If $a=0$ , then $b$ must be $4$ If $a=1$ , then $b$ must be $1$ or $8$ If $a=2$ , then $b$ must be $5$ If $a=3$ , then $b$ must be $2$ or $9$ If $a=4$ , then $b$ must be $6$ If $a=5$ , then $b$ must be $3$ If $a=6$ , then $b$ must be $0$ or $7$ If $a=7$ , then $b$ must be $4$ If $a=8$ , then $b$ must be $1$ or $8$ If $a=9$ , then $b$ must be $5$ Each of these cases are unique, so there are a total of $1+2+1+2+1+1+2+1+2+1=\\boxed{14.}$",
+      "The key point is that when reversed, the number must start with a $0$ or a $5$ based on the second restriction. But numbers can't start with a $0$ So the problem is simply counting the number of multiples of $7$ in the $500$ s. $7 \\times 72 = 504$ , so the first multiple is $7 \\times 72$ $7 \\times 85 = 595$ , so the last multiple is $7 \\times 85$ Now, we just have to count $7\\times 72, 7\\times 73, 7\\times 74,\\cdots, 7\\times 85$ We have a set that numbers $85-71=\\boxed{14}$"
+    ],
+    "contest": "AMC 10A 2023",
+    "round": "Individual Round",
+    "number": 12,
+    "answer": "14",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10A_Problems/Problem_12"
+    ],
+    "difficulty_score": 6.5,
+    "area": [
+      "Number Theory"
+    ],
+    "subtopics": [
+      "divisibility",
+      "three-digit integers",
+      "multiples"
+    ],
+    "techniques": [
+      "divisibility",
+      "casework"
+    ],
+    "difficulty": "easy",
+    "summary": "Count three-digit integers divisible by both 5 and 7 satisfying digit constraints."
+  },
+  {
+    "id": "AMIO-AMC10A-2023-P15",
+    "statement": "An even number of circles are nested, starting with a radius of $1$ and increasing by $1$ each time, all sharing a common point. The region between every other circle is shaded, starting with the region inside the circle of radius $2$ but outside the circle of radius $1.$ An example showing $8$ circles is displayed below. What is the least number of circles needed to make the total shaded area at least $2023\\pi$ [asy] filldraw(circle((0,0),8),gray); filldraw(circle((-1,0),7),white); filldraw(circle((-2,0),6),gray); filldraw(circle((-3,0),5),white); filldraw(circle((-4,0),4),gray); filldraw(circle((-5,0),3),white); filldraw(circle((-6,0),2),gray); filldraw(circle((-7,0),1),white); [/asy] $\\textbf{(A) } 46 \\qquad \\textbf{(B) } 48 \\qquad \\textbf{(C) } 56 \\qquad \\textbf{(D) } 60 \\qquad \\textbf{(E) } 64$",
+    "solution": "Notice that the area of the shaded region is $(2^2\\pi-1^2\\pi)+(4^2\\pi-3^2\\pi)+(6^2\\pi-5^2\\pi)+ \\cdots + (n^2\\pi-(n-1)^2 \\pi)$ for any even number $n$ Using the difference of squares, this simplifies to $(1+2+3+4+\\cdots+n) \\pi$ . So, we are basically finding the smallest $n$ such that $\\frac{n(n+1)}{2}>2023 \\Rightarrow n(n+1) > 4046$ . Since $60(61) > 60^2=3600$ , the only option higher than $60$ is $\\boxed{64}$",
+    "candidates": [
+      "After first observing the problem, we can work out a few of the areas. 1st area = $4\\pi-\\pi = 3\\pi$ 2nd area = $16\\pi-9\\pi = 7\\pi$ 3rd area = $36\\pi-25\\pi = 11\\pi$ 4th area = $64\\pi-49\\pi = 15\\pi$ We can see that the pattern is an arithmetic sequence with first term $3$ and common difference $4$ . From here, we can start from the bottom of the answer choices and work our way up. As the question asks for the least number of circles needed total, we have to divide the number of total circles by 2. We can find the sum of the first $32$ terms of the arithmetic sequence by using the formula. The last term is: $3 + 4\\cdot(32-1) = 127$ Then, we can find the sum: $(3+127)/2 \\cdot 32 = 65\\cdot32 = 2080$ . It is clear that $64$ works. The next answer choice is $60$ , which we have to divide by 2 to get $30$ The last term is: $3 + 4\\cdot(30-1) = 119$ The sum is: $(3+119)/2 \\cdot 30 = 61\\cdot30 = 1830$ . This does not work. As answer choice $D$ does not work and $E$ does, we can conclude that the answer is $\\boxed{64}$",
+      "We can easily see that all of the answer choices are even, which helps us solve this problem a little. Lets just not consider the $\\pi$ , since it is not that important, so let's just cancel that out. When we plug in 64, we get $64^2-63^2+62^2-61^2+\\cdots +4^2-3^2+2^2-1^2$ . By difference of squares, we get $1+2+3+\\cdots+62+63+64$ , which by the sum of an arithmetic sequence, is $\\frac{64(64+1)}{2}$ , which is $2080$ Similarly, we can use this for answer choice $D$ , and we have $\\frac{60(60+1)}{2}$ which is $1830$ So, we see that answer choice $D$ is too small to satisfy the requirements, so we conclude the answer is $\\boxed{64}$",
+      "We can consider making a table. If there is 1 circle, the area of the shaded region is 0π. (We can write this as 0π.) If there are 2 circles, the area of the shaded region is 3π. (We can write this as (1+2)π). If there are 3 circles, the area of the shaded region is 3π. (We can write this as (1+2)π). If there are 4 circles, the area of the shaded region is 10π. (We can write this as (1+2+3+4)π). If there are 5 circles, the area of the shaded region is 10π. (We can write this as (1+2+3+4)π). If there are 6 circles, the area of the shaded region is 21π. (We can write this as (1+2+3+4+5+6)π). Now the pattern emerges. When $n$ is even, the area of the shaded region is $(1+2+3+\\cdots+n)\\pi$ , or $\\left( \\frac{n(n+1)}{2} \\right) \\pi$ . But remember that the problem stated that there are an even number of circles. So now we are solving the equation \\[\\left( \\frac{n(n+1)}{2} \\right) \\pi\\ge2023\\pi.\\] Dividing by $\\pi$ and multiplying by 2 on both sides, we get $n(n+1)\\ge4046$ . Now we can plug in the answer choices, and we start off with $60$ because it is the only answer choice that is a multiple of $10$ . Plugging in we get $60\\cdot61=3660$ , and this is not quite yet more than $4046$ . But only option $(\\text{E})$ is bigger, so we know that the solution can only be $\\boxed{64}$",
+      "Denote $S$ the area of shaded region and $W$ the area of white region. $S > W$ and $S \\approx W$ if $R$ is big. Therefore \\[\\pi R^2 = S + W \\approx 2S \\ge 4046 \\pi \\implies R \\approx 64.\\] So we conclude the answer is $\\boxed{64}$"
+    ],
+    "contest": "AMC 10A 2023",
+    "round": "Individual Round",
+    "number": 15,
+    "answer": "64",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10A_Problems/Problem_15"
+    ],
+    "difficulty_score": 6.7,
+    "area": [
+      "Algebra",
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "shaded area of nested circles",
+      "arithmetic series",
+      "inequalities"
+    ],
+    "techniques": [
+      "difference of squares",
+      "arithmetic series"
+    ],
+    "difficulty": "easy",
+    "summary": "Find the minimum even number of nested circles so that the total shaded annular area meets a threshold, using difference of squares and triangular number formula."
+  },
+  {
+    "id": "AMIO-AMC10A-2023-P16",
+    "statement": "In a table tennis tournament every participant played every other participant exactly once. Although there were twice as many right-handed players as left-handed players, the number of games won by left-handed players was $40\\%$ more than the number of games won by right-handed players. (There were no ties and no ambidextrous players.) What is the total number of games played? $\\textbf{(A) }15\\qquad\\textbf{(B) }36\\qquad\\textbf{(C) }45\\qquad\\textbf{(D) }48\\qquad\\textbf{(E) }66$",
+    "solution": "We know that the total amount of games must be the sum of games won by left and right handed players. Then, we can write $g = l + r$ , and since $l = 1.4r$ $g = 2.4r$ . Given that $r$ and $g$ are both integers, $g/2.4$ also must be an integer. From here we can see that $g$ must be divisible by 12, leaving only answers B and D. Now we know the formula for how many games are played in this tournament is $n(n-1)/2$ , the sum of the first $n-1$ triangular numbers. Now, setting 36 and 48 equal to the equation will show that two consecutive numbers must have a product of 72 or 96. Clearly, $72=8*9$ , so the answer is $\\boxed{36}$",
+    "candidates": [
+      "First, we know that every player played every other player, so there's a total of $\\dbinom{n}{2}$ games since each pair of players forms a bijection to a game. Therefore, that rules out D. Also, if we assume the right-handed players won a total of $x$ games, the left-handed players must have won a total of $\\dfrac{7}{5}x$ games, meaning that the total number of games played was $\\dfrac{12}{5}x$ . Thus, the total number of games must be divisible by $12$ . Therefore leaving only answer choices B and D. Since answer choice D doesn't satisfy the first condition, the only answer that satisfies both conditions is $\\boxed{36}$",
+      "Let $r$ be the amount of games the right-handed won. Since the left-handed won $1.4r$ games, the total number of games played can be expressed as $(2.4)r$ , or $12/5r$ , meaning that the answer is divisible by 12. This brings us down to two answer choices, $B$ and $D$ . We note that the answer is some number $x$ choose $2$ . This means the answer is in the form $x(x-1)/2$ . Since answer choice D gives $48 = x(x-1)/2$ , and $96 = x(x-1)$ has no integer solutions, we know that $\\boxed{36}$ is the only possible choice.",
+      "If there are $n$ players, the total number of games played must be $\\binom{n}{2}$ , so it has to be a triangular number. The ratio of games won by left-handed to right-handed players is $7:5$ , so the number of games played must also be divisible by $12$ . Finally, we notice that only $\\boxed{36}$ satisfies both of these conditions."
+    ],
+    "contest": "AMC 10A 2023",
+    "round": "Individual Round",
+    "number": 16,
+    "answer": "36",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10A_Problems/Problem_16"
+    ],
+    "difficulty_score": 6.9,
+    "area": [
+      "Combinatorics",
+      "Algebra"
+    ],
+    "subtopics": [
+      "round-robin tournaments",
+      "divisibility constraints",
+      "counting games"
+    ],
+    "techniques": [
+      "divisibility",
+      "permutations/combinations"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests setting up win-count equations and using divisibility to identify valid round-robin tournament sizes."
+  },
+  {
+    "id": "AMIO-AMC10A-2023-P18",
+    "statement": "A rhombic dodecahedron is a solid with $12$ congruent rhombus faces. At every vertex, $3$ or $4$ edges meet, depending on the vertex. How many vertices have exactly $3$ edges meet? $\\textbf{(A) }5\\qquad\\textbf{(B) }6\\qquad\\textbf{(C) }7\\qquad\\textbf{(D) }8\\qquad\\textbf{(E) }9$",
+    "solution": "Note Euler's formula where $\\text{Vertices}+\\text{Faces}-\\text{Edges}=2$ . There are $12$ faces and the number of edges is $24$ because there are 12 faces each with four edges and each edge is shared by two faces. Now we know that there are $14$ vertices on the figure. Now note that the sum of the degrees of all the points is twice the number of edges. Let $x=$ the amount of vertices with $3$ edges. Now we know $\\frac{3x+4(14-x)}{2}=24$ . Solving this system of equations gives $x = 8$ so the answer is $\\boxed{8}$ . ~aiden22gao ~zgahzlkw (LaTeX) ~ESAOPS (Simplified)",
+    "candidates": [
+      "Let $x$ be the number of vertices with three edges, and $y$ be the number of vertices with four edges. Since there are $\\frac{4*12}{2}=24$ edges on the polyhedron, we can see that $\\frac{3x+4y}{2}=24$ . Then, $3x+4y=48$ . Notice that by testing the answer choices, (D) is the only one that yields an integer solution for $y$ . Thus, the answer is $\\boxed{8}$",
+      "With $12$ rhombi, there are $4\\cdot12=48$ total boundaries. Each edge is used as a boundary twice, once for each face on either side. Thus we have $\\dfrac{48}2=24$ total edges. Let $A$ be the number of vertices with $3$ edges (this is what the problem asks for) and $B$ be the number of vertices with $4$ edges. We have $3A + 4B = 48$ Euler's formula states that, for all convex polyhedra, $V-E+F=2$ . In our case, $V-24+12=2\\implies V=14.$ We know that $A+B$ is the total number of vertices as we are given that all vertices are connected to either $3$ or $4$ edges. Therefore, $A+B=14.$ We now have a system of two equations. There are many ways to solve for $A$ ; choosing one yields $A=\\boxed{8}$",
+      "Note that Euler's formula is $V+F-E=2$ . We know $F=12$ from the question. We also know $E = \\frac{12 \\cdot 4}{2} = 24$ because every face has $4$ edges and every edge is shared by $2$ faces. We can solve for the vertices based on this information. Using the formula we can find: \\[V + 12 - 24 = 2\\] \\[V = 14\\] Let $t$ be the number of vertices with $3$ edges and $f$ be the number of vertices with $4$ edges. We know $t+f = 14$ from the question and $3t + 4f = 48$ . The second equation is because the total number of points is $48$ because there are 12 rhombuses of $4$ vertices. Now, we just have to solve a system of equations. \\[3t + 4f = 48\\] \\[3t + 3f = 42\\] \\[f = 6\\] \\[t = 8\\] Our answer is simply just $t$ , which is $\\boxed{8}$ ~musicalpenguin",
+      "Each of the twelve rhombi has two pairs of angles across from each other that must be congruent. If both pairs of angles occur at $4$ -point intersections, we have a grid of squares. If both occur at $3$ -point intersections, we would have a cube with six square faces. Therefore, two of the points must occur at a $3$ -point intersection and two at a $4$ -point intersection. Since each $3$ -point intersection has $3$ adjacent rhombuses, we know the number of $3$ -point intersections must equal the number of $3$ -point intersections per rhombus times the number of rhombuses over $3$ . Since there are $12$ rhombuses and two $3$ -point intersections per rhombus, this works out to be: $\\frac{2\\cdot12}{3}$ Hence: $\\boxed{8}$ ~hollph27 ~Minor edits by FutureSphinx",
+      "Note that a rhombic dodecahedron is formed when a cube is turned inside out (as seen here ), thus there are 6 4-vertices (corresponding to each face of the cube) and 8 3-vertices (corresponding to each corner of the cube). Thus the answer is $\\boxed{8}$",
+      "Let $m$ be the number of $4$ -edge vertices, and $n$ be the number of $3$ -edge vertices. The total number of vertices is $m+n$ . Now, we know that there are $4 \\cdot 12 = 48$ vertices, but we have overcounted. We have overcounted $m$ vertices $3$ times and overcounted $n$ vertices $2$ times. Therefore, we subtract $3m$ and $2n$ from $48$ and set it equal to our original number of vertices. \\[48 - 3m - 2n = m+n\\] \\[4m + 3n = 48\\] From here, we reduce both sides modulo $4$ . The $4m$ disappears, and the left hand side becomes $3n$ . The right hand side is $0$ , meaning that $3n$ must be divisible by $4$ . Looking at the answer choices, this is only possible for $n = \\boxed{8}$",
+      "Note that a rhombic dodecahedron is the dual of a cuboctahedron. A cuboctahedron has $8$ triangular faces, which correspond to $\\boxed{8}$ vertices on a rhombic dodecahedron that have $3$ edges."
+    ],
+    "contest": "AMC 10A 2023",
+    "round": "Individual Round",
+    "number": 18,
+    "answer": "8",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10A_Problems/Problem_18"
+    ],
+    "difficulty_score": 7.1,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "polyhedra",
+      "graph theory",
+      "vertex degrees"
+    ],
+    "techniques": [
+      "Euler's formula for polyhedra",
+      "handshake lemma"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests application of Euler's formula and the handshake lemma to count vertices of a rhombic dodecahedron."
+  },
+  {
+    "id": "AMIO-AMC10A-2023-P19",
+    "statement": "The line segment formed by $A(1, 2)$ and $B(3, 3)$ is rotated to the line segment formed by $A'(3, 1)$ and $B'(4, 3)$ about the point $P(r, s)$ . What is $|r-s|$ $\\textbf{(A) } \\frac{1}{4} \\qquad \\textbf{(B) } \\frac{1}{2} \\qquad \\textbf{(C) } \\frac{3}{4} \\qquad \\textbf{(D) } \\frac{2}{3} \\qquad \\textbf{(E) } 1$",
+    "solution": "Due to rotations preserving an equal distance, we can bash the answer with the distance formula. $D(A, P) = D(A', P)$ , and $D(B, P) = D(B',P)$ . Thus we will square our equations to yield: $(1-r)^2+(2-s)^2=(3-r)^2+(1-s)^2$ , and $(3-r)^2+(3-s)^2=(4-r)^2+(3-s)^2$ . Canceling $(3-s)^2$ from the second equation makes it clear that $r$ equals $3.5$ Substituting will yield \\begin{align*}(2.5)^2+(2-s)^2 &= (-0.5)^2+(1-s)^2 \\\\ 6.25+4-4s+s^2 &= 0.25+1-2s+s^2 \\\\ 2s &= 9 \\\\ s &=4.5 \\\\ \\end{align*} Now $|r-s| = |3.5-4.5| = \\boxed{1}$",
+    "candidates": [
+      "Due to rotations preserving distance, we have that $BP = B^\\prime P$ , as well as $AP = A^\\prime P$ . From here, we can see that P must be on the perpendicular bisector of $\\overline{BB^\\prime}$ due to the property of perpendicular bisectors keeping the distance to two points constant. From here, we proceed to find the perpendicular bisector of $\\overline{BB^\\prime}$ . We can see that this is just a horizontal line segment with midpoint at $(3.5, 3)$ . This means that the equation of the perpendicular bisector is $x = 3.5$ Similarly, we find the perpendicular bisector of $\\overline{AA^\\prime}$ . We find the slope to be $\\frac{1-2}{3-1} = -\\frac12$ , so our new slope will be $2$ . The midpoint of $A$ and $A^\\prime$ is $(2, \\frac32)$ , which we can use with our slope to get another equation of $y = 2x - \\frac52$ Now, point P has to lie on both of these perpendicular bisectors, meaning that it has to satisfy both equations. Plugging in the value of $x$ we found earlier, we find that $y=4.5$ . This means that $|r - s| = |3.5 - 4.5| = \\boxed{1}$",
+      "To find the center of rotation, we find the intersection point of the perpendicular bisectors of $\\overline{AA^\\prime}$ and $\\overline{BB^\\prime}$ We can find that the equation of the line $\\overline{AA^\\prime}$ is $y = -\\frac{1}{2}x + \\frac{5}{2}$ , and that the equation of the line $\\overline{BB^\\prime}$ is $y = 3$ When we solve for the perpendicular bisector of $y = -\\frac{1}{2}x + \\frac{5}{2}$ , we determine that it has a slope of 2, and it runs through $(2, 1.5)$ . Plugging in $1.5 = 2(2)-n$ , we get than $n = \\frac{5}{2}$ . Therefore our perpendicular bisector is $y=2x-\\frac{5}{2}$ . Next, we solve for the perpendicular of $y = 3$ . We know that it has an undefined slope, and it runs through $(3.5, 3)$ . We can determine that our second perpendicular bisector is $x = 3.5$ Setting the equations equal to each other, we get $2x-\\frac{5}{2} = 3.5$ . Solving for x, we get that $x = \\frac{9}{2}$ . Therefore, $|r - s| = |3.5 - 4.5| = \\boxed{1}$",
+      "We use the complex numbers approach to solve this problem. Denote by $\\theta$ the angle that $AB$ rotates about $P$ in the counterclockwise direction. Thus, $A' - P = e^{i \\theta} \\left( A - P \\right)$ and $B' - P = e^{i \\theta} \\left( B - P \\right)$ Taking ratio of these two equations, we get \\[ \\frac{A' - P}{A - P} = \\frac{B' - P}{B - P} . \\] By solving this equation, we get $P = \\frac{7}{2} + i \\frac{9}{2}$ . Therefore, $|s-t| = \\left| \\frac{7}{2} - \\frac{9}{2} \\right| = \\boxed{1}$"
+    ],
+    "contest": "AMC 10A 2023",
+    "round": "Individual Round",
+    "number": 19,
+    "answer": "1",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10A_Problems/Problem_19"
+    ],
+    "difficulty_score": 7.2,
+    "area": [
+      "Geometry",
+      "Algebra"
+    ],
+    "subtopics": [
+      "rotation",
+      "distance formula",
+      "coordinate geometry"
+    ],
+    "techniques": [
+      "distance formula",
+      "rotation"
+    ],
+    "difficulty": "easy",
+    "summary": "Find the center of rotation mapping one segment to another using the distance-preservation property."
+  },
+  {
+    "id": "AMIO-AMC10A-2023-P20",
+    "statement": "Each square in a $3\\times3$ grid of squares is colored red, white, blue, or green so that every $2\\times2$ square contains one square of each color. One such coloring is shown on the right below. How many different colorings are possible? [asy] unitsize(0.5cm, 0.5cm); draw((0,0)--(9,0)--(9,9)--(0,9)--cycle); draw((0,3)--(9,3)); draw((0,6)--(9,6)); draw((3,0)--(3,9)); draw((6,0)--(6,9)); draw((18,0)--(27,0)--(27,9)--(18,9)--cycle); draw((18,3)--(27,3)); draw((18,6)--(27,6)); draw((21,0)--(21,9)); draw((24,0)--(24,9)); label(\"R\", (19.5,1.5)); label(\"B\", (22.5,1.5)); label(\"R\", (25.5,1.5)); label(\"G\", (19.5,4.5)); label(\"W\", (22.5,4.5)); label(\"G\", (25.5,4.5)); label(\"B\", (19.5,7.5)); label(\"R\", (22.5,7.5)); label(\"B\", (25.5,7.5)); [/asy] $\\textbf{(A) }24\\qquad\\textbf{(B) }48\\qquad\\textbf{(C) }60\\qquad\\textbf{(D) }72\\qquad\\textbf{(E) }96$",
+    "solution": "Let a \"tile\" denote a $1\\times1$ square and \"square\" refer to $2\\times2$ We first have $4!=24$ possible ways to fill out the top left square. We then fill out the bottom right tile. In the bottom right square, we already have one corner filled out (from our initial coloring), and we now have $3$ options left to pick from. We then look at the right middle tile. It is part of two squares: the top right and top left. Among these squares, $3$ colors have already been used, so we only have one more option for it. Similarly, every other square only has one more option, so we have a total of $3\\cdot4!=\\boxed{72}$ ways.",
+    "candidates": [
+      "[asy] unitsize(0.5cm, 0.5cm); draw((0,0)--(9,0)--(9,9)--(0,9)--cycle); draw((0,3)--(9,3)); draw((0,6)--(9,6)); draw((3,0)--(3,9)); draw((6,0)--(6,9)); label(\"R\", (1.5,1.5)); label(\"B\", (4.5,1.5)); label(\"R\", (7.5,1.5)); label(\"G\", (1.5,4.5)); label(\"W\", (4.5,4.5)); label(\"G\", (7.5,4.5)); label(\"B\", (1.5,7.5)); label(\"R\", (4.5,7.5)); label(\"B\", (7.5,7.5)); draw((18,0)--(27,0)--(27,9)--(18,9)--cycle); draw((18,3)--(27,3)); draw((18,6)--(27,6)); draw((21,0)--(21,9)); draw((24,0)--(24,9)); label(\"R\", (19.5,1.5)); label(\"B\", (22.5,1.5)); label(\"R\", (25.5,1.5)); label(\"G\", (19.5,4.5)); label(\"W\", (22.5,4.5)); label(\"G\", (25.5,4.5)); label(\"R\", (19.5,7.5)); label(\"B\", (22.5,7.5)); label(\"R\", (25.5,7.5)); [/asy] We can split this problem into $2$ cases as shown above. We can swap a set of equal colors for another set of equal colors to create a new square. Square 1: The first square can be rotated to create another square so we have to multiply the number of arrangements by $2$ . We have $4! = 24$ arrangements without rotating and $24\\cdot 2 = 48$ arrangements in total for the first square. Square 2: There are $4! = 24$ ways to arrange the colors. In total, we have $48 + 24 = \\boxed{72}$ arrangements.",
+      "Let’s call the top-right corner color A, the top-middle color B, the top-right color C, and so on, with color D being the middle row, and right corner square, and color G being the bottom-left square’s color. WLOG A=Red, B=White, D=Blue, and E=Green. We will now consider squares C and F’s colors. Case 1 : C=Red and F=Blue In this case, we get that G and H have to be Red and White in some order, and the same for H and I. We can color this in 2 ways. Case 2 : C=Blue and F=Red In this case, one of G and H needs to be White and Red, and H and I needs to be White and Blue. There is 1 way to color this. In total, we get 24*(2+1)=72 ways to color the grid. $\\boxed{72}$",
+      "We will choose colors step-by-step: 1. There are $4$ ways to choose a color in the center. 2. Then we select any corner and there would be $3$ ways to choose a color as we can't use the same color as the one in the center. 3. Consider the $2\\times 2$ square that contains the center and the corner we have selected. For the other $2$ squares, there are $2$ ways to choose colors. 4. Now, consider how many configurations it makes sense to construct the $2\\times 2$ square opposite to the corner we have selected using the $2$ other $2\\times 2$ squares, and we get $3$ configurations. Finally, the answer is $4 \\cdot 3 \\cdot 2 \\cdot 3 = \\boxed{72}$",
+      "Note that there can be no overlap between colors in each square. Then, we can choose $1$ color to be in the center. ${4 \\choose 1}$ = 4 Now, we have some casework: Case 1: 1 color is placed in 4 corners and then others are placed on opposite edges. $232$ $414$ $232$ There's $3!=6$ ways to do this. Case 2: 2 colors are placed with 2 in adjacent corners and 1 edge opposite them. The final color is placed in the remaining 2 edges. $232$ $414$ $323$ The orientation of the 2 colors has 2 possibilities, and there are $3!$ color permutations. $2*3!=12$ There can't be any more ways to do this, as we have combined all cases such that each color is used once and only once per $2*2$ square. We multiply the start with the sum of the 2 cases: $4(6+12)=\\boxed{72}$",
+      "[asy] unitsize(0.5cm, 0.5cm); draw((0,0)--(9,0)--(9,9)--(0,9)--cycle); draw((0,3)--(9,3)); draw((0,6)--(9,6)); draw((3,0)--(3,9)); draw((6,0)--(6,9)); label(\"2\", (1.5,1.5)); label(\"1\", (4.5,1.5)); label(\"1\", (7.5,1.5)); label(\"2\", (1.5,4.5)); label(\"3\", (4.5,4.5)); label(\"1\", (7.5,4.5)); label(\"3\", (1.5,7.5)); label(\"1\", (4.5,7.5)); label(\"2\", (7.5,7.5)); [/asy] Note that we could fill the 3 by 3 square with numbers of choices, rather than letters or color names. The top-left corner receives a 3 because there are 3 total choices to choose from: R, G and B. The squares bordering them has values of 2 and 1, regardless of order. 2 indicates that the small square can have any color excluding the one existing color, 1 indicates the remaining color of the 2 by 2 square. Finally, the middle square receives 3, since the first 2 by 2 square has RGB already, and it does not matter what color it has. Moving onto the next 2 by 2 square, we see that there are already 2 decided colors, so the other squares must be 2 and 1, again, regardless of the order. The same applys to the third 2 by 2 square, and finally the last square has the value of one, as it is the only square left. Multiplying the numbers, $2\\times2\\times2\\times3\\time3\\times3$ $\\boxed{72}$"
+    ],
+    "contest": "AMC 10A 2023",
+    "round": "Individual Round",
+    "number": 20,
+    "answer": "72",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10A_Problems/Problem_20"
+    ],
+    "difficulty_score": 7.4,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "grid coloring",
+      "constraint satisfaction",
+      "counting"
+    ],
+    "techniques": [
+      "multiplication principle",
+      "casework"
+    ],
+    "difficulty": "medium",
+    "summary": "Count 3×3 grid colorings where every 2×2 square contains all four colors."
+  },
+  {
+    "id": "AMIO-AMC10A-2023-P21",
+    "statement": "Let $P(x)$ be the unique polynomial of minimal degree with the following properties: The roots of $P(x)$ are integers, with one exception. The root that is not an integer can be written as $\\frac{m}{n}$ , where $m$ and $n$ are relatively prime integers. What is $m+n$ $\\textbf{(A) }41\\qquad\\textbf{(B) }43\\qquad\\textbf{(C) }45\\qquad\\textbf{(D) }47\\qquad\\textbf{(E) }49$",
+    "solution": "From the problem statement, we know $P(2-2)=0$ $P(9)=0$ and $4P(4)=0$ . Therefore, we know that $0$ $9$ , and $4$ are roots. So, we can factor $P(x)$ as $x(x - 9)(x - 4)(x - a)$ , where $a$ is the unknown root. Since $P(x) - 1 = 0$ , we plug in $x = 1$ which gives $1(-8)(-3)(1 - a) = 1$ , therefore $24(1 - a) = 1 \\implies 1 - a = 1/24 \\implies a = 23/24$ . Therefore, our answer is $23 + 24 =\\boxed{47}$",
+    "candidates": [
+      "We proceed similarly to solution one. We get that $x(x-9)(x-4)(x-a)=1$ . Expanding, we get that $x(x-9)(x-4)(x-a)=x^4-(a+13)x^3+(13a+36)x^2-36ax$ . We know that $P(1)=1$ , so the sum of the coefficients of the cubic expression is equal to one. Thus $1+(a+13)+(13a+36)-36a=1$ . Solving for a, we get that a=23/24. Therefore, our answer is $23 + 24 =\\boxed{47}$"
+    ],
+    "contest": "AMC 10A 2023",
+    "round": "Individual Round",
+    "number": 21,
+    "answer": "47",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10A_Problems/Problem_21"
+    ],
+    "difficulty_score": 7.6,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "polynomial roots",
+      "rational roots",
+      "polynomial construction"
+    ],
+    "techniques": [
+      "polynomial roots",
+      "substitution"
+    ],
+    "difficulty": "medium",
+    "summary": "Find a minimal-degree polynomial with specified root and value conditions, then identify the non-integer root."
+  },
+  {
+    "id": "AMIO-AMC10A-2023-P23",
+    "statement": "If the positive integer $n$ has positive integer divisors $a$ and $b$ with $n = ab$ , then $a$ and $b$ are said to be $\\textit{complementary}$ divisors of $n$ . Suppose that $N$ is a positive integer that has one complementary pair of divisors that differ by $20$ and another pair of complementary divisors that differ by $23$ . What is the sum of the digits of $N$ $\\textbf{(A) } 9 \\qquad \\textbf{(B) } 13\\qquad \\textbf{(C) } 15 \\qquad \\textbf{(D) } 17 \\qquad \\textbf{(E) } 19$",
+    "solution": "Consider positive integers $a, b$ with a difference of $20$ . Suppose $b = a-20$ . Then, we have $(a)(a-20) = n$ . If there is another pair of two integers that multiply to $n$ but have a difference of 23, one integer must be greater than $a$ , and one must be smaller than $a-20$ . We can create two cases and set both equal. We have $(a)(a-20) = (a+1)(a-22)$ , and $(a)(a-20) = (a+2)(a-21)$ . Starting with the first case, we have $a^2-20a = a^2-21a-22$ ,or $0=-a-22$ , which gives $a=-22$ , which is not possible. The other case is $a^2-20a = a^2-19a-42$ , so $a=42$ . Thus, our product is $(42)(22) = (44)(21)$ , so $c = 924$ . Adding the digits, we have $9+2+4 = \\boxed{15}$ . -Sepehr2010 -minor edits by aidanb -extremely minor edits by cc21 -no edits in the actual solution by get-rickrolled",
+    "candidates": [
+      "We have 4 integers in our problem. Let's call the smallest of them $a$ $a(a+23) =$ either $(a+1)(a+21)$ or $(a+2)(a+22)$ . So, we have the following: $a^2 + 23a = a^2 + 22a +21$ or $a^2+23a = a^2 + 24a +44$ The second equation has negative solutions, so we discard it. The first equation has $a = 21$ , and so $a + 23 = 44$ . If we check $(a+1)(a+21)$ we get $22 \\cdot 42 = 21 \\cdot 44$ $44$ is $2$ times $22$ , and $42$ is $2$ times $21$ , so our solution checks out. Multiplying $21$ by $44$ , we get $924$ => $9 + 2 + 4 = \\boxed{15}$",
+      "From the problems, it follows that \\begin{align*} x(x+20)&=y(y+23) = N\\\\ x^2+20x&=y^2+23y\\\\ 4x^2+4\\cdot20x &= 4y^2+4\\cdot23y\\\\ 4x^2+4\\cdot20x+20^2-20^2 &= 4y^2+4\\cdot23y+23^2-23^2\\\\ (2x+20)^2-20^2 &= (2y+23)^2-23^2\\\\ 23^2-20^2 &= (2y+23)^2-(2x+20)^2\\\\ (23+20)(23-20) &= (2y+23+2x+20)(2y+23-2x-20)\\\\ 43\\cdot 3 &= (2y+2x+43)(2y-2x+3)\\\\ 129\\cdot 1 &= (2y+2x+43)(2y-2x+3)\\\\ \\end{align*} Since both $(2y+2x+43)$ and $(2y-2x+3)$ must be integer, we get two equations. \\begin{align} 129 or 43 &= (2y+2x+43)\\\\ 1 or 3 &= 2y-2x+3\\\\ \\end{align} 43 & 1 yields (0,0) which is not what we want. 129 & 1 yields (22,21) which is more interesting. Simplifying the equations, we get: \\begin{align*} x+y &= 43\\\\ x-y &= 1\\\\ x=22&, y=21\\\\ N &= (22)(22+20) = 924. \\end{align*} So, the answer is $\\boxed{15}$",
+      "Say one factorization is $n(n+23).$ The two cases for the other factorization are $(n+1)(n+21)$ and $(n+2)(n+22).$ We know it must be the first because of AM-GM intuition: lesser factors of a number are closer together than larger factors of a number. (We can also try both and see which works.) Thus, $n(n+23)=(n+1)(n+21)$ and we find that $n=21,N=924$ meaning the answer is $\\boxed{15}.$",
+      "Since we are given that some pairs of divisors differ by 20 and 23 and we can let the pair be $(x-10)$ and $(x+10)$ as well as $(y-\\frac{23}{2})$ and $(y+\\frac{23}{2})$ . We also know the product of both the complementary divisors give the same number so $(x-10)(x+10)=(y-\\frac{23}{2})(y+\\frac{23}{2})$ . Now we let $y=\\frac{a}{2}$ . Then we substitute and get $x^2-100=\\frac{(a^2-529)}{4}$ . Finally we multiply by 4 and get $4x^2-a^2=-129, a^2-4x^2=129$ . Then we use differences of squares and get $a$ $2x$ =129, $a$ $2x$ =1. We finish by getting $a=$ 65 and $x=32$ . So $(42)(22) = 924$ Adding the digits, we have $9+2+4 = \\boxed{15}$",
+      "$N$ can be written $N = \\left( a - 10 \\right) \\left( a + 10 \\right)$ with a positive integer $a > 10$ and $N = \\left( \\frac{2b + 1}{2} - \\frac{23}{2} \\right) \\left( \\frac{2b + 1}{2} + \\frac{23}{2} \\right)$ with a positive integer $b > 11$ The above equations can be reorganized as \\[ \\left( 2b + 1 + 2 a \\right) \\left( 2 b + 1 - 2 a \\right) = 43 \\cdot 3 . \\] The only solution is $2b + 1 + 2a = 129$ and $2b + 1 - 2a = 1$ . Thus, $a = b = 32$ . Therefore, $N = 924$ . So the sum of the digits of $N$ is $9 + 2 + 4 = \\boxed{15}$",
+      "We can write $N$ as $a(a+20)$ or $b(b+23)$ where $a$ and $b$ are divisors of $N.$ Since $a(a+20) = b(b+23),$ we know that $a^2 + 20a - b^2 - 23b = 0$ , and we can view this as a quadratic in $a.$ Since the solution for $a$ must be an integer, the discriminant for this quadratic must be a perfect square and therefore $20^2 - 4(-b^2 - 23b) = (2c)^2 = 400 + 4b^2 + 92b$ so $b^2 + 23b -c^2 + 100 = 0.$ Since the discriminant of this quadratic in $b$ must also be a perfect square we know that $23^2 - 4(-c^2+100) = d^2$ which we can simplify as $d^2 - 4c^2 = (d-2c)(d+2c) = 129.$ Since they are both positive integers $d - 2c$ and $d + 2c$ are factors of $129 = 3 \\cdot 43$ so $d - 2c = 1$ and $d + 2c = 129$ or $d - 2c = 3$ and $d - 2c = 43.$ These systems of equations give us $(c,d) = (32,65)$ and $(c,d) = (10,23)$ respectively, if we plug our values for $c$ into the equation for $b$ we get $b^2 + 23b - 924 = 0$ and $b^2 + 23b = 0$ respectively. The first equation gives us $b = 21$ or $b = -44$ and the second gives us $b = 0$ or $b = -23$ , since $b$ is positive we know that $b = 21$ and $N = (21)(21 + 23) = 924$ , therefore the sum of the digits of $N$ is $9 + 2 + 4 = \\boxed{15}.$",
+      "Consider the numbers of the form $a(a+20)$ . Since $b(b+23)$ is always even, $a$ is even. Thus, for $a \\ge 2$ , we calculate $a(a+20)$ for even values of $a$ . Then, we check if it can also be represented as a product of numbers that differ by $23$ . Checking, we see that $22 \\cdot 42 = 21 \\cdot 44 = 924$ works. Thus, the answer is $9 + 2 + 4 = \\boxed{15}$"
+    ],
+    "contest": "AMC 10A 2023",
+    "round": "Individual Round",
+    "number": 23,
+    "answer": "15",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10A_Problems/Problem_23"
+    ],
+    "difficulty_score": 7.8,
+    "area": [
+      "Number Theory",
+      "Algebra"
+    ],
+    "subtopics": [
+      "divisors",
+      "complementary divisor pairs",
+      "digit sum"
+    ],
+    "techniques": [
+      "system of linear equations",
+      "quadratic equations"
+    ],
+    "difficulty": "medium",
+    "summary": "Find a positive integer with two complementary divisor pairs differing by 20 and 23, then sum its digits."
+  },
+  {
+    "id": "AMIO-AMC10A-2023-P25",
+    "statement": "If $A$ and $B$ are vertices of a polyhedron, define the distance $d(A,B)$ to be the minimum number of edges of the polyhedron one must traverse in order to connect $A$ and $B$ . For example, if $\\overline{AB}$ is an edge of the polyhedron, then $d(A, B) = 1$ , but if $\\overline{AC}$ and $\\overline{CB}$ are edges and $\\overline{AB}$ is not an edge, then $d(A, B) = 2$ . Let $Q$ $R$ , and $S$ be randomly chosen distinct vertices of a regular icosahedron (regular polyhedron made up of 20 equilateral triangles). What is the probability that $d(Q, R) > d(R, S)$ $\\textbf{(A) } \\frac{7}{22} \\qquad \\textbf{(B) } \\frac{1}{3} \\qquad \\textbf{(C) } \\frac{3}{8} \\qquad \\textbf{(D) } \\frac{5}{12} \\qquad \\textbf{(E) } \\frac{1}{2}$",
+    "solution": "Since the icosahedron is symmetric polyhedron, we can rotate it so that R is on the topmost vertex. Since Q and S basically the same, we can first count the probability that $d(Q,R) = d(R,S)$ $\\mathfrak{Case} \\ \\mathfrak{1}: d(Q,R) = d(R,S) = 1$ There are 5 points $P$ such that $d(Q,P) = 1$ . There is $5 \\times 4 = \\boxed{20}$ ways to choose Q and S in this case.",
+    "candidates": [],
+    "contest": "AMC 10A 2023",
+    "round": "Individual Round",
+    "number": 25,
+    "answer": "\\dfrac{7}{22}",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10A_Problems/Problem_25"
+    ],
+    "difficulty_score": 8.0,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "graph distances on a polyhedron",
+      "probability",
+      "icosahedron structure"
+    ],
+    "techniques": [
+      "symmetry",
+      "casework",
+      "complementary counting"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests computing probability by casework on graph distances between vertices of a regular icosahedron."
+  },
+  {
+    "id": "AMIO-AMC10B-2023-P1",
+    "statement": "Mrs. Jones is pouring orange juice into four identical glasses for her four sons. She fills the first three glasses completely but runs out of juice when the fourth glass is only $\\frac{1}{3}$ full. What fraction of a glass must Mrs. Jones pour from each of the first three glasses into the fourth glass so that all four glasses will have the same amount of juice? $\\textbf{(A) } \\frac{1}{12} \\qquad\\textbf{(B) } \\frac{1}{4} \\qquad\\textbf{(C) } \\frac{1}{6} \\qquad\\textbf{(D) } \\frac{1}{8} \\qquad\\textbf{(E) } \\frac{2}{9}$",
+    "solution": "Given that the first three glasses are full and the fourth is only $\\frac{1}{3}$ full, let's represent their contents with a common denominator, which we'll set as 6. This makes the first three glasses $\\dfrac{6}{6}$ full, and the fourth glass $\\frac{2}{6}$ full. To equalize the amounts, Mrs. Jones needs to pour juice from the first three glasses into the fourth. Pouring $\\frac{1}{6}$ from each of the first three glasses will make them all $\\dfrac{5}{6}$ full. Thus, all four glasses will have the same amount of juice. Therefore, the answer is $\\boxed{16}.$",
+    "candidates": [
+      "We let $x$ denote how much juice we take from each of the first $3$ children and give to the $4$ th child. We can write the following equation: $1-x=\\dfrac13+3x$ , since each value represents how much juice each child (equally) has in the end. (Each of the first three children now have $1-x$ juice, and the fourth child has $3x$ more juice on top of their initial $\\dfrac13$ .) Solving, we see that $x=\\boxed{16}.$"
+    ],
+    "contest": "AMC 10B 2023",
+    "round": "Individual Round",
+    "number": 1,
+    "answer": "\\dfrac{1}{6}",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10B_Problems/Problem_1"
+    ],
+    "difficulty_score": 5.0,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "fractions",
+      "equalization",
+      "arithmetic word problem"
+    ],
+    "techniques": [
+      "weighted average"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests ability to equalize fractional quantities by redistributing from full glasses to a partially filled one."
+  },
+  {
+    "id": "AMIO-AMC10B-2023-P2",
+    "statement": "Carlos went to a sports store to buy running shoes. Running shoes were on sale, with prices reduced by $20\\%$ on every pair of shoes. Carlos also knew that he had to pay a $7.5\\%$ sales tax on the discounted price. He had $$43$ dollars. What is the original (before discount) price of the most expensive shoes he could afford to buy? $\\textbf{(A) }$46\\qquad\\textbf{(B) }$50\\qquad\\textbf{(C) }$48\\qquad\\textbf{(D) }$47\\qquad\\textbf{(E) }$49$",
+    "solution": "We can create the equation: \\[0.8x \\cdot 1.075 = 43\\] using the information given. This is because x, the original price, got reduced by 20%, or multiplied by 0.8, and it also got multiplied by 1.075 on the discounted price. Solving that equation, we get \\[\\frac{4}{5} \\cdot x \\cdot \\frac{43}{40} = 43\\] \\[\\frac{4}{5} \\cdot x \\cdot \\frac{1}{40} = 1\\] \\[\\frac{1}{5} \\cdot x \\cdot \\frac{1}{10} = 1\\] \\[x = \\boxed{50}\\]",
+    "candidates": [
+      "The discounted shoe is $20\\%$ off the original price. So that means $1 - 0.2 = 0.8$ . There is also a $7.5\\%$ sales tax charge, so $0.8 * 1.075 = 0.86$ . Now we can set up the equation $0.86x = 43$ , and solving that we get $x=\\boxed{50}$ ~ kabbybear",
+      "Let the original price be $x$ dollars. After the discount, the price becomes $80\\%x$ dollars. After tax, the price becomes $80\\% \\times (1+7.5\\%) = 86\\% x$ dollars. So, $43=86\\%x$ $x=\\boxed{50}.$",
+      "We can assign a variable $c$ to represent the original cost of the shoes. Next, we set up the equation $80\\%\\cdot107.5\\%\\cdot c=43$ . We can solve this equation for $c$ and get $\\boxed{50}$",
+      "We know the discount price will be 5/4, and 0.075 is equal to 3/40. So we look at answer choice $\\textbf{(B) }$ , see that the discount price will be 40, and with sales tax applied it will be 43, so the answer choice is $\\boxed{50}$"
+    ],
+    "contest": "AMC 10B 2023",
+    "round": "Individual Round",
+    "number": 2,
+    "answer": "50",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10B_Problems/Problem_2"
+    ],
+    "difficulty_score": 5.2,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "percent discount",
+      "sales tax",
+      "linear equations"
+    ],
+    "techniques": [
+      "substitution"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests setting up and solving a linear equation involving successive percent changes (discount and tax)."
+  },
+  {
+    "id": "AMIO-AMC10B-2023-P4",
+    "statement": "Jackson's paintbrush makes a narrow strip with a width of $6.5$ millimeters. Jackson has enough paint to make a strip $25$ meters long. How many square centimeters of paper could Jackson cover with paint? $\\textbf{(A) } 162,500 \\qquad\\textbf{(B) } 162.5 \\qquad\\textbf{(C) }1,625 \\qquad\\textbf{(D) }1,625,000 \\qquad\\textbf{(E) } 16,250$",
+    "solution": "$6.5$ millimeters is equal to $0.65$ centimeters. $25$ meters is $2500$ centimeters. The answer is $0.65 \\times 2500$ , so the answer is $\\boxed{1,625}$",
+    "candidates": [
+      "$6.5$ millimeters can be represented as $65 \\times 10^{-2}$ centimeters. $25$ meters is $25 \\times 10^{2}$ centimeters. Multiplying out these results in $(65 \\times 10^{-2}) \\times (25 \\times 10^{2})$ , which is $65 \\times 25$ making the answer $\\boxed{1,625}$"
+    ],
+    "contest": "AMC 10B 2023",
+    "round": "Individual Round",
+    "number": 4,
+    "answer": "1{,}625",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10B_Problems/Problem_4"
+    ],
+    "difficulty_score": 5.4,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "unit conversion",
+      "area calculation"
+    ],
+    "techniques": [
+      "multiplication principle"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests unit conversion between millimeters, meters, and centimeters to compute a rectangular area."
+  },
+  {
+    "id": "AMIO-AMC10B-2023-P5",
+    "statement": "Maddy and Lara see a list of numbers written on a blackboard. Maddy adds $3$ to each number in the list and finds that the sum of her new numbers is $45$ . Lara multiplies each number in the list by $3$ and finds that the sum of her new numbers is also $45$ . How many numbers are written on the blackboard? $\\textbf{(A) }10\\qquad\\textbf{(B) }5\\qquad\\textbf{(C) }6\\qquad\\textbf{(D) }8\\qquad\\textbf{(E) }9$",
+    "solution": "Let there be $n$ numbers in the list of numbers, and let their sum be $S$ . Then we have the following \\[S+3n=45\\] \\[3S=45\\] From the second equation, $S=15$ . So, $15+3n=45$ $\\Rightarrow$ $n=\\boxed{10}.$",
+    "candidates": [
+      "Let $x_1,x_2,x_3,...,x_n$ where $x_n$ represents the $n$ th number written on the board. Lara's multiplied each number by $3$ , so her sum will be $3x_1+3x_2+3x_3+...+3x_n$ . This is the same as $3\\cdot (x_1+x_2+x_3+...+x_n)$ . We are given this quantity is equal to $45$ , so the original numbers add to $\\frac{45}{3}=15$ . Maddy adds $3$ to each of the $n$ terms which yields, $x_1+3+x_2+3+x_3+3+...+x_n+3$ . This is the same as the sum of the original series plus $3 \\cdot n$ . Setting this equal to $45$ $15+3n=45 \\Rightarrow n =\\boxed{10}.$"
+    ],
+    "contest": "AMC 10B 2023",
+    "round": "Individual Round",
+    "number": 5,
+    "answer": "10",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10B_Problems/Problem_5"
+    ],
+    "difficulty_score": 5.5,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "system of equations",
+      "sum of a list"
+    ],
+    "techniques": [
+      "system of linear equations"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests setting up and solving a two-equation linear system relating list size and sum."
+  },
+  {
+    "id": "AMIO-AMC10B-2023-P6",
+    "statement": "Let $L_{1}=1, L_{2}=3$ , and $L_{n+2}=L_{n+1}+L_{n}$ for $n\\geq 1$ . How many terms in the sequence $L_{1}, L_{2}, L_{3},...,L_{2023}$ are even? $\\textbf{(A) }673\\qquad\\textbf{(B) }1011\\qquad\\textbf{(C) }675\\qquad\\textbf{(D) }1010\\qquad\\textbf{(E) }674$",
+    "solution": "We calculate more terms: \\[1,3,4,7,11,18,\\ldots.\\] We find a pattern: if $n$ is a multiple of $3$ , then the term is even, or else it is odd. There are $\\left\\lfloor \\frac{2023}{3} \\right\\rfloor =\\boxed{674}$ multiples of $3$ from $1$ to $2023$",
+    "candidates": [
+      "Like in the other solution, we find a pattern, except in a more rigorous way. Since we start with $1$ and $3$ , the next term is $4$ We start with odd, then odd, then (the sum of odd and odd) even, (the sum of odd and even) odd, and so on. Basically the pattern goes: odd, odd, even, odd odd, even, odd, odd even… When we take $\\frac{2023}{3}$ we get $674$ with a remainder of one. So we have $674$ full cycles, and an extra odd at the end. Therefore, there are $\\boxed{674}$ evens."
+    ],
+    "contest": "AMC 10B 2023",
+    "round": "Individual Round",
+    "number": 6,
+    "answer": "674",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10B_Problems/Problem_6"
+    ],
+    "difficulty_score": 5.7,
+    "area": [
+      "Number Theory",
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "Lucas numbers",
+      "recurrence relation",
+      "parity of sequence terms"
+    ],
+    "techniques": [
+      "block/period identification",
+      "floor/ceiling functions"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests recognizing the period-3 parity pattern in the Lucas sequence to count even terms."
+  },
+  {
+    "id": "AMIO-AMC10B-2023-P7",
+    "statement": "Square $ABCD$ is rotated $20^{\\circ}$ clockwise about its center to obtain square $EFGH$ , as shown below. IMG 1031.jpeg What is the degree measure of $\\angle EAB$ $\\text{(A)}\\ 24^{\\circ} \\qquad \\text{(B)}\\ 35^{\\circ} \\qquad \\text{(C)}\\ 30^{\\circ} \\qquad \\text{(D)}\\ 32^{\\circ} \\qquad \\text{(E)}\\ 20^{\\circ}$",
+    "solution": "First, let's call the center of both squares $I$ . Then, $\\angle{AIE} = 20$ , and since $\\overline{EI} = \\overline{AI}$ $\\angle{AEI} = \\angle{EAI} = 80$ . Then, we know that $AI$ bisects angle $\\angle{DAB}$ , so $\\angle{BAI} = \\angle{DAI} = 45$ . Subtracting $45$ from $80$ , we get $\\boxed{35}$",
+    "candidates": [
+      "First, label the point between $A$ and $H$ point $O$ and the point between $A$ and $H$ point $P$ . We know that $\\angle{AOP} = 20$ and that $\\angle{A} = 90$ . Subtracting $20$ and $90$ from $180$ , we get that $\\angle{APO}$ is $70$ . Subtracting $70$ from $180$ , we get that $\\angle{OPB} = 110$ . From this, we derive that $\\angle{APE} = 110$ . Since triangle $APE$ is an isosceles triangle, we get that $\\angle{EAP} = (180 - 110)/2 = 35$ . Therefore, $\\angle{EAB} = 35$ . The answer is $\\boxed{35}$",
+      "Call the center of both squares point $O$ , and draw circle $O$ such that it circumscribes the squares. $\\angle{EOF} = 90$ and $\\angle{BOF} = 20$ , so $\\angle{EOB} = 70$ . Since $\\angle{EAB}$ is inscribed in arc $\\overset \\frown {EB}$ $\\angle{EAB} = 70/2 = \\boxed{35}$",
+      "Draw $EA$ : we want to find $\\angle EAB$ . Call $P$ the point at which $AB$ and $EH$ intersect. Reflecting $\\triangle APE$ over $EA$ , we have a parallelogram. Since $\\angle EPB = 70^{\\circ}$ , angle subtraction tells us that two of the angles of the parallelogram are $110^{\\circ}$ . The other two are equal to $2\\angle EAB$ (by properties of reflection). Since angles on the transversal of a parallelogram sum to $180^{\\circ}$ , we have $2\\angle EAB + 110 = 180$ , yielding $\\angle EAB = \\boxed{35}$",
+      "We call the point where $AB$ and $EH$ intersect I. We can make an educated guess that triangle AEI is isosceles so $AI=EI$ $\\angle AIE = 110^{\\circ}$ $\\angle AIH = 20^{\\circ}$ , and $\\angle EIB = 70^{\\circ}$ . So, we get $\\angle EAI$ is $(180^{\\circ} - 110^{\\circ})/2 = \\boxed{35}$"
+    ],
+    "contest": "AMC 10B 2023",
+    "round": "Individual Round",
+    "number": 7,
+    "answer": "35^\\circ",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10B_Problems/Problem_7"
+    ],
+    "difficulty_score": 5.9,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "rotation",
+      "squares",
+      "angle measurement"
+    ],
+    "techniques": [
+      "isosceles triangles",
+      "angle chasing"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests angle relationships formed when a square is rotated about its center, using isosceles triangle properties."
+  },
+  {
+    "id": "AMIO-AMC10B-2023-P8",
+    "statement": "What is the units digit of $2022^{2023} + 2023^{2022}$ $\\text{(A)}\\ 7 \\qquad \\text{(B)}\\ 1 \\qquad \\text{(C)}\\ 9 \\qquad \\text{(D)}\\ 5 \\qquad \\text{(E)}\\ 3$",
+    "solution": "$2022^{2023} + 2023^{2022} \\equiv 2^3 + 3^2 \\equiv 17 \\equiv 7$ (mod 10). $\\boxed{7}$ ~andliu766",
+    "candidates": [
+      "When looking at the units digit patterns of the powers of $2$ , we see that $2^1=$ , units digit $2$ $2^2=$ , units digit $4$ $2^3=$ , units digit $8$ $2^4=$ , units digit $6$ $2^5=$ , units digit $2$ And the pattern repeats. This pattern will apply for the powers of $2022$ as well, since the units digit of $2022$ is $2$ . We can find the pattern for the powers of $3$ too. The pattern follows with units digits, $3$ $9$ $7$ $1$ $3$ $9$ , ... Similarly, the units digit of $2023$ will follow the same pattern as the powers of $3$ Both of these powers cycle in groups of $4$ . When diving $2023$ by $4$ , we get $505$ remainder $3$ , meaning $505$ complete cycles; or the power being a multiple of $4$ $505$ times, and $3$ extra. So the units digit of $2022^{2023}$ is $8$ $2022$ divided by $4$ is $505$ reminder $2$ , which means $505$ complete cycles, or the power being a multiple of $4$ $505$ times, and $2$ extra. So the units digit of $2023^{2022}$ is $9$ We only need to find the units digit in the end, so we just add those $2$ already found units digits, to get a new units digit of $7$ . Therefore the answer is $\\boxed{7}$",
+      "Note that the units digit will be the same regardless of the tens, hundreds, and thousands digits, so we can simplify this problem to finding the last digit of $2^{2023} + 3^{2022}$ . We can find the units digit of $2^{2023}$ , by listing the units digits of the first few powers of two, and trying to find a pattern. $2^1=2$ $2^2=4$ $2^3=8$ $2^4=6+10$ $2^5=2+30$ $2^6=4+60$ As we can see the units digits of powers of two repeat after every four iterations. Now we know the units digit of $2^{2020}$ is $6$ and the units digit of $2^{2023} \\Rightarrow 2^3\\cdot 2^{2020} \\Rightarrow 6\\cdot 8 \\Rightarrow 8$ . Similarly we can find the last digits of powers of three repeat after every four, so the units digit of $3^{2022}$ is $1\\cdot 3^2 = 9$ . Adding these together, the ones digit is the same as the ones digit of $9+8$ which is $7$ $\\boxed{7}$"
+    ],
+    "contest": "AMC 10B 2023",
+    "round": "Individual Round",
+    "number": 8,
+    "answer": "7",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10B_Problems/Problem_8"
+    ],
+    "difficulty_score": 6.1,
+    "area": [
+      "Number Theory"
+    ],
+    "subtopics": [
+      "units digit",
+      "modular arithmetic",
+      "powers"
+    ],
+    "techniques": [
+      "modular arithmetic"
+    ],
+    "difficulty": "easy",
+    "summary": "Find the units digit of a sum of two large powers using modular arithmetic mod 10."
+  },
+  {
+    "id": "AMIO-AMC10B-2023-P9",
+    "statement": "The numbers $16$ and $25$ are a pair of consecutive positive squares whose difference is $9$ . How many pairs of consecutive positive perfect squares have a difference of less than or equal to $2023$ $\\text{(A)}\\ 674 \\qquad \\text{(B)}\\ 1011 \\qquad \\text{(C)}\\ 1010 \\qquad \\text{(D)}\\ 2019 \\qquad \\text{(E)}\\ 2017$",
+    "solution": "Let x be the square root of the smaller of the two perfect squares. Then, $(x+1)^2 - x^2 =x^2+2x+1-x^2 = 2x+1 \\le 2023$ . Thus, $x \\le 1011$ . So there are $\\boxed{1011}$ numbers that satisfy the equation.",
+    "candidates": [
+      "The smallest number that can be expressed as the difference of a pair of consecutive positive squares is $3$ , which is $2^2-1^2$ . The largest number that can be expressed as the difference of a pair of consecutive positive squares that is less than or equal to $2023$ is $2023$ , which is $1012^2-1011^2$ . These numbers are in the form $(x+1)^2-x^2$ , which is just $2x+1$ . These numbers are just the odd numbers from 3 to 2023, so there are $[(2023-3)/2]+1=1011$ such numbers. The answer is $\\boxed{1011}$"
+    ],
+    "contest": "AMC 10B 2023",
+    "round": "Individual Round",
+    "number": 9,
+    "answer": "1011",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10B_Problems/Problem_9"
+    ],
+    "difficulty_score": 6.2,
+    "area": [
+      "Algebra",
+      "Number Theory"
+    ],
+    "subtopics": [
+      "consecutive perfect squares",
+      "difference of squares"
+    ],
+    "techniques": [
+      "polynomial factorization"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests expanding consecutive square differences to find how many pairs satisfy a bound."
+  },
+  {
+    "id": "AMIO-AMC10B-2023-P10",
+    "statement": "You are playing a game. A $2 \\times 1$ rectangle covers two adjacent squares (oriented either horizontally or vertically) of a $3 \\times 3$ grid of squares, but you are not told which two squares are covered. Your goal is to find at least one square that is covered by the rectangle. A \"turn\" consists of you guessing a square, after which you are told whether that square is covered by the hidden rectangle. What is the minimum number of turns you need to ensure that at least one of your guessed squares is covered by the rectangle? $\\textbf{(A)}~3\\qquad\\textbf{(B)}~5\\qquad\\textbf{(C)}~4\\qquad\\textbf{(D)}~8\\qquad\\textbf{(E)}~6$",
+    "solution": "First, note that since the rectangle covers 2 squares, we only need to guess squares that are not adjacent to any of our other guesses. To minimize the amount of guesses, each of our guessed squares should try to touch another guess on one vertex and one vertex only. There are only two ways to do this: one with $5$ guesses, and one with $4$ . Since the problem is asking for the minimum number, the answer is $\\boxed{4}$",
+    "candidates": [
+      "Since the hidden rectangle can only hide two adjacent squares, we may think that we eliminate 8 squares and we're done, but think again. This is the AMC 10, so there must be a better solution (also note that every other solution choice is below 8 so we're probably not done) So, we think again, we notice that we haven't used the adjacent condition, and then it clicks. If we eliminate the four squares with only one edge on the boundary of the 9x9 square. We are left with 5 diagonal squares, since our rectangle cant be diagonal, we can ensure that we find it in 4 moves. So our answer is : $\\boxed{4}$",
+      "The $3 \\times 3$ grid can be colored like a checkerboard with alternating black and white squares. Let the top left square be white, and the rest of the squares alternate colors. Each $2 \\times 1$ rectangle always covers $1$ white square and $1$ black square. You can ensure that at least one of your guessed squares is covered by the rectangle by choosing either each of the white squares ( $5$ turns) or each of the black squares ( $4$ turns). Since it is ideal to be the most efficient with our turns, by choosing all the black squares, we guarantee that one of the $\\boxed{4}$ squares are of the $2 \\times 1$ rectangle.",
+      "We realize that every $2 \\times 1$ rectangle must contain an edge and no more than one edge. There are a total of four edges so the answer is $\\boxed{4.}$ . ~darrenn.cp"
+    ],
+    "contest": "AMC 10B 2023",
+    "round": "Individual Round",
+    "number": 10,
+    "answer": "4",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10B_Problems/Problem_10"
+    ],
+    "difficulty_score": 6.4,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "combinatorial game theory",
+      "covering problems",
+      "grid problems"
+    ],
+    "techniques": [
+      "extremal principle",
+      "exhaustive case elimination"
+    ],
+    "difficulty": "medium",
+    "summary": "Find the minimum number of squares to guess on a 3×3 grid to guarantee hitting a hidden 2×1 domino."
+  },
+  {
+    "id": "AMIO-AMC10B-2023-P11",
+    "statement": "Suzanne went to the bank and withdrew $$800$ . The teller gave her this amount using $$20$ bills, $$50$ bills, and $$100$ bills, with at least one of each denomination. How many different collections of bills could Suzanne have received? $\\textbf{(A) } 45 \\qquad \\textbf{(B) } 21 \\qquad \\text{(C) } 36 \\qquad \\text{(D) } 28 \\qquad \\text{(E) } 32$",
+    "solution": "Denote by $x$ $y$ $z$ the amount of $20 bills, $50 bills and $100 bills, respectively. Thus, we need to find the number of tuples $\\left( x , y, z \\right)$ with $x, y, z \\in \\Bbb N$ that satisfy \\[ 20 x + 50 y + 100 z = 800. \\] First, this equation can be simplified as \\[ 2 x + 5 y + 10 z = 80. \\] Second, we must have $5 |x$ . Denote $x = 5 x'$ . The above equation can be converted to \\[ 2 x' + y + 2 z = 16 . \\] Third, we must have $2 | y$ . Denote $y = 2 y'$ . The above equation can be converted to \\[ x' + y' + z = 8 . \\] Denote $x'' = x' - 1$ $y'' = y' - 1$ and $z'' = z - 1$ . Thus, the above equation can be written as \\[ x'' + y'' + z'' = 5 . \\] Therefore, the number of non-negative integer solutions $\\left( x'', y'', z'' \\right)$ is $\\binom{5 + 3 - 1}{3 - 1} = \\boxed{21}$",
+    "candidates": [
+      "We notice that each $100 can be split 3 ways: 5 $20 dollar bills, 2 $50 dollar bills, or 1 $100 dollar bill. There are 8 of these $100 chunks in total--take away 3 as each split must be used at least once. Now there are five left--so we use stars and bars. 5 chunks, 3 categories or 2 bars. This gives us $\\binom{5+2}{2}=\\boxed{21}$"
+    ],
+    "contest": "AMC 10B 2023",
+    "round": "Individual Round",
+    "number": 11,
+    "answer": "21",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10B_Problems/Problem_11"
+    ],
+    "difficulty_score": 6.6,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "Diophantine equations",
+      "counting integer solutions",
+      "change of variables"
+    ],
+    "techniques": [
+      "stars and bars",
+      "divisibility"
+    ],
+    "difficulty": "medium",
+    "summary": "Count collections of $20, $50, and $100 bills summing to $800 using stars and bars after simplification."
+  },
+  {
+    "id": "AMIO-AMC10B-2023-P12",
+    "statement": "When the roots of the polynomial \\[P(x) = (x-1)^1 (x-2)^2 (x-3)^3 \\cdot \\cdot \\cdot (x-10)^{10}\\] are removed from the number line, what remains is the union of $11$ disjoint open intervals. On how many of these intervals is $P(x)$ positive? $\\textbf{(A)}~3\\qquad\\textbf{(B)}~7\\qquad\\textbf{(C)}~6\\qquad\\textbf{(D)}~4\\qquad\\textbf{(E)}~5$",
+    "solution": "The expressions to the power of even powers are always positive, so we don't need to care about those. We only need to care about $(x-1)^1(x-3)^3(x-5)^5(x-7)^7(x-9)^9$ . We need 0, 2, or 4 of the expressions to be negative. The 9 through 10 interval and 10 plus interval make all of the expressions positive. The 5 through 6 and 6 through 7 intervals make two of the expressions negative. The 1 through 2 and 2 through 3 intervals make four of the expressions negative. There are $\\boxed{6}$ intervals.",
+    "candidates": [
+      "The roots of the factorized polynomial are intervals from numbers 1 to 10. We take each interval as being defined as the number behind it. To make the function positive, we need to have an even number of negative expressions. Real numbers raised to even powers are always positive, so we only focus on $x-1$ $x-3$ $x-5$ $x-7$ , and $x-9$ . The intervals 1 and 2 leave 4 negative expressions, so they are counted. The same goes for intervals 5, 6, 9, and 10. Intervals 3 and 4 leave 3 negative expressions and intervals 7 and 8 leave 1 negative expression. The solution is the number of intervals which is $\\boxed{6}$",
+      "We can use the turning point behavior at the roots of a polynomial graph to find out the amount of intervals that are positive. First, we evaluate any value on the interval $(-\\infty, 1)$ . Since the degree of $P(x)$ is $1+2+...+9+10$ $\\frac{10\\times11}{2}$ $55$ , and every term in $P(x)$ is negative, multiplying $55$ negatives gives a negative value. So $(-\\infty, 0)$ is a negative interval. We know that the roots of $P(x)$ are at $1,2,...,10$ . When the degree of the term of each root is odd, the graph of $P(x)$ will pass through the graph and change signs, and vice versa. So at $x=1$ , the graph will change signs; at $x=2$ , the graph will not, and so on. This tells us that the interval $(1,2)$ is positive, $(2,3)$ is also positive, $(3,4)$ is negative, $(4,5)$ is also negative, and so on, with the pattern being $+,+,-,-,+,+,-,-,...$ The positive intervals are therefore $(1,2)$ $(2,3)$ $(5,6)$ $(6,7)$ $(9,10)$ , and $(10,\\infty)$ , for a total of $\\boxed{6}$",
+      "Denote by $I_k$ the interval $\\left( k - 1 , k \\right)$ for $k \\in \\left\\{ 2, 3, \\cdots , 10 \\right\\}$ and $I_1$ the interval $\\left( - \\infty, 1 \\right)$ Therefore, the number of intervals that $P(x)$ is positive is \\begin{align*} 1 + \\sum_{i=1}^{10} \\Bbb I \\left\\{ \\sum_{j=i}^{10} j \\mbox{ is even} \\right\\} & = 1 + \\sum_{i=1}^{10} \\Bbb I \\left\\{ \\frac{\\left( i + 10 \\right) \\left( 11 - i \\right)}{2} \\mbox{ is even} \\right\\} \\\\ & = 1 + \\sum_{i=1}^{10} \\Bbb I \\left\\{ \\frac{- i^2 + i + 110}{2} \\mbox{ is even} \\right\\} \\\\ & = 1 + \\sum_{i=1}^{10} \\Bbb I \\left\\{ \\frac{i^2 - i}{2} \\mbox{ is odd} \\right\\} \\\\ & = \\boxed{6}"
+    ],
+    "contest": "AMC 10B 2023",
+    "round": "Individual Round",
+    "number": 12,
+    "answer": "6",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10B_Problems/Problem_12"
+    ],
+    "difficulty_score": 6.8,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "polynomial sign analysis",
+      "roots and intervals",
+      "odd/even exponents"
+    ],
+    "techniques": [
+      "casework",
+      "polynomial roots"
+    ],
+    "difficulty": "medium",
+    "summary": "Determine on how many of 11 intervals a polynomial with repeated roots is positive by analyzing sign changes."
+  },
+  {
+    "id": "AMIO-AMC10B-2023-P13",
+    "statement": "What is the area of the region in the coordinate plane defined by $| | x | - 1 | + | | y | - 1 | \\le 1$ $\\text{(A)}\\ 2 \\qquad \\text{(B)}\\ 8 \\qquad \\text{(C)}\\ 4 \\qquad \\text{(D)}\\ 15 \\qquad \\text{(E)}\\ 12$",
+    "solution": "First consider, $|x-1|+|y-1| \\le 1.$ We can see that it is a square with a radius of $1$ (diagonal $\\sqrt{2}$ ). The area of the square is $\\sqrt{2}^2 = 2.$ Next, we insert an absolute value sign into the equation and get $|x-1|+||y|-1| \\le 1.$ This will double the square reflecting over x-axis. So now we have $2$ squares. Finally, we add one more absolute value and obtain $||x|-1|+||y|-1| \\le 1.$ This will double the squares as we reflect the $2$ squares we already have over the y-axis. Concluding, we have $4$ congruent squares. The total area is $4\\cdot2 =$ $\\boxed{8}$",
+    "candidates": [
+      "We first consider the lattice points that satisfy $||x|-1| = 0$ and $||y|-1| = 1$ . The lattice points satisfying these equations are $(1,0), (1,2), (1,-2), (-1,0), (-1,2),$ and $(-1,-2).$ By symmetry, we also have points $(0,1), (2,1), (-2,1), (0,-1), (2,-1),$ and $(-2,-1)$ when $||x|-1| = 1$ and $||y|-1| = 0$ . Graphing and connecting these points, we form 5 squares. However, we can see that any point within the square in the middle does not satisfy the given inequality (take $(0,0)$ , for instance). As noted in the above solution, each square has a diagonal $2$ for an area of $\\frac{2^2}{2} = 2$ , so the total area is $4\\cdot2 =$ $\\boxed{8}.$",
+      "The value of $|x|$ and $|y|$ can be a maximum of 1 when the other is 0. Therefore the value of $x$ and $y$ range from -2 to 2. This forms a diamond shape which has area $4 \\times \\frac{2^2}{2}$ which is $\\boxed{8}.$",
+      "We start by considering the graph of $|x|+|y|\\leq 1$ . To get from this graph to $||x|-1|+||y|-1| \\leq 1$ we have to translate it by $\\pm 1$ on the $x$ axis and $\\pm 1$ on the $y$ axis. Graphing $|x|+|y|\\leq 1$ we get a square with side length of $\\sqrt{2}$ , so the area of one of these squares is just $2$ We have to multiply by $4$ since there are $4$ combinations of shifting the $x$ and $y$ axis. So we have $2\\times 4$ which is $\\boxed{8}$"
+    ],
+    "contest": "AMC 10B 2023",
+    "round": "Individual Round",
+    "number": 13,
+    "answer": "8",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10B_Problems/Problem_13"
+    ],
+    "difficulty_score": 6.9,
+    "area": [
+      "Geometry",
+      "Algebra"
+    ],
+    "subtopics": [
+      "absolute value equations",
+      "regions in the coordinate plane",
+      "area computation"
+    ],
+    "techniques": [
+      "absolute value",
+      "reflection"
+    ],
+    "difficulty": "medium",
+    "summary": "Find the area of a region defined by nested absolute value inequalities by analyzing reflections of a base square."
+  },
+  {
+    "id": "AMIO-AMC10B-2023-P14",
+    "statement": "How many ordered pairs of integers $(m, n)$ satisfy the equation $m^2+mn+n^2 = m^2n^2$ $\\textbf{(A) }7\\qquad\\textbf{(B) }1\\qquad\\textbf{(C) }3\\qquad\\textbf{(D) }6\\qquad\\textbf{(E) }5$",
+    "solution": "Clearly, $m=0,n=0$ is one of the solutions. However, we can be quite sure that there are more, so we apply Simon's Favorite Factoring Trick to get the following: \\begin{align*} m^2+mn+n^2 &= m^2n^2\\\\ m^2+mn+n^2 +mn &= m^2n^2 +mn\\\\ (m+n)^2 &= m^2n^2 +mn\\\\ (m+n)^2 &= mn(mn+1).\\\\ \\end{align*} Essentially, this says that the product of two consecutive numbers $mn,mn+1$ must be a perfect square. This is practically impossible except $mn=0$ or $mn+1=0$ $mn=0$ gives $(0,0)$ $mn=-1$ gives $(1,-1), (-1,1)$ . Answer: $\\boxed{3}.$",
+    "candidates": [
+      "Case 1: $mn = 0$ In this case, $m = n = 0$ Case 2: $mn \\neq 0$ Denote $k = {\\rm gcd} \\left( m, n \\right)$ . Denote $m = k u$ and $n = k v$ . Thus, ${\\rm gcd} \\left( u, v \\right) = 1$ Thus, the equation given in this problem can be written as \\[ u^2 + uv + v^2 = k^2 u^2 v^2 . \\] Modulo $u$ , we have $v^2 \\equiv 0 \\pmod{u}$ . Because ${\\rm gcd} \\left( u, v \\right) = 1$ ., we must have $|u| = |v| = 1$ . Plugging this into the above equation, we get $2 + uv = k^2$ . Thus, we must have $uv = -1$ and $k = 1$ Thus, there are two solutions in this case: $\\left( m , n \\right) = \\left( 1, -1 \\right)$ and $\\left( m , n \\right) = \\left( -1, 1 \\right)$ Putting all cases together, the total number of solutions is $\\boxed{3}$",
+      "We can move all terms to one side and write the equation as a quadratic in terms of $n$ to get \\[(1-m^2)n^2+(m)n+(m^2)=0.\\] The discriminant of this quadratic is \\[\\Delta = m^2-4(1-m^2)(m^2)=m^2(4m^2-3).\\] For $n$ to be an integer, we must have $m^2(4m^2-3)$ be a perfect square. Thus, either $4m^2-3$ is a perfect square or $m^2 = 0$ and $m = 0$ . The first case gives $m=-1,1$ , which result in the equations $-n+1=0$ and $n-1=0$ , for a total of two pairs: $(-1,1)$ and $(1,-1)$ . The second case gives the equation $n^2=0$ , so it's only pair is $(0,0)$ . In total, the total number of solutions is $\\boxed{3}$",
+      "Let $x=m+n, y=mn$ then \\[x^2-y=y^2\\] Completing the square then gives \\[4x^2+1=(2y+1)^2\\] Since the RHS is a square, clearly the only solutions are $x=0,y=0$ and $x=0,y=-1$ . The first gives $(0,0)$ while the second gives $(-1,1)$ and $(1,-1)$ by solving it as a quadratic with roots $m$ and $n$ . Thus there are $\\boxed{3}$ solutions."
+    ],
+    "contest": "AMC 10B 2023",
+    "round": "Individual Round",
+    "number": 14,
+    "answer": "3",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10B_Problems/Problem_14"
+    ],
+    "difficulty_score": 7.1,
+    "area": [
+      "Number Theory",
+      "Algebra"
+    ],
+    "subtopics": [
+      "Diophantine equations",
+      "integer solutions",
+      "perfect squares"
+    ],
+    "techniques": [
+      "Simon's Favorite Factoring Trick (SFFT)",
+      "perfect squares/cubes"
+    ],
+    "difficulty": "medium",
+    "summary": "Count integer solutions to a symmetric quadratic Diophantine equation using factoring and perfect square analysis."
+  },
+  {
+    "id": "AMIO-AMC10B-2023-P20",
+    "statement": "Four congruent semicircles are drawn on the surface of a sphere with radius $2$ , as shown, creating a close curve that divides the surface into two congruent regions. The length of the curve is $\\pi\\sqrt{n}$ . What is $n$ $\\textbf{(A) } 32 \\qquad \\textbf{(B) } 12 \\qquad \\textbf{(C) } 48 \\qquad \\textbf{(D) } 36 \\qquad \\textbf{(E) } 27$",
+    "solution": "There are four marked points on the diagram; let us examine the top two points and call them $A$ and $B$ . Similarly, let the bottom two dots be $C$ and $D$ , as shown: [asy] import graph; import geometry; unitsize(1cm); pair A = (-1.41, 1.41); pair B = (1.41, 1.41); pair C = (1.41, -1.41); pair D = (-1.41, -1.41); pair O = (0, 0); draw(circle(O,2)); draw(A--O--B,black+dashed); draw(C--O--D,black+dashed); dot(A);dot(B);dot(C);dot(D);dot(O); label(\"$A$\", A, NW); label(\"$B$\", B, NE); label(\"$C$\", C, SE); label(\"$D$\", D, SW); label(\"$O$\", (0,0.1), N); [/asy] This is a cross-section of the sphere seen from the side. We know that ${AO}={BO}={CO}={DO}=2$ , and by Pythagorean Theorem, length of $\\overline{AB}=2\\sqrt2.$ Each of the four congruent semicircles has the length $AB$ as a diameter (since $\\overline{AB}$ is congruent to $\\overline{BC},\\overline{CD},$ and $\\overline{DA}$ ), so its radius is $\\dfrac{2\\sqrt2}2=\\sqrt2.$ Each one's arc length is thus $\\pi\\cdot\\sqrt2=\\sqrt2\\pi.$ We have $4$ of these, so the total length is $4\\sqrt2\\pi=\\sqrt{32}\\pi$ , so thus our answer is $\\boxed{32.}$",
+    "candidates": [
+      "We put the sphere to a coordinate space by putting the center at the origin. The four connecting points of the curve have the following coordinates: $A = \\left( 0, 0, 2 \\right)$ $B = \\left( 2, 0, 0 \\right)$ $C = \\left( 0, 0, -2 \\right)$ $D = \\left( -2, 0, 0 \\right)$ Now, we compute the radius of each semicircle. Denote by $M$ the midpoint of $A$ and $B$ . Thus, $M$ is the center of the semicircle that ends at $A$ and $B$ . We have $M = \\left( 1, 0, 1 \\right)$ . Thus, $OM = \\sqrt{1^2 + 0^2 + 1^2} = \\sqrt{2}$ In the right triangle $\\triangle OAM$ , we have $MA = \\sqrt{OA^2 - OM^2} = \\sqrt{2}$ Therefore, the length of the curve is \\begin{align*} 4 \\cdot \\frac{1}{2} 2 \\pi \\cdot MA = \\pi \\sqrt{32} . \\end{align*} Therefore, the answer is $\\boxed{32}$",
+      "Note that each of the diameters are the chord of the sphere of a quarter arc. Thus, the semicircles diameter's length is $2\\sqrt{2}$ . Thus, the entire curve is $2\\sqrt{2} \\cdot \\pi \\cdot \\frac{1}{2} \\cdot 4 = 4\\sqrt{2} \\pi = \\sqrt{32} \\pi$ . Therefore, the answer is $\\boxed{32}$ . ~andliu766",
+      "Cheese: You can immediately say that the answer choice is either ${\\text{(A) }32}$ or ${\\text{(C) }48}$ because there are four semicircles in that curve; there are $4 = \\sqrt{16}$ semicircles in the curve, so n has to be a multiple of 16, and if you don't know how to do this problem, just guess one of ${\\text{(A)}}$ or ${\\text{(C)}}$ . Actual way: Take a cross-section of the sphere to get four different points equidistant from the center $O$ of the sphere, $A$ $B$ $C$ $D$ such that $AO = BO = CO = DO = 2$ , and so $ABCD$ is a square with side length $2\\sqrt{2}$ , and proceed as in Solution 1 to get $\\boxed{32}$ . ~get-rickrolled ~LaTeX errors fixed by get-rickrolled"
+    ],
+    "contest": "AMC 10B 2023",
+    "round": "Individual Round",
+    "number": 20,
+    "answer": "32",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10B_Problems/Problem_20"
+    ],
+    "difficulty_score": 7.3,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "3D geometry",
+      "arc length",
+      "semicircles on a sphere"
+    ],
+    "techniques": [
+      "Pythagorean theorem"
+    ],
+    "difficulty": "medium",
+    "summary": "Find the total arc length of four congruent semicircles on a sphere of radius 2 using cross-section geometry."
+  },
+  {
+    "id": "AMIO-AMC10B-2023-P21",
+    "statement": "Each of $2023$ balls is randomly placed into one of $3$ bins. Which of the following is closest to the probability that each of the bins will contain an odd number of balls? $\\textbf{(A) } \\frac{2}{3} \\qquad\\textbf{(B) } \\frac{3}{10} \\qquad\\textbf{(C) } \\frac{1}{2} \\qquad\\textbf{(D) } \\frac{1}{3} \\qquad\\textbf{(E) } \\frac{1}{4}$",
+    "solution": "We first examine the possible arrangements for parity of number of balls in each box for $2022$ balls. If a $E$ denotes an even number and a $O$ denotes an odd number, then the distribution of balls for $2022$ balls could be $EEE,EOO,OEO,$ or $OOE$ . With the insanely overpowered magic of cheese, we assume that each case is about equally likely. From $EEE$ , it is not possible to get to all odd by adding one ball; we could either get $OEE,EOE,$ or $EEO$ . For the other $3$ cases, though, if we add a ball to the exact right place, then it'll work. For each of the working cases, we have $1$ possible slot the ball can go into (for $OEO$ , for example, the new ball must go in the center slot to make $OOO$ ) out of the $3$ slots, so there's a $\\dfrac13$ chance. We have a $\\dfrac34$ chance of getting one of these working cases, so our answer is $\\dfrac34\\cdot\\dfrac13=\\boxed{14.}$",
+    "candidates": [],
+    "contest": "AMC 10B 2023",
+    "round": "Individual Round",
+    "number": 21,
+    "answer": "\\dfrac{1}{4}",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10B_Problems/Problem_21"
+    ],
+    "difficulty_score": 7.5,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "probability",
+      "parity",
+      "ball-and-bin problems"
+    ],
+    "techniques": [
+      "casework",
+      "symmetry"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests probability that 2023 balls distributed into 3 bins each contain an odd number, using parity casework."
+  },
+  {
+    "id": "AMIO-AMC10B-2023-P22",
+    "statement": "How many distinct values of $x$ satisfy $\\lfloor{x}\\rfloor^2-3x+2=0$ , where $\\lfloor{x}\\rfloor$ denotes the largest integer less than or equal to $x$ $\\textbf{(A) } \\text{an infinite number} \\qquad \\textbf{(B) } 4 \\qquad \\textbf{(C) } 2 \\qquad \\textbf{(D) } 3 \\qquad \\textbf{(E) } 0$",
+    "solution": "To further grasp at this equation, we rearrange the equation into \\[\\lfloor{x}\\rfloor^2=3x-2.\\] Thus, $3x-2$ is a perfect square and nonnegative. It is now much more apparent that $x \\ge 2/3,$ and that $x = 2/3$ is a solution. Additionally, by observing the RHS, $x<4,$ as \\[\\lfloor{4}\\rfloor^2 > 3\\cdot4,\\] since squares grow quicker than linear functions. Now that we have narrowed down our search, we can simply test for intervals $[2/3,1], [1,2],[2,3],[3,4).$ This intuition to use intervals stems from the fact that $x=1,2$ are observable integral solutions. Notice how there is only one solution per interval, as $3x-2$ increases while $\\lfloor{x}\\rfloor^2$ stays the same. Finally, we see that $x=3$ does not work, however, through setting $\\lfloor{x}\\rfloor^2 = 9,$ $x = 11/3$ is a solution and within our domain of $[3,4).$ This provides us with solutions $\\left(\\frac23, 1, 2, \\frac{11}{3}\\right),$ thus the final answer is $\\boxed{4}.$",
+    "candidates": [
+      "Notice there has to be a solution for $x$ between $(2,-3)$ and $(1,2)$ because of the floors. There is also no way $2$ solutions because of the quadratic, and when we add them together, we get $\\boxed{4}.$ ~perion.",
+      "First, let's take care of the integer case--clearly, only $x=1,2$ work. Then, we know that $3x$ must be an integer. Set $x=\\frac{a}3$ . Now, there are two cases for the value of $\\lfloor x\\rfloor$ . Case 1: $\\lfloor x\\rfloor=\\frac{a-1}{3}$ \\[\\frac{a^2-2a+1}{9}=a-2\\rightarrow a^2-2a+1=9a-18\\rightarrow a^2-11a+19=0.\\] There are no solutions in this case. Case 2: $\\lfloor x\\rfloor=\\frac{a-2}{3}$ \\[\\frac{a^2-4a+4}{9}=a-2\\rightarrow a^2-4a+4=9a-18\\rightarrow a^2-13a+22=0.\\] This case provides the two solutions $\\frac23$ and $\\frac{11}3$ as two more solutions. Our final answer is thus $\\boxed{4}$",
+      "First, $x=2,1$ are trivial solutions We assume from the shape of a parabola and the nature of the floor function that any additional roots will be near 2 and 1 We can now test values for $\\lfloor{x}\\rfloor$ $\\lfloor{x}\\rfloor=0$ We have $0-3x+2=0$ . Solving, we have $x=\\frac{2}{3}$ . We see that $\\lfloor{\\frac{2}{3}}\\rfloor=0$ , so this solution is valid $\\lfloor{x}\\rfloor=-1$ We have $1-3x+2=0$ . Solving, we have $x=1$ $\\lfloor{1}\\rfloor\\neq-1$ , so this is not valid. We assume there are no more solutions in the negative direction and move on to $\\lfloor{x}\\rfloor=3$ $\\lfloor{x}\\rfloor=3$ We have $9-3x+2=0$ . Solving, we have $x=\\frac{11}{3}$ . We see that $\\lfloor{\\frac{11}{3}}\\rfloor=3$ , so this solution is valid $\\lfloor{x}\\rfloor=4$ We have $16-3x+2=0$ . Solving, we have $x=6$ $\\lfloor{6}\\rfloor\\neq4$ , so this is not valid. We assume there are no more solutions. Our final answer is $\\boxed{4}$",
+      "Denote $a = \\lfloor x \\rfloor$ . Denote $b = x - \\lfloor x \\rfloor$ . Thus, $b \\in \\left[ 0 , 1 \\right)$ The equation given in this problem can be written as \\[ a^2 - 3 \\left( a + b \\right) + 2 = 0 . \\] Thus, \\begin{align*} 3 b & = a^2 - 3 a + 2 . \\end{align*} Because $b \\in \\left[ 0 , 1 \\right)$ , we have $3 b \\in \\left[ 0 , 3 \\right)$ . Thus, \\[ a^2 - 3 a + 2 = 0, 1, \\mbox{ or } 2 . \\] If $a^2-3a+2=0$ $(a-2)(a-1)=0$ so $a$ can be $1, 2$ If $a^2-3a+2=1$ $a^2-3a+1=0$ which we find has no integer solutions after finding the discriminant. If $a^2-3a+2=2$ $a^2-3a=0$ -> $a(a-3)=0$ so $a$ can also be $0, 3$ Therefore, $a = 1$ , 2, 0, 3. Therefore, the number of solutions is $\\boxed{4}$",
+      "$x=1, 2$ are trivial solutions. Let $x=n+f$ for some integer $n$ and some number $f$ such that $-1<f<1$ \\[\\lfloor{x}\\rfloor^2-3x+2= \\lfloor{n+f}\\rfloor^2-3(n+f)+2=n^2+-3(n+f)+2.\\] So now we have \\[n^2-3(n+f)+2 = 0,\\] which we can rewrite as \\[n(n-3)=3f-2.\\] Since $n$ is an integer, $n(n-3)$ is an integer, so $3f-2$ is an integer. Since $-1<f<1$ , the only possible values of $f$ are $\\frac{1}{3}$ $\\frac{2}{3}$ $-\\frac{1}{3}$ , and $-\\frac{2}{3}$ . Plugging in each value, we find that the only value of $f$ that produces integer solutions for $n$ is $f=\\frac{2}{3}$ . If $f=\\frac{2}{3}$ $n=0$ or $n=3$ . Hence, there is a total of 4 possible solutions, so the answer is $\\boxed{4}$ . ~azc1027",
+      "We rewrite the equation as ${\\lfloor x\\rfloor}^2-3\\lfloor x\\rfloor-3\\{x\\}+2=0$ , where $\\{x\\}$ is the fractional part of $x$ Denote $\\lfloor x\\rfloor = x_1$ and $\\{x\\} = x_2.$ Thus \\[{x_1}^2-3{x_1}-3{x_2}+2=0.\\] By definition, $0\\leq x_2\\leq 1$ . We then have ${x_1}^2-3{x_1}+2=3{x_2}$ and therefore $0\\leq {x_1}^2-3{x_1}+2\\leq 3$ Solving, we have $\\left[\\frac{3-\\sqrt{13}}{2},1\\right]\\cup \\left[2,\\frac{3+\\sqrt{13}}{2}\\right]$ . But since $x_1$ is an integer, we have $x_1$ can only be $0,1,2,$ or $3$ Testing, we see these values of $x_1$ work, and therefore the answer is just $\\boxed{4}$",
+      "We know that for integer values of x, the graph is just $x^2-3x+2$ . From the interval $[x, x+1]$ , the square stays the same, so the graph has a line segment that goes down by 3 and right by 2. This is very easy to graph, so we see that there are 4 solutions. Or, we notice that only $x = 0, 1, 2, 3$ results in a $x^2-3x+2$ in the interval $[0, 3]$ .That is $\\boxed{4}$ solutions."
+    ],
+    "contest": "AMC 10B 2023",
+    "round": "Individual Round",
+    "number": 22,
+    "answer": "4",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10B_Problems/Problem_22"
+    ],
+    "difficulty_score": 7.6,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "floor function equations",
+      "piecewise analysis"
+    ],
+    "techniques": [
+      "floor/ceiling functions",
+      "casework"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests solving an equation involving the floor function by analyzing integer intervals."
+  },
+  {
+    "id": "AMIO-AMC10B-2023-P23",
+    "statement": "An arithmetic sequence of positive integers has $\\text{n} \\ge 3$ terms, initial term $a$ , and common difference $d > 1$ . Carl wrote down all the terms in this sequence correctly except for one term, which was off by $1$ . The sum of the terms he wrote was $222$ . What is $a + d + n$ $\\textbf{(A) } 24 \\qquad \\textbf{(B) } 20 \\qquad \\textbf{(C) } 22 \\qquad \\textbf{(D) } 28 \\qquad \\textbf{(E) } 26$",
+    "solution": "Since one of the terms was either $1$ more or $1$ less than it should have been, the sum should have been $222-1=221$ or $222+1=223.$ The formula for an arithmetic series is $an+d\\left(\\dfrac{(n-1)n}2\\right)=\\dfrac n2\\left(2a+d(n-1)\\right).$ This can quickly be rederived by noticing that the sequence goes $a,a+d,a+2d,a+3d,\\dots,a+(n-1)d$ , and grouping terms. We know that $\\dfrac n2(2a+d(n-1))=221$ or $223$ . Let us now show that $223$ is not possible. If $\\dfrac n2(2a+d(n-1))=223$ , we can simplify this to be $n(a+d(n-1))=223\\cdot2.$ Since every expression in here should be an integer, we know that either $n=2$ and $a+d(n-1)=223$ or $n=223$ and $a+d(n-1)=2.$ The latter is not possible, since $n\\ge3,d>1,$ and $a>0.$ The former is also impossible, as $n\\ge3.$ Thus, $\\dfrac n2(2a+d(n-1))\\neq223\\implies\\dfrac n2(2a+d(n-1))=221$ We can factor $221$ as $13\\cdot17$ . Using similar reasoning, we see that $221\\cdot2$ can not be paired as $2$ and $221$ , but rather must be paired as $13$ and $17$ with a factor of $2$ somewhere. Let us first try $n=13.$ Our equation simplifies to $2a+12d=34\\implies a+6d=17.$ We know that $d>1,$ so we try the smallest possible value: $d=2.$ This would give us $a=17-2\\cdot6=17-12=5.$ (Indeed, this is the only possible $d$ .) There is nothing wrong with the values we have achieved, so it is reasonable to assume that this is the only valid solution (or all solutions sum to the same thing), so we answer $a+d+n=5+2+13=\\boxed{20.}$",
+    "candidates": [
+      "There are $n$ terms, the $x$ th term is $a+(x-1)d$ , summation is $an+dn(n-1)/2=n(a+\\frac{d(n-1)}{2})$ The summation of the set is $222 \\pm 1 = 221,223$ . First, $221$ : its only possible factors are $1,13,17,221$ , and as said by the problem, $n\\ge3$ , so $n$ must be $13,17,$ or $221$ . Let's start with $n=13$ . Then, $a+6d=17$ , and this means $a=5$ $d=2$ . Summing gives $13+5+2=\\boxed{20}$ . We don't need to test any more cases, since the problem writes that all $a+d+n$ are the same.",
+      "We must have the sum of terms of the arithmetic sequence is $222\\pm 1$ , which is $221$ or $223$ Since we have $223$ is prime, it cannot be the sum of the arithmetic sequence. We see that $221$ is just $13\\times 17$ We can write any arithmetic sequence with an odd amount of terms like this: $b-md,\\cdots ,b-2d,b-d,b,b+d,b+2d,\\cdots b+md$ where b is the middle term and d is the common difference. By the sum of an arithmetic sequence, we have $13b=221$ and $17b=221$ and therefore $(b,n)$ $=$ $(13,17)$ or $(17,13)$ Then $a+d+n=b-md+d+n=30-(m-1)d$ We must have that m is either $\\frac{17-1}{2}$ or $\\frac{13-1}{2}$ , so m is either $6$ or $8$ So $a+d+n=30-5d$ or $30-7d$ Taking $\\mod 7$ , we have no answer choices that give $2$ , and then taking $\\mod 5$ gives the only answer that works is $20$ Therefore we have $a+d+n=\\boxed{20.}$",
+      "The formula for the sum of an arithmetic sequence is $n(\\frac{a_1+a_n}{2})$ , where $a$ is the first term, $a_n$ is the last term, and $n$ is the number of terms. Let $a$ be the first term, $d$ be the common difference, and $n$ be the number of terms of Carl's sequence. Since the sum the sequence is $1$ less or $1$ more than $222$ , we have \\[n(\\frac{a+d(n-1)}{2})\\pm{1} = 222\\] \\[n(\\frac{a+d(n-1)}{2}) = 222\\pm{1}.\\] The right-hand side is either $221$ or $223$ . We know that it has to be divisible by $n$ so we can find the factors of $221$ and $223$ . Checking all the primes less than $15$ , we find that $223$ is prime and $221=13\\cdot17$ Because $n\\ge3$ , the sum must be $221$ and the only possible values of $n$ are $13$ and $17$ . We can test both cases. Case 1: $n=17$ Substituting for $n$ gives us $a+8d=17$ . Since the sequence consists of only positive integers, $d$ is an integer. We know that $d>1$ but if $d\\ge2$ , then $8d>13$ . Hence, this case is not possible. Case 2: $n=13$ Substituting for $n$ gives us $a+6d=17$ . Using the same logic from case 1, we get $3>d>1$ , so $d=2$ . Solving for $a$ , we get $a=5$ . Therefore, $a+d+n=5+2+13=20$ , so the answer is $\\boxed{20.}$ . ~azc1027"
+    ],
+    "contest": "AMC 10B 2023",
+    "round": "Individual Round",
+    "number": 23,
+    "answer": "20",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10B_Problems/Problem_23"
+    ],
+    "difficulty_score": 7.8,
+    "area": [
+      "Algebra",
+      "Number Theory"
+    ],
+    "subtopics": [
+      "arithmetic sequences",
+      "arithmetic series",
+      "divisibility"
+    ],
+    "techniques": [
+      "arithmetic series",
+      "prime factorization",
+      "casework"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests arithmetic series formula and factoring to find sequence parameters from a corrupted sum."
+  },
+  {
+    "id": "AMIO-AMC10B-2023-P24",
+    "statement": "What is the perimeter of the boundary of the region consisting of all points which can be expressed as $(2u-3w, v+4w)$ with $0\\le u\\le1$ $0\\le v\\le1,$ and $0\\le w\\le1$ $\\textbf{(A) } 10\\sqrt{3} \\qquad \\textbf{(B) } 13 \\qquad \\textbf{(C) } 12 \\qquad \\textbf{(D) } 18 \\qquad \\textbf{(E) } 16$",
+    "solution": "[asy] import geometry; pair A = (-3, 4); pair B = (-3, 5); pair C = (-1, 4); pair D = (-1, 5); pair AA = (0, 0); pair BB = (0, 1); pair CC = (2, 0); pair DD = (2, 1); //draw(A--B--D--C--cycle); draw(A--B); label(\"1\",midpoint(A--B),W); label(\"2\",midpoint(D--B),N); draw(A--C,dashed); draw(B--D); draw(C--D, dashed); draw(A--AA); label(\"5\",midpoint(A--AA),W); draw(B--BB,dashed); draw(C--CC,dashed); draw(D--DD); label(\"5\",midpoint(D--DD),E); label(\"1\",midpoint(CC--DD),E); label(\"2\",midpoint(AA--CC),S); // Dotted vertices dot(A); dot(B); dot(C); dot(D); dot(AA); dot(BB); dot(CC); dot(DD); draw(AA--BB,dashed); draw(AA--CC); draw(BB--DD,dashed); draw(CC--DD); label(\"(0,0)\",AA,W); label(\"(-3,4)\",A,SW); label(\"(-1,5)\",D,E); label(\"(2,1)\",DD,NE); [/asy] Notice that we are given a parametric form of the region, and $w$ is used in both $x$ and $y$ . We first fix $u$ and $v$ to $0$ , and graph $(-3w,4w)$ from $0\\le w\\le1$ . When $w$ is $0$ , we have the point $(0,0)$ , and when $w$ is $1$ , we have the point $(-3,4)$ . We see that since this is a directly proportional function, we can just connect the dots like this: [asy] import graph; Label f; size(5cm); unitsize(0.7cm); xaxis(-5,5,Ticks(f, 5.0, 1.0)); yaxis(-5,5,Ticks(f, 5.0, 1.0)); draw((0,0)--(-3,4)); [/asy] Now, when we vary $u$ from $0$ to $2$ , this line is translated to the right $2$ units: [asy] import graph; Label f; unitsize(0.7cm); size(5cm); xaxis(-5,5,Ticks(f, 5.0, 1.0)); yaxis(-5,5,Ticks(f, 5.0, 1.0)); draw((0,0)--(-3,4)); draw((2,0)--(-1,4)); [/asy] We know that any points in the region between the line (or rather segment) and its translation satisfy $w$ and $u$ , so we shade in the region: [asy] import graph; Label f; unitsize(0.7cm); size(5cm); xaxis(-5,5,Ticks(f, 5.0, 1.0)); yaxis(-5,5,Ticks(f, 5.0, 1.0)); draw((0,0)--(-3,4)); draw((2,0)--(-1,4)); filldraw((0,0)--(-3,4)--(-1,4)--(2,0)--cycle, gray); [/asy] We can also shift this quadrilateral one unit up, because of $v$ . Thus, this is our figure: [asy] import graph; Label f; unitsize(0.7cm); size(5cm); xaxis(-5,5,Ticks(f, 5.0, 1.0)); yaxis(-5,5,Ticks(f, 5.0, 1.0)); draw((0,0)--(-3,4)); draw((2,0)--(-1,4)); filldraw((0,0)--(-3,4)--(-1,4)--(2,0)--cycle, gray); filldraw((0,1)--(-3,5)--(-1,5)--(2,1)--cycle, gray); draw((0,0)--(0,1),black+dashed); draw((2,0)--(2,1),black+dashed); draw((-3,4)--(-3,5),black+dashed); [/asy] [asy] import graph; Label f; unitsize(0.7cm); size(5cm); xaxis(-5,5,Ticks(f, 5.0, 1.0)); yaxis(-5,5,Ticks(f, 5.0, 1.0)); draw((0,0)--(-3,4)); draw((1,0)--(-2,4)); filldraw((0,0)--(2,0)--(2,1)--(-1,5)--(-3,5)--(-3,4)--cycle, gray); [/asy] The length of the boundary is simply $1+2+5+1+2+5$ $5$ can be obtained by Pythagorean theorem since we have side lengths $3$ and $4$ .). This equals $\\boxed{16.}$",
+    "candidates": [
+      "We can find the \"boundary points\" and work with our intuition to solve the problem. We set each of $u, v, w$ equal to $0, 1$ for a total of $8$ combinations in $u, v, w$ . We now test each one. Case 1: $u = 0, v = 0, w = 0 \\implies (0, 0)$ Case 2: $u = 0, v = 0, w = 1 \\implies (-3, 4)$ Case 3: $u = 0, v = 1, w = 0 \\implies (0, 1)$ Case 4: $u = 0, v = 1, w = 1 \\implies (-3, 5)$ Case 5: $u = 1, v = 0, w = 0 \\implies (2, 0)$ Case 6: $u = 1, v = 0, w = 1 \\implies (-1, 4)$ Case 7: $u = 1, v = 1, w = 0 \\implies (2, 1)$ Case 8: $u = 1, v = 1, w = 1 \\implies (-1, 5)$ When graphed on a coordinate plane, the points appear as follows. [asy] import graph; import geometry; Label f; size(5cm); unitsize(0.7cm); xaxis(-5,5,Ticks(f, 5.0, 1.0)); yaxis(-5,5,Ticks(f, 5.0, 1.0)); pair A = (0, 0); dot (A); pair B = (-3, 4); dot (B); pair C = (0, 1); dot (C); pair D = (-3, 5); dot (D); pair E = (2, 0); dot (E); pair F = (-1, 4); dot (F); pair G = (2, 1); dot (G); pair H = (-1, 5); dot (H); [/asy] Notice how there are two distinct rectangles visible in the figure. This leads us to believe that the region tracks the motion of this region as it travels in space. To understand why this is true, we can imagine a fixed $w$ (as it is present in both the $x$ and $y$ coordinates). Then if we hold one of $u$ or $v$ fixed and let the other vary, we get a straight line parallel to the $x$ or $y$ axis respectively. If we let the other vary, we get the other type of straight line. Together, they form a rectangular region. In addition, $w$ serves as a diagonal translation, so if we now let $w$ vary, it traces out the motion of the rectangle. Keeping this in mind, we connect the dots. [asy] import graph; import geometry; Label f; size(5cm); unitsize(0.7cm); xaxis(-5,5,Ticks(f, 5.0, 1.0)); yaxis(-5,5,Ticks(f, 5.0, 1.0)); draw((0,0)--(-3,4)--(-3,5)--(-1,5)--(2,1)--(2,0)--cycle, gray); [/asy] Each of the diagonal sides have length $5$ by the distance formula on $(0,0)$ and $(-3,4)$ (the other diagonal side is congruent), so our total area is $2 + 1 + 5 + 2 + 1 + 5 = \\boxed{16}$"
+    ],
+    "contest": "AMC 10B 2023",
+    "round": "Individual Round",
+    "number": 24,
+    "answer": "16",
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2023_AMC_10B_Problems/Problem_24"
+    ],
+    "difficulty_score": 8.0,
+    "area": [
+      "Geometry",
+      "Algebra"
+    ],
+    "subtopics": [
+      "parametric regions",
+      "linear transformations",
+      "perimeter"
+    ],
+    "techniques": [
+      "parametrization",
+      "Pythagorean theorem"
+    ],
+    "difficulty": "medium",
+    "summary": "Find the perimeter of a region defined by a linear parametric map with three parameters over unit intervals."
   }
 ]

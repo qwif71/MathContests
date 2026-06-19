@@ -53,7 +53,7 @@ import tag_and_compare as tc  # noqa: E402  (reuse tag()/add_difficulty())
 # and ".../wiki/index.php/1995_AHSME_Problems/Problem_12"
 #  -> year=1995 contest="AHSME" number=12
 LINK_RE = re.compile(
-    r"/(?P<year>\d{4})_(?P<contest>AMC_(?:8|10|12)[AB]?|AJHSME|AHSME|"
+    r"/(?P<year>\d{4})_(?P<season>Fall_|Spring_)?(?P<contest>AMC_(?:8|10|12)[ABP]?|AJHSME|AHSME|"
     r"AIME(?:_I{1,2})?|USAMO|USAJMO)_Problems/Problem_(?P<number>\d+)",
     re.IGNORECASE,
 )
@@ -69,6 +69,10 @@ def parse_link(link):
         return None
     year = m.group("year")
     contest = m.group("contest").replace("_", " ").upper()
+    season = m.group("season")
+    if season:
+        contest = f"{contest.split()[0]} {contest.split()[1]} {season.strip('_').upper()}" \
+            if len(contest.split()) > 1 else f"{contest} {season.strip('_').upper()}"
     number = int(m.group("number"))
     return year, contest, number
 
@@ -167,6 +171,9 @@ def main():
     ap.add_argument("--contests", default=None,
                      help="Comma-separated contest filter, e.g. 'AMC 8,AMC 10A,AMC 10B,AMC 12A,"
                           "AMC 12B,AIME I,AIME II'. Default: all contests in the file.")
+    ap.add_argument("--years", default=None,
+                     help="Comma-separated year filter, e.g. '2023' or '2022,2023'. "
+                          "Default: all years in the file.")
     args = ap.parse_args()
 
     print(f"Reading {args.csv_path}...", file=sys.stderr)
@@ -180,6 +187,10 @@ def main():
     if args.contests:
         wanted = {c.strip().upper() for c in args.contests.split(",")}
 
+    wanted_years = None
+    if args.years:
+        wanted_years = {y.strip() for y in args.years.split(",")}
+
     records, by_contest = [], defaultdict(int)
     skip_reasons = defaultdict(int)
 
@@ -188,10 +199,11 @@ def main():
         if skip_reason:
             skip_reasons[skip_reason] += 1
             continue
-        if wanted is not None:
-            contest_only = rec["contest"].rsplit(" ", 1)[0]  # strip trailing year
-            if contest_only not in wanted:
-                continue
+        contest_only, _, year_only = rec["contest"].rpartition(" ")
+        if wanted is not None and contest_only not in wanted:
+            continue
+        if wanted_years is not None and year_only not in wanted_years:
+            continue
         records.append(rec)
         by_contest[rec["contest"]] += 1
 
