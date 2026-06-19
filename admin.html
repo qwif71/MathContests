@@ -278,16 +278,17 @@ By Power of a Point..."></textarea>
 
   <!-- AIMO CSV import -->
   <div id="tabAimo" class="card hidden">
-    <label for="a_file">AIMO CSV file</label>
-    <input type="file" id="a_file" accept=".csv,text/csv">
-    <div class="help">
-      Columns expected: problem_id, link, problem, solution, letter, answer.
-      Each problem can have multiple solution rows — all of them are combined
-      and shown to the tagger together. Upload once, then import contest by
-      contest below so you can review each batch as it lands instead of
-      importing everything at once.
+    <div class="help" style="margin-top:0">
+      Reads from <code id="a_csv_path">backend/data/aimo_raw.csv</code> in the repo —
+      commit the AIMO CSV there and redeploy once; no need to upload it through
+      this page. Columns expected: problem_id, link, problem, solution, letter,
+      answer. Each problem can have multiple solution rows — all of them are
+      combined and shown to the tagger together.
     </div>
-    <button id="a_upload" onclick="uploadAimoCsv()">Upload &amp; list contests</button>
+    <div class="row2" style="display:flex; gap:0.75rem; margin-top:0.75rem;">
+      <button onclick="loadAimoContests(false)" style="flex:1; margin-top:0">List contests</button>
+      <button class="secondary" onclick="loadAimoContests(true)" style="flex:1; margin-top:0">Reload from repo</button>
+    </div>
     <div id="a_upload_result" class="result hidden"></div>
 
     <div id="a_contests_wrap" class="hidden">
@@ -397,6 +398,7 @@ By Power of a Point..."></textarea>
     document.getElementById("tabSettingsBtn").classList.toggle("inactive", name !== "settings");
     if (name === "settings") loadSettings();
     if (name === "browse") loadProblemList();
+    if (name === "aimo" && !document.getElementById("a_contest_list").children.length) loadAimoContests(false);
   }
 
   async function checkSession() {
@@ -587,43 +589,29 @@ By Power of a Point..."></textarea>
     }
   }
 
-  // --- AIMO CSV import ---
+  // --- AIMO CSV import (loaded from the repo, not uploaded) ---
   let aimoImportedContests = new Set();
 
-  async function uploadAimoCsv() {
-    const btn = document.getElementById("a_upload");
-    const fileInput = document.getElementById("a_file");
-    if (!fileInput.files.length) {
-      setResult("a_upload_result", false, "Choose a CSV file first.");
-      document.getElementById("a_upload_result").classList.remove("hidden");
-      return;
-    }
-    const form = new FormData();
-    form.append("file", fileInput.files[0]);
-
-    btn.disabled = true;
-    setResult("a_upload_result", true, "Parsing CSV...");
+  async function loadAimoContests(reload) {
+    setResult("a_upload_result", true, reload ? "Reloading CSV from repo..." : "Reading CSV from repo...");
     document.getElementById("a_upload_result").classList.remove("hidden");
     try {
-      const res = await fetch(`${API}/admin/aimo/upload`, {
-        method: "POST",
-        credentials: "include",
-        body: form,
-      });
+      const params = new URLSearchParams();
+      if (reload) params.set("reload", "true");
+      const res = await fetch(`${API}/admin/aimo/contests?${params}`, { credentials: "include" });
       const data = await res.json();
       if (!res.ok) {
-        setResult("a_upload_result", false, data.detail || "Upload failed.");
+        setResult("a_upload_result", false, data.detail || "Could not list contests.");
         return;
       }
+      if (data.csv_path) document.getElementById("a_csv_path").textContent = data.csv_path;
       aimoImportedContests = new Set();
       setResult("a_upload_result", true,
-        `Parsed ${data.total_problems_in_csv} problems across ${Object.keys(data.contests).length} contests` +
+        `Found ${data.total_problems_in_csv} problems across ${Object.keys(data.contests).length} contests` +
         (data.unparsed_links ? ` (${data.unparsed_links} rows had unrecognized links and were skipped).` : "."));
       renderContestList(data.contests);
     } catch (e) {
       setResult("a_upload_result", false, "Could not reach the API.");
-    } finally {
-      btn.disabled = false;
     }
   }
 
