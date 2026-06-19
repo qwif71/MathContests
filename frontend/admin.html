@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math Practice — Admin</title>
+  <script>MathJax = {tex: {inlineMath: [["$","$"],["\\(","\\)"]]}};</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f5f5;
+      color: #222;
+      padding: 2rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
+    .subtitle { color: #666; margin-bottom: 2rem; font-size: 0.95rem; }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      margin-bottom: 1.5rem;
+    }
+    label { display: block; font-size: 0.85rem; color: #555; margin-bottom: 0.3rem; margin-top: 1rem; }
+    label:first-child { margin-top: 0; }
+    input[type=text], input[type=password], textarea, select {
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 0.6rem 0.75rem;
+      font-size: 0.95rem;
+      font-family: inherit;
+    }
+    textarea { min-height: 220px; resize: vertical; font-family: ui-monospace, monospace; font-size: 0.85rem; }
+    .row { display: flex; gap: 0.75rem; }
+    .row > * { flex: 1; }
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.6rem 1.25rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+      margin-top: 1.25rem;
+    }
+    button:hover { background: #1d4ed8; }
+    button:disabled { background: #93b4ec; cursor: not-allowed; }
+    button.secondary { background: white; border: 1px solid #ddd; color: #444; }
+    button.secondary:hover { background: #f9fafb; }
+    .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .tabs button { margin-top: 0; }
+    .tabs button.inactive { background: white; border: 1px solid #ddd; color: #444; }
+    .hidden { display: none; }
+    .result {
+      margin-top: 1.25rem;
+      padding: 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+    }
+    .result.ok { background: #ecfdf5; color: #065f46; }
+    .result.err { background: #fef2f2; color: #991b1b; }
+    .status { color: #666; font-size: 0.85rem; margin-bottom: 1rem; }
+    .loading { color: #888; font-size: 0.9rem; }
+    .help { font-size: 0.8rem; color: #888; margin-top: 0.3rem; }
+  </style>
+</head>
+<body>
+
+<h1>Math Practice — Admin</h1>
+<p class="subtitle">Developer login and problem import</p>
+
+<div id="loginView" class="card hidden">
+  <label for="password">Admin password</label>
+  <input type="password" id="password" placeholder="Password" onkeydown="if(event.key==='Enter')login()">
+  <button onclick="login()">Log in</button>
+  <div id="loginResult" class="result hidden"></div>
+</div>
+
+<div id="adminView" class="hidden">
+  <div class="status" id="statusLine"></div>
+
+  <div class="tabs">
+    <button id="tabTextBtn" onclick="switchTab('text')">Paste text</button>
+    <button id="tabPdfBtn" class="inactive" onclick="switchTab('pdf')">Upload PDF</button>
+    <button class="secondary" style="margin-left:auto" onclick="logout()">Log out</button>
+  </div>
+
+  <!-- Paste-text import -->
+  <div id="tabText" class="card">
+    <div class="row">
+      <div>
+        <label for="t_id">Problem ID</label>
+        <input type="text" id="t_id" placeholder="CONTEST2026-INDIVIDUAL-1">
+      </div>
+      <div>
+        <label for="t_contest">Contest</label>
+        <input type="text" id="t_contest" placeholder="e.g. ARML 2026">
+      </div>
+      <div>
+        <label for="t_round">Round</label>
+        <input type="text" id="t_round" placeholder="Individual Round" value="Individual Round">
+      </div>
+    </div>
+    <label for="t_text">Problem text</label>
+    <textarea id="t_text" placeholder="STATEMENT:
+Let ABC be a triangle...
+
+SOLUTION:
+By Power of a Point..."></textarea>
+    <div class="help">Use STATEMENT: / SOLUTION: headers, or just write "Solution." inline — same convention as the CLI's record_from_text.</div>
+    <button id="t_submit" onclick="importText()">Tag &amp; import</button>
+    <div id="t_result" class="result hidden"></div>
+  </div>
+
+  <!-- PDF import -->
+  <div id="tabPdf" class="card hidden">
+    <div class="row">
+      <div>
+        <label for="p_contest">Contest name</label>
+        <input type="text" id="p_contest" placeholder="e.g. AMC 2025 10B">
+      </div>
+      <div>
+        <label for="p_format">Format</label>
+        <select id="p_format">
+          <option value="arml">arml</option>
+          <option value="mmaths">mmaths</option>
+          <option value="amc">amc</option>
+          <option value="llm">llm (universal fallback)</option>
+        </select>
+      </div>
+      <div>
+        <label for="p_round">Round</label>
+        <input type="text" id="p_round" placeholder="Individual Round" value="Individual Round">
+      </div>
+    </div>
+    <label for="p_file">PDF file</label>
+    <input type="file" id="p_file" accept="application/pdf">
+    <div class="help">Mirrors add_contest.sh: extract → combine → tag, but in one step against the live corpus.</div>
+    <button id="p_submit" onclick="importPdf()">Extract, tag &amp; import</button>
+    <div id="p_result" class="result hidden"></div>
+  </div>
+</div>
+
+<script>
+  const API = "https://matchcontests-api.onrender.com";
+
+  function setResult(elId, ok, text) {
+    const el = document.getElementById(elId);
+    el.className = "result " + (ok ? "ok" : "err");
+    el.textContent = text;
+  }
+
+  function switchTab(name) {
+    document.getElementById("tabText").classList.toggle("hidden", name !== "text");
+    document.getElementById("tabPdf").classList.toggle("hidden", name !== "pdf");
+    document.getElementById("tabTextBtn").classList.toggle("inactive", name !== "text");
+    document.getElementById("tabPdfBtn").classList.toggle("inactive", name !== "pdf");
+  }
+
+  async function checkSession() {
+    try {
+      const res = await fetch(`${API}/admin/me`, { credentials: "include" });
+      const data = await res.json();
+      if (data.logged_in) {
+        document.getElementById("loginView").classList.add("hidden");
+        document.getElementById("adminView").classList.remove("hidden");
+        loadStats();
+      } else {
+        document.getElementById("loginView").classList.remove("hidden");
+        document.getElementById("adminView").classList.add("hidden");
+      }
+    } catch (e) {
+      document.getElementById("loginView").classList.remove("hidden");
+    }
+  }
+
+  async function loadStats() {
+    try {
+      const res = await fetch(`${API}/stats`);
+      const data = await res.json();
+      document.getElementById("statusLine").textContent =
+        `${data.total} problems across ${Object.keys(data.by_contest).length} contests`;
+    } catch (e) {}
+  }
+
+  async function login() {
+    const password = document.getElementById("password").value;
+    setResult("loginResult", true, "Logging in...");
+    document.getElementById("loginResult").classList.remove("hidden");
+    try {
+      const res = await fetch(`${API}/admin/login`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        setResult("loginResult", false, err.detail || "Login failed.");
+        return;
+      }
+      document.getElementById("loginResult").classList.add("hidden");
+      checkSession();
+    } catch (e) {
+      setResult("loginResult", false, "Could not reach the API. Is the backend running?");
+    }
+  }
+
+  async function logout() {
+    await fetch(`${API}/admin/logout`, { method: "POST", credentials: "include" });
+    checkSession();
+  }
+
+  async function importText() {
+    const btn = document.getElementById("t_submit");
+    const body = {
+      id: document.getElementById("t_id").value.trim(),
+      contest: document.getElementById("t_contest").value.trim(),
+      round: document.getElementById("t_round").value.trim(),
+      text: document.getElementById("t_text").value,
+    };
+    if (!body.id || !body.text.trim()) {
+      setResult("t_result", false, "Problem ID and text are required.");
+      document.getElementById("t_result").classList.remove("hidden");
+      return;
+    }
+    btn.disabled = true;
+    setResult("t_result", true, "Tagging via Claude and importing...");
+    document.getElementById("t_result").classList.remove("hidden");
+    try {
+      const res = await fetch(`${API}/admin/import/text`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setResult("t_result", false, data.detail || "Import failed.");
+      } else {
+        const githubMsg = data.github && data.github.committed
+          ? "Committed to GitHub." : `Not committed to GitHub (${data.github ? data.github.reason : "unknown"}).`;
+        setResult("t_result", true,
+          `Imported. Added: ${data.added.join(", ") || "none"}. ` +
+          `Replaced: ${data.replaced.join(", ") || "none"}. ` +
+          `Corpus size: ${data.total_corpus_size}. ${githubMsg}`);
+        loadStats();
+      }
+    } catch (e) {
+      setResult("t_result", false, "Could not reach the API.");
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  async function importPdf() {
+    const btn = document.getElementById("p_submit");
+    const fileInput = document.getElementById("p_file");
+    if (!fileInput.files.length) {
+      setResult("p_result", false, "Choose a PDF file first.");
+      document.getElementById("p_result").classList.remove("hidden");
+      return;
+    }
+    const form = new FormData();
+    form.append("file", fileInput.files[0]);
+    form.append("contest", document.getElementById("p_contest").value.trim());
+    form.append("fmt", document.getElementById("p_format").value);
+    form.append("round_name", document.getElementById("p_round").value.trim());
+
+    btn.disabled = true;
+    setResult("p_result", true, "Extracting, tagging, and importing (this can take a minute)...");
+    document.getElementById("p_result").classList.remove("hidden");
+    try {
+      const res = await fetch(`${API}/admin/import/pdf`, {
+        method: "POST",
+        credentials: "include",
+        body: form,
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setResult("p_result", false, data.detail || "Import failed.");
+      } else {
+        const githubMsg = data.github && data.github.committed
+          ? "Committed to GitHub." : `Not committed to GitHub (${data.github ? data.github.reason : "unknown"}).`;
+        setResult("p_result", true,
+          `Imported ${data.added.length + data.replaced.length} problem(s). ` +
+          `Corpus size: ${data.total_corpus_size}. ${githubMsg}`);
+        loadStats();
+      }
+    } catch (e) {
+      setResult("p_result", false, "Could not reach the API.");
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  checkSession();
+</script>
+</body>
+</html>
