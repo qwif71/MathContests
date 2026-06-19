@@ -8,38 +8,96 @@
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f5f5;
+      --fg: #222;
+      --fg-muted: #666;
+      --fg-faint: #888;
+      --card-bg: #ffffff;
+      --card-shadow: rgba(0,0,0,0.08);
+      --border: #ddd;
+      --border-soft: #eee;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --accent-disabled: #93b4ec;
+      --ok-bg: #ecfdf5;
+      --ok-fg: #065f46;
+      --err-bg: #fef2f2;
+      --err-fg: #991b1b;
+      --row-hover: #f9fafb;
+      --danger: #dc2626;
+      --danger-hover: #b91c1c;
+    }
+    [data-theme="dark"] {
+      --bg: #15171c;
+      --fg: #e6e6e6;
+      --fg-muted: #a0a4ad;
+      --fg-faint: #777c87;
+      --card-bg: #1e2128;
+      --card-shadow: rgba(0,0,0,0.4);
+      --border: #333741;
+      --border-soft: #2a2d35;
+      --accent: #3b82f6;
+      --accent-hover: #60a5fa;
+      --accent-disabled: #2c3a55;
+      --ok-bg: #0d2b22;
+      --ok-fg: #5fd6a8;
+      --err-bg: #3a1414;
+      --err-fg: #f87171;
+      --row-hover: #262a33;
+      --danger: #ef4444;
+      --danger-hover: #f87171;
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f5f5f5;
-      color: #222;
+      background: var(--bg);
+      color: var(--fg);
       padding: 2rem;
       max-width: 860px;
       margin: 0 auto;
+      transition: background 0.15s, color 0.15s;
     }
+    .top-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
     h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
-    .subtitle { color: #666; margin-bottom: 2rem; font-size: 0.95rem; }
+    .subtitle { color: var(--fg-muted); margin-bottom: 2rem; font-size: 0.95rem; }
+    .theme-toggle {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.4rem 0.9rem;
+      font-size: 0.85rem;
+      color: var(--fg);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .theme-toggle:hover { border-color: var(--accent); }
+
     .card {
-      background: white;
+      background: var(--card-bg);
       border-radius: 12px;
       padding: 1.5rem;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      box-shadow: 0 1px 4px var(--card-shadow);
       margin-bottom: 1.5rem;
     }
-    label { display: block; font-size: 0.85rem; color: #555; margin-bottom: 0.3rem; margin-top: 1rem; }
+    label { display: block; font-size: 0.85rem; color: var(--fg-muted); margin-bottom: 0.3rem; margin-top: 1rem; }
     label:first-child { margin-top: 0; }
     input[type=text], input[type=password], textarea, select {
       width: 100%;
-      border: 1px solid #ddd;
+      border: 1px solid var(--border);
       border-radius: 8px;
       padding: 0.6rem 0.75rem;
       font-size: 0.95rem;
       font-family: inherit;
+      background: var(--card-bg);
+      color: var(--fg);
     }
     textarea { min-height: 220px; resize: vertical; font-family: ui-monospace, monospace; font-size: 0.85rem; }
     .row { display: flex; gap: 0.75rem; }
     .row > * { flex: 1; }
     button {
-      background: #2563eb;
+      background: var(--accent);
       color: white;
       border: none;
       border-radius: 8px;
@@ -48,13 +106,15 @@
       cursor: pointer;
       margin-top: 1.25rem;
     }
-    button:hover { background: #1d4ed8; }
-    button:disabled { background: #93b4ec; cursor: not-allowed; }
-    button.secondary { background: white; border: 1px solid #ddd; color: #444; }
-    button.secondary:hover { background: #f9fafb; }
-    .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+    button:hover { background: var(--accent-hover); }
+    button:disabled { background: var(--accent-disabled); cursor: not-allowed; }
+    button.secondary { background: var(--card-bg); border: 1px solid var(--border); color: var(--fg); }
+    button.secondary:hover { background: var(--row-hover); }
+    button.danger { background: var(--danger); }
+    button.danger:hover { background: var(--danger-hover); }
+    .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
     .tabs button { margin-top: 0; }
-    .tabs button.inactive { background: white; border: 1px solid #ddd; color: #444; }
+    .tabs button.inactive { background: var(--card-bg); border: 1px solid var(--border); color: var(--fg); }
     .hidden { display: none; }
     .result {
       margin-top: 1.25rem;
@@ -63,69 +123,84 @@
       font-size: 0.9rem;
       white-space: pre-wrap;
     }
-    .result.ok { background: #ecfdf5; color: #065f46; }
-    .result.err { background: #fef2f2; color: #991b1b; }
-    .status { color: #666; font-size: 0.85rem; margin-bottom: 1rem; }
-    .loading { color: #888; font-size: 0.9rem; }
-    .help { font-size: 0.8rem; color: #888; margin-top: 0.3rem; }
+    .result.ok { background: var(--ok-bg); color: var(--ok-fg); }
+    .result.err { background: var(--err-bg); color: var(--err-fg); }
+    .status { color: var(--fg-muted); font-size: 0.85rem; margin-bottom: 1rem; }
+    .loading { color: var(--fg-faint); font-size: 0.9rem; }
+    .help { font-size: 0.8rem; color: var(--fg-faint); margin-top: 0.3rem; }
 
     /* --- Settings toggle --- */
-    .setting-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
+    .setting-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
     .setting-row .setting-text { flex: 1; }
     .setting-row .setting-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.2rem; }
-    .setting-row .setting-desc { font-size: 0.85rem; color: #666; line-height: 1.4; }
-    .switch {
-      position: relative;
-      width: 46px;
-      height: 26px;
-      flex-shrink: 0;
-    }
+    .setting-row .setting-desc { font-size: 0.85rem; color: var(--fg-muted); line-height: 1.4; }
+    .switch { position: relative; width: 46px; height: 26px; flex-shrink: 0; }
     .switch input { opacity: 0; width: 0; height: 0; }
-    .switch-track {
-      position: absolute;
-      cursor: pointer;
-      inset: 0;
-      background: #ddd;
-      border-radius: 999px;
-      transition: background 0.15s;
-    }
+    .switch-track { position: absolute; cursor: pointer; inset: 0; background: var(--border); border-radius: 999px; transition: background 0.15s; }
     .switch-track::before {
-      content: "";
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      left: 3px;
-      top: 3px;
-      background: white;
-      border-radius: 50%;
-      transition: transform 0.15s;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+      content: ""; position: absolute; width: 20px; height: 20px; left: 3px; top: 3px;
+      background: white; border-radius: 50%; transition: transform 0.15s; box-shadow: 0 1px 2px rgba(0,0,0,0.2);
     }
-    .switch input:checked + .switch-track { background: #2563eb; }
+    .switch input:checked + .switch-track { background: var(--accent); }
     .switch input:checked + .switch-track::before { transform: translateX(20px); }
     .switch input:disabled + .switch-track { opacity: 0.5; cursor: not-allowed; }
     .badge {
-      display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 600;
-      border-radius: 6px;
-      padding: 0.1rem 0.5rem;
-      margin-left: 0.5rem;
-      vertical-align: middle;
+      display: inline-block; font-size: 0.75rem; font-weight: 600; border-radius: 6px;
+      padding: 0.1rem 0.5rem; margin-left: 0.5rem; vertical-align: middle;
     }
-    .badge.on { background: #ecfdf5; color: #065f46; }
-    .badge.off { background: #f3f4f6; color: #555; }
+    .badge.on { background: var(--ok-bg); color: var(--ok-fg); }
+    .badge.off { background: var(--border-soft); color: var(--fg-muted); }
+
+    /* --- Browse / delete --- */
+    .browse-search { margin-bottom: 1rem; }
+    .problem-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border-soft);
+      font-size: 0.9rem; cursor: pointer;
+    }
+    .problem-row:hover { background: var(--row-hover); }
+    .problem-row:last-child { border-bottom: none; }
+    .problem-row .pid { font-weight: 600; }
+    .problem-row .pmeta { color: var(--fg-muted); font-size: 0.82rem; margin-top: 0.1rem; }
+    .problem-row .pactions { display: flex; gap: 0.5rem; flex-shrink: 0; }
+    .problem-row .pactions button { margin-top: 0; padding: 0.3rem 0.7rem; font-size: 0.82rem; }
+    .problem-list { max-height: 480px; overflow-y: auto; border: 1px solid var(--border-soft); border-radius: 8px; }
+    .editor-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      display: flex; align-items: flex-start; justify-content: center;
+      padding: 3rem 1rem; overflow-y: auto; z-index: 50;
+    }
+    .editor-card {
+      background: var(--card-bg); border-radius: 12px; padding: 1.5rem;
+      max-width: 700px; width: 100%; box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .editor-card h3 { margin-bottom: 1rem; }
+    .editor-card textarea { min-height: 90px; }
+    .editor-card .row2 { display: flex; gap: 0.75rem; margin-top: 0.5rem; }
+    .editor-card .row2 button { flex: 1; }
+
+    /* --- AIMO import --- */
+    .contest-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border-soft); font-size: 0.9rem;
+    }
+    .contest-row:last-child { border-bottom: none; }
+    .contest-row .cmeta { color: var(--fg-muted); font-size: 0.82rem; }
+    .contest-row button { margin-top: 0; padding: 0.35rem 0.9rem; font-size: 0.85rem; }
+    .contest-list { max-height: 400px; overflow-y: auto; border: 1px solid var(--border-soft); border-radius: 8px; margin-top: 1rem; }
+    .contest-row.imported { opacity: 0.55; }
+    .contest-row.imported button { background: var(--border); cursor: not-allowed; }
   </style>
 </head>
 <body>
 
-<h1>Math Practice — Admin</h1>
-<p class="subtitle">Developer login and problem import</p>
+<div class="top-row">
+  <div>
+    <h1>Math Practice — Admin</h1>
+    <p class="subtitle">Developer login and problem import</p>
+  </div>
+  <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙 Dark mode</button>
+</div>
 
 <div id="loginView" class="card hidden">
   <label for="password">Admin password</label>
@@ -140,6 +215,8 @@
   <div class="tabs">
     <button id="tabTextBtn" onclick="switchTab('text')">Paste text</button>
     <button id="tabPdfBtn" class="inactive" onclick="switchTab('pdf')">Upload PDF</button>
+    <button id="tabAimoBtn" class="inactive" onclick="switchTab('aimo')">Import AIMO CSV</button>
+    <button id="tabBrowseBtn" class="inactive" onclick="switchTab('browse')">Browse / Delete</button>
     <button id="tabSettingsBtn" class="inactive" onclick="switchTab('settings')">Settings</button>
     <button class="secondary" style="margin-left:auto" onclick="logout()">Log out</button>
   </div>
@@ -199,6 +276,35 @@ By Power of a Point..."></textarea>
     <div id="p_result" class="result hidden"></div>
   </div>
 
+  <!-- AIMO CSV import -->
+  <div id="tabAimo" class="card hidden">
+    <label for="a_file">AIMO CSV file</label>
+    <input type="file" id="a_file" accept=".csv,text/csv">
+    <div class="help">
+      Columns expected: problem_id, link, problem, solution, letter, answer.
+      Each problem can have multiple solution rows — all of them are combined
+      and shown to the tagger together. Upload once, then import contest by
+      contest below so you can review each batch as it lands instead of
+      importing everything at once.
+    </div>
+    <button id="a_upload" onclick="uploadAimoCsv()">Upload &amp; list contests</button>
+    <div id="a_upload_result" class="result hidden"></div>
+
+    <div id="a_contests_wrap" class="hidden">
+      <label style="margin-top:1.5rem">Contests found in this file</label>
+      <div class="contest-list" id="a_contest_list"></div>
+    </div>
+  </div>
+
+  <!-- Browse / delete -->
+  <div id="tabBrowse" class="card hidden">
+    <div class="browse-search">
+      <input type="text" id="b_filter" placeholder="Filter by id or contest..." oninput="renderProblemList()">
+    </div>
+    <div id="b_status" class="help" style="margin-bottom:0.5rem"></div>
+    <div class="problem-list" id="b_list"></div>
+  </div>
+
   <!-- Settings -->
   <div id="tabSettings" class="card hidden">
     <div class="setting-row">
@@ -224,8 +330,53 @@ By Power of a Point..."></textarea>
   </div>
 </div>
 
+<!-- Edit overlay (shared by Browse tab) -->
+<div id="editorOverlay" class="editor-overlay hidden" onclick="if(event.target===this) closeEditor()">
+  <div class="editor-card">
+    <h3 id="editor_title">Edit problem</h3>
+    <label for="e_contest">Contest</label>
+    <input type="text" id="e_contest">
+    <label for="e_area">Area (comma-separated)</label>
+    <input type="text" id="e_area">
+    <label for="e_techniques">Techniques (comma-separated)</label>
+    <input type="text" id="e_techniques">
+    <label for="e_subtopics">Subtopics (comma-separated)</label>
+    <input type="text" id="e_subtopics">
+    <label for="e_summary">Summary</label>
+    <input type="text" id="e_summary">
+    <label for="e_statement">Statement (LaTeX)</label>
+    <textarea id="e_statement"></textarea>
+    <label for="e_solution">Solution (LaTeX)</label>
+    <textarea id="e_solution"></textarea>
+    <label for="e_answer">Answer (LaTeX)</label>
+    <input type="text" id="e_answer">
+    <div class="row2">
+      <button class="secondary" onclick="closeEditor()">Cancel</button>
+      <button onclick="saveEdit()">Save changes</button>
+    </div>
+    <div id="e_result" class="result hidden"></div>
+  </div>
+</div>
+
 <script>
   const API = "https://matchcontests-api.onrender.com";
+
+  // --- Theme ---
+  function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    document.getElementById("themeToggle").textContent =
+      theme === "dark" ? "☀️ Light mode" : "🌙 Dark mode";
+    localStorage.setItem("theme", theme);
+  }
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    applyTheme(current === "dark" ? "light" : "dark");
+  }
+  (function initTheme() {
+    const saved = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    applyTheme(saved || (prefersDark ? "dark" : "light"));
+  })();
 
   function setResult(elId, ok, text) {
     const el = document.getElementById(elId);
@@ -236,11 +387,16 @@ By Power of a Point..."></textarea>
   function switchTab(name) {
     document.getElementById("tabText").classList.toggle("hidden", name !== "text");
     document.getElementById("tabPdf").classList.toggle("hidden", name !== "pdf");
+    document.getElementById("tabAimo").classList.toggle("hidden", name !== "aimo");
+    document.getElementById("tabBrowse").classList.toggle("hidden", name !== "browse");
     document.getElementById("tabSettings").classList.toggle("hidden", name !== "settings");
     document.getElementById("tabTextBtn").classList.toggle("inactive", name !== "text");
     document.getElementById("tabPdfBtn").classList.toggle("inactive", name !== "pdf");
+    document.getElementById("tabAimoBtn").classList.toggle("inactive", name !== "aimo");
+    document.getElementById("tabBrowseBtn").classList.toggle("inactive", name !== "browse");
     document.getElementById("tabSettingsBtn").classList.toggle("inactive", name !== "settings");
     if (name === "settings") loadSettings();
+    if (name === "browse") loadProblemList();
   }
 
   async function checkSession() {
@@ -303,7 +459,7 @@ By Power of a Point..."></textarea>
       if (!res.ok) {
         setResult("settings_result", false, data.detail || "Failed to update setting.");
         document.getElementById("settings_result").classList.remove("hidden");
-        setAiQueryBadge(!checked); // revert visual state
+        setAiQueryBadge(!checked);
         return;
       }
       setAiQueryBadge(!!data.ai_query_enabled);
@@ -314,7 +470,7 @@ By Power of a Point..."></textarea>
     } catch (e) {
       setResult("settings_result", false, "Could not reach the API.");
       document.getElementById("settings_result").classList.remove("hidden");
-      setAiQueryBadge(!checked); // revert visual state
+      setAiQueryBadge(!checked);
     } finally {
       toggle.disabled = false;
     }
@@ -428,6 +584,245 @@ By Power of a Point..."></textarea>
       setResult("p_result", false, "Could not reach the API.");
     } finally {
       btn.disabled = false;
+    }
+  }
+
+  // --- AIMO CSV import ---
+  let aimoImportedContests = new Set();
+
+  async function uploadAimoCsv() {
+    const btn = document.getElementById("a_upload");
+    const fileInput = document.getElementById("a_file");
+    if (!fileInput.files.length) {
+      setResult("a_upload_result", false, "Choose a CSV file first.");
+      document.getElementById("a_upload_result").classList.remove("hidden");
+      return;
+    }
+    const form = new FormData();
+    form.append("file", fileInput.files[0]);
+
+    btn.disabled = true;
+    setResult("a_upload_result", true, "Parsing CSV...");
+    document.getElementById("a_upload_result").classList.remove("hidden");
+    try {
+      const res = await fetch(`${API}/admin/aimo/upload`, {
+        method: "POST",
+        credentials: "include",
+        body: form,
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setResult("a_upload_result", false, data.detail || "Upload failed.");
+        return;
+      }
+      aimoImportedContests = new Set();
+      setResult("a_upload_result", true,
+        `Parsed ${data.total_problems_in_csv} problems across ${Object.keys(data.contests).length} contests` +
+        (data.unparsed_links ? ` (${data.unparsed_links} rows had unrecognized links and were skipped).` : "."));
+      renderContestList(data.contests);
+    } catch (e) {
+      setResult("a_upload_result", false, "Could not reach the API.");
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  function renderContestList(contests) {
+    const wrap = document.getElementById("a_contests_wrap");
+    const list = document.getElementById("a_contest_list");
+    const entries = Object.entries(contests);
+    if (!entries.length) {
+      wrap.classList.add("hidden");
+      return;
+    }
+    wrap.classList.remove("hidden");
+    list.innerHTML = entries.map(([name, count]) => `
+      <div class="contest-row" id="contest-row-${cssId(name)}">
+        <div>
+          <div>${name}</div>
+          <div class="cmeta">${count} problem${count === 1 ? "" : "s"}</div>
+        </div>
+        <button onclick="importAimoContest('${name.replace(/'/g, "\\'")}')">Import</button>
+      </div>
+    `).join("");
+  }
+
+  function cssId(name) { return name.replace(/[^a-zA-Z0-9]/g, "_"); }
+
+  async function importAimoContest(contest) {
+    const row = document.getElementById(`contest-row-${cssId(contest)}`);
+    const btn = row.querySelector("button");
+    btn.disabled = true;
+    btn.textContent = "Importing...";
+    try {
+      const res = await fetch(`${API}/admin/aimo/import`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contest }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        btn.disabled = false;
+        btn.textContent = "Import";
+        setResult("a_upload_result", false, `${contest}: ${data.detail || "Import failed."}`);
+        document.getElementById("a_upload_result").classList.remove("hidden");
+        return;
+      }
+      row.classList.add("imported");
+      btn.textContent = "Imported ✓";
+      const githubMsg = data.github && data.github.committed ? " (committed)" : " (not committed to GitHub)";
+      setResult("a_upload_result", true,
+        `${contest}: imported ${data.added.length + data.replaced.length} problem(s)${githubMsg}. ` +
+        `Corpus size now ${data.total_corpus_size}.`);
+      document.getElementById("a_upload_result").classList.remove("hidden");
+      loadStats();
+    } catch (e) {
+      btn.disabled = false;
+      btn.textContent = "Import";
+      setResult("a_upload_result", false, `${contest}: could not reach the API.`);
+      document.getElementById("a_upload_result").classList.remove("hidden");
+    }
+  }
+
+  // --- Browse / delete / edit ---
+  let allProblems = [];
+
+  async function loadProblemList() {
+    const statusEl = document.getElementById("b_status");
+    statusEl.textContent = "Loading...";
+    try {
+      const res = await fetch(`${API}/admin/problems`, { credentials: "include" });
+      const data = await res.json();
+      allProblems = data.problems || [];
+      statusEl.textContent = `${allProblems.length} problems`;
+      renderProblemList();
+    } catch (e) {
+      statusEl.textContent = "Could not load problem list.";
+    }
+  }
+
+  function renderProblemList() {
+    const filter = document.getElementById("b_filter").value.trim().toLowerCase();
+    const list = document.getElementById("b_list");
+    const filtered = !filter ? allProblems : allProblems.filter(p =>
+      p.id.toLowerCase().includes(filter) || (p.contest || "").toLowerCase().includes(filter));
+
+    if (!filtered.length) {
+      list.innerHTML = `<div class="problem-row" style="cursor:default">No problems match.</div>`;
+      return;
+    }
+    list.innerHTML = filtered.map(p => `
+      <div class="problem-row">
+        <div onclick="openEditor('${p.id.replace(/'/g, "\\'")}')" style="flex:1">
+          <div class="pid">${p.id}</div>
+          <div class="pmeta">${p.contest || ""}${p.number != null ? " · #" + p.number : ""}${(p.area || []).length ? " · " + p.area.join(", ") : ""}</div>
+        </div>
+        <div class="pactions">
+          <button class="secondary" onclick="openEditor('${p.id.replace(/'/g, "\\'")}')">Edit</button>
+          <button class="danger" onclick="deleteProblem('${p.id.replace(/'/g, "\\'")}')">Delete</button>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  async function deleteProblem(id) {
+    if (!confirm(`Delete ${id}? This cannot be undone (other than via GitHub history).`)) return;
+    try {
+      const res = await fetch(`${API}/admin/problems/${encodeURIComponent(id)}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        alert(data.detail || "Delete failed.");
+        return;
+      }
+      allProblems = allProblems.filter(p => p.id !== id);
+      renderProblemList();
+      loadStats();
+    } catch (e) {
+      alert("Could not reach the API.");
+    }
+  }
+
+  let editingId = null;
+
+  async function openEditor(id) {
+    editingId = id;
+    document.getElementById("editor_title").textContent = `Edit ${id}`;
+    document.getElementById("e_result").classList.add("hidden");
+    ["e_contest","e_area","e_techniques","e_subtopics","e_summary","e_statement","e_solution","e_answer"]
+      .forEach(f => document.getElementById(f).value = "Loading...");
+    document.getElementById("editorOverlay").classList.remove("hidden");
+    try {
+      const res = await fetch(`${API}/admin/problems/${encodeURIComponent(id)}`, { credentials: "include" });
+      const r = await res.json();
+      if (!res.ok) {
+        setResult("e_result", false, r.detail || "Could not load problem.");
+        document.getElementById("e_result").classList.remove("hidden");
+        return;
+      }
+      document.getElementById("e_contest").value = r.contest || "";
+      document.getElementById("e_area").value = (r.area || []).join(", ");
+      document.getElementById("e_techniques").value = (r.techniques || []).join(", ");
+      document.getElementById("e_subtopics").value = (r.subtopics || []).join(", ");
+      document.getElementById("e_summary").value = r.summary || "";
+      document.getElementById("e_statement").value = r.statement || "";
+      document.getElementById("e_solution").value = r.solution || "";
+      document.getElementById("e_answer").value = r.answer || "";
+    } catch (e) {
+      setResult("e_result", false, "Could not reach the API.");
+      document.getElementById("e_result").classList.remove("hidden");
+    }
+  }
+
+  function closeEditor() {
+    document.getElementById("editorOverlay").classList.add("hidden");
+    editingId = null;
+  }
+
+  function splitCsv(s) {
+    return s.split(",").map(x => x.trim()).filter(Boolean);
+  }
+
+  async function saveEdit() {
+    if (!editingId) return;
+    const body = {
+      contest: document.getElementById("e_contest").value.trim(),
+      area: splitCsv(document.getElementById("e_area").value),
+      techniques: splitCsv(document.getElementById("e_techniques").value),
+      subtopics: splitCsv(document.getElementById("e_subtopics").value),
+      summary: document.getElementById("e_summary").value.trim(),
+      statement: document.getElementById("e_statement").value,
+      solution: document.getElementById("e_solution").value,
+      answer: document.getElementById("e_answer").value.trim(),
+    };
+    setResult("e_result", true, "Saving...");
+    document.getElementById("e_result").classList.remove("hidden");
+    try {
+      const res = await fetch(`${API}/admin/problems/${encodeURIComponent(editingId)}`, {
+        method: "PUT",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setResult("e_result", false, data.detail || "Save failed.");
+        return;
+      }
+      const githubMsg = data.github && data.github.committed ? "Committed to GitHub." : "Saved, but not committed to GitHub.";
+      setResult("e_result", true, `Saved. ${githubMsg}`);
+      const idx = allProblems.findIndex(p => p.id === editingId);
+      if (idx !== -1) {
+        allProblems[idx].contest = body.contest;
+        allProblems[idx].area = body.area;
+        renderProblemList();
+      }
+      setTimeout(closeEditor, 600);
+    } catch (e) {
+      setResult("e_result", false, "Could not reach the API.");
     }
   }
 
