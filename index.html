@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Math Practice</title>
+  <title>Problem Finder</title>
   <script>MathJax = {tex: {inlineMath: [["$","$"],["\\(","\\)"]]}};</script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
   <style>
@@ -60,6 +60,13 @@
       margin-left: auto;
     }
     .filters button:hover { background: #1d4ed8; }
+    .filters button.secondary {
+      background: white;
+      color: #444;
+      border: 1px solid #ddd;
+      margin-left: 0;
+    }
+    .filters button.secondary:hover { background: #f9fafb; }
     .stats { color: #666; font-size: 0.85rem; margin-bottom: 1rem; }
     .results { display: flex; flex-direction: column; gap: 1rem; }
     .card {
@@ -77,6 +84,8 @@
     }
     .card-id { font-weight: 600; font-size: 0.95rem; }
     .card-meta { font-size: 0.8rem; color: #666; margin-top: 0.2rem; }
+    .card-meta a { color: #2563eb; text-decoration: none; }
+    .card-meta a:hover { text-decoration: underline; }
     .match-pct {
       background: #eff6ff;
       color: #2563eb;
@@ -85,6 +94,17 @@
       font-size: 0.85rem;
       font-weight: 600;
       white-space: nowrap;
+    }
+    .card-summary { font-size: 0.95rem; margin-bottom: 0.75rem; color: #333; }
+    .card-statement {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #222;
+      background: #fafafa;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      margin-bottom: 0.75rem;
     }
     .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
     .tag {
@@ -95,7 +115,25 @@
       color: #444;
     }
     .tag.area { background: #ecfdf5; color: #065f46; }
-    .tag.difficulty { background: #fff7ed; color: #92400e; }
+    .expand-btn {
+      margin-top: 0.75rem;
+      background: none;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 0.3rem 0.75rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: #444;
+    }
+    .expand-btn:hover { background: #f9fafb; }
+    .problem-detail {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid #eee;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    .problem-detail h4 { font-size: 0.8rem; color: #888; margin-bottom: 0.25rem; margin-top: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
     .loading { text-align: center; color: #888; padding: 2rem; }
     .error { color: #dc2626; padding: 1rem; background: #fef2f2; border-radius: 8px; }
     .empty { color: #888; text-align: center; padding: 2rem; }
@@ -103,8 +141,8 @@
 </head>
 <body>
 
-<h1>Math Practice</h1>
-<p class="subtitle">Find practice problems by topic, technique, or description</p>
+<h1>Problem Finder</h1>
+<p class="subtitle">Browse the full catalogue, or search by topic, technique, or description</p>
 
 <div class="search-box">
   <textarea id="query" placeholder="Describe what you want to practice, e.g. 'problems using modular arithmetic and Fermat's little theorem'..."></textarea>
@@ -116,14 +154,8 @@
       <option>Geometry</option>
       <option>Number Theory</option>
     </select>
-    <select id="difficulty">
-      <option value="">Any difficulty</option>
-      <option value="easy">Easy</option>
-      <option value="medium">Medium</option>
-      <option value="hard">Hard</option>
-    </select>
-    <input id="technique" placeholder="Technique, e.g. inclusion-exclusion" style="width:220px">
-    <input id="k" type="number" value="5" min="1" max="20" style="width:70px">
+    <input id="technique" placeholder="Technique, e.g. Vieta's formulas" style="width:220px">
+    <button class="secondary" onclick="showCatalogue()">Show all</button>
     <button onclick="search()">Search</button>
   </div>
 </div>
@@ -133,29 +165,68 @@
 
 <script>
   const API = "https://matchcontests-api.onrender.com";
+  let TOTAL = 0;
+
+  // A "link" is only meaningful if sources[0] actually looks like a URL —
+  // older non-AIMO records use sources for a plain contest name like
+  // "AMC 2025 10A", which is not a link and shouldn't render as one.
+  function sourceLink(r) {
+    const s = (r.sources || [])[0];
+    return s && /^https?:\/\//.test(s) ? s : null;
+  }
 
   async function loadStats() {
     try {
       const res = await fetch(`${API}/stats`);
       const data = await res.json();
+      TOTAL = data.total || 0;
       document.getElementById("stats").textContent =
-        `${data.total} problems — ${Object.entries(data.by_area).map(([k,v]) => `${v} ${k}`).join(", ")}`;
+        `${data.total} problems across ${Object.keys(data.by_contest).length} contests`;
     } catch(e) {}
+  }
+
+  // Catalogue view: every tagged problem, no query/ranking — just the filters
+  // (area/technique) applied, in corpus order. This is the default view.
+  async function showCatalogue() {
+    document.getElementById("query").value = "";
+    const area = document.getElementById("area").value;
+    const technique = document.getElementById("technique").value.trim();
+
+    const params = new URLSearchParams();
+    if (area) params.set("area", area);
+    if (technique) params.set("technique", technique);
+    params.set("k", Math.max(TOTAL, 1000));
+
+    document.getElementById("results").innerHTML = '<div class="loading">Loading catalogue...</div>';
+    try {
+      const res = await fetch(`${API}/practice?${params}`);
+      const data = await res.json();
+      renderResults(data.results || []);
+    } catch(e) {
+      document.getElementById("results").innerHTML =
+        `<div class="error">Could not reach the API. It may be waking up — try again in 30 seconds.</div>`;
+    }
   }
 
   async function search() {
     const query = document.getElementById("query").value.trim();
     const area = document.getElementById("area").value;
-    const difficulty = document.getElementById("difficulty").value;
     const technique = document.getElementById("technique").value.trim();
-    const k = document.getElementById("k").value;
+
+    // No free-text query -> just show the catalogue with whatever filters are set.
+    if (!query) {
+      return showCatalogue();
+    }
 
     const params = new URLSearchParams();
-    if (query) params.set("text", query);
+    params.set("text", query);
     if (area) params.set("area", area);
-    if (difficulty) params.set("difficulty", difficulty);
     if (technique) params.set("technique", technique);
-    params.set("k", k);
+    params.set("k", 20);
+    // Ask for AI-assisted query parsing. The backend only honors this if the
+    // admin has turned the feature on; otherwise it's a no-op and falls back
+    // to the existing TF-IDF/keyword search, so this is always safe to send.
+    params.set("use_ai", "true");
 
     document.getElementById("results").innerHTML = '<div class="loading">Searching...</div>';
 
@@ -175,26 +246,51 @@
       el.innerHTML = '<div class="empty">No problems found.</div>';
       return;
     }
-    el.innerHTML = results.map(r => `
+    el.innerHTML = results.map((r, i) => {
+      const link = sourceLink(r);
+      const sourceLabel = link
+        ? `<a href="${link}" target="_blank" rel="noopener">${r.contest || r.id}</a>`
+        : (r.sources || [r.contest]).join(" / ");
+      return `
       <div class="card">
         <div class="card-header">
           <div>
             <div class="card-id">${r.id}</div>
-            <div class="card-meta">${(r.sources || [r.contest]).join(" / ")} &middot; Difficulty ${r.difficulty_score}/10</div>
+            <div class="card-meta">${sourceLabel}</div>
           </div>
           ${r.match_pct !== undefined ? `<div class="match-pct">${r.match_pct}% match</div>` : ""}
         </div>
+        <div class="card-summary">${r.summary || ""}</div>
+        ${r.statement ? `<div class="card-statement">${r.statement}</div>` : ""}
         <div class="tags">
           ${(r.area || []).map(a => `<span class="tag area">${a}</span>`).join("")}
           ${(r.techniques || []).map(t => `<span class="tag">${t}</span>`).join("")}
-          ${r.difficulty ? `<span class="tag difficulty">${r.difficulty}</span>` : ""}
+        </div>
+        <button class="expand-btn" onclick="toggleDetail(${i})">Show answer</button>
+        <div id="detail-${i}" class="problem-detail" style="display:none">
+          <h4>Answer</h4>
+          <p>${r.answer || "—"}</p>
         </div>
       </div>
-    `).join("");
-    if (window.MathJax) MathJax.typesetPromise();
+    `;
+    }).join("");
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      window.MathJax.typesetPromise([el]);
+    }
   }
 
-  loadStats();
+  function toggleDetail(i) {
+    const el = document.getElementById(`detail-${i}`);
+    const btn = el.previousElementSibling;
+    const hidden = el.style.display === "none";
+    el.style.display = hidden ? "block" : "none";
+    btn.textContent = hidden ? "Hide answer" : "Show answer";
+    if (hidden && window.MathJax && window.MathJax.typesetPromise) {
+      window.MathJax.typesetPromise([el]);
+    }
+  }
+
+  loadStats().then(showCatalogue);
 </script>
 </body>
 </html>
