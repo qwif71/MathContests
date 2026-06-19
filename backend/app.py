@@ -244,6 +244,19 @@ def stats():
     }
 
 
+@app.get("/techniques")
+def techniques():
+    """Distinct technique tags currently in use across the corpus, with
+    counts, sorted by frequency. Powers the "browse all techniques" list on
+    the main page — built from the live corpus rather than the static
+    TECHNIQUES taxonomy in tag_and_compare.py, so it only ever shows
+    techniques that actually have problems tagged with them."""
+    from collections import Counter
+    counts = Counter(t for r in corpus for t in r.get("techniques", []))
+    return {"techniques": [{"name": k, "count": v}
+                            for k, v in sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))]}
+
+
 # ---------------------------------------------------------------------------
 # Rate limiting for public, unauthenticated endpoints. Simple in-process
 # sliding window per client IP — no Redis or external service needed at this
