@@ -1,3 +1,9 @@
 fastapi
 uvicorn
 numpy
+itsdangerous
+requests
+sentence-transformers
+pdfplumber
+anthropic
+python-multipart
