@@ -4,6 +4,7 @@ import json, os, time
 from collections import defaultdict, deque
 from typing import Optional
 from admin import router as admin_router
+import settings as st
 
 app = FastAPI()
 
@@ -91,34 +92,60 @@ def keyword_score(r: dict, query: str) -> float:
 
 
 # ---------------------------------------------------------------------------
-# Rate limiting for public, unauthenticated endpoints. Simple in-process
-# sliding window per client IP — no Redis or external service needed at this
-# scale. Admin routes (everything under /admin/*, defined in admin.py) are
-# NOT covered by this: they require login already, and the admin is trusted
-# to import/search as much as needed. This only guards endpoints anyone on
-# the internet can hit directly, like /practice, to prevent scraping or
-# accidental hammering (e.g. once /practice calls a paid embeddings API down
-# the line — TF-IDF itself is free/local, but this limit is cheap insurance
-# either way and matters more the moment any paid call gets added per-query).
+# AI-assisted query parsing — OFF by default (see settings.py). When enabled
+# by the admin, a free-text query like "something with a clever recursive
+# counting argument" gets turned into structured area/technique hints via a
+# Claude tool call (reusing tag_and_compare's taxonomy), which both narrows
+# the pool *and* gives the TF-IDF/keyword ranker an enriched query string
+# to work with. If the call fails for any reason, we silently fall back to
+# the plain query — a broken AI path should never break search itself.
 # ---------------------------------------------------------------------------
-RATE_LIMIT_REQUESTS = 30       # requests allowed
-RATE_LIMIT_WINDOW = 60         # per this many seconds
-_request_log: dict[str, deque] = defaultdict(deque)
+QUERY_TOOL = {
+    "name": "record_query_intent",
+    "description": "Record the structured search intent behind a free-text practice request.",
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "areas": {"type": "array", "items": {"type": "string"},
+                       "description": "0-2 areas from: Algebra, Combinatorics, Geometry, Number Theory"},
+            "techniques": {"type": "array", "items": {"type": "string"},
+                            "description": "0-4 specific techniques/concepts implied by the request"},
+            "expanded_query": {"type": "string",
+                                 "description": "The request rewritten as a dense, keyword-rich search string"},
+        },
+        "required": ["areas", "techniques", "expanded_query"],
+    },
+}
 
 
-def _check_rate_limit(request: Request):
-    ip = request.client.host if request.client else "unknown"
-    now = time.time()
-    log = _request_log[ip]
-    while log and now - log[0] > RATE_LIMIT_WINDOW:
-        log.popleft()
-    if len(log) >= RATE_LIMIT_REQUESTS:
-        raise HTTPException(
-            status_code=429,
-            detail=f"Rate limit exceeded: max {RATE_LIMIT_REQUESTS} requests "
-                    f"per {RATE_LIMIT_WINDOW}s. Try again shortly.",
+def ai_parse_query(text: str) -> Optional[dict]:
+    """Returns {"areas": [...], "techniques": [...], "expanded_query": str} or
+    None if AI querying is disabled or the call fails for any reason."""
+    if not st.get_ai_query_enabled():
+        return None
+    key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
+    if not key:
+        return None
+    try:
+        from anthropic import Anthropic
+        client = Anthropic(api_key=key)
+        msg = client.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=300,
+            temperature=0,
+            tools=[QUERY_TOOL],
+            tool_choice={"type": "tool", "name": "record_query_intent"},
+            messages=[{"role": "user", "content":
+                f"A student wants math practice problems. Their request: {text!r}\n\n"
+                "Extract the area(s), technique(s), and an expanded keyword-rich "
+                "version of the query that would help a keyword search engine."}],
         )
-    log.append(now)
+        for b in msg.content:
+            if b.type == "tool_use" and b.name == "record_query_intent":
+                return dict(b.input)
+    except Exception as e:
+        print(f"  ! ai_parse_query failed: {e}")
+    return None
 
 
 @app.get("/practice")
@@ -126,13 +153,25 @@ def practice(
     request: Request,
     area: Optional[str] = None,
     technique: Optional[str] = None,
-    difficulty: Optional[str] = None,
     text: Optional[str] = None,
     like: Optional[str] = None,
+    use_ai: bool = False,
     k: int = 5,
 ):
     _check_rate_limit(request)
     pool_idx = list(range(len(corpus)))
+
+    # Optional AI-assisted parsing of the free-text query. Only actually runs
+    # if the admin has the feature turned on (see ai_parse_query); otherwise
+    # this is a no-op and behavior is identical to before.
+    ai_intent = None
+    if use_ai and text:
+        ai_intent = ai_parse_query(text)
+        if ai_intent:
+            # AI-suggested area only narrows the pool if the caller didn't
+            # already specify one explicitly.
+            if not area and ai_intent.get("areas"):
+                area = ai_intent["areas"][0]
 
     if area:
         pool_idx = [i for i in pool_idx
@@ -141,9 +180,6 @@ def practice(
         pool_idx = [i for i in pool_idx
                     if any(technique.lower() in t.lower()
                            for t in corpus[i].get("techniques", []))]
-    if difficulty:
-        pool_idx = [i for i in pool_idx
-                    if corpus[i].get("difficulty") == difficulty]
 
     if not pool_idx:
         return {"results": [], "message": "No problems match those filters."}
@@ -158,10 +194,12 @@ def practice(
         query_text = _index_text(corpus[match])
         pool_idx = [i for i in pool_idx if corpus[i]["id"] != like]
     else:
-        query_text = text
+        # Use the AI-expanded query string for ranking if available, since it's
+        # built to be keyword-dense for exactly this TF-IDF/keyword scorer.
+        query_text = (ai_intent or {}).get("expanded_query") or text
 
     if vectorizer is None or tfidf_matrix is None:
-        scores = [(i, keyword_score(corpus[i], text or query_text)) for i in pool_idx]
+        scores = [(i, keyword_score(corpus[i], query_text)) for i in pool_idx]
     else:
         qv = vectorizer.transform([query_text])
         pool_matrix = tfidf_matrix[pool_idx]
@@ -204,3 +242,33 @@ def stats():
         "by_area": dict(areas),
         "by_contest": dict(contests),
     }
+
+
+# ---------------------------------------------------------------------------
+# Rate limiting for public, unauthenticated endpoints. Simple in-process
+# sliding window per client IP — no Redis or external service needed at this
+# scale. Admin routes (everything under /admin/*, defined in admin.py) are
+# NOT covered by this: they require login already, and the admin is trusted
+# to import/search as much as needed. This only guards endpoints anyone on
+# the internet can hit directly, like /practice, to prevent scraping or
+# accidental hammering (now more important than ever: the AI query path,
+# when enabled, calls a paid API per request).
+# ---------------------------------------------------------------------------
+RATE_LIMIT_REQUESTS = 30       # requests allowed
+RATE_LIMIT_WINDOW = 60         # per this many seconds
+_request_log: dict[str, deque] = defaultdict(deque)
+
+
+def _check_rate_limit(request: Request):
+    ip = request.client.host if request.client else "unknown"
+    now = time.time()
+    log = _request_log[ip]
+    while log and now - log[0] > RATE_LIMIT_WINDOW:
+        log.popleft()
+    if len(log) >= RATE_LIMIT_REQUESTS:
+        raise HTTPException(
+            status_code=429,
+            detail=f"Rate limit exceeded: max {RATE_LIMIT_REQUESTS} requests "
+                    f"per {RATE_LIMIT_WINDOW}s. Try again shortly.",
+        )
+    log.append(now)
