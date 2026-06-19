@@ -1,5 +1,691 @@
 [
   {
+    "number": 1,
+    "statement": "Andy and Betsy both live in Mathville. Andy leaves Mathville on his bicycle at 1:30, traveling due north at a steady 8 miles per hour. Betsy leaves on her bicycle from the same point at 2:30, traveling due east at a steady 12 miles per hour. At what time will they be exactly the same distance from their common starting point?",
+    "answer": "4:30",
+    "solution": "Let t be the amount of time (in hours) Andy rides until they are the same distance from their starting point. Then 8t = 12(t − 1), so 4t = 12. This gives t = 3 hours, so their distances will be equal at 4:30. OR The answer will be the same if both riders travel in the same direction. Andy has a head start: he covers 8 miles before Betsy begins. After Betsy starts at 2:30, she gains on Andy at a rate of 12 − 8 = 4 miles per hour. Therefore it will take her 8 ÷ 4 = 2 hours to catch up to him, and 2 hours after 2:30 is 4:30.",
+    "id": "AMC202510A-INDIVIDUAL-1",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 5.0,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "distance-rate-time",
+      "linear equations"
+    ],
+    "techniques": [
+      "distance-rate-time",
+      "system of linear equations"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests setting up and solving a linear equation from a distance-rate-time scenario."
+  },
+  {
+    "number": 2,
+    "statement": "A box contains 10 pounds of a nut mix that is 50 percent peanuts, 20 percent cashews, and 30 percent almonds. A second nut mix containing 20 percent peanuts, 40 percent cashews, and 40 percent almonds is added to the box resulting in a new nut mix that is 40 percent peanuts. How many pounds of cashews are now in the box?",
+    "answer": "4",
+    "solution": "Originally the box contains 50 · 10 = 5 pounds of peanuts and 20 · 10 = 2 pounds 100 100 of cashews. When x pounds of the second nut mix are added to the box, the box then contains 10 + x pounds of nut mix and 5 + 20 · x = 5 + x pounds of peanuts. Because the new nut mix is 100 5 40% peanuts, it follows that 5 + x 40 2 5 = = . 10 + x 100 5 Clearing fractions gives 25 + x = 20 + 2x, so x = 5. Because the weight of cashews added to the box is 40 · 5 = 2 pounds, the weight of the cashews now in the box is 2 + 2 = 4 pounds. OR The original mix has 50% peanuts and the second mix has 20% peanuts. The new mix has 40% peanuts. Because 40 is twice as close to 50 as it is to 20, the amount of the original mix in the new mix needs to be twice the amount of the second mix in the new mix. Therefore 1 · 10 = 5 pounds of the second mix must be used. Those 5 pounds contain 40 · 5 = 2 pounds of cashews, and the original mix had 20 · 10 = 2 pounds of cashews, so the new mix has 2 + 2 = 4 pounds of cashews.",
+    "id": "AMC202510A-INDIVIDUAL-2",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 5.1,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "mixture problems",
+      "weighted averages",
+      "percent composition"
+    ],
+    "techniques": [
+      "mixture problems",
+      "weighted averages"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests setting up and solving a mixture equation to find the total weight of cashews after combining two nut mixes."
+  },
+  {
+    "number": 3,
+    "statement": "How many isosceles triangles are there with positive area whose side lengths are all positive integers and whose longest side has length 2025 ?",
+    "answer": "3037",
+    "solution": "If there are at least two sides of length 2025, then the length of the third side is between 1 and 2025, inclusive. If there is only one side of length 2025, then the two congruent sides must have lengths between 1013 and 2024, inclusive, in order to satisfy the Triangle Inequality. Therefore there are 2025 + (2024 − 1012) = 3037 such triangles.",
+    "id": "AMC202510A-INDIVIDUAL-3",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 5.2,
+    "area": [
+      "Combinatorics",
+      "Geometry"
+    ],
+    "subtopics": [
+      "isosceles triangles",
+      "integer side lengths",
+      "triangle inequality"
+    ],
+    "techniques": [
+      "triangle inequality",
+      "casework"
+    ],
+    "difficulty": "medium",
+    "summary": "Count isosceles triangles with positive integer sides where the longest side is 2025, using the triangle inequality."
+  },
+  {
+    "number": 4,
+    "statement": "A team of students is going to compete against a team of teachers in a trivia contest. The total number of students and teachers is 15. Ash, a cousin of one of the students, wants to join the contest. If Ash plays with the students, the average age on that team will increase from 12 to 14. If Ash plays with the teachers, the average age on that team will decrease from 55 to 52. How old is Ash?",
+    "answer": "28",
+    "solution": "Let a be Ash’s age, and let t be the number of teachers. Then 15 − t is the number of students. Because the average age of the teachers is 55, the sum of the teachers’ ages is 55t. Because the average age of the students is 12, the sum of the students’ ages is 12(15−t) = 180−12t. With Ash, the average age of the teacher team decreases to 52, so 55t + a = 52(t + 1) = 52t + 52, yielding 3t + a = 52. If Ash instead joins the student team, their average age increases to 14, so 180 − 12t + a = 14(15 − t + 1) = 224 − 14t, yielding 2t + a = 44. Because a (Ash’s age) is requested, eliminate t to yield −6t − 2a = −2(52) = −104 6t + 3a = 3(44) = 132 a = 28. Thus Ash’s age is 28. OR Let s be the number of students. Then the number of teachers is 15 − s. The sum of the ages of the students is 12s. If Ash plays with the students, the sum of the ages on that team will be 14(s + 1), so Ash’s age is the difference 14(s + 1) − 12s = 2s + 14. The sum of the ages of the teachers is 55(15 − s). If Ash plays with the teachers, the sum of the ages on that team will be 52(15 − s + 1) = 52(15 − s) + 52, so Ash’s age is the difference 52(15 − s) + 52 − 55(15 − s) = 52 − 3(15 − s) = 52 − 45 + 3s = 3s + 7. Equating the two expressions for Ash’s age gives 3s + 7 = 2s + 14, from which s = 7. There are 7 students, and Ash’s age is 2s + 14 = 2 · 7 + 14 = 28. It may be checked that Ash’s age also equals 3s + 7 = 3 · 7 + 7 = 28.",
+    "id": "AMC202510A-INDIVIDUAL-4",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 5.4,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "averages",
+      "system of linear equations",
+      "word problems"
+    ],
+    "techniques": [
+      "system of linear equations",
+      "weighted average"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests setting up and solving a system of equations from average age conditions."
+  },
+  {
+    "number": 5,
+    "statement": "Consider the sequence of positive integers 1, 2, 1, 2, 3, 2, 1, 2, 3, 4, 3, 2, 1, 2, 3, 4, 5, 4, 3, 2, 1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1, 2, . . . . What is the 2025th term in this sequence?",
+    "answer": "45",
+    "solution": "Define a bounce to be the terms in the sequence that begin with a 1 and end at the 2 preceding the next 1. Thus the first bounce is 1, 2; the second bounce is 1, 2, 3, 2; the third bounce is 1, 2, 3, 4, 3, 2; and so on. The number of terms in the kth bounce is 2k, and its peak value is k + 1. Therefore the first k bounces use a total of 2 + 4 + 6 + · · · + 2k terms. Now 2 + 4 + 6 + · · · + 2k = 2(1 + 2 + 3 + · · · + k) = k(k + 1). When k = 44, this sum is 44 · 45 = 1980. Then the 45th bounce begins in position 1981, and the terms in this bounce will increase until they reach 45 (on the way to 46) in position 2025. Thus the 2025th term in the sequence is 45. OR For k ≥ 1, define the kth block to begin with the first appearance of k and end before the first appearance of k + 1. Then block k is k, k − 1, k − 2, . . . , 2, 1, 2, . . . , k − 2, k − 1, k. Note that there are 2k − 1 terms in this block. Observe also that the last term in the block is also k. The number of terms to reach the end of block k is k (cid:88) (2i − 1) = k2. i=1 In particular, 2025 = 452 terms are needed to reach the end of block 45, whose last term is 45.",
+    "id": "AMC202510A-INDIVIDUAL-5",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 5.5,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "integer sequences",
+      "pattern recognition",
+      "arithmetic series"
+    ],
+    "techniques": [
+      "arithmetic series",
+      "block/period identification"
+    ],
+    "difficulty": "medium",
+    "summary": "Find the 2025th term of a sequence built from symmetric \"bounce\" or \"block\" patterns by summing block lengths."
+  },
+  {
+    "number": 6,
+    "statement": "In an equilateral triangle each interior angle is trisected by a pair of rays. The intersection of the interiors of the middle 20◦-angle at each vertex is the interior of a convex hexagon. What is the degree measure of the smallest angle of this hexagon?",
+    "answer": "100^\\circ",
+    "solution": "The figure below shows equilateral triangle △ABC with its trisectors, creating convex hexagon DEF GHI. C H I G D F E A B Because the angles have been trisected, the base angles in △ABH have measure ∠HAB = ∠ABH = 2 · 60◦ = 40◦, so ∠AHB = 180◦ − 2 · 40◦ = 100◦. Similarly, in triangle △ABE, ∠EAB = ∠ABE = 1 · 60◦ = 20◦, so ∠AEB = 180◦ − 2 · 20◦ = 140◦; and by vertical angles, ∠DEF = 140◦. By symmetry the other four angles of the hexagon also measure either 100◦ or 140◦, so the measure of the smallest angle of the hexagon is 100◦.",
+    "id": "AMC202510A-INDIVIDUAL-6",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 5.6,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "angle trisection",
+      "equilateral triangle",
+      "convex hexagon"
+    ],
+    "techniques": [
+      "angle chasing"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests angle chasing in an equilateral triangle with trisected angles to find the smallest angle of the resulting hexagon."
+  },
+  {
+    "number": 7,
+    "statement": "Suppose a and b are real numbers. When the polynomial x3 + x2 + ax + b is divided by x − 1, the remainder is 4. When the polynomial is divided by x − 2, the remainder is 6. What is b − a ?",
+    "answer": "18",
+    "solution": "Carrying out the indicated operations using polynomial division gives remainders of a + b + 2 and 2a + b + 12, respectively. (The corresponding quotients are x2 + 2x + a + 2 and x2 + 3x + a + 6.) Thus a + b + 2 = 4 and 2a + b + 12 = 6. Solving this system of linear equations gives a = −8 and b = 10. The requested difference is 10 − (−8) = 18. OR The remainders can also be obtained by using the Remainder Theorem, which states that the remainder when a polynomial in x is divided by x − c is the value of the polynomial at x = c. Letting x = 1 gives 13 + 12 + a · 1 = a + b + 2, and letting x = 2 gives 23 + 22 + a · 2 + b = 2a + b + 12, as in the first solution. The rest of the solution is identical.",
+    "id": "AMC202510A-INDIVIDUAL-7",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 5.8,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "polynomial division",
+      "remainder theorem",
+      "system of linear equations"
+    ],
+    "techniques": [
+      "remainder theorem",
+      "system of linear equations"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests applying the Remainder Theorem to set up and solve a linear system for polynomial coefficients."
+  },
+  {
+    "number": 8,
+    "statement": "Agnes writes the following four statements on a blank piece of paper. (cid:136) At least one of these statements is true. (cid:136) At least two of these statements are true. (cid:136) At least two of these statements are false. (cid:136) At least one of these statements is false. Each statement is either true or false. How many false statements did Agnes write on the paper?",
+    "answer": "1",
+    "solution": "If the third statement were true, then the fourth statement would also be true, but that would make the first two statements true as well, and therefore the third statement would in fact be false. Therefore the third statement is false and there is at most one false statement on the paper, which means that the first, second, and fourth statements are true. These conclusions are consistent with the content of those three statements. Thus there is 1 false statement on the paper. OR The first and fourth statements cannot both be false because there are four statements on the paper, each of which is true or false. Therefore at least one of them is true. That makes the first statement true. Similarly, because there are four statements in all, there must be at least two true statements or at least two false statements, which makes at least one of the second and third statements true. This makes the second statement true. If there were no false statement among the four statements, that would make the third and the fourth statements false, which is a contradiction. Therefore there exists at least one false statement on the paper. This makes the fourth statement true. This gives a total of at least three true statements, so the third statement (and only this) must be false. Thus there is 1 false statement on the paper. OR Consider the following observations: (cid:136) First, note that it is impossible for all four statements be true. This follows because then the third and fourth statements would be false, a contradiction. (cid:136) If exactly three statements are true, then the first, second, and fourth statements would be true and the third statement would be false. Thus, this scenario is possible. (cid:136) If exactly two statements are true, then all four statements would be true, a contradiction. (cid:136) If exactly one statement is true, then the first, third, and fourth statements would be true, a contradiction. (cid:136) If none of the statements are true, then the third and fourth statements would be true, again a contradiction. Thus there is exactly 1 false statement written on the paper.",
+    "id": "AMC202510A-INDIVIDUAL-8",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 5.9,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "logic puzzles",
+      "self-referential statements",
+      "truth values"
+    ],
+    "techniques": [
+      "casework",
+      "logical deduction"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests logical reasoning by determining how many of four self-referential true/false statements are false."
+  },
+  {
+    "number": 9,
+    "statement": "Let f (x) = 100x3 − 300x2 + 200x. For how many real numbers a does the graph of y = f (x − a) pass through the point (1, 25) ?",
+    "answer": "3",
+    "solution": "The graph of y = f (x − a) is the same as the graph of y = f (x), but shifted a units to the right. The given cubic polynomial can be factored as f (x) = 100x(x − 1)(x − 2). The graph of y = f (x) has x-intercepts at x = 0, 1, and 2 and has the familiar shape shown below. 1 2 Note that f (0.5) = 100 · 0.125 − 300 · 0.25 + 200 · 0.5 = 37.5, so the local maximum of f (x) over the interval (0, 1) is greater than 25. Therefore shifting the given graph horizontally by an appropriate amount will cause either the leftmost rising portion of the curve or the middle falling portion of the curve or the rightmost rising portion of the curve to pass through the point (1, 25), as seen in the figure below, with the original graph shown dashed. (These intersections follow from the Intermediate Value Theorem.) −1 1 2 3 The graph of y = f (x − a) is precisely this shifted graph, so there are 3 such values of a. Note: The values of a are approximately 0.84, 0.27, and −1.11.",
+    "id": "AMC202510A-INDIVIDUAL-9",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 6.0,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "polynomial functions",
+      "graph transformations",
+      "cubic polynomials"
+    ],
+    "techniques": [
+      "polynomial factorization",
+      "Intermediate Value Theorem"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests counting horizontal shifts of a cubic polynomial so its graph passes through a given point."
+  },
+  {
+    "number": 10,
+    "statement": "A semicircle has diameter AB and chord CD of length 16 parallel to AB. A smaller semicircle with diameter on AB and tangent to CD is cut from the larger semicircle, as shown below. C D A B What is the area of the resulting figure, shown shaded?",
+    "answer": "32\\pi",
+    "solution": "Let O on AB be the center of the larger semicircle, let P be the midpoint of CD, let r = OP , and let R = OD. Then r is the radius of the smaller semicircle, and R is the radius of the larger semicircle. Note that P D = 8. P 8 C D r R A O B By the Pythagorean Theorem R2 − r2 = 64. The area of the shaded region is πR2 πr2 π · 64 − = = 32π. 2 2 2 Note: The area does not depend on the radii of the semicircles, but only on the difference of their squares.",
+    "id": "AMC202510A-INDIVIDUAL-10",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 6.1,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "semicircles",
+      "area of regions",
+      "chords"
+    ],
+    "techniques": [
+      "Pythagorean theorem"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests computing the area difference of two semicircles using the Pythagorean theorem with a parallel chord."
+  },
+  {
+    "number": 11,
+    "statement": "The sequence 1, x, y, z is arithmetic. The sequence 1, p, q, z is geometric. Both sequences are strictly increasing and contain only integers, and z is as small as possible. What is the value of x + y + z + p + q ?",
+    "answer": "149",
+    "solution": "Let d be the common difference of the arithmetic sequence. Note that p is the common ratio of the geometric sequence. Then z = 1 + 3d = 1 · p3. Thus z is 1 greater than a multiple of 3. Try integer values of p, beginning with 2 (because the sequences are increasing), seeking a value of p3 that is 1 greater than a multiple of 3. Although 23 = 8 and 33 = 27 do not work, p = 4 yields p3 = 64 = 1+3·21. Thus d = 21, the arithmetic sequence is 1, 22, 43, 64, and the geometric sequence is 1, 4, 16, 64. The requested sum is x+y +z +p+q = 22+43+64+4+16 = 149.",
+    "id": "AMC202510A-INDIVIDUAL-11",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 6.2,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "arithmetic sequences",
+      "geometric sequences",
+      "integer constraints"
+    ],
+    "techniques": [
+      "arithmetic series",
+      "geometric series",
+      "casework"
+    ],
+    "difficulty": "easy",
+    "summary": "Find integer arithmetic and geometric sequences sharing endpoints with minimal last term."
+  },
+  {
+    "number": 12,
+    "statement": "Carlos uses a 4-digit passcode to unlock his computer. In his passcode, exactly one digit is even, exactly one (possibly different) digit is prime, and no digit is 0. How many 4-digit passcodes satisfy these conditions?",
+    "answer": "464",
+    "solution": "The even digit can be placed into any of the 4 positions. Assume that it is in the first position, and multiply by 4 at the end to obtain the correct answer. If the even digit is prime, it must be 2, and the 3 odd digits must each be either 1 or 9, so this case accounts for 1 · 23 = 8 passcodes. If one of the odd digits is prime, it must be 3, 5, or 7. The other two odd digits must be either 1 or 9, and the even digit must be 4, 6, or 8. Also the prime digit can occupy any of 3 positions, so this case accounts for 3 · 22 · 3 · 3 = 108 passcodes. Multiplying by 4 gives the total number of possible 4-digit passcodes as 4(8 + 108) = 464.",
+    "id": "AMC202510A-INDIVIDUAL-12",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 6.4,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "counting",
+      "digit constraints",
+      "casework"
+    ],
+    "techniques": [
+      "casework",
+      "multiplication principle"
+    ],
+    "difficulty": "medium",
+    "summary": "Count 4-digit passcodes where exactly one digit is even, exactly one is prime, and no digit is 0."
+  },
+  {
+    "number": 13,
+    "statement": "In the figure below, the outside square contains infinitely many squares, each of them with the same center and sides parallel to the outside square. The ratio of the side length of a square to the side length of the next inner square is k, where 0 < k < 1. The spaces between squares are alternately shaded, as shown in the figure (which is not necessarily drawn to scale). The area of the shaded portion of the figure is 64% of the area of the original square. What is k ? 3 16 2 3 4",
+    "answer": "k = \\dfrac{3}{4}",
+    "solution": "Assume without loss of generality that the side length of the original square is 1. The lengths of the sides of the square from the outside toward the center form the geometric sequence 1, k, k2, k3, . . ., so the shaded area is given by 1 − k2 + k4 − k6 + · · · . This is a geometric series with ratio −k2, so the total shaded area is . 1 + k2 Because the shaded area is 64% = 16 of the total area, this gives 1 = 16 . Therefore 1 + k2 = 25 , 25 1+k2 25 16 so k2 = 9 and k = 3 . 16 4 OR Assume without loss of generality that the side length of the original square is 1. By the way the figure is constructed, each pair consisting of an unshaded ring and the shaded ring immediately surrounding it is similar to the largest such pair. Therefore the 64% ratio also holds true for that largest pair. The shaded area in that pair is 1 − k2, and the total area is 1 − (k2)2 = 1 − k4. Therefore 1 − k2 1 − k2 1 64% = = = , 1 − k4 (1 + k2)(1 − k2) 1 + k2 as in the first solution.",
+    "id": "AMC202510A-INDIVIDUAL-13",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 6.5,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "geometric series",
+      "infinite series",
+      "area of nested squares"
+    ],
+    "techniques": [
+      "geometric series",
+      "polynomial factorization"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests summing an infinite geometric series to find the shaded area fraction of nested squares."
+  },
+  {
+    "number": 14,
+    "statement": "Six chairs are arranged around a round table. Two students and two teachers randomly select four of the chairs to sit in. What is the probability that the two students will sit in two adjacent chairs and the two teachers will also sit in two adjacent chairs? 1 1 2 3 1",
+    "answer": "\\dfrac{1}{5}",
+    "solution": "The probability that the second student sits next to the first student is 2 . If that happens, then there are (cid:0)4(cid:1) = 6 ways for the teachers to sit in the remaining chairs, and in 3 of those ways, the teachers are adjacent. Therefore the requested probability is 2 · 3 = 1 . 5 6 5 OR There are (cid:18) (cid:19) 6 6! = = 90 2, 2, 2 2! · 2! · 2! equally likely ways to assign two chairs to students, two chairs to teachers, and two chairs to be left unoccupied. There are 6 pairs of adjacent chairs around the circle where the students could be seated side-by-side. Having selected those two chairs, there are 3 positions remaining in which two teachers could be seated side-by-side. Thus the requested probability is 6·3 = 1 . 90 5",
+    "id": "AMC202510A-INDIVIDUAL-14",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 6.6,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "circular arrangements",
+      "probability",
+      "adjacent seating"
+    ],
+    "techniques": [
+      "circular arrangements",
+      "multiplication principle",
+      "complementary counting"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests counting adjacent seating arrangements around a circular table to compute a probability."
+  },
+  {
+    "number": 15,
+    "statement": "In the figure below, ABEF is a rectangle, AD ⊥ DE, AF = 7, AB = 1, and AD = 5. A B C F D E What is the area of △ABC ? 3 4 1 √ 7 1 √",
+    "answer": "\\dfrac{3}{8}",
+    "solution": "Let x = BC. Then AC = 1 + x2, CE = 7 − x, and CD = 5 − 1 + x2. Because △ABC is similar to △EDC, √ 7 − x 5 − 1 + x2 √ = . 1 + x2 x √ Clearing denominators gives 7x − x2 = 5 1 + x2 − (1 + x2). Simplifying and squaring yields 1 + 14x + 49x2 = 25 + 25x2, so 24x2 + 14x − 24 = 0, which gives 2(4x − 3)(3x + 4) = 0. The only positive solution is x = 3 . The area of △ABC is 1 · 3 · 1 = 3 . 4 2 4 8",
+    "id": "AMC202510A-INDIVIDUAL-15",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 6.8,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "similar triangles",
+      "rectangles",
+      "area of a triangle"
+    ],
+    "techniques": [
+      "similar triangles",
+      "quadratic equations"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests identifying similar triangles in a rectangle configuration to find an unknown length and compute area."
+  },
+  {
+    "number": 16,
+    "statement": "There are three jars. Each of three coins is placed in one of the three jars, chosen at random and independently of the placements of the other coins. What is the expected number of coins in a jar with the most coins? 4 39 5 17",
+    "answer": "\\dfrac{17}{9}",
+    "solution": "There are 3 · 3 · 3 = 27 equally likely ways to assign coins to jars. There are 3! = 6 ways to assign one coin to each jar, 3 ways to assign all the coins to one jar, and 27 − 6 − 3 = 18 ways to assign 2 coins to one jar and 1 coin to a different jar. Therefore the requested expected value is 1 · 6 + 2 · 18 + 3 · 3 17 = . 27 9",
+    "id": "AMC202510A-INDIVIDUAL-16",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 6.9,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "expected value",
+      "discrete probability",
+      "counting distributions"
+    ],
+    "techniques": [
+      "expected value",
+      "casework",
+      "multiplication principle"
+    ],
+    "difficulty": "easy",
+    "summary": "Tests computing expected value of the maximum bin count when distributing 3 coins into 3 jars."
+  },
+  {
+    "number": 17,
+    "statement": "Let N be the unique positive integer such that dividing 273436 by N leaves a remainder of 16 and dividing 272760 by N leaves a remainder of 15. What is the tens digit of N ?",
+    "answer": "4",
+    "solution": "The number 273436 − 16 = 273420 must be a multiple of N , and so must be the number 272760 − 15 = 272745. Then 273420 − 272745 = 675 is also a multiple of N . Because 272745 = 404 · 675 + 45, the number 45 must also be a multiple of N . Because division by N gives a remainder of 16, the value of N must be greater than 16. The only divisor of 45 that is greater than 16 is 45. Indeed, 273436 = 45 · 6076 + 16 and 272760 = 45 · 6061 + 15. Therefore N = 45, and the tens digit of N is 4.",
+    "id": "AMC202510A-INDIVIDUAL-17",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 7.0,
+    "area": [
+      "Number Theory"
+    ],
+    "subtopics": [
+      "divisibility",
+      "remainders",
+      "gcd"
+    ],
+    "techniques": [
+      "Euclidean algorithm",
+      "divisibility"
+    ],
+    "difficulty": "easy",
+    "summary": "Find a unique divisor N using remainder conditions and the Euclidean algorithm on the differences."
+  },
+  {
+    "number": 18,
+    "statement": "The harmonic mean of a collection of numbers is the reciprocal of the arithmetic mean of the reciprocals of the numbers in the collection. For example, the harmonic mean of 4, 4, and 5 is 1 30 = . 1 (cid:0) 1 + 1 + 1 (cid:1) 7 3 4 4 5 What is the harmonic mean of all the real roots of the 4050th degree polynomial (cid:89) (kx2 − 4x − 3) = (x2 − 4x − 3)(2x2 − 4x − 3)(3x2 − 4x − 3) · · · (2025x2 − 4x − 3) ? k=1 5 3 6 5 2",
+    "answer": "-\\dfrac{3}{2}",
+    "solution": "The discriminant of kx2 −4x−3 is 16+12k, which is positive when k ≥ 1. Therefore kx2 − 4x − 3 has two distinct real roots x and x . Furthermore, roots corresponding to different 1 2 values of k must be distinct, because 0 is not a root and if k x2 − 4x − 3 = k x2 − 4x − 3 for some 1 2 x ̸= 0, then k = k . By Vieta’s Formulas x + x = 4 and x x = −3 . Therefore the sum of the 1 2 1 2 k 1 2 k reciprocals of these two roots of the given polynomial is 1 1 x + x 4 1 2 + = = − . x x x x 3 1 2 1 2 It follows that the sum of the reciprocals of all the roots of the given polynomial is 2025 · (cid:0) − 4 (cid:1) , and the arithmetic mean of these reciprocals is (cid:18) (cid:19) 1 4 2 · 2025 · − = − . 4050 3 3 The required harmonic mean is the reciprocal of this arithmetic mean of reciprocals, namely − 3 . OR If a is a nonzero solution of the polynomial equation p(x) = 0, then 1 is a solution of the equation a p (cid:0) 1 (cid:1) = 0, and vice versa. Therefore if a and b are the roots of the polynomial kx2 − 4x − 3, then x neither equals 0, and 1 and 1 are the roots of the polynomial k − 4x − 3x2. From Vieta’s Formulas a b it follows that 1 + 1 = − 4 . Thus the arithmetic mean of the reciprocals of the roots of a b 3 (cid:89) (kx2 − 4x − 3) k=1 is 2025 · (cid:0) − 4 (cid:1) 2 3 = − . 4050 3 The required harmonic mean is its reciprocal, − 3 .",
+    "id": "AMC202510A-INDIVIDUAL-18",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 7.1,
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "harmonic mean",
+      "polynomial roots",
+      "quadratic equations"
+    ],
+    "techniques": [
+      "Vieta's formulas",
+      "arithmetic series"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests applying Vieta's formulas to find the harmonic mean of all real roots of a product of quadratics."
+  },
+  {
+    "number": 19,
+    "statement": "An array of numbers is constructed beginning with the numbers −1 3 1 in the top row. Each adjacent pair of numbers is summed to produce a number in the next row. Each row will begin and end with the numbers −1 and 1, respectively. The first three rows are shown below. −1 3 1 −1 2 4 1 −1 1 6 5 1 If the process continues, one of the rows will sum to 12,288. In that row, what is the third number from the left?",
+    "answer": "-29",
+    "solution": "The first three row sums are 3, 6, and 12, doubling each time. The doubling is due to the array construction method: each number in a row is used twice to produce values for the next row, and the −1 and 1 at the ends contribute 0. Thus the sum of each row will be double the sum of the previous row. If the topmost row is considered the 0th row with a sum of 3, then the sum of the nth row will be 3 · 2n. The row with a sum of 12,288 = 3 · 212 will thus be the 12th. To find the third number in the 12th row, first note that the diagonal at the left edge of the array contains −1s. The second diagonal from the left contains the decreasing sequence 3, 2, 1, 0, . . . , because each number is the sum of the previous number and −1. In the third diagonal, each number is the sum of previous number plus a number in the second diagonal. Because the second diagonal begins with a sequence of positive numbers, the numbers in the third diagonal will increase at first, then decrease once the sequence in the second diagonal reaches 0 in row 3. −1 3 1 −1 2 4 1 −1 1 6 5 1 −1 0 7 − − 1 −1 −1 7 − − − 1 −1 −2 6 − − − − 1 −1 −3 4 − − − − − 1 Thus for n ≥ 4, the number in the third diagonal in the nth row will equal (n − 4)(n − 3) 7 − (0 + 1 + 2 + · · · + (n − 4)) = 7 − . Therefore the third number in the 12th row will be 7 − 8·9 = −29.",
+    "id": "AMC202510A-INDIVIDUAL-19",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 7.2,
+    "area": [
+      "Combinatorics",
+      "Algebra"
+    ],
+    "subtopics": [
+      "Pascal-like arrays",
+      "row sums",
+      "diagonal sequences"
+    ],
+    "techniques": [
+      "geometric series",
+      "arithmetic series"
+    ],
+    "difficulty": "medium",
+    "summary": "Tests pattern recognition in a Pascal-like array by tracking row sums and diagonal sequences."
+  },
+  {
+    "number": 20,
+    "statement": "A silo (right circular cylinder) with diameter 20 meters stands in a field. MacDonald is located 20 meters west and 15 meters south of the center of the silo. McGregor is located 20 meters east and g > 0 meters south of the center of the silo. The line of sight between MacDonald and McGregor √ is tangent to the silo. The value of g can be written as a b−c , where a, b, c, and d are positive d integers, b is not divisible by the square of any prime, and d is relatively prime to the greatest common divisor of a and c. What is a + b + c + d ?",
+    "answer": "119",
+    "solution": "The figure below shows the given situation, where S is the center of the silo, D is the position of MacDonald, G is the position of McGregor, T is the point at which DG is tangent to the circle representing the silo, line CD runs east-west, and lines BD and N C run north-south. (Point H is used in the second solution.) B 20 S 20 N e H g 15 G 15 − g T D 40 C Repeated applications of the Pythagorean Theorem give (cid:112) GS = g2 + 202 (using triangle △GN S), (cid:112) GT = g2 + 202 − 102 (using triangle △GT S), (cid:112) DS = 152 + 202 = 25 (using triangle △DBS), √ (cid:112) DT = 252 − 102 = 525 (using triangle △DT S), (cid:112) DG = 402 + (15 − g)2 (using triangle △DCG). Therefore √ (cid:112) (cid:112) 402 + (15 − g)2 = DG = DT + GT = 525 + g2 + 202 − 102. Squaring both sides, simplifying, squaring again, and simplifying yields 3g2 + 150g − 925 = 0, and the Quadratic Formula gives the positive solution √ 20 21 − 75 g = . The requested sum is 20 + 21 + 75 + 3 = 119. OR Draw the figure as in the first solution. Let H be the intersection of lines BN and DG, and let e = HN . Because △HN G ∼ △HBD ∼ △HT S, it follows that (cid:112) e e + 40 (e + 20)2 − 102 = = . g 15 10 √ The second equality simplifies to e2 + 8e − 740 = 0, yielding e = 6 21 − 4. Then from the first equality, √ √ 15e 90 21 − 60 20 21 − 75 g = = √ = , e + 40 6 21 + 36 3 as in the first solution. OR Draw the figure from the first solution in the coordinate plane, with S at the origin and D at (−20, −15). The equation of the circle representing the silo is x2 + y2 = 102. The equation of line DG is y + 15 = m(x + 20), where m is the slope that will give tangency to the circle at T . Substituting the value of y at T gives x2 + (m(x + 20) − 15)2 = 100. This can be rewritten as (m2 + 1)x2 + (40m2 − 30m)x + (400m2 − 600m + 125) = 0. The discriminant after simplifying is −1200m2 + 2400m − 500. The line will be tangent to the circle if and only if the discriminant equals 0, that is, √ 6 ± 21 m = . Choose the minus sign to get the line tangent at T , rather than the steeper tangent line that touches the circle in its upper left quadrant. Thus the y-coordinate of G is √ √ 6 − 21 75 − 20 · 21 · (20 + 20) − 15 = . 6 3 This is negative, so the distance that G is south of the east-west line through the center of the silo is √ 20 21 − 75 g = , as in the first solution.",
+    "id": "AMC202510A-INDIVIDUAL-20",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 7.4,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "tangent lines to circles",
+      "right circular cylinder cross-section",
+      "coordinate geometry"
+    ],
+    "techniques": [
+      "Pythagorean theorem",
+      "tangent-secant",
+      "quadratic formula",
+      "similar triangles"
+    ],
+    "difficulty": "hard",
+    "summary": "Find a distance using tangency of a line of sight to a circular silo via the Pythagorean theorem and quadratic formula."
+  },
+  {
+    "number": 21,
+    "statement": "A set of numbers is called sum-free if whenever x and y are (not necessarily distinct) elements of the set, x + y is not an element of the set. For example, {1, 4, 6} and the empty set are sum-free, but {2, 4, 5} is not. What is the greatest possible number of elements in a sum-free subset of {1, 2, 3, . . . , 20} ?",
+    "answer": "10",
+    "solution": "A largest such subset has at least 10 elements, because both {1, 3, 5, . . . , 19} and {11, 12, 13, . . . , 20} are sum-free. In the former case, the sum of two odd numbers is even, and in the latter case, the sum of two numbers greater than 10 is greater than 21. It remains to prove that there are no sum-free subsets with 11 or more elements. If 20 is in a sum-free subset of {1, 2, 3, . . . , 20}, then there can be at most 9 other elements in such a subset, because 10 cannot be in the subset and at most one element of each of {1, 19}, {2, 18}, {3, 17}, . . . , {9, 11} can be in the subset. A similar argument applies if the greatest element in the sum-free subset of {1, 2, 3, . . . , 20} is less than 20. Indeed, if the greatest element is m, then there can be at most one element from each of {1, m − 1}, {2, m − 2}, {3, m − 3}, . . . , (cid:8)(cid:4) m (cid:5) , (cid:6) m (cid:7)(cid:9) , for a total of 2 2 at most (cid:4) m (cid:5) + 1 ≤ 9 + 1 = 10 elements. Note: In fact, the only other sum-free subset of {1, 2, 3, . . . , 20} is {10, 11, 12, . . . , 19}. For more information on sum-free sets, see A007865 in The On-Line Encyclopedia of Integer Sequences. It was proved in 2004 that the number of sum-free subsets of {1, 2, 3, . . . , n} grows at a rate proportional √ to 2n. It was proved in 2025 that any set of integers with n elements has a sum-free subset with at least n + c log(log n) elements for some constant c.",
+    "id": "AMC202510A-INDIVIDUAL-21",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 7.5,
+    "area": [
+      "Combinatorics",
+      "Number Theory"
+    ],
+    "subtopics": [
+      "sum-free sets",
+      "extremal combinatorics",
+      "subset selection"
+    ],
+    "techniques": [
+      "complementary counting",
+      "pairing argument",
+      "casework"
+    ],
+    "difficulty": "medium",
+    "summary": "Find the maximum size of a sum-free subset of {1, 2, ..., 20} using pairing and bounding arguments."
+  },
+  {
+    "number": 22,
+    "statement": "A circle of radius r is surrounded by three circles, whose radii are 1, 2, and 3, all externally tangent to the inner circle and externally tangent to each other, as shown in the diagram below. What is r ? 1 6 3 5 3",
+    "answer": "r = \\dfrac{6}{23}",
+    "solution": "Let A, B, C, and D be the centers of the circles of radii 1, 2, 3, and r, respectively. Then AB = 3, AC = 4, and BC = 5. Triangle △ABC is a 3 – 4 – 5 right triangle with right angle at A. Let A(0, 0) be the origin of a rectangular coordinate system with circle centers at B(3, 0), C(0, 4), and D(x, y). Let E(x, 0) and F (0, y) be the projections of D onto AB and AC, respectively. C F D A B E Using the Pythagorean Theorem in triangles △AED, △BED, and △CF D gives the following three equations. x2 + y2 = (1 + r)2 (3 − x)2 + y2 = (2 + r)2 x2 + (4 − y)2 = (3 + r)2 Subtracting the first equation from the second gives 9−6x = 3+2r, which is equivalent to x = 1− r . Subtracting the first equation from the third gives 16−8y = 8+4r, which is equivalent to y = 1− r . Substituting these expressions for x and y in the first displayed equation above yields (cid:16) r (cid:17)2 (cid:16) r (cid:17)2 (1 + r)2 = 1 − + 1 − . 3 2 Expanding, simplifying, and factoring leads to (23r − 6)(r + 6) = 0, and it follows that r = 6 . OR Descartes’ Theorem states that the radii, r , r , r , r , of four mutually tangent circles are related 1 2 3 4 by the equation (cid:114) 1 1 1 1 1 1 1 1 1 1 = + + ± 2 · + · + · . r r r r r r r r r r 4 1 2 3 1 2 2 3 3 1 Setting r = 1, r = 2, r = 3, and r = r gives 1 2 3 4 (cid:114) 1 1 1 1 1 1 11 = 1 + + ± 2 + + = ± 2. r 2 3 2 6 3 6 Choosing the plus sign leads to r = 6 , and choosing the minus sign leads to r = −6. Note: The negative solution to the quadratic equation in each solution, r = −6, corresponds to the circle of radius 6 to which the circles of radii 1, 2, and 3 are internally tangent.",
+    "id": "AMC202510A-INDIVIDUAL-22",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 7.6,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "tangent circles",
+      "Descartes' Circle Theorem",
+      "coordinate geometry"
+    ],
+    "techniques": [
+      "Pythagorean theorem",
+      "coordinate geometry",
+      "Descartes' Circle Theorem"
+    ],
+    "difficulty": "medium",
+    "summary": "Find the radius of a circle internally tangent to three mutually externally tangent circles of radii 1, 2, and 3."
+  },
+  {
+    "number": 23,
+    "statement": "Triangle △ABC has side lengths AB = 80, BC = 45, and AC = 75. The bisector of ∠B and the altitude to side AB intersect at point P . What is BP ?",
+    "answer": "21",
+    "solution": "Let D be the intersection of the bisector of ∠B with AC, and let E be the foot of the altitude from C to AB, as shown in the figure below. A 75 80 D P E C B By the Angle Bisector Theorem AD = 75−AD . This gives AD = 48 and CD = 75 − 48 = 27. 80 45 Triangle △BCD has ∠BCD with adjacent sides of lengths 45 and 27, and triangle △ACB has ∠ACB with adjacent sides of lengths 75 and 45. By Side-Angle-Side these triangles are similar with size ratio 3 . This implies that BD = 3 AB = 48. Thus △ADB is isosceles with AD = BD 5 5 and ∠DAB = ∠DBA. Let this angle be called θ. Then ∠DBC = θ and ∠CDB = ∠CBA = 2θ. Another pair of similar triangles is △ACE and △BP E, each with a right angle and an angle θ. The third angles in these triangles must also be equal: ∠ACE = ∠BP E. It follows that ∠DP C is equal to these two by vertical angles. Therefore △CDP is isosceles with CD = P D = 27. Finally, BP = BD − P D = 48 − 27 = 21. OR As in the first solution, the Angle Bisector Theorem gives AD = 48 and CD = 27. Let x = BE and h = CE; then AE = 80 − x. By the Pythagorean Theorem x2 + h2 = 452 and (80 − x)2 + h2 = 752. Subtracting and solving for x yields x = 35 and h2 = 452 − (cid:0) 35 (cid:1)2 . Applying the Angle Bisector 2 2 Theorem to △CBE gives P E 35 7 = 2 = , h 45 + 35 25 so P E = 7 h. Applying the Pythagorean Theorem to △BP E gives (cid:18) (cid:19)2 (cid:18) (cid:19)2 BP 2 = + · h2 2 25 (cid:32) (cid:33) (cid:18) (cid:19)2 (cid:18) (cid:19)2 (cid:18) (cid:19)2 = + · 452 − 2 25 2 (cid:18) (cid:19)2 (cid:18) (cid:19)2 (cid:18) (cid:19) = + · 81 − 2 5 4 (cid:18) (cid:19)2 49 275 = + · 2 25 4 (cid:18) 7 · 5 (cid:19)2 = + · 11 2 4 = · (25 + 11) = 49 · 9, and BP = 7 · 3 = 21. OR The semiperimeter of △ABC is 1 (80 + 45 + 75) = 100. Heron’s Formula gives the area of the triangle as √ (cid:112) 100(100 − 80)(100 − 45)(100 − 75) = 500 11. Then √ 500 11 25 √ CE = = 11, 40 2 where E is the foot of the altitude from C to AB. By the Pythagorean Theorem (cid:114) (cid:114) (cid:112) 625 · 11 15625 125 AE = 752 − CE2 = 5625 − = = . 4 4 2 Then BE = 80 − AE = 35 . Applying the Angle Bisector Theorem to △CBE gives P C = BC . Adding 1 to both sides gives P E BE CE 45 + 35 = 2 . P E 35 √ √ Because CE = 25 11, it follows that P E = 7 · 11. A final application of the Pythagorean 2 2 Theorem gives (cid:115) (cid:18) 35 (cid:19)2 (cid:18) 7 √ (cid:19)2 √ BP = + 11 = 441 = 21. 2 2",
+    "id": "AMC202510A-INDIVIDUAL-23",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 7.8,
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "angle bisector",
+      "altitude",
+      "triangle similarity"
+    ],
+    "techniques": [
+      "angle bisector theorem",
+      "similar triangles",
+      "Pythagorean theorem",
+      "Heron's formula"
+    ],
+    "difficulty": "medium",
+    "summary": "Find the length BP where the angle bisector of ∠B and the altitude to AB intersect in a triangle."
+  },
+  {
+    "number": 24,
+    "statement": "Call a positive integer fair if no digit is used more than once, it has no 0s, and no digit is adjacent to two greater digits. For example, 23, 196, and 12463 are fair, but 1546, 320, and 34321 are not fair. How many fair positive integers are there?",
+    "answer": "9841",
+    "solution": "A fair positive integer must have a greatest digit, m, preceded by zero or more digits in increasing order and followed by zero or more digits in decreasing order. Otherwise m is preceded by digits b a with b > a, or m precedes digits a b with b > a. In either case the least digit between m and b is adjacent to greater digits on both sides. Suppose the number has k digits for some k ∈ {1, 2, 3, . . . , 9}, with m its greatest digit. There are (cid:0)9(cid:1) ways to select the k digits to be used. A subset S of the k − 1 digits less than m go before m k and the rest go after m. There are 2k−1 ways to choose S. Once S is chosen, the number is determined: the digits in S go first in increasing order, then comes m, then come the remaining digits in decreasing order. This works even if S is empty or its complement is empty. Therefore the number of k-digit fair positive integers is (cid:0)9(cid:1) 2k−1. These integers may have from 1 k to 9 digits, so by the Binomial Theorem the total number of fair positive integers is 9 (cid:18) (cid:19) 9 (cid:18) (cid:19) (cid:88) 9 2k−1 = 1 (cid:88) 9 2k19−k = 1 (cid:0) (2 + 1)9 − 1 (cid:1) = 1 (cid:0) 39 − 1 (cid:1) = 9,841. k 2 k 2 2 k=1 k=1",
+    "id": "AMC202510A-INDIVIDUAL-24",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 7.9,
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "digit problems",
+      "combinatorial counting",
+      "subsets"
+    ],
+    "techniques": [
+      "binomial theorem",
+      "permutations/combinations"
+    ],
+    "difficulty": "medium",
+    "summary": "Count positive integers where digits form a unimodal sequence with no repeats or zeros."
+  },
+  {
+    "number": 25,
+    "statement": "A point P is chosen at random inside square ABCD. The probability that AP is neither the √ shortest nor the longest side of △AP B can be written as a+bπ−c d , where a, b, c, d, and e are e positive integers, gcd(a, b, c, e) = 1, and d is not divisible by the square of any prime. What is a + b + c + d + e ?",
+    "answer": "25",
+    "solution": "Without loss of generality let A = (0, 0), B = (1, 0), C = (1, 1), and D = (0, 1) (cid:16) √ (cid:17) in the coordinate plane. Let Q = (cid:0) 1 , 0 (cid:1) , R = (cid:0) 1 , 1 (cid:1) , and S = 1 , 3 . Draw the quarter circle 2 2 2 2 of radius 1 centered at A extending from B to D, as shown in the figure below, where the region inside rectangle AQRD but outside the quarter circle has been shaded, as has the region inside the quarter circle but outside of rectangle AQRD. Note that S lies on the quarter circle and △ABS is equilateral. R D C S A B Q It may be assumed that P does not lie on a line segment or arc in the figure, because the probability of such happening is 0. Note that if P lies in the smaller shaded region, then AP < BP and AP > AB, so P satisfies the given condition that AP is neither the shortest nor the longest side of △AP B. Similarly, if P lies in the larger shaded region, then AP > BP and AP < AB, so P again satisfies the given condition. On the other hand, if P lies in the leftmost unshaded region, then AP is the shortest side of △AP B, and if P lies in the rightmost unshaded region, then AP is the longest side of △AP B. It remains to compute the area of the shaded regions. √ Because ∠QAS = 60◦, sector BAS has area π . Also, △QAS has area 1 3, so the larger shaded 6 8 region has area √ π 1 √ 4π − 3 3 − 3 = . 6 8 24 The left-most unshaded region consists of 1 of a disk of radius 1 together with a triangle of area √ 12 1 3, so the area of the smaller shaded region is √ 1 π 1 √ 12 − 2π − 3 3 − − 3 = . 2 12 8 24 Because the square has area 1, the requested probability is √ √ √ 4π − 3 3 12 − 2π − 3 3 6 + π − 3 3 + = . 24 24 12 The requested sum is 6 + 1 + 3 + 3 + 12 = 25. Problems and solutions were contributed and edited by Taiki Aiba, Theodore Alper, David Altizio, Risto Atanasov, Bela Bajnok, Owen Byer, Silva Chang, Steven Davis, Thinula De Silva, Steve Dunbar, Marta Eso, Zuming Feng, Zachary Franco, Gary Gordon, Jon Graetz, Andrea Grof, Jerrold Grossman, Thomas Howell, Chris Jeuell, Daniel Jordan, Jonathan Kane, Ed Keppelmann, Azar Khosravani, Joseph Li, Ken Liu, Ioana Mihaila, Hugh Montgomery, Bryan Nevarez, David Scott, Lucian Sega, Matyas Sustik, Kate Thompson, Agnes Tuska, David Wells, Kathleen Wong, Andrew Wu, Dai Yang, Carl Yerger, Jesse Zhang, and Alexander Zhu.",
+    "id": "AMC202510A-INDIVIDUAL-25",
+    "contest": "AMC 2025 10A",
+    "round": "Individual Round",
+    "sources": [
+      "AMC 2025 10A"
+    ],
+    "difficulty_score": 8.0,
+    "area": [
+      "Geometry",
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "geometric probability",
+      "areas of circular sectors and triangles",
+      "triangle side comparisons"
+    ],
+    "techniques": [
+      "coordinate geometry",
+      "area ratios",
+      "arcs and inscribed angles"
+    ],
+    "difficulty": "hard",
+    "summary": "Find the probability that AP is neither the shortest nor longest side of triangle APB using geometric regions."
+  },
+  {
     "id": "ARML2025-TEAM-1",
     "contest": "ARML 2025",
     "round": "Team Round",
@@ -1591,691 +2277,5 @@
     ],
     "difficulty": "hard",
     "summary": "Tests properties of incircle, a circle through B and C internally tangent to it, and the common tangent line length."
-  },
-  {
-    "number": 1,
-    "statement": "Andy and Betsy both live in Mathville. Andy leaves Mathville on his bicycle at 1:30, traveling due north at a steady 8 miles per hour. Betsy leaves on her bicycle from the same point at 2:30, traveling due east at a steady 12 miles per hour. At what time will they be exactly the same distance from their common starting point?",
-    "answer": "4:30",
-    "solution": "Let t be the amount of time (in hours) Andy rides until they are the same distance from their starting point. Then 8t = 12(t − 1), so 4t = 12. This gives t = 3 hours, so their distances will be equal at 4:30. OR The answer will be the same if both riders travel in the same direction. Andy has a head start: he covers 8 miles before Betsy begins. After Betsy starts at 2:30, she gains on Andy at a rate of 12 − 8 = 4 miles per hour. Therefore it will take her 8 ÷ 4 = 2 hours to catch up to him, and 2 hours after 2:30 is 4:30.",
-    "id": "AMC202510A-INDIVIDUAL-1",
-    "contest": "AMC 2025 10A",
-    "round": "Individual Round",
-    "sources": [
-      "AMC 2025 10A"
-    ],
-    "difficulty_score": 5.0,
-    "area": [
-      "Algebra"
-    ],
-    "subtopics": [
-      "distance-rate-time",
-      "linear equations"
-    ],
-    "techniques": [
-      "distance-rate-time",
-      "system of linear equations"
-    ],
-    "difficulty": "easy",
-    "summary": "Tests setting up and solving a linear equation from a distance-rate-time scenario."
-  },
-  {
-    "number": 2,
-    "statement": "A box contains 10 pounds of a nut mix that is 50 percent peanuts, 20 percent cashews, and 30 percent almonds. A second nut mix containing 20 percent peanuts, 40 percent cashews, and 40 percent almonds is added to the box resulting in a new nut mix that is 40 percent peanuts. How many pounds of cashews are now in the box?",
-    "answer": "4",
-    "solution": "Originally the box contains 50 · 10 = 5 pounds of peanuts and 20 · 10 = 2 pounds 100 100 of cashews. When x pounds of the second nut mix are added to the box, the box then contains 10 + x pounds of nut mix and 5 + 20 · x = 5 + x pounds of peanuts. Because the new nut mix is 100 5 40% peanuts, it follows that 5 + x 40 2 5 = = . 10 + x 100 5 Clearing fractions gives 25 + x = 20 + 2x, so x = 5. Because the weight of cashews added to the box is 40 · 5 = 2 pounds, the weight of the cashews now in the box is 2 + 2 = 4 pounds. OR The original mix has 50% peanuts and the second mix has 20% peanuts. The new mix has 40% peanuts. Because 40 is twice as close to 50 as it is to 20, the amount of the original mix in the new mix needs to be twice the amount of the second mix in the new mix. Therefore 1 · 10 = 5 pounds of the second mix must be used. Those 5 pounds contain 40 · 5 = 2 pounds of cashews, and the original mix had 20 · 10 = 2 pounds of cashews, so the new mix has 2 + 2 = 4 pounds of cashews.",
-    "id": "AMC202510A-INDIVIDUAL-2",
-    "contest": "AMC 2025 10A",
-    "round": "Individual Round",
-    "sources": [
-      "AMC 2025 10A"
-    ],
-    "difficulty_score": 5.1,
-    "area": [
-      "Algebra"
-    ],
-    "subtopics": [
-      "mixture problems",
-      "weighted averages",
-      "percent composition"
-    ],
-    "techniques": [
-      "mixture problems",
-      "weighted averages"
-    ],
-    "difficulty": "easy",
-    "summary": "Tests setting up and solving a mixture equation to find the total weight of cashews after combining two nut mixes."
-  },
-  {
-    "number": 3,
-    "statement": "How many isosceles triangles are there with positive area whose side lengths are all positive integers and whose longest side has length 2025 ?",
-    "answer": "3037",
-    "solution": "If there are at least two sides of length 2025, then the length of the third side is between 1 and 2025, inclusive. If there is only one side of length 2025, then the two congruent sides must have lengths between 1013 and 2024, inclusive, in order to satisfy the Triangle Inequality. Therefore there are 2025 + (2024 − 1012) = 3037 such triangles.",
-    "id": "AMC202510A-INDIVIDUAL-3",
-    "contest": "AMC 2025 10A",
-    "round": "Individual Round",
-    "sources": [
-      "AMC 2025 10A"
-    ],
-    "difficulty_score": 5.2,
-    "area": [
-      "Combinatorics",
-      "Geometry"
-    ],
-    "subtopics": [
-      "isosceles triangles",
-      "integer side lengths",
-      "triangle inequality"
-    ],
-    "techniques": [
-      "triangle inequality",
-      "casework"
-    ],
-    "difficulty": "medium",
-    "summary": "Count isosceles triangles with positive integer sides where the longest side is 2025, using the triangle inequality."
-  },
-  {
-    "number": 4,
-    "statement": "A team of students is going to compete against a team of teachers in a trivia contest. The total number of students and teachers is 15. Ash, a cousin of one of the students, wants to join the contest. If Ash plays with the students, the average age on that team will increase from 12 to 14. If Ash plays with the teachers, the average age on that team will decrease from 55 to 52. How old is Ash?",
-    "answer": "28",
-    "solution": "Let a be Ash’s age, and let t be the number of teachers. Then 15 − t is the number of students. Because the average age of the teachers is 55, the sum of the teachers’ ages is 55t. Because the average age of the students is 12, the sum of the students’ ages is 12(15−t) = 180−12t. With Ash, the average age of the teacher team decreases to 52, so 55t + a = 52(t + 1) = 52t + 52, yielding 3t + a = 52. If Ash instead joins the student team, their average age increases to 14, so 180 − 12t + a = 14(15 − t + 1) = 224 − 14t, yielding 2t + a = 44. Because a (Ash’s age) is requested, eliminate t to yield −6t − 2a = −2(52) = −104 6t + 3a = 3(44) = 132 a = 28. Thus Ash’s age is 28. OR Let s be the number of students. Then the number of teachers is 15 − s. The sum of the ages of the students is 12s. If Ash plays with the students, the sum of the ages on that team will be 14(s + 1), so Ash’s age is the difference 14(s + 1) − 12s = 2s + 14. The sum of the ages of the teachers is 55(15 − s). If Ash plays with the teachers, the sum of the ages on that team will be 52(15 − s + 1) = 52(15 − s) + 52, so Ash’s age is the difference 52(15 − s) + 52 − 55(15 − s) = 52 − 3(15 − s) = 52 − 45 + 3s = 3s + 7. Equating the two expressions for Ash’s age gives 3s + 7 = 2s + 14, from which s = 7. There are 7 students, and Ash’s age is 2s + 14 = 2 · 7 + 14 = 28. It may be checked that Ash’s age also equals 3s + 7 = 3 · 7 + 7 = 28.",
-    "id": "AMC202510A-INDIVIDUAL-4",
-    "contest": "AMC 2025 10A",
-    "round": "Individual Round",
-    "sources": [
-      "AMC 2025 10A"
-    ],
-    "difficulty_score": 5.4,
-    "area": [
-      "Algebra"
-    ],
-    "subtopics": [
-      "averages",
-      "system of linear equations",
-      "word problems"
-    ],
-    "techniques": [
-      "system of linear equations",
-      "weighted average"
-    ],
-    "difficulty": "easy",
-    "summary": "Tests setting up and solving a system of equations from average age conditions."
-  },
-  {
-    "number": 5,
-    "statement": "Consider the sequence of positive integers 1, 2, 1, 2, 3, 2, 1, 2, 3, 4, 3, 2, 1, 2, 3, 4, 5, 4, 3, 2, 1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1, 2, . . . . What is the 2025th term in this sequence?",
-    "answer": "45",
-    "solution": "Define a bounce to be the terms in the sequence that begin with a 1 and end at the 2 preceding the next 1. Thus the first bounce is 1, 2; the second bounce is 1, 2, 3, 2; the third bounce is 1, 2, 3, 4, 3, 2; and so on. The number of terms in the kth bounce is 2k, and its peak value is k + 1. Therefore the first k bounces use a total of 2 + 4 + 6 + · · · + 2k terms. Now 2 + 4 + 6 + · · · + 2k = 2(1 + 2 + 3 + · · · + k) = k(k + 1). When k = 44, this sum is 44 · 45 = 1980. Then the 45th bounce begins in position 1981, and the terms in this bounce will increase until they reach 45 (on the way to 46) in position 2025. Thus the 2025th term in the sequence is 45. OR For k ≥ 1, define the kth block to begin with the first appearance of k and end before the first appearance of k + 1. Then block k is k, k − 1, k − 2, . . . , 2, 1, 2, . . . , k − 2, k − 1, k. Note that there are 2k − 1 terms in this block. Observe also that the last term in the block is also k. The number of terms to reach the end of block k is k (cid:88) (2i − 1) = k2. i=1 In particular, 2025 = 452 terms are needed to reach the end of block 45, whose last term is 45.",
-    "id": "AMC202510A-INDIVIDUAL-5",
-    "contest": "AMC 2025 10A",
-    "round": "Individual Round",
-    "sources": [
-      "AMC 2025 10A"
-    ],
-    "difficulty_score": 5.5,
-    "area": [
-      "Combinatorics"
-    ],
-    "subtopics": [
-      "integer sequences",
-      "pattern recognition",
-      "arithmetic series"
-    ],
-    "techniques": [
-      "arithmetic series",
-      "block/period identification"
-    ],
-    "difficulty": "medium",
-    "summary": "Find the 2025th term of a sequence built from symmetric \"bounce\" or \"block\" patterns by summing block lengths."
-  },
-  {
-    "number": 6,
-    "statement": "In an equilateral triangle each interior angle is trisected by a pair of rays. The intersection of the interiors of the middle 20◦-angle at each vertex is the interior of a convex hexagon. What is the degree measure of the smallest angle of this hexagon?",
-    "answer": "100^\\circ",
-    "solution": "The figure below shows equilateral triangle △ABC with its trisectors, creating convex hexagon DEF GHI. C H I G D F E A B Because the angles have been trisected, the base angles in △ABH have measure ∠HAB = ∠ABH = 2 · 60◦ = 40◦, so ∠AHB = 180◦ − 2 · 40◦ = 100◦. Similarly, in triangle △ABE, ∠EAB = ∠ABE = 1 · 60◦ = 20◦, so ∠AEB = 180◦ − 2 · 20◦ = 140◦; and by vertical angles, ∠DEF = 140◦. By symmetry the other four angles of the hexagon also measure either 100◦ or 140◦, so the measure of the smallest angle of the hexagon is 100◦.",
-    "id": "AMC202510A-INDIVIDUAL-6",
-    "contest": "AMC 2025 10A",
-    "round": "Individual Round",
-    "sources": [
-      "AMC 2025 10A"
-    ],
-    "difficulty_score": 5.6,
-    "area": [
-      "Geometry"
-    ],
-    "subtopics": [
-      "angle trisection",
-      "equilateral triangle",
-      "convex hexagon"
-    ],
-    "techniques": [
-      "angle chasing"
-    ],
-    "difficulty": "easy",
-    "summary": "Tests angle chasing in an equilateral triangle with trisected angles to find the smallest angle of the resulting hexagon."
-  },
-  {
-    "number": 7,
-    "statement": "Suppose a and b are real numbers. When the polynomial x3 + x2 + ax + b is divided by x − 1, the remainder is 4. When the polynomial is divided by x − 2, the remainder is 6. What is b − a ?",
-    "answer": "18",
-    "solution": "Carrying out the indicated operations using polynomial division gives remainders of a + b + 2 and 2a + b + 12, respectively. (The corresponding quotients are x2 + 2x + a + 2 and x2 + 3x + a + 6.) Thus a + b + 2 = 4 and 2a + b + 12 = 6. Solving this system of linear equations gives a = −8 and b = 10. The requested difference is 10 − (−8) = 18. OR The remainders can also be obtained by using the Remainder Theorem, which states that the remainder when a polynomial in x is divided by x − c is the value of the polynomial at x = c. Letting x = 1 gives 13 + 12 + a · 1 = a + b + 2, and letting x = 2 gives 23 + 22 + a · 2 + b = 2a + b + 12, as in the first solution. The rest of the solution is identical.",
-    "id": "AMC202510A-INDIVIDUAL-7",
-    "contest": "AMC 2025 10A",
-    "round": "Individual Round",
-    "sources": [
-      "AMC 2025 10A"
-    ],
-    "difficulty_score": 5.8,
-    "area": [
-      "Algebra"
-    ],
-    "subtopics": [
-      "polynomial division",
-      "remainder theorem",
-      "system of linear equations"
-    ],
-    "techniques": [
-      "remainder theorem",
-      "system of linear equations"
-    ],
-    "difficulty": "easy",
-    "summary": "Tests applying the Remainder Theorem to set up and solve a linear system for polynomial coefficients."
-  },
-  {
-    "number": 8,
-    "statement": "Agnes writes the following four statements on a blank piece of paper. (cid:136) At least one of these statements is true. (cid:136) At least two of these statements are true. (cid:136) At least two of these statements are false. (cid:136) At least one of these statements is false. Each statement is either true or false. How many false statements did Agnes write on the paper?",
-    "answer": "1",
-    "solution": "If the third statement were true, then the fourth statement would also be true, but that would make the first two statements true as well, and therefore the third statement would in fact be false. Therefore the third statement is false and there is at most one false statement on the paper, which means that the first, second, and fourth statements are true. These conclusions are consistent with the content of those three statements. Thus there is 1 false statement on the paper. OR The first and fourth statements cannot both be false because there are four statements on the paper, each of which is true or false. Therefore at least one of them is true. That makes the first statement true. Similarly, because there are four statements in all, there must be at least two true statements or at least two false statements, which makes at least one of the second and third statements true. This makes the second statement true. If there were no false statement among the four statements, that would make the third and the fourth statements false, which is a contradiction. Therefore there exists at least one false statement on the paper. This makes the fourth statement true. This gives a total of at least three true statements, so the third statement (and only this) must be false. Thus there is 1 false statement on the paper. OR Consider the following observations: (cid:136) First, note that it is impossible for all four statements be true. This follows because then the third and fourth statements would be false, a contradiction. (cid:136) If exactly three statements are true, then the first, second, and fourth statements would be true and the third statement would be false. Thus, this scenario is possible. (cid:136) If exactly two statements are true, then all four statements would be true, a contradiction. (cid:136) If exactly one statement is true, then the first, third, and fourth statements would be true, a contradiction. (cid:136) If none of the statements are true, then the third and fourth statements would be true, again a contradiction. Thus there is exactly 1 false statement written on the paper.",
-    "id": "AMC202510A-INDIVIDUAL-8",
-    "contest": "AMC 2025 10A",
-    "round": "Individual Round",
-    "sources": [
-      "AMC 2025 10A"
-    ],
-    "difficulty_score": 5.9,
-    "area": [
-      "Combinatorics"
-    ],
-    "subtopics": [
-      "logic puzzles",
-      "self-referential statements",
-      "truth values"
-    ],
-    "techniques": [
-      "casework",
-      "logical deduction"
-    ],
-    "difficulty": "easy",
-    "summary": "Tests logical reasoning by determining how many of four self-referential true/false statements are false."
-  },
-  {
-    "number": 9,
-    "statement": "Let f (x) = 100x3 − 300x2 + 200x. For how many real numbers a does the graph of y = f (x − a) pass through the point (1, 25) ?",
-    "answer": "3",
-    "solution": "The graph of y = f (x − a) is the same as the graph of y = f (x), but shifted a units to the right. The given cubic polynomial can be factored as f (x) = 100x(x − 1)(x − 2). The graph of y = f (x) has x-intercepts at x = 0, 1, and 2 and has the familiar shape shown below. 1 2 Note that f (0.5) = 100 · 0.125 − 300 · 0.25 + 200 · 0.5 = 37.5, so the local maximum of f (x) over the interval (0, 1) is greater than 25. Therefore shifting the given graph horizontally by an appropriate amount will cause either the leftmost rising portion of the curve or the middle falling portion of the curve or the rightmost rising portion of the curve to pass through the point (1, 25), as seen in the figure below, with the original graph shown dashed. (These intersections follow from the Intermediate Value Theorem.) −1 1 2 3 The graph of y = f (x − a) is precisely this shifted graph, so there are 3 such values of a. Note: The values of a are approximately 0.84, 0.27, and −1.11.",
-    "id": "AMC202510A-INDIVIDUAL-9",
-    "contest": "AMC 2025 10A",
-    "round": "Individual Round",
-    "sources": [
-      "AMC 2025 10A"
-    ],
-    "difficulty_score": 6.0,
-    "area": [
-      "Algebra"
-    ],
-    "subtopics": [
-      "polynomial functions",
-      "graph transformations",
-      "cubic polynomials"
-    ],
-    "techniques": [
-      "polynomial factorization",
-      "Intermediate Value Theorem"
-    ],
-    "difficulty": "medium",
-    "summary": "Tests counting horizontal shifts of a cubic polynomial so its graph passes through a given point."
-  },
-  {
-    "number": 10,
-    "statement": "A semicircle has diameter AB and chord CD of length 16 parallel to AB. A smaller semicircle with diameter on AB and tangent to CD is cut from the larger semicircle, as shown below. C D A B What is the area of the resulting figure, shown shaded?",
-    "answer": "32\\pi",
-    "solution": "Let O on AB be the center of the larger semicircle, let P be the midpoint of CD, let r = OP , and let R = OD. Then r is the radius of the smaller semicircle, and R is the radius of the larger semicircle. Note that P D = 8. P 8 C D r R A O B By the Pythagorean Theorem R2 − r2 = 64. The area of the shaded region is πR2 πr2 π · 64 − = = 32π. 2 2 2 Note: The area does not depend on the radii of the semicircles, but only on the difference of their squares.",
-    "id": "AMC202510A-INDIVIDUAL-10",
-    "contest": "AMC 2025 10A",
-    "round": "Individual Round",
-    "sources": [
-      "AMC 2025 10A"
-    ],
-    "difficulty_score": 6.1,
-    "area": [
-      "Geometry"
-    ],
-    "subtopics": [
-      "semicircles",
-      "area of regions",
-      "chords"
-    ],
-    "techniques": [
-      "Pythagorean theorem"
-    ],
-    "difficulty": "easy",
-    "summary": "Tests computing the area difference of two semicircles using the Pythagorean theorem with a parallel chord."
-  },
-  {
-    "number": 11,
-    "statement": "The sequence 1, x, y, z is arithmetic. The sequence 1, p, q, z is geometric. Both sequences are strictly increasing and contain only integers, and z is as small as possible. What is the value of x + y + z + p + q ?",
-    "answer": "149",
-    "solution": "Let d be the common difference of the arithmetic sequence. Note that p is the common ratio of the geometric sequence. Then z = 1 + 3d = 1 · p3. Thus z is 1 greater than a multiple of 3. Try integer values of p, beginning with 2 (because the sequences are increasing), seeking a value of p3 that is 1 greater than a multiple of 3. Although 23 = 8 and 33 = 27 do not work, p = 4 yields p3 = 64 = 1+3·21. Thus d = 21, the arithmetic sequence is 1, 22, 43, 64, and the geometric sequence is 1, 4, 16, 64. The requested sum is x+y +z +p+q = 22+43+64+4+16 = 149.",
-    "id": "AMC202510A-INDIVIDUAL-11",
-    "contest": "AMC 2025 10A",
-    "round": "Individual Round",
-    "sources": [
-      "AMC 2025 10A"
-    ],
-    "difficulty_score": 6.2,
-    "area": [
-      "Algebra"
-    ],
-    "subtopics": [
-      "arithmetic sequences",
-      "geometric sequences",
-      "integer constraints"
-    ],
-    "techniques": [
-      "arithmetic series",
-      "geometric series",
-      "casework"
-    ],
-    "difficulty": "easy",
-    "summary": "Find integer arithmetic and geometric sequences sharing endpoints with minimal last term."
-  },
-  {
-    "number": 12,
-    "statement": "Carlos uses a 4-digit passcode to unlock his computer. In his passcode, exactly one digit is even, exactly one (possibly different) digit is prime, and no digit is 0. How many 4-digit passcodes satisfy these conditions?",
-    "answer": "464",
-    "solution": "The even digit can be placed into any of the 4 positions. Assume that it is in the first position, and multiply by 4 at the end to obtain the correct answer. If the even digit is prime, it must be 2, and the 3 odd digits must each be either 1 or 9, so this case accounts for 1 · 23 = 8 passcodes. If one of the odd digits is prime, it must be 3, 5, or 7. The other two odd digits must be either 1 or 9, and the even digit must be 4, 6, or 8. Also the prime digit can occupy any of 3 positions, so this case accounts for 3 · 22 · 3 · 3 = 108 passcodes. Multiplying by 4 gives the total number of possible 4-digit passcodes as 4(8 + 108) = 464.",
-    "id": "AMC202510A-INDIVIDUAL-12",
-    "contest": "AMC 2025 10A",
-    "round": "Individual Round",
-    "sources": [
-      "AMC 2025 10A"
-    ],
-    "difficulty_score": 6.4,
-    "area": [
-      "Combinatorics"
-    ],
-    "subtopics": [
-      "counting",
-      "digit constraints",
-      "casework"
-    ],
-    "techniques": [
-      "casework",
-      "multiplication principle"
-    ],
-    "difficulty": "medium",
-    "summary": "Count 4-digit passcodes where exactly one digit is even, exactly one is prime, and no digit is 0."
-  },
-  {
-    "number": 13,
-    "statement": "In the figure below, the outside square contains infinitely many squares, each of them with the same center and sides parallel to the outside square. The ratio of the side length of a square to the side length of the next inner square is k, where 0 < k < 1. The spaces between squares are alternately shaded, as shown in the figure (which is not necessarily drawn to scale). The area of the shaded portion of the figure is 64% of the area of the original square. What is k ? 3 16 2 3 4",
-    "answer": "k = \\dfrac{3}{4}",
-    "solution": "Assume without loss of generality that the side length of the original square is 1. The lengths of the sides of the square from the outside toward the center form the geometric sequence 1, k, k2, k3, . . ., so the shaded area is given by 1 − k2 + k4 − k6 + · · · . This is a geometric series with ratio −k2, so the total shaded area is . 1 + k2 Because the shaded area is 64% = 16 of the total area, this gives 1 = 16 . Therefore 1 + k2 = 25 , 25 1+k2 25 16 so k2 = 9 and k = 3 . 16 4 OR Assume without loss of generality that the side length of the original square is 1. By the way the figure is constructed, each pair consisting of an unshaded ring and the shaded ring immediately surrounding it is similar to the largest such pair. Therefore the 64% ratio also holds true for that largest pair. The shaded area in that pair is 1 − k2, and the total area is 1 − (k2)2 = 1 − k4. Therefore 1 − k2 1 − k2 1 64% = = = , 1 − k4 (1 + k2)(1 − k2) 1 + k2 as in the first solution.",
-    "id": "AMC202510A-INDIVIDUAL-13",
-    "contest": "AMC 2025 10A",
-    "round": "Individual Round",
-    "sources": [
-      "AMC 2025 10A"
-    ],
-    "difficulty_score": 6.5,
-    "area": [
-      "Algebra"
-    ],
-    "subtopics": [
-      "geometric series",
-      "infinite series",
-      "area of nested squares"
-    ],
-    "techniques": [
-      "geometric series",
-      "polynomial factorization"
-    ],
-    "difficulty": "medium",
-    "summary": "Tests summing an infinite geometric series to find the shaded area fraction of nested squares."
-  },
-  {
-    "number": 14,
-    "statement": "Six chairs are arranged around a round table. Two students and two teachers randomly select four of the chairs to sit in. What is the probability that the two students will sit in two adjacent chairs and the two teachers will also sit in two adjacent chairs? 1 1 2 3 1",
-    "answer": "\\dfrac{1}{5}",
-    "solution": "The probability that the second student sits next to the first student is 2 . If that happens, then there are (cid:0)4(cid:1) = 6 ways for the teachers to sit in the remaining chairs, and in 3 of those ways, the teachers are adjacent. Therefore the requested probability is 2 · 3 = 1 . 5 6 5 OR There are (cid:18) (cid:19) 6 6! = = 90 2, 2, 2 2! · 2! · 2! equally likely ways to assign two chairs to students, two chairs to teachers, and two chairs to be left unoccupied. There are 6 pairs of adjacent chairs around the circle where the students could be seated side-by-side. Having selected those two chairs, there are 3 positions remaining in which two teachers could be seated side-by-side. Thus the requested probability is 6·3 = 1 . 90 5",
-    "id": "AMC202510A-INDIVIDUAL-14",
-    "contest": "AMC 2025 10A",
-    "round": "Individual Round",
-    "sources": [
-      "AMC 2025 10A"
-    ],
-    "difficulty_score": 6.6,
-    "area": [
-      "Combinatorics"
-    ],
-    "subtopics": [
-      "circular arrangements",
-      "probability",
-      "adjacent seating"
-    ],
-    "techniques": [
-      "circular arrangements",
-      "multiplication principle",
-      "complementary counting"
-    ],
-    "difficulty": "medium",
-    "summary": "Tests counting adjacent seating arrangements around a circular table to compute a probability."
-  },
-  {
-    "number": 15,
-    "statement": "In the figure below, ABEF is a rectangle, AD ⊥ DE, AF = 7, AB = 1, and AD = 5. A B C F D E What is the area of △ABC ? 3 4 1 √ 7 1 √",
-    "answer": "\\dfrac{3}{8}",
-    "solution": "Let x = BC. Then AC = 1 + x2, CE = 7 − x, and CD = 5 − 1 + x2. Because △ABC is similar to △EDC, √ 7 − x 5 − 1 + x2 √ = . 1 + x2 x √ Clearing denominators gives 7x − x2 = 5 1 + x2 − (1 + x2). Simplifying and squaring yields 1 + 14x + 49x2 = 25 + 25x2, so 24x2 + 14x − 24 = 0, which gives 2(4x − 3)(3x + 4) = 0. The only positive solution is x = 3 . The area of △ABC is 1 · 3 · 1 = 3 . 4 2 4 8",
-    "id": "AMC202510A-INDIVIDUAL-15",
-    "contest": "AMC 2025 10A",
-    "round": "Individual Round",
-    "sources": [
-      "AMC 2025 10A"
-    ],
-    "difficulty_score": 6.8,
-    "area": [
-      "Geometry"
-    ],
-    "subtopics": [
-      "similar triangles",
-      "rectangles",
-      "area of a triangle"
-    ],
-    "techniques": [
-      "similar triangles",
-      "quadratic equations"
-    ],
-    "difficulty": "medium",
-    "summary": "Tests identifying similar triangles in a rectangle configuration to find an unknown length and compute area."
-  },
-  {
-    "number": 16,
-    "statement": "There are three jars. Each of three coins is placed in one of the three jars, chosen at random and independently of the placements of the other coins. What is the expected number of coins in a jar with the most coins? 4 39 5 17",
-    "answer": "\\dfrac{17}{9}",
-    "solution": "There are 3 · 3 · 3 = 27 equally likely ways to assign coins to jars. There are 3! = 6 ways to assign one coin to each jar, 3 ways to assign all the coins to one jar, and 27 − 6 − 3 = 18 ways to assign 2 coins to one jar and 1 coin to a different jar. Therefore the requested expected value is 1 · 6 + 2 · 18 + 3 · 3 17 = . 27 9",
-    "id": "AMC202510A-INDIVIDUAL-16",
-    "contest": "AMC 2025 10A",
-    "round": "Individual Round",
-    "sources": [
-      "AMC 2025 10A"
-    ],
-    "difficulty_score": 6.9,
-    "area": [
-      "Combinatorics"
-    ],
-    "subtopics": [
-      "expected value",
-      "discrete probability",
-      "counting distributions"
-    ],
-    "techniques": [
-      "expected value",
-      "casework",
-      "multiplication principle"
-    ],
-    "difficulty": "easy",
-    "summary": "Tests computing expected value of the maximum bin count when distributing 3 coins into 3 jars."
-  },
-  {
-    "number": 17,
-    "statement": "Let N be the unique positive integer such that dividing 273436 by N leaves a remainder of 16 and dividing 272760 by N leaves a remainder of 15. What is the tens digit of N ?",
-    "answer": "4",
-    "solution": "The number 273436 − 16 = 273420 must be a multiple of N , and so must be the number 272760 − 15 = 272745. Then 273420 − 272745 = 675 is also a multiple of N . Because 272745 = 404 · 675 + 45, the number 45 must also be a multiple of N . Because division by N gives a remainder of 16, the value of N must be greater than 16. The only divisor of 45 that is greater than 16 is 45. Indeed, 273436 = 45 · 6076 + 16 and 272760 = 45 · 6061 + 15. Therefore N = 45, and the tens digit of N is 4.",
-    "id": "AMC202510A-INDIVIDUAL-17",
-    "contest": "AMC 2025 10A",
-    "round": "Individual Round",
-    "sources": [
-      "AMC 2025 10A"
-    ],
-    "difficulty_score": 7.0,
-    "area": [
-      "Number Theory"
-    ],
-    "subtopics": [
-      "divisibility",
-      "remainders",
-      "gcd"
-    ],
-    "techniques": [
-      "Euclidean algorithm",
-      "divisibility"
-    ],
-    "difficulty": "easy",
-    "summary": "Find a unique divisor N using remainder conditions and the Euclidean algorithm on the differences."
-  },
-  {
-    "number": 18,
-    "statement": "The harmonic mean of a collection of numbers is the reciprocal of the arithmetic mean of the reciprocals of the numbers in the collection. For example, the harmonic mean of 4, 4, and 5 is 1 30 = . 1 (cid:0) 1 + 1 + 1 (cid:1) 7 3 4 4 5 What is the harmonic mean of all the real roots of the 4050th degree polynomial (cid:89) (kx2 − 4x − 3) = (x2 − 4x − 3)(2x2 − 4x − 3)(3x2 − 4x − 3) · · · (2025x2 − 4x − 3) ? k=1 5 3 6 5 2",
-    "answer": "-\\dfrac{3}{2}",
-    "solution": "The discriminant of kx2 −4x−3 is 16+12k, which is positive when k ≥ 1. Therefore kx2 − 4x − 3 has two distinct real roots x and x . Furthermore, roots corresponding to different 1 2 values of k must be distinct, because 0 is not a root and if k x2 − 4x − 3 = k x2 − 4x − 3 for some 1 2 x ̸= 0, then k = k . By Vieta’s Formulas x + x = 4 and x x = −3 . Therefore the sum of the 1 2 1 2 k 1 2 k reciprocals of these two roots of the given polynomial is 1 1 x + x 4 1 2 + = = − . x x x x 3 1 2 1 2 It follows that the sum of the reciprocals of all the roots of the given polynomial is 2025 · (cid:0) − 4 (cid:1) , and the arithmetic mean of these reciprocals is (cid:18) (cid:19) 1 4 2 · 2025 · − = − . 4050 3 3 The required harmonic mean is the reciprocal of this arithmetic mean of reciprocals, namely − 3 . OR If a is a nonzero solution of the polynomial equation p(x) = 0, then 1 is a solution of the equation a p (cid:0) 1 (cid:1) = 0, and vice versa. Therefore if a and b are the roots of the polynomial kx2 − 4x − 3, then x neither equals 0, and 1 and 1 are the roots of the polynomial k − 4x − 3x2. From Vieta’s Formulas a b it follows that 1 + 1 = − 4 . Thus the arithmetic mean of the reciprocals of the roots of a b 3 (cid:89) (kx2 − 4x − 3) k=1 is 2025 · (cid:0) − 4 (cid:1) 2 3 = − . 4050 3 The required harmonic mean is its reciprocal, − 3 .",
-    "id": "AMC202510A-INDIVIDUAL-18",
-    "contest": "AMC 2025 10A",
-    "round": "Individual Round",
-    "sources": [
-      "AMC 2025 10A"
-    ],
-    "difficulty_score": 7.1,
-    "area": [
-      "Algebra"
-    ],
-    "subtopics": [
-      "harmonic mean",
-      "polynomial roots",
-      "quadratic equations"
-    ],
-    "techniques": [
-      "Vieta's formulas",
-      "arithmetic series"
-    ],
-    "difficulty": "medium",
-    "summary": "Tests applying Vieta's formulas to find the harmonic mean of all real roots of a product of quadratics."
-  },
-  {
-    "number": 19,
-    "statement": "An array of numbers is constructed beginning with the numbers −1 3 1 in the top row. Each adjacent pair of numbers is summed to produce a number in the next row. Each row will begin and end with the numbers −1 and 1, respectively. The first three rows are shown below. −1 3 1 −1 2 4 1 −1 1 6 5 1 If the process continues, one of the rows will sum to 12,288. In that row, what is the third number from the left?",
-    "answer": "-29",
-    "solution": "The first three row sums are 3, 6, and 12, doubling each time. The doubling is due to the array construction method: each number in a row is used twice to produce values for the next row, and the −1 and 1 at the ends contribute 0. Thus the sum of each row will be double the sum of the previous row. If the topmost row is considered the 0th row with a sum of 3, then the sum of the nth row will be 3 · 2n. The row with a sum of 12,288 = 3 · 212 will thus be the 12th. To find the third number in the 12th row, first note that the diagonal at the left edge of the array contains −1s. The second diagonal from the left contains the decreasing sequence 3, 2, 1, 0, . . . , because each number is the sum of the previous number and −1. In the third diagonal, each number is the sum of previous number plus a number in the second diagonal. Because the second diagonal begins with a sequence of positive numbers, the numbers in the third diagonal will increase at first, then decrease once the sequence in the second diagonal reaches 0 in row 3. −1 3 1 −1 2 4 1 −1 1 6 5 1 −1 0 7 − − 1 −1 −1 7 − − − 1 −1 −2 6 − − − − 1 −1 −3 4 − − − − − 1 Thus for n ≥ 4, the number in the third diagonal in the nth row will equal (n − 4)(n − 3) 7 − (0 + 1 + 2 + · · · + (n − 4)) = 7 − . Therefore the third number in the 12th row will be 7 − 8·9 = −29.",
-    "id": "AMC202510A-INDIVIDUAL-19",
-    "contest": "AMC 2025 10A",
-    "round": "Individual Round",
-    "sources": [
-      "AMC 2025 10A"
-    ],
-    "difficulty_score": 7.2,
-    "area": [
-      "Combinatorics",
-      "Algebra"
-    ],
-    "subtopics": [
-      "Pascal-like arrays",
-      "row sums",
-      "diagonal sequences"
-    ],
-    "techniques": [
-      "geometric series",
-      "arithmetic series"
-    ],
-    "difficulty": "medium",
-    "summary": "Tests pattern recognition in a Pascal-like array by tracking row sums and diagonal sequences."
-  },
-  {
-    "number": 20,
-    "statement": "A silo (right circular cylinder) with diameter 20 meters stands in a field. MacDonald is located 20 meters west and 15 meters south of the center of the silo. McGregor is located 20 meters east and g > 0 meters south of the center of the silo. The line of sight between MacDonald and McGregor √ is tangent to the silo. The value of g can be written as a b−c , where a, b, c, and d are positive d integers, b is not divisible by the square of any prime, and d is relatively prime to the greatest common divisor of a and c. What is a + b + c + d ?",
-    "answer": "119",
-    "solution": "The figure below shows the given situation, where S is the center of the silo, D is the position of MacDonald, G is the position of McGregor, T is the point at which DG is tangent to the circle representing the silo, line CD runs east-west, and lines BD and N C run north-south. (Point H is used in the second solution.) B 20 S 20 N e H g 15 G 15 − g T D 40 C Repeated applications of the Pythagorean Theorem give (cid:112) GS = g2 + 202 (using triangle △GN S), (cid:112) GT = g2 + 202 − 102 (using triangle △GT S), (cid:112) DS = 152 + 202 = 25 (using triangle △DBS), √ (cid:112) DT = 252 − 102 = 525 (using triangle △DT S), (cid:112) DG = 402 + (15 − g)2 (using triangle △DCG). Therefore √ (cid:112) (cid:112) 402 + (15 − g)2 = DG = DT + GT = 525 + g2 + 202 − 102. Squaring both sides, simplifying, squaring again, and simplifying yields 3g2 + 150g − 925 = 0, and the Quadratic Formula gives the positive solution √ 20 21 − 75 g = . The requested sum is 20 + 21 + 75 + 3 = 119. OR Draw the figure as in the first solution. Let H be the intersection of lines BN and DG, and let e = HN . Because △HN G ∼ △HBD ∼ △HT S, it follows that (cid:112) e e + 40 (e + 20)2 − 102 = = . g 15 10 √ The second equality simplifies to e2 + 8e − 740 = 0, yielding e = 6 21 − 4. Then from the first equality, √ √ 15e 90 21 − 60 20 21 − 75 g = = √ = , e + 40 6 21 + 36 3 as in the first solution. OR Draw the figure from the first solution in the coordinate plane, with S at the origin and D at (−20, −15). The equation of the circle representing the silo is x2 + y2 = 102. The equation of line DG is y + 15 = m(x + 20), where m is the slope that will give tangency to the circle at T . Substituting the value of y at T gives x2 + (m(x + 20) − 15)2 = 100. This can be rewritten as (m2 + 1)x2 + (40m2 − 30m)x + (400m2 − 600m + 125) = 0. The discriminant after simplifying is −1200m2 + 2400m − 500. The line will be tangent to the circle if and only if the discriminant equals 0, that is, √ 6 ± 21 m = . Choose the minus sign to get the line tangent at T , rather than the steeper tangent line that touches the circle in its upper left quadrant. Thus the y-coordinate of G is √ √ 6 − 21 75 − 20 · 21 · (20 + 20) − 15 = . 6 3 This is negative, so the distance that G is south of the east-west line through the center of the silo is √ 20 21 − 75 g = , as in the first solution.",
-    "id": "AMC202510A-INDIVIDUAL-20",
-    "contest": "AMC 2025 10A",
-    "round": "Individual Round",
-    "sources": [
-      "AMC 2025 10A"
-    ],
-    "difficulty_score": 7.4,
-    "area": [
-      "Geometry"
-    ],
-    "subtopics": [
-      "tangent lines to circles",
-      "right circular cylinder cross-section",
-      "coordinate geometry"
-    ],
-    "techniques": [
-      "Pythagorean theorem",
-      "tangent-secant",
-      "quadratic formula",
-      "similar triangles"
-    ],
-    "difficulty": "hard",
-    "summary": "Find a distance using tangency of a line of sight to a circular silo via the Pythagorean theorem and quadratic formula."
-  },
-  {
-    "number": 21,
-    "statement": "A set of numbers is called sum-free if whenever x and y are (not necessarily distinct) elements of the set, x + y is not an element of the set. For example, {1, 4, 6} and the empty set are sum-free, but {2, 4, 5} is not. What is the greatest possible number of elements in a sum-free subset of {1, 2, 3, . . . , 20} ?",
-    "answer": "10",
-    "solution": "A largest such subset has at least 10 elements, because both {1, 3, 5, . . . , 19} and {11, 12, 13, . . . , 20} are sum-free. In the former case, the sum of two odd numbers is even, and in the latter case, the sum of two numbers greater than 10 is greater than 21. It remains to prove that there are no sum-free subsets with 11 or more elements. If 20 is in a sum-free subset of {1, 2, 3, . . . , 20}, then there can be at most 9 other elements in such a subset, because 10 cannot be in the subset and at most one element of each of {1, 19}, {2, 18}, {3, 17}, . . . , {9, 11} can be in the subset. A similar argument applies if the greatest element in the sum-free subset of {1, 2, 3, . . . , 20} is less than 20. Indeed, if the greatest element is m, then there can be at most one element from each of {1, m − 1}, {2, m − 2}, {3, m − 3}, . . . , (cid:8)(cid:4) m (cid:5) , (cid:6) m (cid:7)(cid:9) , for a total of 2 2 at most (cid:4) m (cid:5) + 1 ≤ 9 + 1 = 10 elements. Note: In fact, the only other sum-free subset of {1, 2, 3, . . . , 20} is {10, 11, 12, . . . , 19}. For more information on sum-free sets, see A007865 in The On-Line Encyclopedia of Integer Sequences. It was proved in 2004 that the number of sum-free subsets of {1, 2, 3, . . . , n} grows at a rate proportional √ to 2n. It was proved in 2025 that any set of integers with n elements has a sum-free subset with at least n + c log(log n) elements for some constant c.",
-    "id": "AMC202510A-INDIVIDUAL-21",
-    "contest": "AMC 2025 10A",
-    "round": "Individual Round",
-    "sources": [
-      "AMC 2025 10A"
-    ],
-    "difficulty_score": 7.5,
-    "area": [
-      "Combinatorics",
-      "Number Theory"
-    ],
-    "subtopics": [
-      "sum-free sets",
-      "extremal combinatorics",
-      "subset selection"
-    ],
-    "techniques": [
-      "complementary counting",
-      "pairing argument",
-      "casework"
-    ],
-    "difficulty": "medium",
-    "summary": "Find the maximum size of a sum-free subset of {1, 2, ..., 20} using pairing and bounding arguments."
-  },
-  {
-    "number": 22,
-    "statement": "A circle of radius r is surrounded by three circles, whose radii are 1, 2, and 3, all externally tangent to the inner circle and externally tangent to each other, as shown in the diagram below. What is r ? 1 6 3 5 3",
-    "answer": "r = \\dfrac{6}{23}",
-    "solution": "Let A, B, C, and D be the centers of the circles of radii 1, 2, 3, and r, respectively. Then AB = 3, AC = 4, and BC = 5. Triangle △ABC is a 3 – 4 – 5 right triangle with right angle at A. Let A(0, 0) be the origin of a rectangular coordinate system with circle centers at B(3, 0), C(0, 4), and D(x, y). Let E(x, 0) and F (0, y) be the projections of D onto AB and AC, respectively. C F D A B E Using the Pythagorean Theorem in triangles △AED, △BED, and △CF D gives the following three equations. x2 + y2 = (1 + r)2 (3 − x)2 + y2 = (2 + r)2 x2 + (4 − y)2 = (3 + r)2 Subtracting the first equation from the second gives 9−6x = 3+2r, which is equivalent to x = 1− r . Subtracting the first equation from the third gives 16−8y = 8+4r, which is equivalent to y = 1− r . Substituting these expressions for x and y in the first displayed equation above yields (cid:16) r (cid:17)2 (cid:16) r (cid:17)2 (1 + r)2 = 1 − + 1 − . 3 2 Expanding, simplifying, and factoring leads to (23r − 6)(r + 6) = 0, and it follows that r = 6 . OR Descartes’ Theorem states that the radii, r , r , r , r , of four mutually tangent circles are related 1 2 3 4 by the equation (cid:114) 1 1 1 1 1 1 1 1 1 1 = + + ± 2 · + · + · . r r r r r r r r r r 4 1 2 3 1 2 2 3 3 1 Setting r = 1, r = 2, r = 3, and r = r gives 1 2 3 4 (cid:114) 1 1 1 1 1 1 11 = 1 + + ± 2 + + = ± 2. r 2 3 2 6 3 6 Choosing the plus sign leads to r = 6 , and choosing the minus sign leads to r = −6. Note: The negative solution to the quadratic equation in each solution, r = −6, corresponds to the circle of radius 6 to which the circles of radii 1, 2, and 3 are internally tangent.",
-    "id": "AMC202510A-INDIVIDUAL-22",
-    "contest": "AMC 2025 10A",
-    "round": "Individual Round",
-    "sources": [
-      "AMC 2025 10A"
-    ],
-    "difficulty_score": 7.6,
-    "area": [
-      "Geometry"
-    ],
-    "subtopics": [
-      "tangent circles",
-      "Descartes' Circle Theorem",
-      "coordinate geometry"
-    ],
-    "techniques": [
-      "Pythagorean theorem",
-      "coordinate geometry",
-      "Descartes' Circle Theorem"
-    ],
-    "difficulty": "medium",
-    "summary": "Find the radius of a circle internally tangent to three mutually externally tangent circles of radii 1, 2, and 3."
-  },
-  {
-    "number": 23,
-    "statement": "Triangle △ABC has side lengths AB = 80, BC = 45, and AC = 75. The bisector of ∠B and the altitude to side AB intersect at point P . What is BP ?",
-    "answer": "21",
-    "solution": "Let D be the intersection of the bisector of ∠B with AC, and let E be the foot of the altitude from C to AB, as shown in the figure below. A 75 80 D P E C B By the Angle Bisector Theorem AD = 75−AD . This gives AD = 48 and CD = 75 − 48 = 27. 80 45 Triangle △BCD has ∠BCD with adjacent sides of lengths 45 and 27, and triangle △ACB has ∠ACB with adjacent sides of lengths 75 and 45. By Side-Angle-Side these triangles are similar with size ratio 3 . This implies that BD = 3 AB = 48. Thus △ADB is isosceles with AD = BD 5 5 and ∠DAB = ∠DBA. Let this angle be called θ. Then ∠DBC = θ and ∠CDB = ∠CBA = 2θ. Another pair of similar triangles is △ACE and △BP E, each with a right angle and an angle θ. The third angles in these triangles must also be equal: ∠ACE = ∠BP E. It follows that ∠DP C is equal to these two by vertical angles. Therefore △CDP is isosceles with CD = P D = 27. Finally, BP = BD − P D = 48 − 27 = 21. OR As in the first solution, the Angle Bisector Theorem gives AD = 48 and CD = 27. Let x = BE and h = CE; then AE = 80 − x. By the Pythagorean Theorem x2 + h2 = 452 and (80 − x)2 + h2 = 752. Subtracting and solving for x yields x = 35 and h2 = 452 − (cid:0) 35 (cid:1)2 . Applying the Angle Bisector 2 2 Theorem to △CBE gives P E 35 7 = 2 = , h 45 + 35 25 so P E = 7 h. Applying the Pythagorean Theorem to △BP E gives (cid:18) (cid:19)2 (cid:18) (cid:19)2 BP 2 = + · h2 2 25 (cid:32) (cid:33) (cid:18) (cid:19)2 (cid:18) (cid:19)2 (cid:18) (cid:19)2 = + · 452 − 2 25 2 (cid:18) (cid:19)2 (cid:18) (cid:19)2 (cid:18) (cid:19) = + · 81 − 2 5 4 (cid:18) (cid:19)2 49 275 = + · 2 25 4 (cid:18) 7 · 5 (cid:19)2 = + · 11 2 4 = · (25 + 11) = 49 · 9, and BP = 7 · 3 = 21. OR The semiperimeter of △ABC is 1 (80 + 45 + 75) = 100. Heron’s Formula gives the area of the triangle as √ (cid:112) 100(100 − 80)(100 − 45)(100 − 75) = 500 11. Then √ 500 11 25 √ CE = = 11, 40 2 where E is the foot of the altitude from C to AB. By the Pythagorean Theorem (cid:114) (cid:114) (cid:112) 625 · 11 15625 125 AE = 752 − CE2 = 5625 − = = . 4 4 2 Then BE = 80 − AE = 35 . Applying the Angle Bisector Theorem to △CBE gives P C = BC . Adding 1 to both sides gives P E BE CE 45 + 35 = 2 . P E 35 √ √ Because CE = 25 11, it follows that P E = 7 · 11. A final application of the Pythagorean 2 2 Theorem gives (cid:115) (cid:18) 35 (cid:19)2 (cid:18) 7 √ (cid:19)2 √ BP = + 11 = 441 = 21. 2 2",
-    "id": "AMC202510A-INDIVIDUAL-23",
-    "contest": "AMC 2025 10A",
-    "round": "Individual Round",
-    "sources": [
-      "AMC 2025 10A"
-    ],
-    "difficulty_score": 7.8,
-    "area": [
-      "Geometry"
-    ],
-    "subtopics": [
-      "angle bisector",
-      "altitude",
-      "triangle similarity"
-    ],
-    "techniques": [
-      "angle bisector theorem",
-      "similar triangles",
-      "Pythagorean theorem",
-      "Heron's formula"
-    ],
-    "difficulty": "medium",
-    "summary": "Find the length BP where the angle bisector of ∠B and the altitude to AB intersect in a triangle."
-  },
-  {
-    "number": 24,
-    "statement": "Call a positive integer fair if no digit is used more than once, it has no 0s, and no digit is adjacent to two greater digits. For example, 23, 196, and 12463 are fair, but 1546, 320, and 34321 are not fair. How many fair positive integers are there?",
-    "answer": "9841",
-    "solution": "A fair positive integer must have a greatest digit, m, preceded by zero or more digits in increasing order and followed by zero or more digits in decreasing order. Otherwise m is preceded by digits b a with b > a, or m precedes digits a b with b > a. In either case the least digit between m and b is adjacent to greater digits on both sides. Suppose the number has k digits for some k ∈ {1, 2, 3, . . . , 9}, with m its greatest digit. There are (cid:0)9(cid:1) ways to select the k digits to be used. A subset S of the k − 1 digits less than m go before m k and the rest go after m. There are 2k−1 ways to choose S. Once S is chosen, the number is determined: the digits in S go first in increasing order, then comes m, then come the remaining digits in decreasing order. This works even if S is empty or its complement is empty. Therefore the number of k-digit fair positive integers is (cid:0)9(cid:1) 2k−1. These integers may have from 1 k to 9 digits, so by the Binomial Theorem the total number of fair positive integers is 9 (cid:18) (cid:19) 9 (cid:18) (cid:19) (cid:88) 9 2k−1 = 1 (cid:88) 9 2k19−k = 1 (cid:0) (2 + 1)9 − 1 (cid:1) = 1 (cid:0) 39 − 1 (cid:1) = 9,841. k 2 k 2 2 k=1 k=1",
-    "id": "AMC202510A-INDIVIDUAL-24",
-    "contest": "AMC 2025 10A",
-    "round": "Individual Round",
-    "sources": [
-      "AMC 2025 10A"
-    ],
-    "difficulty_score": 7.9,
-    "area": [
-      "Combinatorics"
-    ],
-    "subtopics": [
-      "digit problems",
-      "combinatorial counting",
-      "subsets"
-    ],
-    "techniques": [
-      "binomial theorem",
-      "permutations/combinations"
-    ],
-    "difficulty": "medium",
-    "summary": "Count positive integers where digits form a unimodal sequence with no repeats or zeros."
-  },
-  {
-    "number": 25,
-    "statement": "A point P is chosen at random inside square ABCD. The probability that AP is neither the √ shortest nor the longest side of △AP B can be written as a+bπ−c d , where a, b, c, d, and e are e positive integers, gcd(a, b, c, e) = 1, and d is not divisible by the square of any prime. What is a + b + c + d + e ?",
-    "answer": "25",
-    "solution": "Without loss of generality let A = (0, 0), B = (1, 0), C = (1, 1), and D = (0, 1) (cid:16) √ (cid:17) in the coordinate plane. Let Q = (cid:0) 1 , 0 (cid:1) , R = (cid:0) 1 , 1 (cid:1) , and S = 1 , 3 . Draw the quarter circle 2 2 2 2 of radius 1 centered at A extending from B to D, as shown in the figure below, where the region inside rectangle AQRD but outside the quarter circle has been shaded, as has the region inside the quarter circle but outside of rectangle AQRD. Note that S lies on the quarter circle and △ABS is equilateral. R D C S A B Q It may be assumed that P does not lie on a line segment or arc in the figure, because the probability of such happening is 0. Note that if P lies in the smaller shaded region, then AP < BP and AP > AB, so P satisfies the given condition that AP is neither the shortest nor the longest side of △AP B. Similarly, if P lies in the larger shaded region, then AP > BP and AP < AB, so P again satisfies the given condition. On the other hand, if P lies in the leftmost unshaded region, then AP is the shortest side of △AP B, and if P lies in the rightmost unshaded region, then AP is the longest side of △AP B. It remains to compute the area of the shaded regions. √ Because ∠QAS = 60◦, sector BAS has area π . Also, △QAS has area 1 3, so the larger shaded 6 8 region has area √ π 1 √ 4π − 3 3 − 3 = . 6 8 24 The left-most unshaded region consists of 1 of a disk of radius 1 together with a triangle of area √ 12 1 3, so the area of the smaller shaded region is √ 1 π 1 √ 12 − 2π − 3 3 − − 3 = . 2 12 8 24 Because the square has area 1, the requested probability is √ √ √ 4π − 3 3 12 − 2π − 3 3 6 + π − 3 3 + = . 24 24 12 The requested sum is 6 + 1 + 3 + 3 + 12 = 25. Problems and solutions were contributed and edited by Taiki Aiba, Theodore Alper, David Altizio, Risto Atanasov, Bela Bajnok, Owen Byer, Silva Chang, Steven Davis, Thinula De Silva, Steve Dunbar, Marta Eso, Zuming Feng, Zachary Franco, Gary Gordon, Jon Graetz, Andrea Grof, Jerrold Grossman, Thomas Howell, Chris Jeuell, Daniel Jordan, Jonathan Kane, Ed Keppelmann, Azar Khosravani, Joseph Li, Ken Liu, Ioana Mihaila, Hugh Montgomery, Bryan Nevarez, David Scott, Lucian Sega, Matyas Sustik, Kate Thompson, Agnes Tuska, David Wells, Kathleen Wong, Andrew Wu, Dai Yang, Carl Yerger, Jesse Zhang, and Alexander Zhu.",
-    "id": "AMC202510A-INDIVIDUAL-25",
-    "contest": "AMC 2025 10A",
-    "round": "Individual Round",
-    "sources": [
-      "AMC 2025 10A"
-    ],
-    "difficulty_score": 8.0,
-    "area": [
-      "Geometry",
-      "Combinatorics"
-    ],
-    "subtopics": [
-      "geometric probability",
-      "areas of circular sectors and triangles",
-      "triangle side comparisons"
-    ],
-    "techniques": [
-      "coordinate geometry",
-      "area ratios",
-      "arcs and inscribed angles"
-    ],
-    "difficulty": "hard",
-    "summary": "Find the probability that AP is neither the shortest nor longest side of triangle APB using geometric regions."
   }
 ]

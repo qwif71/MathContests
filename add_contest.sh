@@ -35,16 +35,16 @@ CORPUS="corpus_raw.json"
 TAGGED="tagged.json"
 
 echo "==> Extracting: $CONTEST ($FORMAT)"
-python3 extract.py "$PDF" "$ROUND" --contest "$CONTEST" --format "$FORMAT" -o "$RAW"
+python3 backend/extract.py "$PDF" "$ROUND" --contest "$CONTEST" --format "$FORMAT" -o "$RAW"
 
 echo ""
 echo "==> Combining into corpus"
 RAW_FILES=(*_raw.json)
-python3 tag_and_compare.py combine "${RAW_FILES[@]}" -o "$CORPUS"
+python3 backend/tag_and_compare.py combine "${RAW_FILES[@]}" -o "$CORPUS"
 
 echo ""
 echo "==> Tagging new problems (skipping already-tagged)"
-python3 tag_and_compare.py tag "$CORPUS" -o "$TAGGED"
+python3 backend/tag_and_compare.py tag "$CORPUS" -o "$TAGGED"
 
 echo ""
 echo "Done. Corpus: $(python3 -c "import json; d=json.load(open('$TAGGED')); print(len(d), 'problems')")"
