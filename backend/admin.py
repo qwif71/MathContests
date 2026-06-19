@@ -34,6 +34,17 @@ ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "").strip()
 SESSION_SECRET = os.environ.get("SESSION_SECRET", "").strip() or secrets.token_hex(32)
 SESSION_MAX_AGE = 60 * 60 * 12  # 12 hours
 
+# Render always serves over HTTPS, so this is True in production. Set
+# COOKIE_SECURE=false in your local environment if you ever run the backend
+# itself locally over plain http:// and need the cookie to be accepted.
+COOKIE_SECURE = os.environ.get("COOKIE_SECURE", "true").strip().lower() != "false"
+# "none" is required for the cookie to be sent on cross-origin fetches (the
+# frontend and backend are on different domains). Cross-site cookies require
+# Secure, so this only actually works when COOKIE_SECURE is also true —
+# i.e. in production over HTTPS. That's fine: it's exactly the case we need
+# to support, and local same-origin testing doesn't depend on this anyway.
+COOKIE_SAMESITE = "none" if COOKIE_SECURE else "lax"
+
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "").strip()
 GITHUB_REPO = os.environ.get("GITHUB_REPO", "").strip()  # "owner/repo"
 GITHUB_BRANCH = os.environ.get("GITHUB_BRANCH", "main").strip()
@@ -77,7 +88,8 @@ async def admin_login(request: Request):
     resp = JSONResponse({"ok": True})
     resp.set_cookie(
         COOKIE_NAME, token,
-        max_age=SESSION_MAX_AGE, httponly=True, samesite="lax", secure=True,
+        max_age=SESSION_MAX_AGE, httponly=True,
+        samesite=COOKIE_SAMESITE, secure=COOKIE_SECURE,
     )
     return resp
 
