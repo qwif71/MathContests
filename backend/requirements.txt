@@ -1,9 +1,9 @@
 fastapi
 uvicorn
 numpy
+scikit-learn
 itsdangerous
 requests
-sentence-transformers
 pdfplumber
 anthropic
 python-multipart
