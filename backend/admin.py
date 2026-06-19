@@ -32,6 +32,7 @@ import requests
 
 import tag_and_compare as tc
 import settings as st
+import aimo_import
 
 router = APIRouter()
 
@@ -54,6 +55,16 @@ GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "").strip()
 GITHUB_REPO = os.environ.get("GITHUB_REPO", "").strip()  # "owner/repo"
 GITHUB_BRANCH = os.environ.get("GITHUB_BRANCH", "main").strip()
 CORPUS_REPO_PATH = os.environ.get("CORPUS_REPO_PATH", "backend/tagged.json").strip()
+
+# AIMO source CSV lives committed in the repo (it ships with every deploy,
+# same as tagged.json) rather than being uploaded through the admin UI each
+# session. Default path matches "Option B" from the data-placement discussion:
+# backend/data/aimo_raw.csv.
+AIMO_CSV_PATH = os.environ.get(
+    "AIMO_CSV_PATH",
+    os.path.join(os.environ.get("BASE_DIR", "/opt/render/project/src/backend"),
+                 "data", "aimo_raw.csv"),
+)
 
 serializer = URLSafeTimedSerializer(SESSION_SECRET, salt="admin-session")
 COOKIE_NAME = "admin_session"
@@ -142,6 +153,102 @@ async def update_settings(
         "ai_query_enabled": st.get_ai_query_enabled(),
         "github": github_result,
     }
+
+
+# --------------------------------------------------------------------------
+# Browse / delete / edit — admin-only views of the full corpus.
+# --------------------------------------------------------------------------
+
+@router.get("/admin/problems")
+async def list_problems(admin_session: str | None = Cookie(default=None)):
+    """Name-labels-only listing for scrolling through the whole catalogue in
+    the admin UI — just enough to identify each row (id, contest, number,
+    area) without shipping every statement/solution over the wire."""
+    require_admin(admin_session)
+    import app as appmod
+    return {
+        "problems": [
+            {
+                "id": r["id"],
+                "contest": r.get("contest", ""),
+                "number": r.get("number"),
+                "area": r.get("area", []),
+            }
+            for r in appmod.corpus
+        ]
+    }
+
+
+@router.get("/admin/problems/{problem_id}")
+async def get_problem_full(problem_id: str, admin_session: str | None = Cookie(default=None)):
+    """Full record for the edit form — every field, since faulty LaTeX or
+    tags can show up anywhere (statement, solution, answer, techniques...)."""
+    require_admin(admin_session)
+    import app as appmod
+    match = next((r for r in appmod.corpus if r["id"] == problem_id), None)
+    if not match:
+        raise HTTPException(404, "Problem not found.")
+    return match
+
+
+@router.put("/admin/problems/{problem_id}")
+async def update_problem(
+    problem_id: str,
+    request: Request,
+    admin_session: str | None = Cookie(default=None),
+):
+    """Body: a full or partial record — any field may be edited, including
+    statement/solution/answer (to fix bad LaTeX from extraction) and the
+    tag fields (area/subtopics/techniques/summary). Fields omitted from the
+    body are left untouched. Recomputes the search index and commits."""
+    require_admin(admin_session)
+    import app as appmod
+
+    idx = next((i for i, r in enumerate(appmod.corpus) if r["id"] == problem_id), None)
+    if idx is None:
+        raise HTTPException(404, "Problem not found.")
+
+    body = await request.json()
+    if not isinstance(body, dict) or not body:
+        raise HTTPException(400, "Request body must be a non-empty object of fields to update.")
+
+    # id is the corpus key everywhere else (search results, /problem/{id},
+    # GitHub diffs); changing it here would silently orphan the old id from
+    # any external links, so it's edited via a separate explicit step if
+    # ever needed, not through this general-purpose update.
+    body.pop("id", None)
+    appmod.corpus[idx].update(body)
+
+    appmod.rebuild_search_index()
+    try:
+        json.dump(appmod.corpus, open(appmod.CORPUS_PATH, "w"), indent=2, ensure_ascii=False)
+    except Exception as e:
+        print(f"  ! local corpus write failed: {e}", file=sys.stderr)
+
+    github_result = commit_corpus_to_github(
+        appmod.corpus, message=f"Edit {problem_id}")
+    return {"ok": True, "record": appmod.corpus[idx], "github": github_result}
+
+
+@router.delete("/admin/problems/{problem_id}")
+async def delete_problem(problem_id: str, admin_session: str | None = Cookie(default=None)):
+    require_admin(admin_session)
+    import app as appmod
+
+    idx = next((i for i, r in enumerate(appmod.corpus) if r["id"] == problem_id), None)
+    if idx is None:
+        raise HTTPException(404, "Problem not found.")
+
+    appmod.corpus.pop(idx)
+    appmod.rebuild_search_index()
+    try:
+        json.dump(appmod.corpus, open(appmod.CORPUS_PATH, "w"), indent=2, ensure_ascii=False)
+    except Exception as e:
+        print(f"  ! local corpus write failed: {e}", file=sys.stderr)
+
+    github_result = commit_corpus_to_github(
+        appmod.corpus, message=f"Delete {problem_id}")
+    return {"ok": True, "total_corpus_size": len(appmod.corpus), "github": github_result}
 
 
 # --------------------------------------------------------------------------
@@ -265,6 +372,84 @@ async def import_pdf(
 
     tc.add_difficulty(records)
     tagged = tc.tag(records, model)
+    return _finish_import(tagged)
+
+
+# --------------------------------------------------------------------------
+# AIMO CSV import — the CSV lives committed in the repo at AIMO_CSV_PATH
+# (backend/data/aimo_raw.csv by default), so it ships with every deploy and
+# doesn't need re-uploading each admin session. "Reload" re-reads it from
+# disk (useful after you commit an updated CSV); the parsed result is cached
+# in memory so repeated contest imports don't re-parse the whole file.
+#
+# Import remains contest-by-contest (one button per contest in the admin UI)
+# so batches can be reviewed as they land instead of importing everything
+# from the CSV at once.
+# --------------------------------------------------------------------------
+
+_aimo_cache: list = []
+_aimo_cache_path: str | None = None
+
+
+def _load_aimo_csv(force: bool = False) -> list:
+    """Parses AIMO_CSV_PATH and caches the result. Re-parses only if forced
+    or if the cache is empty (first call)."""
+    global _aimo_cache, _aimo_cache_path
+    if _aimo_cache and not force and _aimo_cache_path == AIMO_CSV_PATH:
+        return _aimo_cache
+    if not os.path.exists(AIMO_CSV_PATH):
+        raise HTTPException(
+            404,
+            f"No AIMO CSV found at {AIMO_CSV_PATH}. Commit it to the repo at "
+            "backend/data/aimo_raw.csv (or set AIMO_CSV_PATH) and redeploy.",
+        )
+    _aimo_cache = aimo_import.parse_csv(AIMO_CSV_PATH)
+    _aimo_cache_path = AIMO_CSV_PATH
+    return _aimo_cache
+
+
+@router.get("/admin/aimo/contests")
+async def aimo_contests(
+    reload: bool = False,
+    admin_session: str | None = Cookie(default=None),
+):
+    """Lists contests found in the repo's AIMO CSV. Pass ?reload=true to
+    re-read the file from disk (e.g. after committing an updated CSV and
+    redeploying) instead of using the in-memory cache."""
+    require_admin(admin_session)
+    records = _load_aimo_csv(force=reload)
+    unparsed = sum(1 for r in records if not r["contest"])
+    return {
+        "csv_path": AIMO_CSV_PATH,
+        "total_problems_in_csv": len(records),
+        "unparsed_links": unparsed,
+        "contests": aimo_import.list_contests(records),  # {"2024 AMC 8": 25, ...}
+    }
+
+
+@router.post("/admin/aimo/import")
+async def aimo_import_contest(
+    request: Request,
+    admin_session: str | None = Cookie(default=None),
+):
+    """Body: {contest: "2024 AMC 8", model?}. Tags and imports just that one
+    contest's problems from the repo's AIMO CSV — the one-click-per-contest
+    path, so you can watch each batch land instead of importing everything
+    at once."""
+    require_admin(admin_session)
+    records = _load_aimo_csv()
+
+    body = await request.json()
+    contest = (body.get("contest") or "").strip()
+    model = (body.get("model") or tc.MODEL).strip()
+    if not contest:
+        raise HTTPException(400, "contest is required, e.g. '2024 AMC 8'.")
+
+    subset = aimo_import.records_for_contest(records, contest)
+    if not subset:
+        raise HTTPException(404, f"No problems found for contest '{contest}' in {AIMO_CSV_PATH}.")
+
+    tagged = aimo_import.tag_aimo_records(subset, model)
     return _finish_import(tagged)
 
 
