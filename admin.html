@@ -206,6 +206,11 @@
     .contest-list { max-height: 400px; overflow-y: auto; border: 1px solid var(--border-soft); border-radius: 8px; margin-top: 1rem; }
     .contest-row.imported { opacity: 0.55; }
     .contest-row.imported button { background: var(--border); cursor: not-allowed; }
+    .contest-list-heading {
+      font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+      color: var(--fg-faint); padding: 0.6rem 0.75rem 0.3rem;
+      background: var(--statement-bg, var(--bg));
+    }
 
     /* --- Tag review (NEW) --- */
     .review-new-item {
@@ -246,6 +251,7 @@
     <button id="tabTextBtn" onclick="switchTab('text')">Paste text</button>
     <button id="tabPdfBtn" class="inactive" onclick="switchTab('pdf')">Upload PDF</button>
     <button id="tabAimoBtn" class="inactive" onclick="switchTab('aimo')">Import AIMO CSV</button>
+    <button id="tabRecentBtn" class="inactive" onclick="switchTab('recent')">Recent Imports</button>
     <button id="tabBrowseBtn" class="inactive" onclick="switchTab('browse')">Browse / Delete</button>
     <button id="tabSettingsBtn" class="inactive" onclick="switchTab('settings')">Settings</button>
     <button class="secondary" style="margin-left:auto" onclick="logout()">Log out</button>
@@ -318,7 +324,7 @@ By Power of a Point..."></textarea>
     <div class="row2" style="display:flex; gap:0.75rem; margin-top:0.75rem;">
       <button onclick="loadAimoContests(false)" style="flex:1; margin-top:0">List contests</button>
       <button class="secondary" onclick="loadAimoContests(true)" style="flex:1; margin-top:0">Reload from repo</button>
-      <button class="secondary" onclick="showUnparsedSample()" style="flex:1; margin-top:0">Show unparsed links</button>
+      <button class="secondary" id="a_unparsed_btn" onclick="toggleUnparsedSample()" style="flex:1; margin-top:0">Show unparsed links</button>
     </div>
     <div id="a_upload_result" class="result hidden"></div>
     <div id="a_unparsed_result" class="result hidden"></div>
@@ -357,6 +363,25 @@ By Power of a Point..."></textarea>
       <button id="reviewSubmitBtn" style="margin-top:0; flex:1" onclick="submitTagReview()">Apply &amp; Import</button>
     </div>
     <div id="reviewResult" class="result hidden"></div>
+  </div>
+
+  <!-- Recent Imports -->
+  <div id="tabRecent" class="card hidden">
+    <div class="help" style="margin-top:0">
+      The most recently imported problems with their full tags. New imports
+      are appended to the corpus, so this is "last N entries" — not a
+      precise timestamp log, but enough to sanity-check what just landed.
+    </div>
+    <div class="row2" style="display:flex; gap:0.75rem; margin-top:0.75rem; align-items:center;">
+      <button class="secondary" onclick="loadRecentImports()" style="margin-top:0">Refresh</button>
+      <label class="help" style="margin-top:0; display:flex; align-items:center; gap:0.4rem;">
+        Show
+        <input type="number" id="recent_limit" value="25" min="1" max="500"
+               style="width:70px; padding:0.3rem 0.5rem;" onchange="loadRecentImports()">
+      </label>
+    </div>
+    <div id="recent_status" class="help" style="margin:0.75rem 0"></div>
+    <div class="problem-list" id="recent_list"></div>
   </div>
 
   <!-- Browse / delete -->
@@ -481,15 +506,18 @@ By Power of a Point..."></textarea>
     document.getElementById("tabText").classList.toggle("hidden", name !== "text");
     document.getElementById("tabPdf").classList.toggle("hidden", name !== "pdf");
     document.getElementById("tabAimo").classList.toggle("hidden", name !== "aimo");
+    document.getElementById("tabRecent").classList.toggle("hidden", name !== "recent");
     document.getElementById("tabBrowse").classList.toggle("hidden", name !== "browse");
     document.getElementById("tabSettings").classList.toggle("hidden", name !== "settings");
     document.getElementById("tabTextBtn").classList.toggle("inactive", name !== "text");
     document.getElementById("tabPdfBtn").classList.toggle("inactive", name !== "pdf");
     document.getElementById("tabAimoBtn").classList.toggle("inactive", name !== "aimo");
+    document.getElementById("tabRecentBtn").classList.toggle("inactive", name !== "recent");
     document.getElementById("tabBrowseBtn").classList.toggle("inactive", name !== "browse");
     document.getElementById("tabSettingsBtn").classList.toggle("inactive", name !== "settings");
     if (name === "settings") loadSettings();
     if (name === "browse") loadProblemList();
+    if (name === "recent") loadRecentImports();
     if (name === "aimo" && !document.getElementById("a_contest_list").children.length) loadAimoContests(false);
   }
 
@@ -694,7 +722,7 @@ By Power of a Point..."></textarea>
         return;
       }
       if (data.csv_path) document.getElementById("a_csv_path").textContent = data.csv_path;
-      aimoImportedContests = new Set();
+      aimoImportedContests = new Set(data.imported_contests || []);
       lastAimoContests = data.contests || {};
       lastAimoSummary = {
         total: data.total_problems_in_csv || 0,
@@ -720,9 +748,20 @@ By Power of a Point..."></textarea>
       `Found ${total} problems across ${contestCount} contests${unparsedMsg}`);
   }
 
-  async function showUnparsedSample() {
+  async function toggleUnparsedSample() {
+    const resultEl = document.getElementById("a_unparsed_result");
+    const btn = document.getElementById("a_unparsed_btn");
+
+    // Already showing -> just hide, no re-fetch.
+    if (!resultEl.classList.contains("hidden")) {
+      resultEl.classList.add("hidden");
+      btn.textContent = "Show unparsed links";
+      return;
+    }
+
     setResult("a_unparsed_result", true, "Loading sample...");
-    document.getElementById("a_unparsed_result").classList.remove("hidden");
+    resultEl.classList.remove("hidden");
+    btn.textContent = "Hide unparsed links";
     try {
       const res = await fetch(`${API}/admin/aimo/unparsed-sample?limit=20`, { credentials: "include" });
       const data = await res.json();
@@ -758,17 +797,41 @@ By Power of a Point..."></textarea>
       list.innerHTML = `<div class="contest-row" style="cursor:default">No contests match "${query}".</div>`;
       return;
     }
-    list.innerHTML = entries.map(([name, count]) => `
-      <div class="contest-row ${aimoImportedContests.has(name) ? "imported" : ""}" id="contest-row-${cssId(name)}">
+
+    const notImported = entries.filter(([name]) => !aimoImportedContests.has(name));
+    const imported = entries.filter(([name]) => aimoImportedContests.has(name));
+
+    const row = ([name, count]) => `
+      <div class="contest-row" id="contest-row-${cssId(name)}">
         <div>
           <div>${name}</div>
           <div class="cmeta">${count} problem${count === 1 ? "" : "s"}</div>
         </div>
-        <button onclick="importAimoContest('${name.replace(/'/g, "\\'")}')" ${aimoImportedContests.has(name) ? "disabled" : ""}>
-          ${aimoImportedContests.has(name) ? "Imported ✓" : "Import"}
-        </button>
+        <button onclick="importAimoContest('${name.replace(/'/g, "\\'")}')">Import</button>
       </div>
-    `).join("");
+    `;
+    const importedRow = ([name, count]) => `
+      <div class="contest-row imported" id="contest-row-${cssId(name)}">
+        <div>
+          <div>${name}</div>
+          <div class="cmeta">${count} problem${count === 1 ? "" : "s"}</div>
+        </div>
+        <button disabled>Imported ✓</button>
+      </div>
+    `;
+
+    let html = "";
+    html += `<div class="contest-list-heading">Not yet imported (${notImported.length})</div>`;
+    html += notImported.length
+      ? notImported.map(row).join("")
+      : `<div class="contest-row" style="cursor:default">Everything matching this filter is already imported.</div>`;
+
+    if (imported.length) {
+      html += `<div class="contest-list-heading">Already imported (${imported.length})</div>`;
+      html += imported.map(importedRow).join("");
+    }
+
+    list.innerHTML = html;
   }
 
   function cssId(name) { return name.replace(/[^a-zA-Z0-9]/g, "_"); }
@@ -901,6 +964,7 @@ By Power of a Point..."></textarea>
           `Rejected: ${reject.join(", ") || "none"}. ${githubMsg}`);
         document.getElementById("tagReviewPanel").classList.add("hidden");
         loadStats();
+        if (!document.getElementById("tabRecent").classList.contains("hidden")) loadRecentImports();
       }
     } catch (e) {
       setResult("reviewResult", false, "Could not reach the API.");
@@ -939,6 +1003,47 @@ By Power of a Point..."></textarea>
 
   // --- Browse / delete / edit ---
   let allProblems = [];
+
+  // --- Recent Imports ---
+
+  async function loadRecentImports() {
+    const statusEl = document.getElementById("recent_status");
+    const listEl = document.getElementById("recent_list");
+    const limit = parseInt(document.getElementById("recent_limit").value, 10) || 25;
+    statusEl.textContent = "Loading...";
+    try {
+      const res = await fetch(`${API}/admin/problems/recent?limit=${limit}`, { credentials: "include" });
+      const data = await res.json();
+      if (!res.ok) {
+        statusEl.textContent = data.detail || "Could not load recent imports.";
+        return;
+      }
+      const problems = data.problems || [];
+      statusEl.textContent = `Showing ${problems.length} most recent of ${data.total_corpus_size} total problems.`;
+      if (!problems.length) {
+        listEl.innerHTML = `<div class="problem-row" style="cursor:default">No problems in the corpus yet.</div>`;
+        return;
+      }
+      listEl.innerHTML = problems.map(p => `
+        <div class="problem-row" style="cursor:default; flex-direction:column; align-items:flex-start; gap:0.4rem;" onclick="openEditor('${p.id.replace(/'/g, "\\'")}')">
+          <div style="display:flex; justify-content:space-between; width:100%; cursor:pointer;">
+            <div>
+              <span class="pid">${escapeHtmlAdmin(p.id)}</span>
+              <span class="pmeta">${escapeHtmlAdmin(p.contest || "")}${p.number != null ? " · #" + p.number : ""}</span>
+            </div>
+            ${p.difficulty ? `<span class="badge off">${escapeHtmlAdmin(p.difficulty)}</span>` : ""}
+          </div>
+          ${p.summary ? `<div class="help" style="margin-top:0">${escapeHtmlAdmin(p.summary)}</div>` : ""}
+          <div style="display:flex; flex-wrap:wrap; gap:0.3rem;">
+            ${(p.area || []).map(a => `<span class="badge on">${escapeHtmlAdmin(a)}</span>`).join("")}
+            ${(p.techniques || []).map(t => `<span class="badge off">${escapeHtmlAdmin(t)}</span>`).join("")}
+          </div>
+        </div>
+      `).join("");
+    } catch (e) {
+      statusEl.textContent = "Could not reach the API.";
+    }
+  }
 
   async function loadProblemList() {
     const statusEl = document.getElementById("b_status");
