@@ -186,7 +186,9 @@
     "difference of squares",
     "difference of cubes",
     "linear independence",
-    "Dijkstra's algorithm"
+    "Dijkstra's algorithm",
+    "tangent addition formula",
+    "perpendicular bisector"
   ],
   "pending": [],
   "log": [
@@ -200,6 +202,16 @@
       "name": "difference of cubes (factorization)",
       "at": 1781977444.432503,
       "renamed_to": "difference of cubes"
+    },
+    {
+      "action": "approved",
+      "name": "tangent addition formula",
+      "at": 1781985401.4289086
+    },
+    {
+      "action": "approved",
+      "name": "perpendicular bisector",
+      "at": 1781985401.42891
     }
   ]
 }
