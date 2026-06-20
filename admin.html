@@ -304,8 +304,10 @@ By Power of a Point..."></textarea>
     <div class="row2" style="display:flex; gap:0.75rem; margin-top:0.75rem;">
       <button onclick="loadAimoContests(false)" style="flex:1; margin-top:0">List contests</button>
       <button class="secondary" onclick="loadAimoContests(true)" style="flex:1; margin-top:0">Reload from repo</button>
+      <button class="secondary" onclick="showUnparsedSample()" style="flex:1; margin-top:0">Show unparsed links</button>
     </div>
     <div id="a_upload_result" class="result hidden"></div>
+    <div id="a_unparsed_result" class="result hidden"></div>
 
     <div id="a_contests_wrap" class="hidden">
       <label style="margin-top:1.5rem">Contests found in this file</label>
@@ -658,6 +660,24 @@ By Power of a Point..."></textarea>
       renderContestList(data.contests);
     } catch (e) {
       setResult("a_upload_result", false, "Could not reach the API.");
+    }
+  }
+
+  async function showUnparsedSample() {
+    setResult("a_unparsed_result", true, "Loading sample...");
+    document.getElementById("a_unparsed_result").classList.remove("hidden");
+    try {
+      const res = await fetch(`${API}/admin/aimo/unparsed-sample?limit=20`, { credentials: "include" });
+      const data = await res.json();
+      if (!res.ok) {
+        setResult("a_unparsed_result", false, data.detail || "Could not load sample.");
+        return;
+      }
+      const msg = `${data.total_unparsed} total unparsed links. Sample:\n\n` +
+        data.sample.map(l => l || "(empty link)").join("\n");
+      setResult("a_unparsed_result", true, msg);
+    } catch (e) {
+      setResult("a_unparsed_result", false, "Could not reach the API.");
     }
   }
 
