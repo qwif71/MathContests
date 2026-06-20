@@ -182,7 +182,10 @@
     "change of base formula",
     "order of operations",
     "greedy algorithm",
-    "unit conversion"
+    "unit conversion",
+    "difference of squares",
+    "difference of cubes (factorization)",
+    "linear independence"
   ],
   "pending": []
 }
