@@ -663,17 +663,17 @@ async def delete_technique_endpoint(
 
 
 # --------------------------------------------------------------------------
-# Shared finish step: merge into in-memory corpus, recompute embeddings for
-# the new rows, persist, commit. Only called from /admin/import/resolve now
+# Shared finish step: merge into in-memory corpus, rebuild the TF-IDF search
+# index, persist, commit. Only called from /admin/import/resolve now
 # (after tag review), never directly from an import endpoint.
 # --------------------------------------------------------------------------
 
 def _finish_import(new_records: list) -> dict:
-    import numpy as np
-    import app as appmod  # the running FastAPI app module — holds `corpus`/`embeddings`
+    import app as appmod  # the running FastAPI app module — holds `corpus`
 
     existing_ids = {r["id"] for r in appmod.corpus}
     added, replaced = [], []
+
     for rec in new_records:
         if rec["id"] in existing_ids:
             idx = next(i for i, r in enumerate(appmod.corpus) if r["id"] == rec["id"])
@@ -683,25 +683,24 @@ def _finish_import(new_records: list) -> dict:
             appmod.corpus.append(rec)
             added.append(rec["id"])
 
-    # Recompute embeddings for the whole corpus. sentence-transformers is heavy
-    # to keep loaded permanently, so it's imported lazily, here, only on import.
+    # Keep live /practice search in sync with the updated corpus.
+    # app.py uses a lightweight TF-IDF index, not sentence-transformers.
     try:
-        from sentence_transformers import SentenceTransformer
-        model = SentenceTransformer("all-MiniLM-L6-v2")
-        vectors = model.encode([tc.embed_text(r) for r in appmod.corpus],
-                                normalize_embeddings=True)
-        appmod.embeddings = np.array(vectors)
-        np.save(appmod.EMBEDDINGS_PATH, appmod.embeddings)
-        embeddings_updated = True
+        appmod.rebuild_search_index()
+        search_index_updated = True
     except Exception as e:
-        print(f"  ! embedding recompute failed: {e}", file=sys.stderr)
-        embeddings_updated = False
+        print(f"  ! search index rebuild failed: {e}", file=sys.stderr)
+        search_index_updated = False
 
     # Persist tagged.json locally (best-effort — Render's disk may reset later,
     # which is exactly why the GitHub commit below is the real persistence).
     try:
-        json.dump(appmod.corpus, open(appmod.CORPUS_PATH, "w"),
-                   indent=2, ensure_ascii=False)
+        json.dump(
+            appmod.corpus,
+            open(appmod.CORPUS_PATH, "w"),
+            indent=2,
+            ensure_ascii=False,
+        )
     except Exception as e:
         print(f"  ! local corpus write failed: {e}", file=sys.stderr)
 
@@ -715,11 +714,13 @@ def _finish_import(new_records: list) -> dict:
         "added": added,
         "replaced": replaced,
         "total_corpus_size": len(appmod.corpus),
-        "embeddings_updated": embeddings_updated,
+        "search_index_updated": search_index_updated,
+        # Kept temporarily so older frontend/admin code does not break if it
+        # still reads this field.
+        "embeddings_updated": False,
         "github": commit_result,
         "records": new_records,
     }
-
 
 # --------------------------------------------------------------------------
 # Browse / delete / edit — admin-only views of the full corpus.
