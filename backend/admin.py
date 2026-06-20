@@ -59,11 +59,11 @@ CORPUS_REPO_PATH = os.environ.get("CORPUS_REPO_PATH", "backend/tagged.json").str
 # AIMO source CSV lives committed in the repo (it ships with every deploy,
 # same as tagged.json) rather than being uploaded through the admin UI each
 # session. Default path matches "Option B" from the data-placement discussion:
-# backend/data/aimo_raw.csv.
-AIMO_CSV_PATH = os.environ.get(
-    "AIMO_CSV_PATH",
+# backend/data/amio_raw.csv.
+AMIO_CSV_PATH = os.environ.get(
+    "AMIO_CSV_PATH",
     os.path.join(os.environ.get("BASE_DIR", "/opt/render/project/src/backend"),
-                 "data", "aimo_raw.csv"),
+                 "data", "amio_raw.csv"),
 )
 
 serializer = URLSafeTimedSerializer(SESSION_SECRET, salt="admin-session")
@@ -473,8 +473,8 @@ async def import_pdf(
 
 
 # --------------------------------------------------------------------------
-# AIMO CSV import — the CSV lives committed in the repo at AIMO_CSV_PATH
-# (backend/data/aimo_raw.csv by default), so it ships with every deploy and
+# AIMO CSV import — the CSV lives committed in the repo at AMIO_CSV_PATH
+# (backend/data/amio_raw.csv by default), so it ships with every deploy and
 # doesn't need re-uploading each admin session. "Reload" re-reads it from
 # disk (useful after you commit an updated CSV); the parsed result is cached
 # in memory so repeated contest imports don't re-parse the whole file.
@@ -484,25 +484,25 @@ async def import_pdf(
 # from the CSV at once.
 # --------------------------------------------------------------------------
 
-_aimo_cache: list = []
-_aimo_cache_path: str | None = None
+_amio_cache: list = []
+_amio_cache_path: str | None = None
 
 
 def _load_aimo_csv(force: bool = False) -> list:
-    """Parses AIMO_CSV_PATH and caches the result. Re-parses only if forced
+    """Parses AMIO_CSV_PATH and caches the result. Re-parses only if forced
     or if the cache is empty (first call)."""
-    global _aimo_cache, _aimo_cache_path
-    if _aimo_cache and not force and _aimo_cache_path == AIMO_CSV_PATH:
-        return _aimo_cache
-    if not os.path.exists(AIMO_CSV_PATH):
+    global _amio_cache, _amio_cache_path
+    if _amio_cache and not force and _amio_cache_path == AMIO_CSV_PATH:
+        return _amio_cache
+    if not os.path.exists(AMIO_CSV_PATH):
         raise HTTPException(
             404,
-            f"No AIMO CSV found at {AIMO_CSV_PATH}. Commit it to the repo at "
-            "backend/data/aimo_raw.csv (or set AIMO_CSV_PATH) and redeploy.",
+            f"No AMIO CSV found at {AMIO_CSV_PATH}. Commit it to the repo at "
+            "backend/data/amio_raw.csv (or set AMIO_CSV_PATH) and redeploy.",
         )
-    _aimo_cache = amio_import.parse_csv(AIMO_CSV_PATH)
-    _aimo_cache_path = AIMO_CSV_PATH
-    return _aimo_cache
+    _amio_cache = amio_import.parse_csv(AMIO_CSV_PATH)
+    _amio_cache_path = AMIO_CSV_PATH
+    return _amio_cache
 
 
 @router.get("/admin/aimo/contests")
@@ -517,7 +517,7 @@ async def aimo_contests(
     records = _load_aimo_csv(force=reload)
     unparsed = sum(1 for r in records if not r["contest"])
     return {
-        "csv_path": AIMO_CSV_PATH,
+        "csv_path": AMIO_CSV_PATH,
         "total_problems_in_csv": len(records),
         "unparsed_links": unparsed,
         "contests": amio_import.list_contests(records),  # {"2024 AMC 8": 25, ...}
@@ -544,7 +544,7 @@ async def aimo_import_contest(
 
     subset = amio_import.records_for_contest(records, contest)
     if not subset:
-        raise HTTPException(404, f"No problems found for contest '{contest}' in {AIMO_CSV_PATH}.")
+        raise HTTPException(404, f"No problems found for contest '{contest}' in {AMIO_CSV_PATH}.")
 
     tagged = amio_import.tag_aimo_records(subset, model)
     return _finish_import(tagged)
