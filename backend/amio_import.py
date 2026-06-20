@@ -37,6 +37,13 @@ AJHSME_LINK_PATTERN = re.compile(
     r"(\d{4})_AJHSME_Problems/Problem_(\d+)", re.IGNORECASE
 )
 
+# AHSME (American High School Mathematics Examination) was the AMC 10/12's
+# name before the 2000 split — e.g.
+# ".../1999_AHSME_Problems/Problem_4" -> "1999 AHSME".
+AHSME_LINK_PATTERN = re.compile(
+    r"(\d{4})_AHSME_Problems/Problem_(\d+)", re.IGNORECASE
+)
+
 # AIME (American Invitational Mathematics Examination) has two sittings per
 # year, I and II, e.g. ".../2023_AIME_I_Problems/Problem_7" or
 # ".../2023_AIME_II_Problems/Problem_12". Pre-2000ish years only had one
@@ -62,6 +69,11 @@ def _parse_link(link: str):
     if m:
         year, num = m.groups()
         return f"{year} AJHSME", int(num)
+
+    m = AHSME_LINK_PATTERN.search(link)
+    if m:
+        year, num = m.groups()
+        return f"{year} AHSME", int(num)
 
     m = AIME_LINK_PATTERN.search(link)
     if m:
