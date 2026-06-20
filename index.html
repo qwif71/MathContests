@@ -154,9 +154,24 @@
     .tag-picker-row button {
       margin-left: 0; padding: 0.5rem 1rem;
     }
-    .tag-picker-row button#tagModeBtn {
-      margin-left: 0; padding: 0.5rem 1rem; font-size: 0.85rem; white-space: nowrap;
+    .mode-toggle {
+      margin-left: 0;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      background: var(--tag-bg);
+      color: var(--fg-muted);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
     }
+    .mode-toggle[data-mode="or"] {
+      background: var(--accent-soft-bg);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+    .mode-toggle:hover { opacity: 0.85; }
     .selected-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; }
     .selected-tag {
       display: inline-flex; align-items: center; gap: 0.4rem;
@@ -253,7 +268,7 @@
     <h1>Problem Finder</h1>
     <p class="subtitle">Browse the full catalogue, or search by topic, technique, or description</p>
   </div>
-  <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙 Dark mode</button>
+  <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">Dark mode</button>
 </div>
 
 <div class="search-box">
@@ -270,15 +285,14 @@
     <button onclick="search()">Search</button>
   </div>
 
-  <!-- Multi-tag picker (NEW) -->
+  <!-- Multi-tag picker -->
   <div class="tag-picker">
     <div class="tag-picker-row">
-      <input id="techniqueInput" list="techniqueOptions"
+      <input id="techniqueInput"
              placeholder="Type a technique and press Enter..."
              autocomplete="off"
              onkeydown="if(event.key==='Enter'){event.preventDefault(); addTypedTechnique();}">
-      <datalist id="techniqueOptions"></datalist>
-      <button type="button" id="tagModeBtn" class="secondary" onclick="toggleTagMode()">Match: All selected</button>
+      <button type="button" id="tagModeBtn" class="mode-toggle" data-mode="and" onclick="toggleTagMode()">All selected</button>
     </div>
     <div id="selectedTags" class="selected-tags"></div>
     <div id="suggestTag" class="suggest-tag" style="display:none"></div>
@@ -296,7 +310,7 @@
   function applyTheme(theme) {
     document.documentElement.setAttribute("data-theme", theme);
     document.getElementById("themeToggle").textContent =
-      theme === "dark" ? "☀️ Light mode" : "🌙 Dark mode";
+      theme === "dark" ? "Light mode" : "Dark mode";
     localStorage.setItem("theme", theme);
   }
   function toggleTheme() {
@@ -341,34 +355,22 @@
     } catch(e) {}
   }
 
-  // Powers the datalist behind the manual-entry technique input — no
-  // separate visible chip list anymore, just autocomplete suggestions
-  // while typing (and the fuzzy-match "did you mean" fallback below).
-  let allTechniqueNames = [];
-
-  async function loadTechniques() {
-    try {
-      const res = await fetch(`${API}/techniques`);
-      const data = await res.json();
-      const list = data.techniques || [];
-      allTechniqueNames = list.map(t => t.name);
-      document.getElementById("techniqueOptions").innerHTML =
-        allTechniqueNames.map(n => `<option value="${escapeHtml(n)}">`).join("");
-    } catch (e) {}
-  }
-
   // selectedTechniques: Map of displayLabel -> {canonical, fuzzy}
   // displayLabel is what's shown as a pill under the input; canonical is
   // what's actually sent to the API (exact name once resolved, fuzzy-
   // resolved name for near-miss typed input).
   let selectedTechniques = new Map();
-  let tagMode = "and";   // "and" | "or" — toggled via the Match button
 
   function toggleTagMode() {
-    tagMode = tagMode === "and" ? "or" : "and";
-    document.getElementById("tagModeBtn").textContent =
-      tagMode === "and" ? "Match: All selected" : "Match: Any selected";
+    const btn = document.getElementById("tagModeBtn");
+    const next = btn.dataset.mode === "and" ? "or" : "and";
+    btn.dataset.mode = next;
+    btn.textContent = next === "and" ? "All selected" : "Any selected";
     search();
+  }
+
+  function getTagMode() {
+    return document.getElementById("tagModeBtn").dataset.mode;
   }
 
   async function addTypedTechnique() {
@@ -442,7 +444,7 @@
     if (area) params.set("area", area);
     if (techList.length) {
       params.set("techniques", techList.join(","));
-      params.set("tag_mode", tagMode);
+      params.set("tag_mode", getTagMode());
     }
     params.set("k", Math.max(TOTAL, 1000));
 
@@ -472,7 +474,7 @@
     if (area) params.set("area", area);
     if (techList.length) {
       params.set("techniques", techList.join(","));
-      params.set("tag_mode", tagMode);
+      params.set("tag_mode", getTagMode());
     }
     params.set("k", 20);
     // Ask for AI-assisted query parsing. The backend only honors this if the
@@ -543,7 +545,6 @@
   }
 
   loadStats().then(showCatalogue);
-  loadTechniques();
 </script>
 </body>
 </html>
