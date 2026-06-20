@@ -252,6 +252,103 @@ async def delete_problem(problem_id: str, admin_session: str | None = Cookie(def
 
 
 # --------------------------------------------------------------------------
+# One-time migration: old AMIO-prefixed ids -> the systematic scheme
+# aimo_import.py now generates for everything.
+#
+#   Old:  AMIO-AMC10A-2023-P1     (AMIO-{variant}-{year}-P{number})
+#   New:  AMC2023-10A-INDIVIDUAL-1  (matches aimo_import._contest_slug)
+#
+# This is a dry-run-by-default endpoint: GET previews the rename mapping
+# without touching anything; POST actually applies it (and refuses to run
+# if it would create a collision with an existing id).
+# --------------------------------------------------------------------------
+
+import re as _re
+
+_OLD_AMIO_ID = _re.compile(
+    r"^AMIO-AMC(?P<variant>\d+[AB]?)-(?P<year>\d{4})-P(?P<number>\d+)$", _re.IGNORECASE
+)
+
+
+def _migrated_id(old_id: str) -> str | None:
+    """Returns the new-scheme id for an old AMIO-... id, or None if old_id
+    doesn't match the expected old pattern (left untouched in that case)."""
+    m = _OLD_AMIO_ID.match(old_id)
+    if not m:
+        return None
+    return f"AMC{m.group('year')}-{m.group('variant').upper()}-INDIVIDUAL-{int(m.group('number'))}"
+
+
+def _build_migration_plan(corpus: list) -> tuple[list[dict], list[str]]:
+    """Returns (renames, collisions) where renames is a list of
+    {old_id, new_id} and collisions is old_ids that would collide with an
+    existing id (and are therefore excluded from the plan)."""
+    existing_ids = {r["id"] for r in corpus}
+    renames, collisions = [], []
+    for r in corpus:
+        new_id = _migrated_id(r["id"])
+        if new_id is None:
+            continue
+        if new_id == r["id"]:
+            continue
+        if new_id in existing_ids:
+            collisions.append(r["id"])
+            continue
+        renames.append({"old_id": r["id"], "new_id": new_id})
+    return renames, collisions
+
+
+@router.get("/admin/migrate-amio-ids")
+async def preview_amio_id_migration(admin_session: str | None = Cookie(default=None)):
+    """Dry run: shows exactly what would be renamed, with no side effects."""
+    require_admin(admin_session)
+    import app as appmod
+    renames, collisions = _build_migration_plan(appmod.corpus)
+    return {
+        "would_rename": len(renames),
+        "collisions_skipped": collisions,
+        "renames": renames,
+    }
+
+
+@router.post("/admin/migrate-amio-ids")
+async def apply_amio_id_migration(admin_session: str | None = Cookie(default=None)):
+    """Applies the migration: rewrites every old AMIO-... id to the new
+    systematic scheme, recomputes the search index, persists, and commits.
+    Safe to call more than once — already-migrated ids simply produce no
+    matches the second time (the regex only matches the old pattern)."""
+    require_admin(admin_session)
+    import app as appmod
+
+    renames, collisions = _build_migration_plan(appmod.corpus)
+    if not renames:
+        return {"renamed": 0, "collisions_skipped": collisions,
+                "message": "Nothing to migrate."}
+
+    rename_map = {r["old_id"]: r["new_id"] for r in renames}
+    for rec in appmod.corpus:
+        if rec["id"] in rename_map:
+            rec["id"] = rename_map[rec["id"]]
+
+    appmod.rebuild_search_index()
+    try:
+        json.dump(appmod.corpus, open(appmod.CORPUS_PATH, "w"), indent=2, ensure_ascii=False)
+    except Exception as e:
+        print(f"  ! local corpus write failed: {e}", file=sys.stderr)
+
+    github_result = commit_corpus_to_github(
+        appmod.corpus,
+        message=f"Migrate {len(renames)} AMIO-prefixed id(s) to the systematic scheme",
+    )
+    return {
+        "renamed": len(renames),
+        "collisions_skipped": collisions,
+        "renames": renames,
+        "github": github_result,
+    }
+
+
+# --------------------------------------------------------------------------
 # GitHub auto-commit
 # --------------------------------------------------------------------------
 
