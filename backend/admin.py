@@ -42,6 +42,15 @@ import settings as st
 import amio_import
 import techniques as tk
 
+def _normalize_round_hint(value):
+    value = (value or "AUTO").strip()
+    if not value:
+        return "AUTO"
+    upper = value.upper()
+    if upper in {"AUTO", "ALL", "MULTI", "MULTIPLE"}:
+        return "AUTO"
+    return upper
+
 router = APIRouter()
 
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "").strip()

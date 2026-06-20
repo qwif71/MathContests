@@ -1517,5 +1517,27 @@ By Power of a Point..."></textarea>
 
   checkSession();
 </script>
+
+<script>
+function ensureAutoRoundBeforeImport(formOrData) {
+  try {
+    if (formOrData instanceof FormData) {
+      const current = (formOrData.get("round") || formOrData.get("round_name") || "").toString().trim();
+      if (!current) formOrData.set("round", "AUTO");
+      return formOrData;
+    }
+    const fields = formOrData.querySelectorAll('[name="round"], [name="round_name"], [id*="round" i]');
+    fields.forEach((el) => {
+      if (!el.value || !el.value.trim()) el.value = "AUTO";
+    });
+  } catch (e) {}
+  return formOrData;
+}
+
+document.addEventListener("submit", (ev) => {
+  if (ev.target && ev.target.querySelector) ensureAutoRoundBeforeImport(ev.target);
+}, true);
+</script>
+
 </body>
 </html>
