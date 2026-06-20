@@ -17,6 +17,13 @@ so new problems show up in /practice immediately without a redeploy.
 Settings: a small admin-only toggle for whether /practice is allowed to call
 the Anthropic API to parse free-text queries (see settings.py + app.py's
 ai_parse_query). Defaults OFF; only an authenticated admin can flip it.
+
+Tag review (NEW): imports no longer merge straight into the live corpus.
+Each import path tags the batch, then diffs its `techniques` against the
+canonical list (see techniques.py) and holds the batch in memory until the
+admin approves/merges/rejects every new technique via /admin/import/resolve.
+Only after that does _finish_import() run and the GitHub commit happen.
+See _start_review() / _pending_batch / /admin/import/resolve below.
 """
 import base64
 import json
@@ -33,6 +40,7 @@ import requests
 import tag_and_compare as tc
 import settings as st
 import amio_import
+import techniques as tk
 
 router = APIRouter()
 
@@ -65,6 +73,14 @@ AMIO_CSV_PATH = os.environ.get(
     os.path.join(os.environ.get("BASE_DIR", "/opt/render/project/src/backend"),
                  "data", "amio_raw.csv"),
 )
+
+# If True, an import is blocked entirely until every new technique the model
+# surfaced has been approved/merged/rejected — the record won't be added at
+# all until retagged. If False (default), the import proceeds immediately
+# and any *rejected* technique tags are simply dropped from the record's
+# `techniques` field rather than blocking the whole batch.
+REJECTED_TECHNIQUES_BLOCK_IMPORT = os.environ.get(
+    "REJECTED_TECHNIQUES_BLOCK_IMPORT", "false").strip().lower() == "true"
 
 serializer = URLSafeTimedSerializer(SESSION_SECRET, salt="admin-session")
 COOKIE_NAME = "admin_session"
@@ -152,6 +168,398 @@ async def update_settings(
     return {
         "ai_query_enabled": st.get_ai_query_enabled(),
         "github": github_result,
+    }
+
+
+# --------------------------------------------------------------------------
+# Import: paste text
+# --------------------------------------------------------------------------
+
+@router.post("/admin/import/text")
+async def import_text(
+    request: Request,
+    admin_session: str | None = Cookie(default=None),
+):
+    """Body: {text, id, contest, round, model?}
+    text follows the same STATEMENT:/SOLUTION: convention as tag_and_compare.py's
+    record_from_text. Tags via the Anthropic API, then hands off to tag
+    review (see _start_review) instead of merging into the corpus directly."""
+    require_admin(admin_session)
+    body = await request.json()
+    text = (body.get("text") or "").strip()
+    pid = (body.get("id") or "").strip()
+    contest = (body.get("contest") or "").strip()
+    round_name = (body.get("round") or "").strip()
+    model = (body.get("model") or tc.MODEL).strip()
+
+    if not text:
+        raise HTTPException(400, "No problem text provided.")
+    if not pid:
+        raise HTTPException(400, "An id is required, e.g. CONTEST2026-INDIVIDUAL-1")
+
+    record = tc.record_from_text(text, pid)
+    if contest:
+        record["contest"] = contest
+    if round_name:
+        record["round"] = round_name
+    record.setdefault("sources", [contest or "manual import"])
+
+    tagged = tc.tag([record], model)[0]
+    return _start_review([tagged])
+
+
+# --------------------------------------------------------------------------
+# Import: PDF upload (uses extract.py's parsers)
+# --------------------------------------------------------------------------
+
+@router.post("/admin/import/pdf")
+async def import_pdf(
+    file: UploadFile = File(...),
+    contest: str = Form(...),
+    fmt: str = Form(...),          # "arml" | "mmaths" | "amc" | "llm"
+    round_name: str = Form("Individual Round"),
+    model: str = Form(tc.MODEL),
+    admin_session: str | None = Cookie(default=None),
+):
+    require_admin(admin_session)
+    import extract as ex
+    import tempfile
+
+    if fmt not in ("arml", "mmaths", "amc", "llm"):
+        raise HTTPException(400, "fmt must be one of arml, mmaths, amc, llm")
+
+    with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
+        tmp.write(await file.read())
+        tmp_path = tmp.name
+
+    try:
+        if fmt == "mmaths":
+            records = ex.extract_mmaths(tmp_path, contest, round_name)
+        elif fmt == "amc":
+            records = ex.extract_amc(tmp_path, contest, round_name)
+        elif fmt == "llm":
+            records = ex.extract_llm(tmp_path, contest, round_name, model)
+        elif round_name.lower() == "all":
+            records = ex.extract_all(tmp_path, contest)
+        else:
+            records = ex.extract_round(tmp_path, round_name, contest)
+    finally:
+        os.unlink(tmp_path)
+
+    if not records:
+        raise HTTPException(422, "No problems were extracted from this PDF.")
+
+    for r in records:
+        r.setdefault("sources", [contest])
+
+    tc.add_difficulty(records)
+    tagged = tc.tag(records, model)
+    return _start_review(tagged)
+
+
+# --------------------------------------------------------------------------
+# AIMO CSV import — the CSV lives committed in the repo at AMIO_CSV_PATH
+# (backend/data/amio_raw.csv by default), so it ships with every deploy and
+# doesn't need re-uploading each admin session. "Reload" re-reads it from
+# disk (useful after you commit an updated CSV); the parsed result is cached
+# in memory so repeated contest imports don't re-parse the whole file.
+#
+# Import remains contest-by-contest (one button per contest in the admin UI)
+# so batches can be reviewed as they land instead of importing everything
+# from the CSV at once.
+# --------------------------------------------------------------------------
+
+_amio_cache: list = []
+_amio_cache_path: str | None = None
+
+
+def _load_amio_csv(force: bool = False) -> list:
+    """Parses AMIO_CSV_PATH and caches the result. Re-parses only if forced
+    or if the cache is empty (first call)."""
+    global _amio_cache, _amio_cache_path
+    if _amio_cache and not force and _amio_cache_path == AMIO_CSV_PATH:
+        return _amio_cache
+    if not os.path.exists(AMIO_CSV_PATH):
+        raise HTTPException(
+            404,
+            f"No AMIO CSV found at {AMIO_CSV_PATH}. Commit it to the repo at "
+            "backend/data/amio_raw.csv (or set AMIO_CSV_PATH) and redeploy.",
+        )
+    _amio_cache = amio_import.parse_csv(AMIO_CSV_PATH)
+    _amio_cache_path = AMIO_CSV_PATH
+    return _amio_cache
+
+
+@router.get("/admin/aimo/contests")
+async def aimo_contests(
+    reload: bool = False,
+    admin_session: str | None = Cookie(default=None),
+):
+    """Lists contests found in the repo's AMIO CSV. Pass ?reload=true to
+    re-read the file from disk (e.g. after committing an updated CSV and
+    redeploying) instead of using the in-memory cache."""
+    require_admin(admin_session)
+    records = _load_amio_csv(force=reload)
+    unparsed = sum(1 for r in records if not r["contest"])
+    return {
+        "csv_path": AMIO_CSV_PATH,
+        "total_problems_in_csv": len(records),
+        "unparsed_links": unparsed,
+        "contests": amio_import.list_contests(records),  # {"2024 AMC 8": 25, ...}
+    }
+
+
+@router.get("/admin/aimo/unparsed-sample")
+async def aimo_unparsed_sample(
+    limit: int = 20,
+    admin_session: str | None = Cookie(default=None),
+):
+    """Diagnostic: shows actual link values that failed to parse, so the
+    AMC_LINK_PATTERN/AJHSME_LINK_PATTERN regexes in amio_import.py can be
+    widened to cover whatever contest formats the CSV actually contains
+    (AIME, ARML, etc.) instead of guessing blind. Temporary tool — fine to
+    remove once the patterns are confirmed to cover everything in your
+    dataset."""
+    require_admin(admin_session)
+    records = _load_amio_csv()
+    unparsed = [r["link"] for r in records if not r["contest"]]
+    return {
+        "total_unparsed": len(unparsed),
+        "sample": unparsed[:limit],
+    }
+
+
+@router.post("/admin/aimo/import")
+async def aimo_import_contest(
+    request: Request,
+    admin_session: str | None = Cookie(default=None),
+):
+    """Body: {contest: "2024 AMC 8", model?}. Tags just that one contest's
+    problems from the repo's AIMO CSV, then hands off to tag review instead
+    of merging into the corpus directly — the one-click-per-contest path,
+    so you can watch each batch land (after review) instead of importing
+    everything at once."""
+    require_admin(admin_session)
+    records = _load_amio_csv()
+
+    body = await request.json()
+    contest = (body.get("contest") or "").strip()
+    model = (body.get("model") or tc.MODEL).strip()
+    if not contest:
+        raise HTTPException(400, "contest is required, e.g. '2024 AMC 8'.")
+
+    subset = amio_import.records_for_contest(records, contest)
+    if not subset:
+        raise HTTPException(404, f"No problems found for contest '{contest}' in {AMIO_CSV_PATH}.")
+
+    tagged = amio_import.tag_aimo_records(subset, model)
+    return _start_review(tagged)
+
+
+# --------------------------------------------------------------------------
+# Two-phase import: tag the batch, diff its techniques against the
+# canonical list (techniques.py), and hold it for admin review before
+# anything touches the live corpus. The admin UI calls
+# /admin/import/review-pending to recover state, then
+# /admin/import/resolve to approve/reject/merge and actually commit.
+# --------------------------------------------------------------------------
+
+# Single in-memory slot for "the batch currently awaiting review" — matches
+# the existing one-import-at-a-time admin workflow (paste-text, one PDF, or
+# one AMIO contest per click). A second import while one is pending simply
+# overwrites the slot.
+_pending_batch: dict = {"records": None, "diff": None}
+
+
+def _start_review(tagged_records: list) -> dict:
+    """Phase 1: the batch is already tagged. Diff its techniques against the
+    canonical list and stash it — nothing touches the live corpus yet."""
+    global _pending_batch
+
+    all_techniques = [t for r in tagged_records for t in r.get("techniques", [])]
+    diff = tk.diff_techniques(all_techniques)
+
+    if diff["new"]:
+        tk.set_pending([d["input"] for d in diff["new"]])
+
+    _pending_batch = {"records": tagged_records, "diff": diff}
+
+    return {
+        "status": "needs_review" if diff["new"] else "ready",
+        "new_techniques": diff["new"],       # [{"input", "suggestions", "score"}, ...]
+        "known_techniques": diff["known"],   # [{"input", "matched", "score"}, ...]
+        "record_ids": [r["id"] for r in tagged_records],
+        "record_count": len(tagged_records),
+    }
+
+
+@router.get("/admin/import/review-pending")
+async def review_pending(admin_session: str | None = Cookie(default=None)):
+    """What's currently awaiting tag review, if anything. Lets the admin UI
+    recover its state after a page refresh instead of losing the batch."""
+    require_admin(admin_session)
+    if not _pending_batch["records"]:
+        return {"pending": False}
+    return {
+        "pending": True,
+        "new_techniques": _pending_batch["diff"]["new"],
+        "known_techniques": _pending_batch["diff"]["known"],
+        "record_ids": [r["id"] for r in _pending_batch["records"]],
+        "record_count": len(_pending_batch["records"]),
+    }
+
+
+@router.post("/admin/import/resolve")
+async def resolve_import(
+    request: Request,
+    admin_session: str | None = Cookie(default=None),
+):
+    """Phase 2: admin has reviewed the new techniques from /admin/import/
+    review-pending and decided what to do with each. Body:
+
+        {
+          "approve": ["new technique name", ...],       // added to canonical list
+          "merge": {"typed string": "existing canonical tag", ...},
+          "reject": ["new technique name", ...]          // dropped, or blocks
+                                                          // import per
+                                                          // REJECTED_TECHNIQUES_BLOCK_IMPORT
+        }
+
+    Any new technique from the pending diff not mentioned in any of the
+    three lists is treated as rejected by default — silence isn't approval.
+
+    On success, runs _finish_import() (the actual merge + GitHub commit)
+    and clears the pending slot.
+    """
+    require_admin(admin_session)
+    if not _pending_batch["records"]:
+        raise HTTPException(400, "No import is currently awaiting review.")
+
+    body = await request.json()
+    approve = list(body.get("approve") or [])
+    merge = dict(body.get("merge") or {})
+    reject = list(body.get("reject") or [])
+
+    new_inputs = {d["input"] for d in _pending_batch["diff"]["new"]}
+    decided = set(approve) | set(merge.keys()) | set(reject)
+    implicit_reject = list(new_inputs - decided)
+    reject = list(set(reject) | set(implicit_reject))
+
+    if approve:
+        tk.approve_techniques(approve)
+    if reject:
+        tk.reject_techniques(reject)
+
+    if reject and REJECTED_TECHNIQUES_BLOCK_IMPORT:
+        blocked_ids = [r["id"] for r in _pending_batch["records"]]
+        _pending_batch["records"] = None
+        _pending_batch["diff"] = None
+        return {
+            "status": "blocked",
+            "reason": "Import blocked: the following techniques were rejected "
+                      "and REJECTED_TECHNIQUES_BLOCK_IMPORT is on. Retag after "
+                      "addressing them.",
+            "rejected": reject,
+            "record_ids": blocked_ids,
+        }
+
+    # Build the final resolution map: approved names map to themselves,
+    # merged names map to their target, rejected names map to "" (dropped).
+    resolutions = {name: name for name in approve}
+    resolutions.update(merge)
+    resolutions.update({name: "" for name in reject})
+
+    final_records = tk.remap_batch(_pending_batch["records"], resolutions)
+
+    result = _finish_import(final_records)
+    result["techniques_approved"] = approve
+    result["techniques_merged"] = merge
+    result["techniques_rejected"] = reject
+
+    _pending_batch["records"] = None
+    _pending_batch["diff"] = None
+    return result
+
+
+@router.post("/admin/import/discard-pending")
+async def discard_pending(admin_session: str | None = Cookie(default=None)):
+    """Abandon the currently-pending batch without importing it at all
+    (e.g. the admin wants to retag with prompt changes instead)."""
+    require_admin(admin_session)
+    global _pending_batch
+    if _pending_batch["diff"]:
+        tk.reject_techniques([d["input"] for d in _pending_batch["diff"]["new"]])
+    _pending_batch = {"records": None, "diff": None}
+    return {"ok": True}
+
+
+@router.get("/admin/techniques")
+async def list_canonical_techniques(admin_session: str | None = Cookie(default=None)):
+    """The full canonical technique list + anything still pending review.
+    Used by the admin tag editor / diagnostics."""
+    require_admin(admin_session)
+    return {
+        "techniques": tk.get_canonical_techniques(),
+        "pending": tk.get_pending(),
+    }
+
+
+# --------------------------------------------------------------------------
+# Shared finish step: merge into in-memory corpus, recompute embeddings for
+# the new rows, persist, commit. Only called from /admin/import/resolve now
+# (after tag review), never directly from an import endpoint.
+# --------------------------------------------------------------------------
+
+def _finish_import(new_records: list) -> dict:
+    import numpy as np
+    import app as appmod  # the running FastAPI app module — holds `corpus`/`embeddings`
+
+    existing_ids = {r["id"] for r in appmod.corpus}
+    added, replaced = [], []
+    for rec in new_records:
+        if rec["id"] in existing_ids:
+            idx = next(i for i, r in enumerate(appmod.corpus) if r["id"] == rec["id"])
+            appmod.corpus[idx] = rec
+            replaced.append(rec["id"])
+        else:
+            appmod.corpus.append(rec)
+            added.append(rec["id"])
+
+    # Recompute embeddings for the whole corpus. sentence-transformers is heavy
+    # to keep loaded permanently, so it's imported lazily, here, only on import.
+    try:
+        from sentence_transformers import SentenceTransformer
+        model = SentenceTransformer("all-MiniLM-L6-v2")
+        vectors = model.encode([tc.embed_text(r) for r in appmod.corpus],
+                                normalize_embeddings=True)
+        appmod.embeddings = np.array(vectors)
+        np.save(appmod.EMBEDDINGS_PATH, appmod.embeddings)
+        embeddings_updated = True
+    except Exception as e:
+        print(f"  ! embedding recompute failed: {e}", file=sys.stderr)
+        embeddings_updated = False
+
+    # Persist tagged.json locally (best-effort — Render's disk may reset later,
+    # which is exactly why the GitHub commit below is the real persistence).
+    try:
+        json.dump(appmod.corpus, open(appmod.CORPUS_PATH, "w"),
+                   indent=2, ensure_ascii=False)
+    except Exception as e:
+        print(f"  ! local corpus write failed: {e}", file=sys.stderr)
+
+    ids = added + replaced
+    commit_result = commit_corpus_to_github(
+        appmod.corpus,
+        message=f"Import {len(ids)} problem(s): {', '.join(ids)}",
+    )
+
+    return {
+        "added": added,
+        "replaced": replaced,
+        "total_corpus_size": len(appmod.corpus),
+        "embeddings_updated": embeddings_updated,
+        "github": commit_result,
+        "records": new_records,
     }
 
 
@@ -384,245 +792,3 @@ def commit_corpus_to_github(corpus: list, message: str) -> dict:
     if put_resp.status_code not in (200, 201):
         return {"committed": False, "reason": put_resp.text[:500]}
     return {"committed": True, "commit_sha": put_resp.json().get("commit", {}).get("sha")}
-
-
-# --------------------------------------------------------------------------
-# Import: paste text
-# --------------------------------------------------------------------------
-
-@router.post("/admin/import/text")
-async def import_text(
-    request: Request,
-    admin_session: str | None = Cookie(default=None),
-):
-    """Body: {text, id, contest, round, model?}
-    text follows the same STATEMENT:/SOLUTION: convention as tag_and_compare.py's
-    record_from_text. Tags via the Anthropic API, appends to the in-memory
-    corpus, recomputes that one embedding, and commits to GitHub."""
-    require_admin(admin_session)
-    body = await request.json()
-    text = (body.get("text") or "").strip()
-    pid = (body.get("id") or "").strip()
-    contest = (body.get("contest") or "").strip()
-    round_name = (body.get("round") or "").strip()
-    model = (body.get("model") or tc.MODEL).strip()
-
-    if not text:
-        raise HTTPException(400, "No problem text provided.")
-    if not pid:
-        raise HTTPException(400, "An id is required, e.g. CONTEST2026-INDIVIDUAL-1")
-
-    record = tc.record_from_text(text, pid)
-    if contest:
-        record["contest"] = contest
-    if round_name:
-        record["round"] = round_name
-    record.setdefault("sources", [contest or "manual import"])
-
-    tagged = tc.tag([record], model)[0]
-    return _finish_import([tagged])
-
-
-# --------------------------------------------------------------------------
-# Import: PDF upload (uses extract.py's parsers)
-# --------------------------------------------------------------------------
-
-@router.post("/admin/import/pdf")
-async def import_pdf(
-    file: UploadFile = File(...),
-    contest: str = Form(...),
-    fmt: str = Form(...),          # "arml" | "mmaths" | "amc" | "llm"
-    round_name: str = Form("Individual Round"),
-    model: str = Form(tc.MODEL),
-    admin_session: str | None = Cookie(default=None),
-):
-    require_admin(admin_session)
-    import extract as ex
-    import tempfile
-
-    if fmt not in ("arml", "mmaths", "amc", "llm"):
-        raise HTTPException(400, "fmt must be one of arml, mmaths, amc, llm")
-
-    with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
-        tmp.write(await file.read())
-        tmp_path = tmp.name
-
-    try:
-        if fmt == "mmaths":
-            records = ex.extract_mmaths(tmp_path, contest, round_name)
-        elif fmt == "amc":
-            records = ex.extract_amc(tmp_path, contest, round_name)
-        elif fmt == "llm":
-            records = ex.extract_llm(tmp_path, contest, round_name, model)
-        elif round_name.lower() == "all":
-            records = ex.extract_all(tmp_path, contest)
-        else:
-            records = ex.extract_round(tmp_path, round_name, contest)
-    finally:
-        os.unlink(tmp_path)
-
-    if not records:
-        raise HTTPException(422, "No problems were extracted from this PDF.")
-
-    for r in records:
-        r.setdefault("sources", [contest])
-
-    tc.add_difficulty(records)
-    tagged = tc.tag(records, model)
-    return _finish_import(tagged)
-
-
-# --------------------------------------------------------------------------
-# AIMO CSV import — the CSV lives committed in the repo at AMIO_CSV_PATH
-# (backend/data/amio_raw.csv by default), so it ships with every deploy and
-# doesn't need re-uploading each admin session. "Reload" re-reads it from
-# disk (useful after you commit an updated CSV); the parsed result is cached
-# in memory so repeated contest imports don't re-parse the whole file.
-#
-# Import remains contest-by-contest (one button per contest in the admin UI)
-# so batches can be reviewed as they land instead of importing everything
-# from the CSV at once.
-# --------------------------------------------------------------------------
-
-_amio_cache: list = []
-_amio_cache_path: str | None = None
-
-
-def _load_amio_csv(force: bool = False) -> list:
-    """Parses AMIO_CSV_PATH and caches the result. Re-parses only if forced
-    or if the cache is empty (first call)."""
-    global _amio_cache, _amio_cache_path
-    if _amio_cache and not force and _amio_cache_path == AMIO_CSV_PATH:
-        return _amio_cache
-    if not os.path.exists(AMIO_CSV_PATH):
-        raise HTTPException(
-            404,
-            f"No AMIO CSV found at {AMIO_CSV_PATH}. Commit it to the repo at "
-            "backend/data/amio_raw.csv (or set AMIO_CSV_PATH) and redeploy.",
-        )
-    _amio_cache = amio_import.parse_csv(AMIO_CSV_PATH)
-    _amio_cache_path = AMIO_CSV_PATH
-    return _amio_cache
-
-
-@router.get("/admin/aimo/contests")
-async def aimo_contests(
-    reload: bool = False,
-    admin_session: str | None = Cookie(default=None),
-):
-    """Lists contests found in the repo's AMIO CSV. Pass ?reload=true to
-    re-read the file from disk (e.g. after committing an updated CSV and
-    redeploying) instead of using the in-memory cache."""
-    require_admin(admin_session)
-    records = _load_amio_csv(force=reload)
-    unparsed = sum(1 for r in records if not r["contest"])
-    return {
-        "csv_path": AMIO_CSV_PATH,
-        "total_problems_in_csv": len(records),
-        "unparsed_links": unparsed,
-        "contests": amio_import.list_contests(records),  # {"2024 AMC 8": 25, ...}
-    }
-
-
-@router.get("/admin/aimo/unparsed-sample")
-async def aimo_unparsed_sample(
-    limit: int = 20,
-    admin_session: str | None = Cookie(default=None),
-):
-    """Diagnostic: shows actual link values that failed to parse, so the
-    AMC_LINK_PATTERN/AJHSME_LINK_PATTERN regexes in amio_import.py can be
-    widened to cover whatever contest formats the CSV actually contains
-    (AIME, ARML, etc.) instead of guessing blind. Temporary tool — fine to
-    remove once the patterns are confirmed to cover everything in your
-    dataset."""
-    require_admin(admin_session)
-    records = _load_amio_csv()
-    unparsed = [r["link"] for r in records if not r["contest"]]
-    return {
-        "total_unparsed": len(unparsed),
-        "sample": unparsed[:limit],
-    }
-
-
-@router.post("/admin/aimo/import")
-async def aimo_import_contest(
-    request: Request,
-    admin_session: str | None = Cookie(default=None),
-):
-    """Body: {contest: "2024 AMC 8", model?}. Tags and imports just that one
-    contest's problems from the repo's AIMO CSV — the one-click-per-contest
-    path, so you can watch each batch land instead of importing everything
-    at once."""
-    require_admin(admin_session)
-    records = _load_amio_csv()
-
-    body = await request.json()
-    contest = (body.get("contest") or "").strip()
-    model = (body.get("model") or tc.MODEL).strip()
-    if not contest:
-        raise HTTPException(400, "contest is required, e.g. '2024 AMC 8'.")
-
-    subset = amio_import.records_for_contest(records, contest)
-    if not subset:
-        raise HTTPException(404, f"No problems found for contest '{contest}' in {AMIO_CSV_PATH}.")
-
-    tagged = amio_import.tag_aimo_records(subset, model)
-    return _finish_import(tagged)
-
-
-# --------------------------------------------------------------------------
-# Shared finish step: merge into in-memory corpus, recompute embeddings for
-# the new rows, persist, commit.
-# --------------------------------------------------------------------------
-
-def _finish_import(new_records: list) -> dict:
-    import numpy as np
-    import app as appmod  # the running FastAPI app module — holds `corpus`/`embeddings`
-
-    existing_ids = {r["id"] for r in appmod.corpus}
-    added, replaced = [], []
-    for rec in new_records:
-        if rec["id"] in existing_ids:
-            idx = next(i for i, r in enumerate(appmod.corpus) if r["id"] == rec["id"])
-            appmod.corpus[idx] = rec
-            replaced.append(rec["id"])
-        else:
-            appmod.corpus.append(rec)
-            added.append(rec["id"])
-
-    # Recompute embeddings for the whole corpus. sentence-transformers is heavy
-    # to keep loaded permanently, so it's imported lazily, here, only on import.
-    try:
-        from sentence_transformers import SentenceTransformer
-        model = SentenceTransformer("all-MiniLM-L6-v2")
-        vectors = model.encode([tc.embed_text(r) for r in appmod.corpus],
-                                normalize_embeddings=True)
-        appmod.embeddings = np.array(vectors)
-        np.save(appmod.EMBEDDINGS_PATH, appmod.embeddings)
-        embeddings_updated = True
-    except Exception as e:
-        print(f"  ! embedding recompute failed: {e}", file=sys.stderr)
-        embeddings_updated = False
-
-    # Persist tagged.json locally (best-effort — Render's disk may reset later,
-    # which is exactly why the GitHub commit below is the real persistence).
-    try:
-        json.dump(appmod.corpus, open(appmod.CORPUS_PATH, "w"),
-                   indent=2, ensure_ascii=False)
-    except Exception as e:
-        print(f"  ! local corpus write failed: {e}", file=sys.stderr)
-
-    ids = added + replaced
-    commit_result = commit_corpus_to_github(
-        appmod.corpus,
-        message=f"Import {len(ids)} problem(s): {', '.join(ids)}",
-    )
-
-    return {
-        "added": added,
-        "replaced": replaced,
-        "total_corpus_size": len(appmod.corpus),
-        "embeddings_updated": embeddings_updated,
-        "github": commit_result,
-        "records": new_records,
-    }
