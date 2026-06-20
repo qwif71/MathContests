@@ -167,17 +167,21 @@
     .problem-list { max-height: 480px; overflow-y: auto; border: 1px solid var(--border-soft); border-radius: 8px; }
     .editor-overlay {
       position: fixed; inset: 0; background: rgba(0,0,0,0.5);
-      display: flex; align-items: flex-start; justify-content: center;
-      padding: 3rem 1rem; overflow-y: auto; z-index: 50;
+      display: flex; align-items: center; justify-content: center;
+      padding: 2rem 1rem; z-index: 50;
     }
     .editor-card {
       background: var(--card-bg); border-radius: 12px; padding: 1.5rem;
       max-width: 700px; width: 100%; box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      max-height: calc(100vh - 4rem);
+      display: flex; flex-direction: column;
+      overflow: hidden;
     }
-    .editor-card h3 { margin-bottom: 1rem; }
+    .editor-card h3 { margin-bottom: 1rem; flex-shrink: 0; }
+    .editor-card-fields { overflow-y: auto; padding-right: 0.25rem; }
     .editor-card textarea { min-height: 90px; }
-    .editor-card .row2 { display: flex; gap: 0.75rem; margin-top: 0.5rem; }
-    .editor-card .row2 button { flex: 1; }
+    .editor-card .row2 { display: flex; gap: 0.75rem; margin-top: 1rem; flex-shrink: 0; }
+    .editor-card .row2 button { flex: 1; margin-top: 0; }
 
     /* --- AIMO import --- */
     .contest-row {
@@ -328,6 +332,20 @@ By Power of a Point..."></textarea>
       </label>
     </div>
     <div id="settings_result" class="result hidden"></div>
+
+    <div style="margin-top:2rem; padding-top:1.5rem; border-top:1px solid var(--border-soft)">
+      <div class="setting-title">Migrate old AMIO-prefixed ids</div>
+      <div class="setting-desc" style="margin-bottom:0.75rem">
+        One-time cleanup: renames ids like <code>AMIO-AMC10A-2023-P1</code> to the
+        systematic scheme new imports already use, <code>AMC2023-10A-INDIVIDUAL-1</code>.
+        Safe to run more than once — already-migrated ids are skipped automatically.
+      </div>
+      <div style="display:flex; gap:0.75rem;">
+        <button class="secondary" style="margin-top:0; flex:1" onclick="previewAmioMigration()">Preview</button>
+        <button style="margin-top:0; flex:1" onclick="applyAmioMigration()">Apply migration</button>
+      </div>
+      <div id="migrate_result" class="result hidden"></div>
+    </div>
   </div>
 </div>
 
@@ -335,27 +353,29 @@ By Power of a Point..."></textarea>
 <div id="editorOverlay" class="editor-overlay hidden" onclick="if(event.target===this) closeEditor()">
   <div class="editor-card">
     <h3 id="editor_title">Edit problem</h3>
-    <label for="e_contest">Contest</label>
-    <input type="text" id="e_contest">
-    <label for="e_area">Area (comma-separated)</label>
-    <input type="text" id="e_area">
-    <label for="e_techniques">Techniques (comma-separated)</label>
-    <input type="text" id="e_techniques">
-    <label for="e_subtopics">Subtopics (comma-separated)</label>
-    <input type="text" id="e_subtopics">
-    <label for="e_summary">Summary</label>
-    <input type="text" id="e_summary">
-    <label for="e_statement">Statement (LaTeX)</label>
-    <textarea id="e_statement"></textarea>
-    <label for="e_solution">Solution (LaTeX)</label>
-    <textarea id="e_solution"></textarea>
-    <label for="e_answer">Answer (LaTeX)</label>
-    <input type="text" id="e_answer">
+    <div class="editor-card-fields">
+      <label for="e_contest">Contest</label>
+      <input type="text" id="e_contest">
+      <label for="e_area">Area (comma-separated)</label>
+      <input type="text" id="e_area">
+      <label for="e_techniques">Techniques (comma-separated)</label>
+      <input type="text" id="e_techniques">
+      <label for="e_subtopics">Subtopics (comma-separated)</label>
+      <input type="text" id="e_subtopics">
+      <label for="e_summary">Summary</label>
+      <input type="text" id="e_summary">
+      <label for="e_statement">Statement (LaTeX)</label>
+      <textarea id="e_statement"></textarea>
+      <label for="e_solution">Solution (LaTeX)</label>
+      <textarea id="e_solution"></textarea>
+      <label for="e_answer">Answer (LaTeX)</label>
+      <input type="text" id="e_answer">
+      <div id="e_result" class="result hidden"></div>
+    </div>
     <div class="row2">
       <button class="secondary" onclick="closeEditor()">Cancel</button>
       <button onclick="saveEdit()">Save changes</button>
     </div>
-    <div id="e_result" class="result hidden"></div>
   </div>
 </div>
 
@@ -770,6 +790,12 @@ By Power of a Point..."></textarea>
     editingId = null;
   }
 
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !document.getElementById("editorOverlay").classList.contains("hidden")) {
+      closeEditor();
+    }
+  });
+
   function splitCsv(s) {
     return s.split(",").map(x => x.trim()).filter(Boolean);
   }
@@ -811,6 +837,56 @@ By Power of a Point..."></textarea>
       setTimeout(closeEditor, 600);
     } catch (e) {
       setResult("e_result", false, "Could not reach the API.");
+    }
+  }
+
+  async function previewAmioMigration() {
+    setResult("migrate_result", true, "Checking...");
+    document.getElementById("migrate_result").classList.remove("hidden");
+    try {
+      const res = await fetch(`${API}/admin/migrate-amio-ids`, { credentials: "include" });
+      const data = await res.json();
+      if (!res.ok) {
+        setResult("migrate_result", false, data.detail || "Could not preview migration.");
+        return;
+      }
+      let msg = `${data.would_rename} id(s) would be renamed.`;
+      if (data.collisions_skipped && data.collisions_skipped.length) {
+        msg += ` ${data.collisions_skipped.length} skipped due to a collision: ${data.collisions_skipped.join(", ")}.`;
+      }
+      if (data.renames && data.renames.length) {
+        msg += "\n\n" + data.renames.slice(0, 20).map(r => `${r.old_id}  ->  ${r.new_id}`).join("\n");
+        if (data.renames.length > 20) msg += `\n...and ${data.renames.length - 20} more.`;
+      }
+      setResult("migrate_result", true, msg);
+    } catch (e) {
+      setResult("migrate_result", false, "Could not reach the API.");
+    }
+  }
+
+  async function applyAmioMigration() {
+    if (!confirm("Rename all old AMIO-prefixed ids to the new systematic scheme? This commits to GitHub.")) return;
+    setResult("migrate_result", true, "Applying migration...");
+    document.getElementById("migrate_result").classList.remove("hidden");
+    try {
+      const res = await fetch(`${API}/admin/migrate-amio-ids`, {
+        method: "POST",
+        credentials: "include",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setResult("migrate_result", false, data.detail || "Migration failed.");
+        return;
+      }
+      const githubMsg = data.github && data.github.committed ? "Committed to GitHub." : "Not committed to GitHub.";
+      let msg = `Renamed ${data.renamed} id(s). ${githubMsg}`;
+      if (data.collisions_skipped && data.collisions_skipped.length) {
+        msg += ` ${data.collisions_skipped.length} skipped due to a collision: ${data.collisions_skipped.join(", ")}.`;
+      }
+      setResult("migrate_result", true, msg);
+      loadStats();
+    } catch (e) {
+      setResult("migrate_result", false, "Could not reach the API.");
     }
   }
 
