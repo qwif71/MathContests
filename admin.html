@@ -204,8 +204,8 @@
     .contest-row .cmeta { color: var(--fg-muted); font-size: 0.82rem; }
     .contest-row button { margin-top: 0; padding: 0.35rem 0.9rem; font-size: 0.85rem; }
     .contest-list { max-height: 400px; overflow-y: auto; border: 1px solid var(--border-soft); border-radius: 8px; margin-top: 1rem; }
-    .contest-row.imported { opacity: 0.55; }
-    .contest-row.imported button { background: var(--border); cursor: not-allowed; }
+    .contest-row.imported > div:first-child { opacity: 0.6; }
+    .contest-row.imported button { cursor: pointer; }
     .contest-list-heading {
       font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
       color: var(--fg-faint); padding: 0.6rem 0.75rem 0.3rem;
@@ -330,20 +330,9 @@ By Power of a Point..."></textarea>
     <div id="a_unparsed_result" class="result hidden"></div>
 
     <div id="a_contests_wrap" class="hidden">
-      <div class="row" style="margin-top:1.5rem; margin-bottom:0.5rem; align-items:center;">
-        <div style="flex:1">
-          <label style="margin-top:0">Contests found in this file</label>
-          <input type="text" id="a_contest_search" placeholder="Filter, e.g. AIME, AMC 10, 2024"
-                 oninput="renderContestList(lastAimoContests)">
-        </div>
-        <div style="flex:0; display:flex; align-items:center; gap:0.5rem; margin-top:1.4rem; white-space:nowrap;">
-          <span class="help" style="margin-top:0">Hide unparsed</span>
-          <label class="switch" style="margin-top:0">
-            <input type="checkbox" id="a_hide_unparsed" checked onchange="renderAimoSummary()">
-            <span class="switch-track"></span>
-          </label>
-        </div>
-      </div>
+      <label style="margin-top:1.5rem">Contests found in this file</label>
+      <input type="text" id="a_contest_search" placeholder="Filter, e.g. AIME, AMC 10, 2024"
+             oninput="renderContestList(lastAimoContests)">
       <div class="contest-list" id="a_contest_list"></div>
     </div>
   </div>
@@ -707,7 +696,6 @@ By Power of a Point..."></textarea>
   // --- AIMO CSV import (loaded from the repo, not uploaded) ---
   let aimoImportedContests = new Set();
   let lastAimoContests = {};   // {"2024 AMC 8": 25, ...} — cached for client-side search filtering
-  let lastAimoSummary = { total: 0, contestCount: 0, unparsed: 0 };
 
   async function loadAimoContests(reload) {
     setResult("a_upload_result", true, reload ? "Reloading CSV from repo..." : "Reading CSV from repo...");
@@ -724,28 +712,15 @@ By Power of a Point..."></textarea>
       if (data.csv_path) document.getElementById("a_csv_path").textContent = data.csv_path;
       aimoImportedContests = new Set(data.imported_contests || []);
       lastAimoContests = data.contests || {};
-      lastAimoSummary = {
-        total: data.total_problems_in_csv || 0,
-        contestCount: Object.keys(lastAimoContests).length,
-        unparsed: data.unparsed_links || 0,
-      };
-      renderAimoSummary();
+      const unparsedMsg = data.unparsed_links
+        ? ` (${data.unparsed_links} rows had unrecognized links and were skipped — use "Show unparsed links" below to see them.)`
+        : ".";
+      setResult("a_upload_result", true,
+        `Found ${data.total_problems_in_csv} problems across ${Object.keys(lastAimoContests).length} contests${unparsedMsg}`);
       renderContestList(lastAimoContests);
     } catch (e) {
       setResult("a_upload_result", false, "Could not reach the API.");
     }
-  }
-
-  // Re-renders just the summary line from cached counts — no re-fetch, so
-  // toggling "hide unparsed" is instant.
-  function renderAimoSummary() {
-    const hideUnparsed = document.getElementById("a_hide_unparsed").checked;
-    const { total, contestCount, unparsed } = lastAimoSummary;
-    const unparsedMsg = (!hideUnparsed && unparsed)
-      ? ` (${unparsed} rows had unrecognized links and were skipped — use "Show unparsed links" to see them.)`
-      : ".";
-    setResult("a_upload_result", true,
-      `Found ${total} problems across ${contestCount} contests${unparsedMsg}`);
   }
 
   async function toggleUnparsedSample() {
@@ -814,9 +789,9 @@ By Power of a Point..."></textarea>
       <div class="contest-row imported" id="contest-row-${cssId(name)}">
         <div>
           <div>${name}</div>
-          <div class="cmeta">${count} problem${count === 1 ? "" : "s"}</div>
+          <div class="cmeta">${count} problem${count === 1 ? "" : "s"} · already imported</div>
         </div>
-        <button disabled>Imported ✓</button>
+        <button class="secondary" onclick="importAimoContest('${name.replace(/'/g, "\\'")}', true)">Reimport</button>
       </div>
     `;
 
@@ -836,11 +811,17 @@ By Power of a Point..."></textarea>
 
   function cssId(name) { return name.replace(/[^a-zA-Z0-9]/g, "_"); }
 
-  async function importAimoContest(contest) {
+  async function importAimoContest(contest, isReimport) {
+    if (isReimport && !confirm(
+      `Reimport "${contest}"? This re-tags every problem in this contest via the ` +
+      `Anthropic API and replaces the existing corpus records (same ids), going ` +
+      `through tag review again before anything is committed.`
+    )) return;
+
     const row = document.getElementById(`contest-row-${cssId(contest)}`);
     const btn = row.querySelector("button");
     btn.disabled = true;
-    btn.textContent = "Importing...";
+    btn.textContent = isReimport ? "Reimporting..." : "Importing...";
     try {
       const res = await fetch(`${API}/admin/aimo/import`, {
         method: "POST",
@@ -851,20 +832,21 @@ By Power of a Point..."></textarea>
       const data = await res.json();
       if (!res.ok) {
         btn.disabled = false;
-        btn.textContent = "Import";
+        btn.textContent = isReimport ? "Reimport" : "Import";
         setResult("a_upload_result", false, `${contest}: ${data.detail || "Import failed."}`);
         document.getElementById("a_upload_result").classList.remove("hidden");
         return;
       }
-      // CHANGED: route into tag review instead of declaring success immediately.
+      // Route into tag review instead of declaring success immediately.
       aimoImportedContests.add(contest);
       row.classList.add("imported");
+      btn.disabled = false;
       btn.textContent = "Review tags";
       document.getElementById("a_upload_result").classList.add("hidden");
       openTagReview(data, "a_upload_result");
     } catch (e) {
       btn.disabled = false;
-      btn.textContent = "Import";
+      btn.textContent = isReimport ? "Reimport" : "Import";
       setResult("a_upload_result", false, `${contest}: could not reach the API.`);
       document.getElementById("a_upload_result").classList.remove("hidden");
     }
