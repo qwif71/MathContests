@@ -331,7 +331,8 @@ By Power of a Point..."></textarea>
       </div>
       <div>
         <label for="p_round">Round</label>
-        <input type="text" id="p_round" placeholder="Individual Round" value="Individual Round">
+        <input type="text" id="p_round" placeholder="all, Individual Round, Team Round, Tiebreaker Round" value="all">
+        <div class="help">Use <code>all</code> for a full multi-round PDF. Use a specific round only when uploading one section.</div>
       </div>
     </div>
     <label for="p_file">PDF file</label>
@@ -719,7 +720,7 @@ By Power of a Point..."></textarea>
     form.append("file", fileInput.files[0]);
     form.append("contest", document.getElementById("p_contest").value.trim());
     form.append("fmt", document.getElementById("p_format").value);
-    form.append("round_name", document.getElementById("p_round").value.trim());
+    form.append("round_name", document.getElementById("p_round").value.trim() || "all");
 
     btn.disabled = true;
     setResult("p_result", true, "Extracting, tagging, and importing (this can take a minute)...");
