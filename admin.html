@@ -178,6 +178,17 @@
       overflow: hidden;
     }
     .editor-card h3 { margin-bottom: 1rem; flex-shrink: 0; }
+    .editor-card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0; margin-bottom: 1rem;
+    }
+    .editor-card-header h3 { margin-bottom: 0; }
+    .editor-close-btn {
+      background: none; border: none; color: var(--fg-muted);
+      font-size: 1.6rem; line-height: 1; cursor: pointer;
+      margin-top: 0; padding: 0 0.25rem;
+    }
+    .editor-close-btn:hover { color: var(--fg); }
     .editor-card-fields { overflow-y: auto; padding-right: 0.25rem; }
     .editor-card textarea { min-height: 90px; }
     .editor-card .row2 { display: flex; gap: 0.75rem; margin-top: 1rem; flex-shrink: 0; }
@@ -303,8 +314,19 @@ By Power of a Point..."></textarea>
 
   <!-- Browse / delete -->
   <div id="tabBrowse" class="card hidden">
-    <div class="browse-search">
-      <input type="text" id="b_filter" placeholder="Filter by id or contest..." oninput="renderProblemList()">
+    <div class="row" style="margin-bottom:0.75rem">
+      <div>
+        <label for="b_contest" style="margin-top:0">Contest</label>
+        <input type="text" id="b_contest" placeholder="e.g. AMC 8, AMC 10A, ARML" oninput="renderProblemList()">
+      </div>
+      <div>
+        <label for="b_year" style="margin-top:0">Year</label>
+        <input type="text" id="b_year" placeholder="e.g. 2024" oninput="renderProblemList()">
+      </div>
+      <div>
+        <label for="b_number" style="margin-top:0">Problem #</label>
+        <input type="text" id="b_number" placeholder="e.g. 12" oninput="renderProblemList()">
+      </div>
     </div>
     <div id="b_status" class="help" style="margin-bottom:0.5rem"></div>
     <div class="problem-list" id="b_list"></div>
@@ -352,7 +374,10 @@ By Power of a Point..."></textarea>
 <!-- Edit overlay (shared by Browse tab) -->
 <div id="editorOverlay" class="editor-overlay hidden" onclick="if(event.target===this) closeEditor()">
   <div class="editor-card">
-    <h3 id="editor_title">Edit problem</h3>
+    <div class="editor-card-header">
+      <h3 id="editor_title">Edit problem</h3>
+      <button class="editor-close-btn" onclick="closeEditor()" aria-label="Close" title="Close">&times;</button>
+    </div>
     <div class="editor-card-fields">
       <label for="e_contest">Contest</label>
       <input type="text" id="e_contest">
@@ -711,10 +736,28 @@ By Power of a Point..."></textarea>
   }
 
   function renderProblemList() {
-    const filter = document.getElementById("b_filter").value.trim().toLowerCase();
+    const contestFilter = document.getElementById("b_contest").value.trim().toLowerCase();
+    const yearFilter = document.getElementById("b_year").value.trim();
+    const numberFilter = document.getElementById("b_number").value.trim();
     const list = document.getElementById("b_list");
-    const filtered = !filter ? allProblems : allProblems.filter(p =>
-      p.id.toLowerCase().includes(filter) || (p.contest || "").toLowerCase().includes(filter));
+
+    if (!contestFilter && !yearFilter && !numberFilter) {
+      list.innerHTML = `<div class="problem-row" style="cursor:default">Enter a contest, year, and/or problem number above to search.</div>`;
+      return;
+    }
+
+    const filtered = allProblems.filter(p => {
+      const contestStr = (p.contest || "").toLowerCase();
+      if (contestFilter && !contestStr.includes(contestFilter)) return false;
+      if (yearFilter) {
+        // Year isn't a separate field — pull any 4-digit number out of the
+        // contest string (handles both "2024 AMC 8" and "AMC 10A 2023").
+        const yearMatch = (p.contest || "").match(/\b(19|20)\d{2}\b/);
+        if (!yearMatch || yearMatch[0] !== yearFilter) return false;
+      }
+      if (numberFilter && String(p.number) !== numberFilter) return false;
+      return true;
+    });
 
     if (!filtered.length) {
       list.innerHTML = `<div class="problem-row" style="cursor:default">No problems match.</div>`;
