@@ -214,17 +214,45 @@
 
     /* --- Tag review (NEW) --- */
     .review-new-item {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.6rem 0;
+      padding: 0.75rem 0;
       border-bottom: 1px solid var(--border-soft);
     }
     .review-new-item:last-child { border-bottom: none; }
-    .review-new-item .tag-name { flex: 1; font-weight: 600; }
+    .review-new-item-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .review-new-item .tag-name { flex: 1; min-width: 140px; font-weight: 600; }
     .review-new-item select { margin-top: 0; width: auto; }
     .review-new-item .merge-target { display: none; margin-top: 0; width: auto; }
     .review-new-item .merge-target.visible { display: inline-block; }
+    .review-new-item .rename-field {
+      display: none; margin-top: 0; width: 220px; padding: 0.4rem 0.6rem;
+      font-size: 0.85rem;
+    }
+    .review-new-item .rename-field.visible { display: inline-block; }
+    .review-examples {
+      margin-top: 0.5rem;
+      padding-left: 0.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .review-example {
+      font-size: 0.8rem;
+      color: var(--fg-muted);
+    }
+    .review-example-id { font-weight: 600; color: var(--fg); }
+    .review-dup-warning {
+      margin-top: 0.5rem;
+      font-size: 0.82rem;
+      color: var(--err-fg);
+      background: var(--err-bg);
+      border-radius: 6px;
+      padding: 0.5rem 0.7rem;
+    }
   </style>
 </head>
 <body>
@@ -252,6 +280,7 @@
     <button id="tabPdfBtn" class="inactive" onclick="switchTab('pdf')">Upload PDF</button>
     <button id="tabAimoBtn" class="inactive" onclick="switchTab('aimo')">Import AIMO CSV</button>
     <button id="tabRecentBtn" class="inactive" onclick="switchTab('recent')">Recent Imports</button>
+    <button id="tabTagsBtn" class="inactive" onclick="switchTab('tags')">Tag Editor</button>
     <button id="tabBrowseBtn" class="inactive" onclick="switchTab('browse')">Browse / Delete</button>
     <button id="tabSettingsBtn" class="inactive" onclick="switchTab('settings')">Settings</button>
     <button class="secondary" style="margin-left:auto" onclick="logout()">Log out</button>
@@ -371,6 +400,26 @@ By Power of a Point..."></textarea>
     </div>
     <div id="recent_status" class="help" style="margin:0.75rem 0"></div>
     <div class="problem-list" id="recent_list"></div>
+  </div>
+
+  <!-- Tag Editor -->
+  <div id="tabTags" class="card hidden">
+    <div class="help" style="margin-top:0">
+      Rename or delete canonical technique tags. Renaming rewrites every
+      corpus record using the old name; deleting removes the tag from the
+      canonical list and (optionally) strips it from records too.
+    </div>
+    <input type="text" id="tag_editor_search" placeholder="Filter techniques..."
+           style="margin-top:0.75rem" oninput="renderTagEditorList()">
+    <div class="problem-list" id="tag_editor_list" style="margin-top:0.75rem"></div>
+    <div id="tag_editor_result" class="result hidden"></div>
+
+    <div style="margin-top:2rem; padding-top:1.5rem; border-top:1px solid var(--border-soft)">
+      <div class="setting-title">Recent tag activity</div>
+      <div class="help" style="margin-bottom:0.75rem">Approvals, renames, merges, and rejections, newest first.</div>
+      <button class="secondary" onclick="loadTagLog()" style="margin-top:0">Refresh</button>
+      <div id="tag_log_list" style="margin-top:0.75rem"></div>
+    </div>
   </div>
 
   <!-- Browse / delete -->
@@ -496,17 +545,20 @@ By Power of a Point..."></textarea>
     document.getElementById("tabPdf").classList.toggle("hidden", name !== "pdf");
     document.getElementById("tabAimo").classList.toggle("hidden", name !== "aimo");
     document.getElementById("tabRecent").classList.toggle("hidden", name !== "recent");
+    document.getElementById("tabTags").classList.toggle("hidden", name !== "tags");
     document.getElementById("tabBrowse").classList.toggle("hidden", name !== "browse");
     document.getElementById("tabSettings").classList.toggle("hidden", name !== "settings");
     document.getElementById("tabTextBtn").classList.toggle("inactive", name !== "text");
     document.getElementById("tabPdfBtn").classList.toggle("inactive", name !== "pdf");
     document.getElementById("tabAimoBtn").classList.toggle("inactive", name !== "aimo");
     document.getElementById("tabRecentBtn").classList.toggle("inactive", name !== "recent");
+    document.getElementById("tabTagsBtn").classList.toggle("inactive", name !== "tags");
     document.getElementById("tabBrowseBtn").classList.toggle("inactive", name !== "browse");
     document.getElementById("tabSettingsBtn").classList.toggle("inactive", name !== "settings");
     if (name === "settings") loadSettings();
     if (name === "browse") loadProblemList();
     if (name === "recent") loadRecentImports();
+    if (name === "tags") { loadTagEditor(); loadTagLog(); }
     if (name === "aimo" && !document.getElementById("a_contest_list").children.length) loadAimoContests(false);
   }
 
@@ -878,39 +930,59 @@ By Power of a Point..."></textarea>
     }
 
     document.getElementById("reviewSubmitBtn").textContent =
-      `Approve & Import (${newList.length} new tag${newList.length === 1 ? "" : "s"})`;
+      `Apply & Import (${newList.length} new tag${newList.length === 1 ? "" : "s"})`;
 
-    listEl.innerHTML = newList.map((item, i) => `
+    listEl.innerHTML = newList.map((item, i) => {
+      const examples = (item.example_ids || []).map((id, j) => {
+        const summary = (item.example_summaries || [])[j] || "";
+        return `<div class="review-example"><span class="review-example-id">${escapeHtmlAdmin(id)}</span>${summary ? ` — ${escapeHtmlAdmin(summary)}` : ""}</div>`;
+      }).join("");
+
+      const dupWarning = item.possible_duplicate_of
+        ? `<div class="review-dup-warning">Possibly the same as another new tag in this batch: "${escapeHtmlAdmin(item.possible_duplicate_of)}" — consider merging them under one name instead of approving both.</div>`
+        : "";
+
+      return `
       <div class="review-new-item" data-input="${escapeHtmlAdmin(item.input)}">
-        <span class="tag-name">${escapeHtmlAdmin(item.input)}</span>
-        <select onchange="onReviewActionChange(this, ${i})">
-          <option value="approve">Approve (new canonical tag)</option>
-          <option value="merge">Merge into existing tag</option>
-          <option value="reject" selected>Reject</option>
-        </select>
-        <select class="merge-target" id="mergeTarget_${i}">
-          ${(item.suggestions || []).map(s =>
-            `<option value="${escapeHtmlAdmin(s)}">${escapeHtmlAdmin(s)}</option>`
-          ).join("")}
-        </select>
+        <div class="review-new-item-row">
+          <span class="tag-name">${escapeHtmlAdmin(item.input)}</span>
+          <select onchange="onReviewActionChange(this, ${i})">
+            <option value="approve">Approve (new canonical tag)</option>
+            <option value="merge">Merge into existing tag</option>
+            <option value="reject" selected>Reject</option>
+          </select>
+          <select class="merge-target" id="mergeTarget_${i}">
+            ${(item.suggestions || []).map(s =>
+              `<option value="${escapeHtmlAdmin(s)}">${escapeHtmlAdmin(s)}</option>`
+            ).join("")}
+          </select>
+          <input type="text" class="rename-field" id="renameField_${i}"
+                 placeholder="Store as a different name (optional)">
+        </div>
+        ${examples ? `<div class="review-examples">${examples}</div>` : ""}
+        ${dupWarning}
       </div>
-    `).join("");
+    `;
+    }).join("");
   }
 
   function onReviewActionChange(selectEl, i) {
     document.getElementById(`mergeTarget_${i}`).classList.toggle("visible", selectEl.value === "merge");
+    document.getElementById(`renameField_${i}`).classList.toggle("visible", selectEl.value === "approve");
   }
 
   async function submitTagReview() {
     const items = [...document.querySelectorAll(".review-new-item")];
     const approve = [], reject = [];
-    const merge = {};
+    const merge = {}, rename = {};
 
     items.forEach((el, i) => {
       const input = el.dataset.input;
       const action = el.querySelector("select").value;
       if (action === "approve") {
         approve.push(input);
+        const renameVal = document.getElementById(`renameField_${i}`).value.trim();
+        if (renameVal && renameVal !== input) rename[input] = renameVal;
       } else if (action === "reject") {
         reject.push(input);
       } else if (action === "merge") {
@@ -930,7 +1002,7 @@ By Power of a Point..."></textarea>
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ approve, merge, reject }),
+        body: JSON.stringify({ approve, rename, merge, reject }),
       });
       const data = await res.json();
 
@@ -947,6 +1019,7 @@ By Power of a Point..."></textarea>
         document.getElementById("tagReviewPanel").classList.add("hidden");
         loadStats();
         if (!document.getElementById("tabRecent").classList.contains("hidden")) loadRecentImports();
+        if (!document.getElementById("tabTags").classList.contains("hidden")) { loadTagEditor(); loadTagLog(); }
       }
     } catch (e) {
       setResult("reviewResult", false, "Could not reach the API.");
@@ -987,6 +1060,134 @@ By Power of a Point..."></textarea>
   let allProblems = [];
 
   // --- Recent Imports ---
+
+  // --- Tag Editor ---
+
+  let allCanonicalTechniques = [];   // [{name, count}, ...] cached for client-side filter
+
+  async function loadTagEditor() {
+    const listEl = document.getElementById("tag_editor_list");
+    listEl.innerHTML = `<div class="problem-row" style="cursor:default">Loading...</div>`;
+    try {
+      const res = await fetch(`${API}/admin/techniques`, { credentials: "include" });
+      const data = await res.json();
+      allCanonicalTechniques = data.techniques || [];
+      renderTagEditorList();
+    } catch (e) {
+      listEl.innerHTML = `<div class="problem-row" style="cursor:default">Could not reach the API.</div>`;
+    }
+  }
+
+  function renderTagEditorList() {
+    const query = document.getElementById("tag_editor_search").value.trim().toLowerCase();
+    const listEl = document.getElementById("tag_editor_list");
+    let items = allCanonicalTechniques;
+    if (query) items = items.filter(t => t.name.toLowerCase().includes(query));
+
+    if (!items.length) {
+      listEl.innerHTML = `<div class="problem-row" style="cursor:default">No techniques match.</div>`;
+      return;
+    }
+
+    listEl.innerHTML = items.map(t => `
+      <div class="problem-row" style="cursor:default">
+        <div>
+          <span class="pid">${escapeHtmlAdmin(t.name)}</span>
+          <span class="pmeta">used on ${t.count} problem${t.count === 1 ? "" : "s"}</span>
+        </div>
+        <div class="pactions">
+          <button class="secondary" onclick="renameTagPrompt('${t.name.replace(/'/g, "\\'")}')">Rename</button>
+          <button class="danger" onclick="deleteTagPrompt('${t.name.replace(/'/g, "\\'")}', ${t.count})">Delete</button>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  async function renameTagPrompt(oldName) {
+    const newName = prompt(`Rename "${oldName}" to:`, oldName);
+    if (!newName || newName.trim() === "" || newName.trim() === oldName) return;
+    try {
+      const res = await fetch(`${API}/admin/techniques/rename`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ old_name: oldName, new_name: newName.trim() }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setResult("tag_editor_result", false, data.detail || "Rename failed.");
+        document.getElementById("tag_editor_result").classList.remove("hidden");
+        return;
+      }
+      const githubMsg = data.github && data.github.committed ? "Committed to GitHub." : "Not committed to GitHub.";
+      setResult("tag_editor_result", true,
+        `Renamed "${oldName}" to "${newName.trim()}" on ${data.records_updated} record(s). ${githubMsg}`);
+      document.getElementById("tag_editor_result").classList.remove("hidden");
+      loadTagEditor();
+      loadTagLog();
+    } catch (e) {
+      setResult("tag_editor_result", false, "Could not reach the API.");
+      document.getElementById("tag_editor_result").classList.remove("hidden");
+    }
+  }
+
+  async function deleteTagPrompt(name, count) {
+    const stripMsg = count
+      ? `It is currently used on ${count} problem(s). Remove it from those records too?`
+      : "It is not currently used on any problems.";
+    if (!confirm(`Delete the technique tag "${name}"?\n\n${stripMsg}\n\nThis cannot be undone.`)) return;
+    const strip = count ? confirm(`Also strip "${name}" from the ${count} record(s) that use it? Choose Cancel to just remove it from the canonical list and leave existing records as-is.`) : true;
+    try {
+      const res = await fetch(`${API}/admin/techniques/delete`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, strip_from_records: strip }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setResult("tag_editor_result", false, data.detail || "Delete failed.");
+        document.getElementById("tag_editor_result").classList.remove("hidden");
+        return;
+      }
+      const githubMsg = data.github && data.github.committed ? "Committed to GitHub." : "Not committed to GitHub.";
+      setResult("tag_editor_result", true,
+        `Deleted "${name}". ${data.records_updated} record(s) updated. ${githubMsg}`);
+      document.getElementById("tag_editor_result").classList.remove("hidden");
+      loadTagEditor();
+      loadTagLog();
+    } catch (e) {
+      setResult("tag_editor_result", false, "Could not reach the API.");
+      document.getElementById("tag_editor_result").classList.remove("hidden");
+    }
+  }
+
+  async function loadTagLog() {
+    const el = document.getElementById("tag_log_list");
+    el.innerHTML = `<div class="help" style="margin-top:0">Loading...</div>`;
+    try {
+      const res = await fetch(`${API}/admin/techniques/log?limit=50`, { credentials: "include" });
+      const data = await res.json();
+      const log = data.log || [];
+      if (!log.length) {
+        el.innerHTML = `<div class="help" style="margin-top:0">No tag activity yet.</div>`;
+        return;
+      }
+      el.innerHTML = log.map(entry => {
+        const when = new Date(entry.at * 1000).toLocaleString();
+        let desc;
+        if (entry.action === "approved") desc = `Approved <strong>${escapeHtmlAdmin(entry.name)}</strong>`;
+        else if (entry.action === "renamed") desc = `Renamed <strong>${escapeHtmlAdmin(entry.name)}</strong> → <strong>${escapeHtmlAdmin(entry.renamed_to)}</strong>`;
+        else if (entry.action === "merged") desc = `Merged <strong>${escapeHtmlAdmin(entry.name)}</strong> into <strong>${escapeHtmlAdmin(entry.merged_into)}</strong>`;
+        else if (entry.action === "rejected") desc = `Rejected <strong>${escapeHtmlAdmin(entry.name)}</strong>`;
+        else if (entry.action === "deleted") desc = `Deleted <strong>${escapeHtmlAdmin(entry.name)}</strong>`;
+        else desc = `${escapeHtmlAdmin(entry.action)}: ${escapeHtmlAdmin(entry.name)}`;
+        return `<div class="contest-row" style="cursor:default"><div>${desc}</div><div class="cmeta">${when}</div></div>`;
+      }).join("");
+    } catch (e) {
+      el.innerHTML = `<div class="help" style="margin-top:0">Could not reach the API.</div>`;
+    }
+  }
 
   async function loadRecentImports() {
     const statusEl = document.getElementById("recent_status");
