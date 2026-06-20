@@ -302,7 +302,16 @@ async def aimo_contests(
     Also reports which of those contests already have problems in the live
     corpus (`imported_contests`), computed from the actual corpus rather
     than session state — so "already imported" survives a page refresh or
-    a new admin session, not just the lifetime of one browser tab."""
+    a new admin session, not just the lifetime of one browser tab.
+
+    Matching is done by the deterministic problem id AMIO import would
+    generate for each (contest, number) pair (_contest_slug + "-INDIVIDUAL-"
+    + number), NOT by comparing the contest label string directly — labels
+    can differ in format between sources (e.g. older corpus entries stamped
+    "AMC 10A 2023" vs. this module's own "2023 AMC 10A"), so a label
+    equality check would silently under-report what's already imported. A
+    contest counts as imported if at least one of its expected ids exists,
+    since import is per-contest (all-or-nothing per click)."""
     require_admin(admin_session)
     import app as appmod
 
@@ -310,8 +319,17 @@ async def aimo_contests(
     unparsed = sum(1 for r in records if not r["contest"])
     contests = amio_import.list_contests(records)  # {"2024 AMC 8": 25, ...}
 
-    corpus_contests = {r.get("contest") for r in appmod.corpus if r.get("contest")}
-    imported = sorted(c for c in contests if c in corpus_contests)
+    corpus_ids = {r["id"] for r in appmod.corpus if r.get("id")}
+    imported = []
+    for contest in contests:
+        subset = amio_import.records_for_contest(records, contest)
+        expected_ids = (
+            f"{amio_import._contest_slug(contest)}-INDIVIDUAL-{r['number']}"
+            for r in subset if r.get("number") is not None
+        )
+        if any(eid in corpus_ids for eid in expected_ids):
+            imported.append(contest)
+    imported.sort()
 
     return {
         "csv_path": AMIO_CSV_PATH,
