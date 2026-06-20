@@ -488,7 +488,7 @@ _amio_cache: list = []
 _amio_cache_path: str | None = None
 
 
-def _load_aimo_csv(force: bool = False) -> list:
+def _load_amio_csv(force: bool = False) -> list:
     """Parses AMIO_CSV_PATH and caches the result. Re-parses only if forced
     or if the cache is empty (first call)."""
     global _amio_cache, _amio_cache_path
@@ -510,17 +510,36 @@ async def aimo_contests(
     reload: bool = False,
     admin_session: str | None = Cookie(default=None),
 ):
-    """Lists contests found in the repo's AIMO CSV. Pass ?reload=true to
+    """Lists contests found in the repo's AMIO CSV. Pass ?reload=true to
     re-read the file from disk (e.g. after committing an updated CSV and
     redeploying) instead of using the in-memory cache."""
     require_admin(admin_session)
-    records = _load_aimo_csv(force=reload)
+    records = _load_amio_csv(force=reload)
     unparsed = sum(1 for r in records if not r["contest"])
     return {
         "csv_path": AMIO_CSV_PATH,
         "total_problems_in_csv": len(records),
         "unparsed_links": unparsed,
         "contests": amio_import.list_contests(records),  # {"2024 AMC 8": 25, ...}
+    }
+
+
+@router.get("/admin/aimo/unparsed-sample")
+async def aimo_unparsed_sample(
+    limit: int = 20,
+    admin_session: str | None = Cookie(default=None),
+):
+    """Diagnostic: shows actual link values that failed to parse, so the
+    LINK_PATTERN regex in amio_import.py can be widened to cover whatever
+    contest formats the CSV actually contains (AIME, AMC 12, etc.) instead
+    of guessing blind. Temporary tool — fine to remove once the pattern is
+    confirmed to cover everything in your dataset."""
+    require_admin(admin_session)
+    records = _load_amio_csv()
+    unparsed = [r["link"] for r in records if not r["contest"]]
+    return {
+        "total_unparsed": len(unparsed),
+        "sample": unparsed[:limit],
     }
 
 
@@ -534,7 +553,7 @@ async def aimo_import_contest(
     path, so you can watch each batch land instead of importing everything
     at once."""
     require_admin(admin_session)
-    records = _load_aimo_csv()
+    records = _load_amio_csv()
 
     body = await request.json()
     contest = (body.get("contest") or "").strip()
