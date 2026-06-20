@@ -3,33 +3,109 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Math Practice</title>
+  <title>Problem Finder</title>
+  <script>MathJax = {tex: {inlineMath: [["$","$"],["\\(","\\)"]]}};</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f5f5;
+      --fg: #222;
+      --fg-muted: #666;
+      --fg-faint: #888;
+      --card-bg: #ffffff;
+      --card-shadow: rgba(0,0,0,0.08);
+      --border: #ddd;
+      --border-soft: #eee;
+      --statement-bg: #fafafa;
+      --tag-bg: #f3f4f6;
+      --tag-fg: #444;
+      --tag-area-bg: #ecfdf5;
+      --tag-area-fg: #065f46;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --accent-soft-bg: #eff6ff;
+      --error-bg: #fef2f2;
+      --error-fg: #dc2626;
+      --selected-tag-bg: #eef2ff;
+      --selected-tag-fg: #3730a3;
+      --selected-tag-fuzzy-bg: #fff7ed;
+      --selected-tag-fuzzy-fg: #92400e;
+    }
+    [data-theme="dark"] {
+      --bg: #15171c;
+      --fg: #e6e6e6;
+      --fg-muted: #a0a4ad;
+      --fg-faint: #777c87;
+      --card-bg: #1e2128;
+      --card-shadow: rgba(0,0,0,0.4);
+      --border: #333741;
+      --border-soft: #2a2d35;
+      --statement-bg: #20232b;
+      --tag-bg: #2a2d35;
+      --tag-fg: #c4c7cf;
+      --tag-area-bg: #0d2b22;
+      --tag-area-fg: #5fd6a8;
+      --accent: #3b82f6;
+      --accent-hover: #60a5fa;
+      --accent-soft-bg: #16243f;
+      --error-bg: #3a1414;
+      --error-fg: #f87171;
+      --selected-tag-bg: #1f2240;
+      --selected-tag-fg: #b4bbff;
+      --selected-tag-fuzzy-bg: #3a2a14;
+      --selected-tag-fuzzy-fg: #f0b96a;
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f5f5f5;
-      color: #222;
+      background: var(--bg);
+      color: var(--fg);
       padding: 2rem;
+      max-width: 860px;
+      margin: 0 auto;
+      transition: background 0.15s, color 0.15s;
+    }
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
     }
     h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
-    .subtitle { color: #666; margin-bottom: 2rem; font-size: 0.95rem; }
+    .subtitle { color: var(--fg-muted); margin-bottom: 2rem; font-size: 0.95rem; }
+
+    .theme-toggle {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.4rem 0.9rem;
+      font-size: 0.85rem;
+      color: var(--fg);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .theme-toggle:hover { border-color: var(--accent); }
+
     .search-box {
-      background: white;
+      background: var(--card-bg);
       border-radius: 12px;
       padding: 1.5rem;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      box-shadow: 0 1px 4px var(--card-shadow);
       margin-bottom: 1.5rem;
     }
     .search-box textarea {
       width: 100%;
-      border: 1px solid #ddd;
+      border: 1px solid var(--border);
       border-radius: 8px;
       padding: 0.75rem;
       font-size: 1rem;
       resize: vertical;
       min-height: 80px;
       font-family: inherit;
+      background: var(--card-bg);
+      color: var(--fg);
     }
     .filters {
       display: flex;
@@ -39,14 +115,15 @@
       align-items: center;
     }
     .filters select, .filters input {
-      border: 1px solid #ddd;
+      border: 1px solid var(--border);
       border-radius: 8px;
       padding: 0.5rem 0.75rem;
       font-size: 0.9rem;
-      background: white;
+      background: var(--card-bg);
+      color: var(--fg);
     }
     .filters button {
-      background: #2563eb;
+      background: var(--accent);
       color: white;
       border: none;
       border-radius: 8px;
@@ -55,18 +132,55 @@
       cursor: pointer;
       margin-left: auto;
     }
-    .filters button:hover { background: #1d4ed8; }
-    .stats {
-      color: #666;
-      font-size: 0.85rem;
-      margin-bottom: 1rem;
+    .filters button:hover { background: var(--accent-hover); }
+    .filters button.secondary {
+      background: var(--card-bg);
+      color: var(--fg);
+      border: 1px solid var(--border);
+      margin-left: 0;
     }
+    .filters button.secondary:hover { background: var(--statement-bg); }
+
+    .stats { color: var(--fg-muted); font-size: 0.85rem; margin-bottom: 1rem; }
+
+    /* --- Tag picker (NEW) --- */
+    .tag-picker { width: 100%; margin-top: 0.75rem; }
+    .tag-picker-row { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+    .tag-picker-row input#techniqueInput {
+      flex: 1; min-width: 200px; padding: 0.5rem 0.75rem;
+      border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;
+      background: var(--card-bg); color: var(--fg);
+    }
+    .tag-picker-row button {
+      margin-left: 0; padding: 0.5rem 1rem;
+    }
+    .tag-picker-row button#tagModeBtn {
+      margin-left: 0; padding: 0.5rem 1rem; font-size: 0.85rem; white-space: nowrap;
+    }
+    .selected-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; }
+    .selected-tag {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--selected-tag-bg); color: var(--selected-tag-fg);
+      border-radius: 999px; padding: 0.3rem 0.8rem; font-size: 0.85rem;
+    }
+    .selected-tag.fuzzy { background: var(--selected-tag-fuzzy-bg); color: var(--selected-tag-fuzzy-fg); }
+    .selected-tag .remove-tag { cursor: pointer; font-weight: bold; opacity: 0.6; }
+    .selected-tag .remove-tag:hover { opacity: 1; }
+    .suggest-tag {
+      margin-top: 0.5rem; font-size: 0.85rem;
+      color: var(--selected-tag-fuzzy-fg); background: var(--selected-tag-fuzzy-bg);
+      border-radius: 8px; padding: 0.5rem 0.75rem;
+    }
+    .suggest-tag a { color: inherit; text-decoration: underline; cursor: pointer; }
+
+    /* Selected-tag pill styles are defined in the .tag-picker block above */
+
     .results { display: flex; flex-direction: column; gap: 1rem; }
     .card {
-      background: white;
+      background: var(--card-bg);
       border-radius: 12px;
       padding: 1.25rem 1.5rem;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      box-shadow: 0 1px 4px var(--card-shadow);
     }
     .card-header {
       display: flex;
@@ -76,58 +190,74 @@
       gap: 1rem;
     }
     .card-id { font-weight: 600; font-size: 0.95rem; }
-    .card-meta { font-size: 0.8rem; color: #666; margin-top: 0.2rem; }
+    .card-meta { font-size: 0.8rem; color: var(--fg-muted); margin-top: 0.2rem; }
+    .card-meta a { color: var(--accent); text-decoration: none; }
+    .card-meta a:hover { text-decoration: underline; }
     .match-pct {
-      background: #eff6ff;
-      color: #2563eb;
+      background: var(--accent-soft-bg);
+      color: var(--accent);
       border-radius: 6px;
       padding: 0.25rem 0.6rem;
       font-size: 0.85rem;
       font-weight: 600;
       white-space: nowrap;
     }
-    .card-summary { font-size: 0.95rem; margin-bottom: 0.75rem; color: #333; }
-    .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .card-summary { font-size: 0.95rem; margin-bottom: 0.75rem; color: var(--fg); }
+    .card-statement {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--fg);
+      background: var(--statement-bg);
+      border: 1px solid var(--border-soft);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
     .tag {
-      background: #f3f4f6;
+      background: var(--tag-bg);
       border-radius: 6px;
       padding: 0.2rem 0.6rem;
       font-size: 0.8rem;
-      color: #444;
+      color: var(--tag-fg);
     }
-    .tag.area { background: #ecfdf5; color: #065f46; }
-    .tag.difficulty { background: #fff7ed; color: #92400e; }
+    .tag.area { background: var(--tag-area-bg); color: var(--tag-area-fg); }
     .expand-btn {
       margin-top: 0.75rem;
       background: none;
-      border: 1px solid #ddd;
+      border: 1px solid var(--border);
       border-radius: 6px;
       padding: 0.3rem 0.75rem;
       font-size: 0.85rem;
       cursor: pointer;
-      color: #444;
+      color: var(--fg);
     }
-    .expand-btn:hover { background: #f9fafb; }
+    .expand-btn:hover { background: var(--statement-bg); }
     .problem-detail {
       margin-top: 0.75rem;
       padding-top: 0.75rem;
-      border-top: 1px solid #eee;
+      border-top: 1px solid var(--border-soft);
       font-size: 0.9rem;
       line-height: 1.6;
     }
-    .problem-detail h4 { font-size: 0.8rem; color: #888; margin-bottom: 0.25rem; margin-top: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
-    .loading { text-align: center; color: #888; padding: 2rem; }
-    .error { color: #dc2626; padding: 1rem; background: #fef2f2; border-radius: 8px; }
-    .empty { color: #888; text-align: center; padding: 2rem; }
+    .problem-detail h4 { font-size: 0.8rem; color: var(--fg-faint); margin-bottom: 0.25rem; margin-top: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .loading { text-align: center; color: var(--fg-faint); padding: 2rem; }
+    .error { color: var(--error-fg); padding: 1rem; background: var(--error-bg); border-radius: 8px; }
+    .empty { color: var(--fg-faint); text-align: center; padding: 2rem; }
   </style>
 </head>
 <body>
 
-<h1>Math Practice</h1>
-<p class="subtitle">Search by topic, technique, or describe a problem type</p>
+<div class="top-row">
+  <div>
+    <h1>Problem Finder</h1>
+    <p class="subtitle">Browse the full catalogue, or search by topic, technique, or description</p>
+  </div>
+  <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙 Dark mode</button>
+</div>
 
 <div class="search-box">
-  <textarea id="query" placeholder="Describe a problem type, e.g. 'find the remainder when a large power is divided by a prime'..."></textarea>
+  <textarea id="query" placeholder="Describe what you want to practice, e.g. 'problems using modular arithmetic and Fermat's little theorem'..."></textarea>
   <div class="filters">
     <select id="area">
       <option value="">All areas</option>
@@ -136,15 +266,22 @@
       <option>Geometry</option>
       <option>Number Theory</option>
     </select>
-    <select id="difficulty">
-      <option value="">Any difficulty</option>
-      <option value="easy">Easy</option>
-      <option value="medium">Medium</option>
-      <option value="hard">Hard</option>
-    </select>
-    <input id="technique" placeholder="Technique, e.g. Vieta's formulas" style="width:220px">
-    <input id="k" type="number" value="5" min="1" max="20" style="width:70px">
+    <button class="secondary" onclick="showCatalogue()">Show all</button>
     <button onclick="search()">Search</button>
+  </div>
+
+  <!-- Multi-tag picker (NEW) -->
+  <div class="tag-picker">
+    <div class="tag-picker-row">
+      <input id="techniqueInput" list="techniqueOptions"
+             placeholder="Type a technique and press Enter..."
+             autocomplete="off"
+             onkeydown="if(event.key==='Enter'){event.preventDefault(); addTypedTechnique();}">
+      <datalist id="techniqueOptions"></datalist>
+      <button type="button" id="tagModeBtn" class="secondary" onclick="toggleTagMode()">Match: All selected</button>
+    </div>
+    <div id="selectedTags" class="selected-tags"></div>
+    <div id="suggestTag" class="suggest-tag" style="display:none"></div>
   </div>
 </div>
 
@@ -153,29 +290,195 @@
 
 <script>
   const API = "https://matchcontests-api.onrender.com";
+  let TOTAL = 0;
+
+  // --- Theme ---
+  function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    document.getElementById("themeToggle").textContent =
+      theme === "dark" ? "☀️ Light mode" : "🌙 Dark mode";
+    localStorage.setItem("theme", theme);
+  }
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    applyTheme(current === "dark" ? "light" : "dark");
+  }
+  (function initTheme() {
+    const saved = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    applyTheme(saved || (prefersDark ? "dark" : "light"));
+  })();
+
+  // A "link" is only meaningful if sources[0] actually looks like a URL —
+  // older non-AIMO records use sources for a plain contest name like
+  // "AMC 2025 10A", which is not a link and shouldn't render as one.
+  function sourceLink(r) {
+    const s = (r.sources || [])[0];
+    return s && /^https?:\/\//.test(s) ? s : null;
+  }
+
+  // Problem ids carry an internal dataset prefix ("AMIO-...") that has no
+  // meaning to users — it's just where the data came from, not part of the
+  // problem's identity. Strip it for display only; the real id (used in API
+  // calls) is untouched.
+  function displayId(id) {
+    return (id || "").replace(/^AMIO-/i, "");
+  }
+
+  function escapeHtml(s) {
+    const d = document.createElement("div");
+    d.textContent = s;
+    return d.innerHTML;
+  }
 
   async function loadStats() {
     try {
       const res = await fetch(`${API}/stats`);
       const data = await res.json();
+      TOTAL = data.total || 0;
       document.getElementById("stats").textContent =
         `${data.total} problems across ${Object.keys(data.by_contest).length} contests`;
     } catch(e) {}
   }
 
+  // Powers the datalist behind the manual-entry technique input — no
+  // separate visible chip list anymore, just autocomplete suggestions
+  // while typing (and the fuzzy-match "did you mean" fallback below).
+  let allTechniqueNames = [];
+
+  async function loadTechniques() {
+    try {
+      const res = await fetch(`${API}/techniques`);
+      const data = await res.json();
+      const list = data.techniques || [];
+      allTechniqueNames = list.map(t => t.name);
+      document.getElementById("techniqueOptions").innerHTML =
+        allTechniqueNames.map(n => `<option value="${escapeHtml(n)}">`).join("");
+    } catch (e) {}
+  }
+
+  // selectedTechniques: Map of displayLabel -> {canonical, fuzzy}
+  // displayLabel is what's shown as a pill under the input; canonical is
+  // what's actually sent to the API (exact name once resolved, fuzzy-
+  // resolved name for near-miss typed input).
+  let selectedTechniques = new Map();
+  let tagMode = "and";   // "and" | "or" — toggled via the Match button
+
+  function toggleTagMode() {
+    tagMode = tagMode === "and" ? "or" : "and";
+    document.getElementById("tagModeBtn").textContent =
+      tagMode === "and" ? "Match: All selected" : "Match: Any selected";
+    search();
+  }
+
+  async function addTypedTechnique() {
+    const input = document.getElementById("techniqueInput");
+    const typed = input.value.trim();
+    if (!typed) return;
+    document.getElementById("suggestTag").style.display = "none";
+
+    try {
+      const res = await fetch(`${API}/techniques/match?q=${encodeURIComponent(typed)}`);
+      const m = await res.json();
+
+      if (m.matched && m.exact) {
+        selectedTechniques.set(m.matched, { canonical: m.matched, fuzzy: false });
+      } else if (m.matched) {
+        selectedTechniques.set(`${typed} → ${m.matched}`, { canonical: m.matched, fuzzy: true });
+      } else {
+        selectedTechniques.set(typed, { canonical: typed, fuzzy: true });
+        if (m.suggestions && m.suggestions.length) {
+          const sugEl = document.getElementById("suggestTag");
+          sugEl.innerHTML =
+            `No exact tag found for "${escapeHtml(typed)}". Did you mean: ` +
+            m.suggestions.slice(0, 3).map(s =>
+              `<a onclick="replaceTypedWithSuggestion('${escapeHtml(typed).replace(/'/g, "\\'")}','${escapeHtml(s).replace(/'/g, "\\'")}')">${escapeHtml(s)}</a>`
+            ).join(", ") + "?";
+          sugEl.style.display = "block";
+        }
+      }
+    } catch (e) {
+      selectedTechniques.set(typed, { canonical: typed, fuzzy: true });
+    }
+
+    document.getElementById("query").value = "";
+    input.value = "";
+    renderSelectedTags();
+    search();
+  }
+
+  function replaceTypedWithSuggestion(typed, suggestion) {
+    selectedTechniques.delete(typed);
+    selectedTechniques.set(suggestion, { canonical: suggestion, fuzzy: false });
+    document.getElementById("suggestTag").style.display = "none";
+    renderSelectedTags();
+    search();
+  }
+
+  function removeTechnique(displayLabel) {
+    selectedTechniques.delete(displayLabel);
+    renderSelectedTags();
+    search();
+  }
+
+  function renderSelectedTags() {
+    const el = document.getElementById("selectedTags");
+    el.innerHTML = [...selectedTechniques.entries()].map(([display, v]) => `
+      <span class="selected-tag ${v.fuzzy ? "fuzzy" : ""}">
+        ${escapeHtml(display)}
+        <span class="remove-tag" onclick="removeTechnique('${escapeHtml(display).replace(/'/g, "\\'")}')">&times;</span>
+      </span>
+    `).join("");
+  }
+
+  // Catalogue view: every tagged problem, no query/ranking — just the filters
+  // (area/techniques) applied, in corpus order. This is the default view.
+  async function showCatalogue() {
+    document.getElementById("query").value = "";
+    const area = document.getElementById("area").value;
+    const techList = [...selectedTechniques.values()].map(v => v.canonical);
+
+    const params = new URLSearchParams();
+    if (area) params.set("area", area);
+    if (techList.length) {
+      params.set("techniques", techList.join(","));
+      params.set("tag_mode", tagMode);
+    }
+    params.set("k", Math.max(TOTAL, 1000));
+
+    document.getElementById("results").innerHTML = '<div class="loading">Loading catalogue...</div>';
+    try {
+      const res = await fetch(`${API}/practice?${params}`);
+      const data = await res.json();
+      renderResults(data.results || []);
+    } catch(e) {
+      document.getElementById("results").innerHTML =
+        `<div class="error">Could not reach the API. It may be waking up — try again in 30 seconds.</div>`;
+    }
+  }
+
   async function search() {
     const query = document.getElementById("query").value.trim();
     const area = document.getElementById("area").value;
-    const difficulty = document.getElementById("difficulty").value;
-    const technique = document.getElementById("technique").value.trim();
-    const k = document.getElementById("k").value;
+    const techList = [...selectedTechniques.values()].map(v => v.canonical);
+
+    // No free-text query and no tag filters -> just show the catalogue.
+    if (!query && techList.length === 0) {
+      return showCatalogue();
+    }
 
     const params = new URLSearchParams();
     if (query) params.set("text", query);
     if (area) params.set("area", area);
-    if (difficulty) params.set("difficulty", difficulty);
-    if (technique) params.set("technique", technique);
-    params.set("k", k);
+    if (techList.length) {
+      params.set("techniques", techList.join(","));
+      params.set("tag_mode", tagMode);
+    }
+    params.set("k", 20);
+    // Ask for AI-assisted query parsing. The backend only honors this if the
+    // admin has turned the feature on; otherwise it's a no-op and falls back
+    // to the existing TF-IDF/keyword search, so this is always safe to send.
+    params.set("use_ai", "true");
 
     document.getElementById("results").innerHTML = '<div class="loading">Searching...</div>';
 
@@ -185,7 +488,7 @@
       renderResults(data.results || []);
     } catch(e) {
       document.getElementById("results").innerHTML =
-        `<div class="error">Could not reach the API. Is the backend running?</div>`;
+        `<div class="error">Could not reach the API. It may be waking up — try again in 30 seconds.</div>`;
     }
   }
 
@@ -195,30 +498,37 @@
       el.innerHTML = '<div class="empty">No problems found.</div>';
       return;
     }
-    el.innerHTML = results.map((r, i) => `
+    el.innerHTML = results.map((r, i) => {
+      const link = sourceLink(r);
+      const sourceLabel = link
+        ? `<a href="${link}" target="_blank" rel="noopener">${r.contest || displayId(r.id)}</a>`
+        : (r.sources || [r.contest]).join(" / ");
+      return `
       <div class="card">
         <div class="card-header">
           <div>
-            <div class="card-id">${r.id}</div>
-            <div class="card-meta">${(r.sources || [r.contest]).join(" / ")} &middot; L${r.difficulty_score}</div>
+            <div class="card-id">${displayId(r.id)}</div>
+            <div class="card-meta">${sourceLabel}</div>
           </div>
           ${r.match_pct !== undefined ? `<div class="match-pct">${r.match_pct}% match</div>` : ""}
         </div>
         <div class="card-summary">${r.summary || ""}</div>
+        ${r.statement ? `<div class="card-statement">${r.statement}</div>` : ""}
         <div class="tags">
           ${(r.area || []).map(a => `<span class="tag area">${a}</span>`).join("")}
           ${(r.techniques || []).map(t => `<span class="tag">${t}</span>`).join("")}
-          ${r.difficulty ? `<span class="tag difficulty">${r.difficulty}</span>` : ""}
         </div>
-        <button class="expand-btn" onclick="toggleDetail(${i})">Show problem</button>
+        <button class="expand-btn" onclick="toggleDetail(${i})">Show answer</button>
         <div id="detail-${i}" class="problem-detail" style="display:none">
-          <h4>Statement</h4>
-          <p>${r.statement || "—"}</p>
           <h4>Answer</h4>
           <p>${r.answer || "—"}</p>
         </div>
       </div>
-    `).join("");
+    `;
+    }).join("");
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      window.MathJax.typesetPromise([el]);
+    }
   }
 
   function toggleDetail(i) {
@@ -226,10 +536,14 @@
     const btn = el.previousElementSibling;
     const hidden = el.style.display === "none";
     el.style.display = hidden ? "block" : "none";
-    btn.textContent = hidden ? "Hide problem" : "Show problem";
+    btn.textContent = hidden ? "Hide answer" : "Show answer";
+    if (hidden && window.MathJax && window.MathJax.typesetPromise) {
+      window.MathJax.typesetPromise([el]);
+    }
   }
 
-  loadStats();
+  loadStats().then(showCatalogue);
+  loadTechniques();
 </script>
 </body>
 </html>
