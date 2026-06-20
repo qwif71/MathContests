@@ -297,15 +297,28 @@ async def aimo_contests(
 ):
     """Lists contests found in the repo's AMIO CSV. Pass ?reload=true to
     re-read the file from disk (e.g. after committing an updated CSV and
-    redeploying) instead of using the in-memory cache."""
+    redeploying) instead of using the in-memory cache.
+
+    Also reports which of those contests already have problems in the live
+    corpus (`imported_contests`), computed from the actual corpus rather
+    than session state — so "already imported" survives a page refresh or
+    a new admin session, not just the lifetime of one browser tab."""
     require_admin(admin_session)
+    import app as appmod
+
     records = _load_amio_csv(force=reload)
     unparsed = sum(1 for r in records if not r["contest"])
+    contests = amio_import.list_contests(records)  # {"2024 AMC 8": 25, ...}
+
+    corpus_contests = {r.get("contest") for r in appmod.corpus if r.get("contest")}
+    imported = sorted(c for c in contests if c in corpus_contests)
+
     return {
         "csv_path": AMIO_CSV_PATH,
         "total_problems_in_csv": len(records),
         "unparsed_links": unparsed,
-        "contests": amio_import.list_contests(records),  # {"2024 AMC 8": 25, ...}
+        "contests": contests,
+        "imported_contests": imported,
     }
 
 
@@ -584,6 +597,43 @@ async def list_problems(admin_session: str | None = Cookie(default=None)):
             }
             for r in appmod.corpus
         ]
+    }
+
+
+@router.get("/admin/problems/recent")
+async def list_recent_problems(
+    limit: int = 50,
+    admin_session: str | None = Cookie(default=None),
+):
+    """The most recently imported problems, with full tag info (area,
+    techniques, subtopics, summary) — for the admin's "Recent Imports" tab.
+
+    Caveat: the corpus has no explicit imported-at timestamp. New imports
+    are appended to the end of the in-memory/on-disk corpus list, and an
+    edited-in-place existing record stays at its original position, so
+    "most recent" here means "last N entries in corpus order" — true for
+    fresh imports, but an edited older problem won't jump to the top. Good
+    enough for "what did I just import," not a substitute for a real
+    audit log."""
+    require_admin(admin_session)
+    import app as appmod
+
+    recent = list(reversed(appmod.corpus))[:max(1, min(limit, 500))]
+    return {
+        "problems": [
+            {
+                "id": r["id"],
+                "contest": r.get("contest", ""),
+                "number": r.get("number"),
+                "area": r.get("area", []),
+                "techniques": r.get("techniques", []),
+                "subtopics": r.get("subtopics", []),
+                "difficulty": r.get("difficulty"),
+                "summary": r.get("summary", ""),
+            }
+            for r in recent
+        ],
+        "total_corpus_size": len(appmod.corpus),
     }
 
 
