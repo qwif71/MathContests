@@ -229,7 +229,7 @@
     <h1>Math Practice — Admin</h1>
     <p class="subtitle">Developer login and problem import</p>
   </div>
-  <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙 Dark mode</button>
+  <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">Dark mode</button>
 </div>
 
 <div id="loginView" class="card hidden">
@@ -324,7 +324,20 @@ By Power of a Point..."></textarea>
     <div id="a_unparsed_result" class="result hidden"></div>
 
     <div id="a_contests_wrap" class="hidden">
-      <label style="margin-top:1.5rem">Contests found in this file</label>
+      <div class="row" style="margin-top:1.5rem; margin-bottom:0.5rem; align-items:center;">
+        <div style="flex:1">
+          <label style="margin-top:0">Contests found in this file</label>
+          <input type="text" id="a_contest_search" placeholder="Filter, e.g. AIME, AMC 10, 2024"
+                 oninput="renderContestList(lastAimoContests)">
+        </div>
+        <div style="flex:0; display:flex; align-items:center; gap:0.5rem; margin-top:1.4rem; white-space:nowrap;">
+          <span class="help" style="margin-top:0">Hide unparsed</span>
+          <label class="switch" style="margin-top:0">
+            <input type="checkbox" id="a_hide_unparsed" checked onchange="renderAimoSummary()">
+            <span class="switch-track"></span>
+          </label>
+        </div>
+      </div>
       <div class="contest-list" id="a_contest_list"></div>
     </div>
   </div>
@@ -445,7 +458,7 @@ By Power of a Point..."></textarea>
   function applyTheme(theme) {
     document.documentElement.setAttribute("data-theme", theme);
     document.getElementById("themeToggle").textContent =
-      theme === "dark" ? "☀️ Light mode" : "🌙 Dark mode";
+      theme === "dark" ? "Light mode" : "Dark mode";
     localStorage.setItem("theme", theme);
   }
   function toggleTheme() {
@@ -665,6 +678,8 @@ By Power of a Point..."></textarea>
 
   // --- AIMO CSV import (loaded from the repo, not uploaded) ---
   let aimoImportedContests = new Set();
+  let lastAimoContests = {};   // {"2024 AMC 8": 25, ...} — cached for client-side search filtering
+  let lastAimoSummary = { total: 0, contestCount: 0, unparsed: 0 };
 
   async function loadAimoContests(reload) {
     setResult("a_upload_result", true, reload ? "Reloading CSV from repo..." : "Reading CSV from repo...");
@@ -680,13 +695,29 @@ By Power of a Point..."></textarea>
       }
       if (data.csv_path) document.getElementById("a_csv_path").textContent = data.csv_path;
       aimoImportedContests = new Set();
-      setResult("a_upload_result", true,
-        `Found ${data.total_problems_in_csv} problems across ${Object.keys(data.contests).length} contests` +
-        (data.unparsed_links ? ` (${data.unparsed_links} rows had unrecognized links and were skipped).` : "."));
-      renderContestList(data.contests);
+      lastAimoContests = data.contests || {};
+      lastAimoSummary = {
+        total: data.total_problems_in_csv || 0,
+        contestCount: Object.keys(lastAimoContests).length,
+        unparsed: data.unparsed_links || 0,
+      };
+      renderAimoSummary();
+      renderContestList(lastAimoContests);
     } catch (e) {
       setResult("a_upload_result", false, "Could not reach the API.");
     }
+  }
+
+  // Re-renders just the summary line from cached counts — no re-fetch, so
+  // toggling "hide unparsed" is instant.
+  function renderAimoSummary() {
+    const hideUnparsed = document.getElementById("a_hide_unparsed").checked;
+    const { total, contestCount, unparsed } = lastAimoSummary;
+    const unparsedMsg = (!hideUnparsed && unparsed)
+      ? ` (${unparsed} rows had unrecognized links and were skipped — use "Show unparsed links" to see them.)`
+      : ".";
+    setResult("a_upload_result", true,
+      `Found ${total} problems across ${contestCount} contests${unparsedMsg}`);
   }
 
   async function showUnparsedSample() {
@@ -710,19 +741,32 @@ By Power of a Point..."></textarea>
   function renderContestList(contests) {
     const wrap = document.getElementById("a_contests_wrap");
     const list = document.getElementById("a_contest_list");
-    const entries = Object.entries(contests);
+    const searchEl = document.getElementById("a_contest_search");
+    const query = searchEl ? searchEl.value.trim().toLowerCase() : "";
+
+    let entries = Object.entries(contests || {});
     if (!entries.length) {
       wrap.classList.add("hidden");
       return;
     }
+    if (query) {
+      entries = entries.filter(([name]) => name.toLowerCase().includes(query));
+    }
+
     wrap.classList.remove("hidden");
+    if (!entries.length) {
+      list.innerHTML = `<div class="contest-row" style="cursor:default">No contests match "${query}".</div>`;
+      return;
+    }
     list.innerHTML = entries.map(([name, count]) => `
-      <div class="contest-row" id="contest-row-${cssId(name)}">
+      <div class="contest-row ${aimoImportedContests.has(name) ? "imported" : ""}" id="contest-row-${cssId(name)}">
         <div>
           <div>${name}</div>
           <div class="cmeta">${count} problem${count === 1 ? "" : "s"}</div>
         </div>
-        <button onclick="importAimoContest('${name.replace(/'/g, "\\'")}')">Import</button>
+        <button onclick="importAimoContest('${name.replace(/'/g, "\\'")}')" ${aimoImportedContests.has(name) ? "disabled" : ""}>
+          ${aimoImportedContests.has(name) ? "Imported ✓" : "Import"}
+        </button>
       </div>
     `).join("");
   }
@@ -750,6 +794,7 @@ By Power of a Point..."></textarea>
         return;
       }
       // CHANGED: route into tag review instead of declaring success immediately.
+      aimoImportedContests.add(contest);
       row.classList.add("imported");
       btn.textContent = "Review tags";
       document.getElementById("a_upload_result").classList.add("hidden");
