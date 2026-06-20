@@ -37,10 +37,19 @@ AJHSME_LINK_PATTERN = re.compile(
     r"(\d{4})_AJHSME_Problems/Problem_(\d+)", re.IGNORECASE
 )
 
+# AIME (American Invitational Mathematics Examination) has two sittings per
+# year, I and II, e.g. ".../2023_AIME_I_Problems/Problem_7" or
+# ".../2023_AIME_II_Problems/Problem_12". Pre-2000ish years only had one
+# sitting and may appear as plain ".../1998_AIME_Problems/Problem_5" (no
+# I/II) — the "(?:_(I{1,2}))?" group is optional to cover both shapes.
+AIME_LINK_PATTERN = re.compile(
+    r"(\d{4})_AIME(?:_(I{1,2}))?_Problems/Problem_(\d+)", re.IGNORECASE
+)
+
 
 def _parse_link(link: str):
     """Returns (contest_name, number) or (None, None) if the link doesn't
-    match a known AoPS URL shape. Other contest types (AIME, ARML, etc.)
+    match a known AoPS URL shape. Other contest types (ARML, USAMO, etc.)
     would need their own pattern added here later."""
     link = link or ""
 
@@ -54,19 +63,27 @@ def _parse_link(link: str):
         year, num = m.groups()
         return f"{year} AJHSME", int(num)
 
+    m = AIME_LINK_PATTERN.search(link)
+    if m:
+        year, sitting, num = m.groups()
+        contest = f"{year} AIME {sitting.upper()}" if sitting else f"{year} AIME"
+        return contest, int(num)
+
     return None, None
 
 
 def _contest_slug(contest: str) -> str:
     """Stable id prefix for a contest, e.g. '2024 AMC 8' -> 'AMC2024-8',
-    '1998 AJHSME' -> 'AJHSME1998'."""
+    '1998 AJHSME' -> 'AJHSME1998', '2023 AIME I' -> 'AIME2023-I',
+    '1998 AIME' (no sitting) -> 'AIME1998'."""
     parts = contest.split()
     year = parts[0]
     if len(parts) == 2:
-        # No variant segment, e.g. "1998 AJHSME" -> ["1998", "AJHSME"]
+        # No variant/sitting segment, e.g. "1998 AJHSME" or "1998 AIME"
+        # -> ["1998", "AJHSME"] / ["1998", "AIME"]
         return f"{parts[1]}{year}"
     variant = "".join(parts[2:])
-    return f"AMC{year}-{variant}"
+    return f"{parts[1]}{year}-{variant}"
 
 
 def parse_csv(path_or_buffer) -> list:
