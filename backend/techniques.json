@@ -184,7 +184,7 @@
     "greedy algorithm",
     "unit conversion",
     "difference of squares",
-    "difference of cubes (factorization)",
+    "difference of cubes",
     "linear independence",
     "Dijkstra's algorithm"
   ],
@@ -194,6 +194,12 @@
       "action": "approved",
       "name": "Dijkstra's algorithm",
       "at": 1781976580.8609815
+    },
+    {
+      "action": "renamed",
+      "name": "difference of cubes (factorization)",
+      "at": 1781977444.432503,
+      "renamed_to": "difference of cubes"
     }
   ]
 }
