@@ -5,6 +5,7 @@ from collections import defaultdict, deque
 from typing import Optional
 from admin import router as admin_router
 import settings as st
+import techniques as tk
 
 app = FastAPI()
 
@@ -152,7 +153,9 @@ def ai_parse_query(text: str) -> Optional[dict]:
 def practice(
     request: Request,
     area: Optional[str] = None,
-    technique: Optional[str] = None,
+    technique: Optional[str] = None,       # legacy single-tag param, still works
+    techniques: Optional[str] = None,      # NEW: comma-separated list of tags
+    tag_mode: str = "and",                 # NEW: "and" | "or"
     text: Optional[str] = None,
     like: Optional[str] = None,
     use_ai: bool = False,
@@ -176,10 +179,37 @@ def practice(
     if area:
         pool_idx = [i for i in pool_idx
                     if area.lower() in [a.lower() for a in corpus[i].get("area", [])]]
-    if technique:
-        pool_idx = [i for i in pool_idx
-                    if any(technique.lower() in t.lower()
-                           for t in corpus[i].get("techniques", []))]
+
+    # --- Multi-tag filtering (NEW) ---
+    # Clicked tags (passed via `techniques`, comma-separated) are exact
+    # canonical names already — they came straight from /techniques. Typed
+    # tags (e.g. the legacy single `technique` param, or anything hand-typed
+    # into `techniques`) are fuzzy-resolved against the canonical list
+    # first, so a near-miss like "power of point" still matches "Power of a
+    # Point" instead of silently returning nothing.
+    requested = []
+    if techniques:
+        requested.extend(t.strip() for t in techniques.split(",") if t.strip())
+    if technique and technique.strip():
+        requested.append(technique.strip())
+
+    if requested:
+        resolved = []
+        for t in requested:
+            m = tk.match_technique(t)
+            resolved.append(m["matched"] or t)
+
+        mode_and = (tag_mode or "and").strip().lower() == "and"
+
+        def _record_techs(i):
+            return [x.lower() for x in corpus[i].get("techniques", [])]
+
+        if mode_and:
+            pool_idx = [i for i in pool_idx
+                        if all(r.lower() in _record_techs(i) for r in resolved)]
+        else:
+            pool_idx = [i for i in pool_idx
+                        if any(r.lower() in _record_techs(i) for r in resolved)]
 
     if not pool_idx:
         return {"results": [], "message": "No problems match those filters."}
@@ -245,7 +275,7 @@ def stats():
 
 
 @app.get("/techniques")
-def techniques():
+def techniques_list():
     """Distinct technique tags currently in use across the corpus, with
     counts, sorted by frequency. Powers the "browse all techniques" list on
     the main page — built from the live corpus rather than the static
@@ -255,6 +285,18 @@ def techniques():
     counts = Counter(t for r in corpus for t in r.get("techniques", []))
     return {"techniques": [{"name": k, "count": v}
                             for k, v in sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))]}
+
+
+@app.get("/techniques/match")
+def techniques_match(q: str):
+    """Resolve a hand-typed technique string against the canonical list, for
+    the search box's manual-entry field. Returns the best match (if
+    confident) plus a short list of alternatives, so the frontend can show
+    'did you mean: Power of a Point?' instead of silently returning zero
+    results for a near-miss like 'power of point' or 'POP'. Reuses the same
+    match_technique() used at import-time tag review (techniques.py), so
+    "what counts as close enough" is defined in exactly one place."""
+    return tk.match_technique(q)
 
 
 # ---------------------------------------------------------------------------
