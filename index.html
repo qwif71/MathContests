@@ -606,10 +606,12 @@
           ${(r.area || []).map(a => `<span class="tag area">${a}</span>`).join("")}
           ${(r.techniques || []).map(t => `<span class="tag">${t}</span>`).join("")}
         </div>
-        <button class="expand-btn" onclick="toggleDetail(${i})">Show answer</button>
+        <button class="expand-btn" onclick="toggleDetail(${i})">Show answer &amp; solution</button>
         <div id="detail-${i}" class="problem-detail" style="display:none">
           <h4>Answer</h4>
           <p>${r.answer || "—"}</p>
+          ${r.solution ? `<h4>Solution${(r.candidates || []).length ? " 1" : ""}</h4><p>${r.solution}</p>` : ""}
+          ${(r.candidates || []).map((c, ci) => `<h4>Solution ${ci + 2}</h4><p>${c}</p>`).join("")}
         </div>
       </div>
     `;
@@ -624,7 +626,7 @@
     const btn = el.previousElementSibling;
     const hidden = el.style.display === "none";
     el.style.display = hidden ? "block" : "none";
-    btn.textContent = hidden ? "Hide answer" : "Show answer";
+    btn.textContent = hidden ? "Hide answer & solution" : "Show answer & solution";
     if (hidden && window.MathJax && window.MathJax.typesetPromise) {
       window.MathJax.typesetPromise([el]);
     }
