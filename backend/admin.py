@@ -32,7 +32,7 @@ import requests
 
 import tag_and_compare as tc
 import settings as st
-import aimo_import
+import amio_import
 
 router = APIRouter()
 
@@ -253,10 +253,10 @@ async def delete_problem(problem_id: str, admin_session: str | None = Cookie(def
 
 # --------------------------------------------------------------------------
 # One-time migration: old AMIO-prefixed ids -> the systematic scheme
-# aimo_import.py now generates for everything.
+# amio_import.py now generates for everything.
 #
 #   Old:  AMIO-AMC10A-2023-P1     (AMIO-{variant}-{year}-P{number})
-#   New:  AMC2023-10A-INDIVIDUAL-1  (matches aimo_import._contest_slug)
+#   New:  AMC2023-10A-INDIVIDUAL-1  (matches amio_import._contest_slug)
 #
 # This is a dry-run-by-default endpoint: GET previews the rename mapping
 # without touching anything; POST actually applies it (and refuses to run
@@ -500,7 +500,7 @@ def _load_aimo_csv(force: bool = False) -> list:
             f"No AIMO CSV found at {AIMO_CSV_PATH}. Commit it to the repo at "
             "backend/data/aimo_raw.csv (or set AIMO_CSV_PATH) and redeploy.",
         )
-    _aimo_cache = aimo_import.parse_csv(AIMO_CSV_PATH)
+    _aimo_cache = amio_import.parse_csv(AIMO_CSV_PATH)
     _aimo_cache_path = AIMO_CSV_PATH
     return _aimo_cache
 
@@ -520,7 +520,7 @@ async def aimo_contests(
         "csv_path": AIMO_CSV_PATH,
         "total_problems_in_csv": len(records),
         "unparsed_links": unparsed,
-        "contests": aimo_import.list_contests(records),  # {"2024 AMC 8": 25, ...}
+        "contests": amio_import.list_contests(records),  # {"2024 AMC 8": 25, ...}
     }
 
 
@@ -542,11 +542,11 @@ async def aimo_import_contest(
     if not contest:
         raise HTTPException(400, "contest is required, e.g. '2024 AMC 8'.")
 
-    subset = aimo_import.records_for_contest(records, contest)
+    subset = amio_import.records_for_contest(records, contest)
     if not subset:
         raise HTTPException(404, f"No problems found for contest '{contest}' in {AIMO_CSV_PATH}.")
 
-    tagged = aimo_import.tag_aimo_records(subset, model)
+    tagged = amio_import.tag_aimo_records(subset, model)
     return _finish_import(tagged)
 
 
