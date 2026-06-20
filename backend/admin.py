@@ -408,7 +408,7 @@ def _start_review(tagged_records: list) -> dict:
     global _pending_batch
 
     all_techniques = [t for r in tagged_records for t in r.get("techniques", [])]
-    diff = tk.diff_techniques(all_techniques)
+    diff = tk.diff_techniques(all_techniques, batch_records=tagged_records)
 
     if diff["new"]:
         tk.set_pending([d["input"] for d in diff["new"]])
@@ -417,7 +417,8 @@ def _start_review(tagged_records: list) -> dict:
 
     return {
         "status": "needs_review" if diff["new"] else "ready",
-        "new_techniques": diff["new"],       # [{"input", "suggestions", "score"}, ...]
+        "new_techniques": diff["new"],       # [{"input", "suggestions", "example_ids",
+                                              #   "example_summaries", "possible_duplicate_of"}, ...]
         "known_techniques": diff["known"],   # [{"input", "matched", "score"}, ...]
         "record_ids": [r["id"] for r in tagged_records],
         "record_count": len(tagged_records),
@@ -449,15 +450,23 @@ async def resolve_import(
     review-pending and decided what to do with each. Body:
 
         {
-          "approve": ["new technique name", ...],       // added to canonical list
+          "approve": ["new technique name", ...],       // added to canonical list as-is
+          "rename": {"new technique name": "Different Name"},  // approved, but
+                                                                 // stored under a
+                                                                 // different name
           "merge": {"typed string": "existing canonical tag", ...},
           "reject": ["new technique name", ...]          // dropped, or blocks
                                                           // import per
                                                           // REJECTED_TECHNIQUES_BLOCK_IMPORT
         }
 
-    Any new technique from the pending diff not mentioned in any of the
-    three lists is treated as rejected by default — silence isn't approval.
+    `rename` keys must also appear in `approve` — renaming only makes sense
+    for a tag you're approving (a merge already has a target name, that's
+    what `merge` is for). The renamed value is what actually lands in the
+    canonical list and what these records get tagged with.
+
+    Any new technique from the pending diff not mentioned in approve/merge/
+    reject is treated as rejected by default — silence isn't approval.
 
     On success, runs _finish_import() (the actual merge + GitHub commit)
     and clears the pending slot.
@@ -468,8 +477,14 @@ async def resolve_import(
 
     body = await request.json()
     approve = list(body.get("approve") or [])
+    rename = dict(body.get("rename") or {})
     merge = dict(body.get("merge") or {})
     reject = list(body.get("reject") or [])
+
+    # Renames only apply to approved names — anything in `rename` not also
+    # in `approve` is ignored rather than silently doing something
+    # unexpected with a merge/reject entry.
+    rename = {k: v for k, v in rename.items() if k in approve}
 
     new_inputs = {d["input"] for d in _pending_batch["diff"]["new"]}
     decided = set(approve) | set(merge.keys()) | set(reject)
@@ -477,9 +492,12 @@ async def resolve_import(
     reject = list(set(reject) | set(implicit_reject))
 
     if approve:
-        tk.approve_techniques(approve)
+        tk.approve_techniques(approve, renames=rename)
+    if merge:
+        tk.log_merge(merge)
     if reject:
         tk.reject_techniques(reject)
+        tk.log_reject(reject)
 
     if reject and REJECTED_TECHNIQUES_BLOCK_IMPORT:
         blocked_ids = [r["id"] for r in _pending_batch["records"]]
@@ -494,9 +512,10 @@ async def resolve_import(
             "record_ids": blocked_ids,
         }
 
-    # Build the final resolution map: approved names map to themselves,
-    # merged names map to their target, rejected names map to "" (dropped).
-    resolutions = {name: name for name in approve}
+    # Build the final resolution map: approved names map to their (possibly
+    # renamed) final value, merged names map to their target, rejected
+    # names map to "" (dropped).
+    resolutions = {name: rename.get(name, name) for name in approve}
     resolutions.update(merge)
     resolutions.update({name: "" for name in reject})
 
@@ -504,6 +523,7 @@ async def resolve_import(
 
     result = _finish_import(final_records)
     result["techniques_approved"] = approve
+    result["techniques_renamed"] = rename
     result["techniques_merged"] = merge
     result["techniques_rejected"] = reject
 
@@ -526,13 +546,120 @@ async def discard_pending(admin_session: str | None = Cookie(default=None)):
 
 @router.get("/admin/techniques")
 async def list_canonical_techniques(admin_session: str | None = Cookie(default=None)):
-    """The full canonical technique list + anything still pending review.
-    Used by the admin tag editor / diagnostics."""
+    """The full canonical technique list (with live corpus usage counts) +
+    anything still pending review. Used by the admin tag editor."""
     require_admin(admin_session)
+    import app as appmod
+    from collections import Counter
+
+    counts = Counter(t for r in appmod.corpus for t in r.get("techniques", []))
     return {
-        "techniques": tk.get_canonical_techniques(),
+        "techniques": [{"name": t, "count": counts.get(t, 0)}
+                        for t in tk.get_canonical_techniques()],
         "pending": tk.get_pending(),
     }
+
+
+@router.get("/admin/techniques/log")
+async def techniques_log(limit: int = 50, admin_session: str | None = Cookie(default=None)):
+    """Recent technique-list activity: approvals, renames, merges,
+    rejections, deletions — newest first. Backs the admin's "Recent tag
+    activity" view."""
+    require_admin(admin_session)
+    return {"log": tk.get_log(limit=limit)}
+
+
+@router.post("/admin/techniques/rename")
+async def rename_technique_endpoint(
+    request: Request,
+    admin_session: str | None = Cookie(default=None),
+):
+    """Body: {old_name, new_name}. Renames a canonical technique AND
+    rewrites every corpus record currently tagged with old_name to use
+    new_name instead, so the corpus and the canonical list never drift
+    apart. Recomputes the search index and commits both the corpus and the
+    technique list."""
+    require_admin(admin_session)
+    import app as appmod
+
+    body = await request.json()
+    old_name = (body.get("old_name") or "").strip()
+    new_name = (body.get("new_name") or "").strip()
+    if not old_name or not new_name:
+        raise HTTPException(400, "Both old_name and new_name are required.")
+
+    result = tk.rename_technique(old_name, new_name)
+    if not result["ok"]:
+        raise HTTPException(409, result["reason"])
+
+    updated = 0
+    for r in appmod.corpus:
+        techs = r.get("techniques", [])
+        if old_name in techs:
+            r["techniques"] = [new_name if t == old_name else t for t in techs]
+            # A record could (in theory, e.g. via manual edit) already have
+            # both old_name and new_name — dedupe rather than leave a
+            # duplicate tag on the record.
+            r["techniques"] = list(dict.fromkeys(r["techniques"]))
+            updated += 1
+
+    if updated:
+        appmod.rebuild_search_index()
+        try:
+            json.dump(appmod.corpus, open(appmod.CORPUS_PATH, "w"), indent=2, ensure_ascii=False)
+        except Exception as e:
+            print(f"  ! local corpus write failed: {e}", file=sys.stderr)
+
+    github_result = commit_corpus_to_github(
+        appmod.corpus, message=f"Rename technique tag on {updated} record(s): {old_name} -> {new_name}"
+    ) if updated else {"committed": False, "reason": "No corpus records used this tag."}
+
+    return {"ok": True, "records_updated": updated, "github": github_result}
+
+
+@router.post("/admin/techniques/delete")
+async def delete_technique_endpoint(
+    request: Request,
+    admin_session: str | None = Cookie(default=None),
+):
+    """Body: {name, strip_from_records: bool}. Removes a technique from the
+    canonical list. If strip_from_records is true (default), also removes
+    it from every corpus record that has it — otherwise the tag is just
+    orphaned (no longer suggested/autocompleted, but existing records keep
+    it as-is)."""
+    require_admin(admin_session)
+    import app as appmod
+
+    body = await request.json()
+    name = (body.get("name") or "").strip()
+    strip_from_records = body.get("strip_from_records", True)
+    if not name:
+        raise HTTPException(400, "name is required.")
+
+    result = tk.delete_technique(name)
+    if not result["ok"]:
+        raise HTTPException(409, result["reason"])
+
+    updated = 0
+    if strip_from_records:
+        for r in appmod.corpus:
+            techs = r.get("techniques", [])
+            if name in techs:
+                r["techniques"] = [t for t in techs if t != name]
+                updated += 1
+
+        if updated:
+            appmod.rebuild_search_index()
+            try:
+                json.dump(appmod.corpus, open(appmod.CORPUS_PATH, "w"), indent=2, ensure_ascii=False)
+            except Exception as e:
+                print(f"  ! local corpus write failed: {e}", file=sys.stderr)
+
+    github_result = commit_corpus_to_github(
+        appmod.corpus, message=f"Delete technique tag from {updated} record(s): {name}"
+    ) if updated else {"committed": False, "reason": "No corpus records updated."}
+
+    return {"ok": True, "records_updated": updated, "github": github_result}
 
 
 # --------------------------------------------------------------------------
