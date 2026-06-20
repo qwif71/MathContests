@@ -28,6 +28,10 @@
       --accent-soft-bg: #eff6ff;
       --error-bg: #fef2f2;
       --error-fg: #dc2626;
+      --selected-tag-bg: #eef2ff;
+      --selected-tag-fg: #3730a3;
+      --selected-tag-fuzzy-bg: #fff7ed;
+      --selected-tag-fuzzy-fg: #92400e;
     }
     [data-theme="dark"] {
       --bg: #15171c;
@@ -48,6 +52,10 @@
       --accent-soft-bg: #16243f;
       --error-bg: #3a1414;
       --error-fg: #f87171;
+      --selected-tag-bg: #1f2240;
+      --selected-tag-fg: #b4bbff;
+      --selected-tag-fuzzy-bg: #3a2a14;
+      --selected-tag-fuzzy-fg: #f0b96a;
     }
 
     body {
@@ -135,6 +143,38 @@
 
     .stats { color: var(--fg-muted); font-size: 0.85rem; margin-bottom: 1rem; }
 
+    /* --- Tag picker (NEW) --- */
+    .tag-picker { width: 100%; margin-top: 0.75rem; }
+    .tag-picker-row { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+    .tag-picker-row input#techniqueInput {
+      flex: 1; min-width: 200px; padding: 0.5rem 0.75rem;
+      border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;
+      background: var(--card-bg); color: var(--fg);
+    }
+    .tag-picker-row button {
+      margin-left: 0; padding: 0.5rem 1rem;
+    }
+    .tag-mode-toggle { display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; color: var(--fg-muted); }
+    .tag-mode-toggle select {
+      padding: 0.4rem 0.6rem; border-radius: 8px; border: 1px solid var(--border);
+      background: var(--card-bg); color: var(--fg);
+    }
+    .selected-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; }
+    .selected-tag {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--selected-tag-bg); color: var(--selected-tag-fg);
+      border-radius: 999px; padding: 0.3rem 0.8rem; font-size: 0.85rem;
+    }
+    .selected-tag.fuzzy { background: var(--selected-tag-fuzzy-bg); color: var(--selected-tag-fuzzy-fg); }
+    .selected-tag .remove-tag { cursor: pointer; font-weight: bold; opacity: 0.6; }
+    .selected-tag .remove-tag:hover { opacity: 1; }
+    .suggest-tag {
+      margin-top: 0.5rem; font-size: 0.85rem;
+      color: var(--selected-tag-fuzzy-fg); background: var(--selected-tag-fuzzy-bg);
+      border-radius: 8px; padding: 0.5rem 0.75rem;
+    }
+    .suggest-tag a { color: inherit; text-decoration: underline; cursor: pointer; }
+
     /* --- Techniques panel --- */
     .techniques-panel {
       background: var(--card-bg);
@@ -172,6 +212,8 @@
     }
     .technique-chip:hover { background: var(--accent-soft-bg); color: var(--accent); }
     .technique-chip .count { color: var(--fg-faint); margin-left: 0.3rem; }
+    .technique-chip.selected { background: var(--accent); color: white; }
+    .technique-chip.selected .count { color: rgba(255,255,255,0.8); }
 
     .results { display: flex; flex-direction: column; gap: 1rem; }
     .card {
@@ -264,9 +306,29 @@
       <option>Geometry</option>
       <option>Number Theory</option>
     </select>
-    <input id="technique" placeholder="Technique, e.g. Vieta's formulas" style="width:220px">
     <button class="secondary" onclick="showCatalogue()">Show all</button>
     <button onclick="search()">Search</button>
+  </div>
+
+  <!-- Multi-tag picker (NEW) -->
+  <div class="tag-picker">
+    <div class="tag-picker-row">
+      <input id="techniqueInput" list="techniqueOptions"
+             placeholder="Type a technique or click one below..."
+             autocomplete="off"
+             onkeydown="if(event.key==='Enter'){event.preventDefault(); addTypedTechnique();}">
+      <datalist id="techniqueOptions"></datalist>
+      <button type="button" class="secondary" onclick="addTypedTechnique()">Add</button>
+      <label class="tag-mode-toggle">
+        Match:
+        <select id="tagMode" onchange="search()">
+          <option value="and">All selected (AND)</option>
+          <option value="or">Any selected (OR)</option>
+        </select>
+      </label>
+    </div>
+    <div id="selectedTags" class="selected-tags"></div>
+    <div id="suggestTag" class="suggest-tag" style="display:none"></div>
   </div>
 </div>
 
@@ -317,6 +379,12 @@
     return (id || "").replace(/^AMIO-/i, "");
   }
 
+  function escapeHtml(s) {
+    const d = document.createElement("div");
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
   async function loadStats() {
     try {
       const res = await fetch(`${API}/stats`);
@@ -327,42 +395,135 @@
     } catch(e) {}
   }
 
+  // --- Technique browsing + multi-select (NEW) ---
+  // selectedTechniques: Map of displayLabel -> {canonical, fuzzy}
+  // displayLabel is what's shown as a chip; canonical is what's actually
+  // sent to the API (exact name for clicked tags, fuzzy-resolved name for
+  // typed ones).
+  let selectedTechniques = new Map();
+  let allTechniqueNames = [];
+
   async function loadTechniques() {
     const el = document.getElementById("techniqueList");
     try {
       const res = await fetch(`${API}/techniques`);
       const data = await res.json();
       const list = data.techniques || [];
+      allTechniqueNames = list.map(t => t.name);
+      document.getElementById("techniqueOptions").innerHTML =
+        allTechniqueNames.map(n => `<option value="${escapeHtml(n)}">`).join("");
       if (!list.length) {
         el.innerHTML = '<span class="loading" style="padding:0">No techniques tagged yet.</span>';
         return;
       }
       el.innerHTML = list.map(t =>
-        `<button class="technique-chip" onclick="searchTechnique('${t.name.replace(/'/g, "\\'")}')">` +
-        `${t.name}<span class="count">${t.count}</span></button>`
+        `<button class="technique-chip" data-name="${escapeHtml(t.name)}" onclick="toggleTechnique('${t.name.replace(/'/g, "\\'")}')">` +
+        `${escapeHtml(t.name)}<span class="count">${t.count}</span></button>`
       ).join("");
+      syncTechChipState();
     } catch (e) {
       el.innerHTML = '<span class="loading" style="padding:0">Could not load techniques.</span>';
     }
   }
 
-  function searchTechnique(name) {
-    document.getElementById("technique").value = name;
+  function toggleTechnique(name) {
+    // Clicked from the browse list: always an exact canonical name already.
+    if (selectedTechniques.has(name)) {
+      selectedTechniques.delete(name);
+    } else {
+      selectedTechniques.set(name, { canonical: name, fuzzy: false });
+    }
     document.getElementById("query").value = "";
-    showCatalogue();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    renderSelectedTags();
+    syncTechChipState();
+    search();
+  }
+
+  async function addTypedTechnique() {
+    const input = document.getElementById("techniqueInput");
+    const typed = input.value.trim();
+    if (!typed) return;
+    document.getElementById("suggestTag").style.display = "none";
+
+    try {
+      const res = await fetch(`${API}/techniques/match?q=${encodeURIComponent(typed)}`);
+      const m = await res.json();
+
+      if (m.matched && m.exact) {
+        selectedTechniques.set(m.matched, { canonical: m.matched, fuzzy: false });
+      } else if (m.matched) {
+        selectedTechniques.set(`${typed} → ${m.matched}`, { canonical: m.matched, fuzzy: true });
+      } else {
+        selectedTechniques.set(typed, { canonical: typed, fuzzy: true });
+        if (m.suggestions && m.suggestions.length) {
+          const sugEl = document.getElementById("suggestTag");
+          sugEl.innerHTML =
+            `No exact tag found for "${escapeHtml(typed)}". Did you mean: ` +
+            m.suggestions.slice(0, 3).map(s =>
+              `<a onclick="replaceTypedWithSuggestion('${escapeHtml(typed).replace(/'/g, "\\'")}','${escapeHtml(s).replace(/'/g, "\\'")}')">${escapeHtml(s)}</a>`
+            ).join(", ") + "?";
+          sugEl.style.display = "block";
+        }
+      }
+    } catch (e) {
+      selectedTechniques.set(typed, { canonical: typed, fuzzy: true });
+    }
+
+    document.getElementById("query").value = "";
+    input.value = "";
+    renderSelectedTags();
+    syncTechChipState();
+    search();
+  }
+
+  function replaceTypedWithSuggestion(typed, suggestion) {
+    selectedTechniques.delete(typed);
+    selectedTechniques.set(suggestion, { canonical: suggestion, fuzzy: false });
+    document.getElementById("suggestTag").style.display = "none";
+    renderSelectedTags();
+    syncTechChipState();
+    search();
+  }
+
+  function removeTechnique(displayLabel) {
+    selectedTechniques.delete(displayLabel);
+    renderSelectedTags();
+    syncTechChipState();
+    search();
+  }
+
+  function renderSelectedTags() {
+    const el = document.getElementById("selectedTags");
+    el.innerHTML = [...selectedTechniques.entries()].map(([display, v]) => `
+      <span class="selected-tag ${v.fuzzy ? "fuzzy" : ""}">
+        ${escapeHtml(display)}
+        <span class="remove-tag" onclick="removeTechnique('${escapeHtml(display).replace(/'/g, "\\'")}')">&times;</span>
+      </span>
+    `).join("");
+  }
+
+  function syncTechChipState() {
+    const canonicalSelected = new Set([...selectedTechniques.values()].map(v => v.canonical));
+    document.querySelectorAll("#techniqueList .technique-chip").forEach(chip => {
+      const name = chip.dataset.name;
+      chip.classList.toggle("selected", canonicalSelected.has(name));
+    });
   }
 
   // Catalogue view: every tagged problem, no query/ranking — just the filters
-  // (area/technique) applied, in corpus order. This is the default view.
+  // (area/techniques) applied, in corpus order. This is the default view.
   async function showCatalogue() {
     document.getElementById("query").value = "";
     const area = document.getElementById("area").value;
-    const technique = document.getElementById("technique").value.trim();
+    const tagMode = document.getElementById("tagMode").value;
+    const techList = [...selectedTechniques.values()].map(v => v.canonical);
 
     const params = new URLSearchParams();
     if (area) params.set("area", area);
-    if (technique) params.set("technique", technique);
+    if (techList.length) {
+      params.set("techniques", techList.join(","));
+      params.set("tag_mode", tagMode);
+    }
     params.set("k", Math.max(TOTAL, 1000));
 
     document.getElementById("results").innerHTML = '<div class="loading">Loading catalogue...</div>';
@@ -379,17 +540,21 @@
   async function search() {
     const query = document.getElementById("query").value.trim();
     const area = document.getElementById("area").value;
-    const technique = document.getElementById("technique").value.trim();
+    const tagMode = document.getElementById("tagMode").value;
+    const techList = [...selectedTechniques.values()].map(v => v.canonical);
 
-    // No free-text query -> just show the catalogue with whatever filters are set.
-    if (!query) {
+    // No free-text query and no tag filters -> just show the catalogue.
+    if (!query && techList.length === 0) {
       return showCatalogue();
     }
 
     const params = new URLSearchParams();
-    params.set("text", query);
+    if (query) params.set("text", query);
     if (area) params.set("area", area);
-    if (technique) params.set("technique", technique);
+    if (techList.length) {
+      params.set("techniques", techList.join(","));
+      params.set("tag_mode", tagMode);
+    }
     params.set("k", 20);
     // Ask for AI-assisted query parsing. The backend only honors this if the
     // admin has turned the feature on; otherwise it's a no-op and falls back
