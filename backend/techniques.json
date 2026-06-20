@@ -179,7 +179,10 @@
     "pairing argument",
     "exhaustive case elimination",
     "multiplication principle",
-    "change of base formula"
+    "change of base formula",
+    "order of operations",
+    "greedy algorithm",
+    "unit conversion"
   ],
   "pending": []
 }
