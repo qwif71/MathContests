@@ -1097,6 +1097,7 @@ By Power of a Point..."></textarea>
         </div>
         <div class="pactions">
           <button class="secondary" onclick="renameTagPrompt('${t.name.replace(/'/g, "\\'")}')">Rename</button>
+          <button class="secondary" onclick="mergeTagPrompt('${t.name.replace(/'/g, "\\'")}')">Merge</button>
           <button class="danger" onclick="deleteTagPrompt('${t.name.replace(/'/g, "\\'")}', ${t.count})">Delete</button>
         </div>
       </div>
@@ -1122,6 +1123,35 @@ By Power of a Point..."></textarea>
       const githubMsg = data.github && data.github.committed ? "Committed to GitHub." : "Not committed to GitHub.";
       setResult("tag_editor_result", true,
         `Renamed "${oldName}" to "${newName.trim()}" on ${data.records_updated} record(s). ${githubMsg}`);
+      document.getElementById("tag_editor_result").classList.remove("hidden");
+      loadTagEditor();
+      loadTagLog();
+    } catch (e) {
+      setResult("tag_editor_result", false, "Could not reach the API.");
+      document.getElementById("tag_editor_result").classList.remove("hidden");
+    }
+  }
+
+  async function mergeTagPrompt(oldName) {
+    const targetName = prompt(`Merge "${oldName}" into which existing canonical tag?`);
+    if (!targetName || !targetName.trim() || targetName.trim() === oldName) return;
+    if (!confirm(`Merge "${oldName}" into "${targetName.trim()}"?\n\nThis rewrites all records using the old tag and removes the old tag from the canonical list.`)) return;
+    try {
+      const res = await fetch(`${API}/admin/techniques/merge`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ old_name: oldName, target_name: targetName.trim() }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setResult("tag_editor_result", false, data.detail || "Merge failed.");
+        document.getElementById("tag_editor_result").classList.remove("hidden");
+        return;
+      }
+      const githubMsg = data.github && data.github.committed ? "Committed to GitHub." : "Not committed to GitHub.";
+      setResult("tag_editor_result", true,
+        `Merged "${oldName}" into "${targetName.trim()}" on ${data.records_updated} record(s). ${githubMsg}`);
       document.getElementById("tag_editor_result").classList.remove("hidden");
       loadTagEditor();
       loadTagLog();
@@ -1278,10 +1308,55 @@ By Power of a Point..."></textarea>
         </div>
         <div class="pactions">
           <button class="secondary" onclick="openEditor('${p.id.replace(/'/g, "\\'")}')">Edit</button>
+          <button class="secondary" onclick="retagProblem('${p.id.replace(/'/g, "\\'")}')">Retag</button>
           <button class="danger" onclick="deleteProblem('${p.id.replace(/'/g, "\\'")}')">Delete</button>
         </div>
       </div>
     `).join("");
+  }
+
+  async function retagProblem(id) {
+    if (!confirm(`Retag ${id}? This will call the model and then open tag review before replacing the record.`)) return;
+    try {
+      const res = await fetch(`${API}/admin/problems/${encodeURIComponent(id)}/retag`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({}),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        alert(data.detail || "Retag failed.");
+        return;
+      }
+      openTagReview(data, null);
+    } catch (e) {
+      alert("Could not reach the API.");
+    }
+  }
+
+  async function retagAllProblems() {
+    const msg = "Retag ALL problems? This may use a lot of API tokens.\n\nChoose OK to continue, or Cancel to stop.";
+    if (!confirm(msg)) return;
+    const limitText = prompt("Optional safety limit for this run. Leave blank to retag the full corpus.", "");
+    const body = {};
+    if (limitText && limitText.trim()) body.limit = parseInt(limitText.trim(), 10);
+    try {
+      const res = await fetch(`${API}/admin/problems/retag-all`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        alert(data.detail || "Retag-all failed.");
+        return;
+      }
+      openTagReview(data, null);
+    } catch (e) {
+      alert("Could not reach the API.");
+    }
   }
 
   async function deleteProblem(id) {

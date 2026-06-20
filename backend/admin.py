@@ -617,6 +617,68 @@ async def rename_technique_endpoint(
     return {"ok": True, "records_updated": updated, "github": github_result}
 
 
+@router.post("/admin/techniques/merge")
+async def merge_technique_endpoint(
+    request: Request,
+    admin_session: str | None = Cookie(default=None),
+):
+    """Body: {old_name, target_name}. Merges old_name into target_name.
+
+    Removes old_name from the canonical list and rewrites every corpus record
+    that used old_name to use target_name instead. Duplicate tags on a record
+    are deduped.
+    """
+    require_admin(admin_session)
+    import app as appmod
+
+    body = await request.json()
+    old_name = (body.get("old_name") or "").strip()
+    target_name = (body.get("target_name") or "").strip()
+    if not old_name or not target_name:
+        raise HTTPException(400, "old_name and target_name are required.")
+    if old_name == target_name:
+        raise HTTPException(400, "Choose two different tags to merge.")
+
+    canonical = tk.get_canonical_techniques()
+    if old_name not in canonical:
+        raise HTTPException(404, f"'{old_name}' is not in the canonical list.")
+    if target_name not in canonical:
+        raise HTTPException(404, f"'{target_name}' is not in the canonical list.")
+
+    updated = 0
+    for r in appmod.corpus:
+        techs = r.get("techniques", [])
+        if old_name in techs:
+            r["techniques"] = list(dict.fromkeys(
+                target_name if t == old_name else t for t in techs
+            ))
+            updated += 1
+
+    # Remove source tag from canonical vocabulary and log this as a merge.
+    tk.delete_technique(old_name)
+    tk.log_merge({old_name: target_name})
+
+    if updated:
+        appmod.rebuild_search_index()
+        try:
+            json.dump(appmod.corpus, open(appmod.CORPUS_PATH, "w"), indent=2, ensure_ascii=False)
+        except Exception as e:
+            print(f"  ! local corpus write failed: {e}", file=sys.stderr)
+
+    github_result = commit_corpus_to_github(
+        appmod.corpus,
+        message=f"Merge technique tag on {updated} record(s): {old_name} -> {target_name}",
+    ) if updated else {"committed": False, "reason": "No corpus records used this tag."}
+
+    return {
+        "ok": True,
+        "records_updated": updated,
+        "old_name": old_name,
+        "target_name": target_name,
+        "github": github_result,
+    }
+
+
 @router.post("/admin/techniques/delete")
 async def delete_technique_endpoint(
     request: Request,
@@ -793,6 +855,67 @@ async def get_problem_full(problem_id: str, admin_session: str | None = Cookie(d
     if not match:
         raise HTTPException(404, "Problem not found.")
     return match
+
+
+@router.post("/admin/problems/{problem_id}/retag")
+async def retag_problem(
+    problem_id: str,
+    request: Request,
+    admin_session: str | None = Cookie(default=None),
+):
+    """Retag one existing problem through the normal tag-review flow.
+
+    The tagged record is held as a pending batch. If new techniques appear,
+    the admin reviews them before _finish_import() replaces the old record.
+    """
+    require_admin(admin_session)
+    import app as appmod
+
+    body = await request.json() if request.headers.get("content-type", "").startswith("application/json") else {}
+    model = (body.get("model") or tc.MODEL).strip()
+
+    match = next((r for r in appmod.corpus if r["id"] == problem_id), None)
+    if not match:
+        raise HTTPException(404, "Problem not found.")
+
+    # Retag from the current record text, preserving metadata and id.
+    record = dict(match)
+    tagged = tc.tag([record], model)[0]
+    return _start_review([tagged])
+
+
+@router.post("/admin/problems/retag-all")
+async def retag_all_problems(
+    request: Request,
+    admin_session: str | None = Cookie(default=None),
+):
+    """Retag the whole corpus through the normal tag-review flow.
+
+    This can be expensive because it calls the model for every problem. It is
+    intentionally admin-only and still requires tag review before replacing
+    records in the corpus.
+    """
+    require_admin(admin_session)
+    import app as appmod
+
+    body = await request.json() if request.headers.get("content-type", "").startswith("application/json") else {}
+    model = (body.get("model") or tc.MODEL).strip()
+    limit = body.get("limit")
+
+    records = [dict(r) for r in appmod.corpus]
+    if limit is not None:
+        try:
+            limit = int(limit)
+            if limit > 0:
+                records = records[:limit]
+        except Exception:
+            raise HTTPException(400, "limit must be a positive integer if provided.")
+
+    if not records:
+        raise HTTPException(400, "No problems to retag.")
+
+    tagged = tc.tag(records, model)
+    return _start_review(tagged)
 
 
 @router.put("/admin/problems/{problem_id}")

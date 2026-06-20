@@ -74,6 +74,17 @@ def split_by(marker, text):
     return out
 
 
+def trim_solution_chunk(chunk: str) -> str:
+    """Trim accidental bleed-through from ARML solution chunks.
+
+    In some ARML PDFs, a "Solution N." chunk can include the statement for
+    the next problem before "Solution N+1." appears. That contaminates tags
+    because the tagger reads the full solution. Keep the actual solution and
+    cut off any next "Problem K." marker.
+    """
+    return re.split(r"\bProblem\s+\d+\s*\.", chunk, maxsplit=1)[0].strip()
+
+
 def extract_answers_positional(pdf_path, sections, round_name):
     """ARML's answers page stacks fractions vertically, which scrambles linear
     text. Grab only words on the same horizontal line as each 'Answer N.' label.
@@ -113,7 +124,7 @@ def extract_round(pdf_path, round_name, contest=""):
     # solution; keep only the text after the matching "Solution N.".
     solutions = {}
     for num, chunk in split_by("Solution", sol_block).items():
-        solutions[num] = chunk
+        solutions[num] = trim_solution_chunk(chunk)
 
     records = []
     for num in sorted(statements):
