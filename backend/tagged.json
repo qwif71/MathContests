@@ -5012,5 +5012,642 @@
       "As in Solution 2, we note that \\[x_{2019}+2x_{2020}+4x_{2021}+8x_{2022}=\\frac{S_{2023}-S_{2019}}{2^{2019}}.\\] We also know that $7S_{2023} \\equiv 1 \\pmod{2^{2023}}$ and $7S_{2019} \\equiv 1 \\pmod{2^{2019}}$ , this implies: \\[\\textbf{(1) } 7S_{2023}=2^{2023}\\cdot{x} + 1,\\] \\[\\textbf{(2) } 7S_{2019}=2^{2019}\\cdot{y} + 1.\\] Dividing by $7$ , we can isolate the previous sums: \\[\\textbf{(3) } S_{2023}=\\frac{2^{2023}\\cdot{x} + 1}{7},\\] \\[\\textbf{(4) } S_{2019}=\\frac{2^{2019}\\cdot{y} + 1}{7}.\\] The maximum value of $S_n$ occurs when every $x_i$ is equal to $1$ . Even when this happens, the value of $S_n$ is less than $2^n$ . Therefore, we can construct the following inequalities: \\[\\textbf{(3) } S_{2023}=\\frac{2^{2023}\\cdot{x} + 1}{7} < 2^{2023},\\] \\[\\textbf{(4) } S_{2019}=\\frac{2^{2019}\\cdot{y} + 1}{7} < 2^{2019}.\\] From these two equations, we can deduce that both $x$ and $y$ are less than $7$\nReducing $\\textbf{1}$ and $\\textbf{2}$ $\\pmod{7},$ we see that \\[2^{2023}\\cdot{x}\\equiv 6\\pmod{7},\\] and \\[2^{2019}\\cdot{y}\\equiv 6\\pmod{7}.\\]\nThe powers of $2$ repeat every $3, \\pmod{7}.$\nTherefore, $2^{2023}\\equiv 2 \\pmod 7$ and $2^{2019} \\equiv 1 \\pmod {7}.$ Substituing this back into the above equations, \\[2x\\equiv{6}\\pmod{7}\\] and \\[y\\equiv{6}\\pmod{7}.\\]\nSince $x$ and $y$ are integers less than $7$ , the only values of $x$ and $y$ are $3$ and $6$ respectively.\nThe requested sum is \\begin{align*} \\frac{S_{2023}-S_{2019}}{2^{2019}} &= \\frac{\\frac{2^{2023}\\cdot{x} + 1}{7} - \\frac{2^{2019}\\cdot{y} + 1}{7}}{2^{2019}} \\\\ &= \\frac{1}{2^{2019}}\\left(\\frac{2^{2023}\\cdot{3} + 1}{7} -\\left(\\frac{2^{2019}\\cdot{6} + 1}{7}  \\right)\\right) \\\\ &= \\frac{3\\cdot{2^4}-6}{7} \\\\ &= \\boxed{6} -Benedict T (countmath1)",
       "Note that, as in Solution 2, we have \\[x_{2019} + 2x_{2020} + 4x_{2021} + 8x_{2022} = \\frac{S_{2023} - S_{2019}}{2^{2019}}.\\] This is because \\[S_{2023} = x_{0}2^{0} + x_{1}2^{1} + \\cdots + x_{2019}2^{2019} + \\cdots + x_{2022}2^{2022}\\] and \\[S_{2019} = x_{0}2^{0} + x_{1}2^{1} + \\cdots + x_{2018}2^{2018}.\\] Note that \\[S_{2023} - S_{2019} = x_{2019}2^{2019} + \\cdots + x_{2022}2^{2022} = 2^{2019}(x_{2019} + 2x_{2020} + 4x_{2021} + 8x_{2022}).\\] Therefore, \\[x_{2019} + 2x_{2020} + 4x_{2021} + 8x_{2022} = \\frac{S_{2023} - S_{2019}}{2^{2019}}.\\] Multiplying both sides by 7 gives us \\[7(x_{2019} + 2x_{2020} + 4x_{2021} + 8x_{2022}) = \\frac{7S_{2023} - 7S_{2019}}{2^{2019}}.\\] We can write \\[7S_{2023} = 1\\pmod{2^{2023}} = 1 + 2^{2023}a = 1 + 2^{2019}*16a\\] and \\[7S_{2019} = 1\\pmod{2^{2019}} = 1 + 2^{2019}b\\] for some a and b. Substituting, we get \\[7(x_{2019} + 2x_{2020} + 4x_{2021} + 8x_{2022}) = \\frac{(1 + 2^{2019} * 16a) - (1 + 2^{2019}b)}{2^{2019}} = 16a - b.\\] Therefore, our answer can be written as \\[\\frac{16a - b}{7}.\\] Another thing to notice is that a and b are integers between 0 and 6. This is because \\[7(1 + 2 + 4 + 8 + \\cdots + 2^{2022}) \\geqslant 7S_{2023} = 1 + 2^{2023}a\\] which is \\[7(2^{2023}) - 7 \\geqslant 1 + 2^{2023}a\\] \\[(7-a) \\geqslant \\frac{8}{2^{2023}}\\] which only holds when a is less than 7 because the right is very small positive number, so the left must be positive, too. Clearly, a is also non-negative, because otherwise, \\[7S_{2023} = 1 + 2^{2023}a < 0\\] which would mean \\[S_{2023} < 0\\] which cannot happen, so a is greater than 0.  A similar explanation for b shows that b is an integer between 0 and 6 inclusive.\nGoing back to the solution, if our answer to the problem is n, then \\[16a - b = 7n\\] and \\[16a = 7n + b,\\] so we can try the five option choices and see which one, when multiplied by 7 and added to some whole number between 0 and 6 results in a multiple of 16. Trying all the option choices, we see that you need to add 7n to something more than 6 to equal a multiple of 16 other than for option A. Therefore, the answer is $\\boxed{6}.$"
     ]
+  },
+  {
+    "id": "AMC2024-8-INDIVIDUAL-1",
+    "statement": "What is the ones digit of \\[222,222-22,222-2,222-222-22-2?\\] $\\textbf{(A) } 0\\qquad\\textbf{(B) } 2\\qquad\\textbf{(C) } 4\\qquad\\textbf{(D) } 6\\qquad\\textbf{(E) } 8$",
+    "solution": "Solution 1:\nWe can rewrite the expression as \\[222,222-(22,222+2,222+222+22+2).\\]\nWe note that the units digit of the addition is $0$ because all the units digits of the five numbers are $2$ and $5*2=10$ , which has a units digit of $0$\nNow, we have something with a units digit of $0$ subtracted from $222,222$ . The units digit of this expression is obviously $2$ , and we get $\\boxed{2}$ as our answer.\n\n---\n\nSolution 2:\n222,222-22,222 = 200,000\n200,000 - 2,222 = 197778\n197778 - 222 = 197556\n197556 - 22 = 197534\n197534 - 2 = 1957532\nSo our answer is $\\boxed{2}$\n\n---\n\nSolution 3:\nWe only care about the unit's digits.\nThus, $2-2$ ends in $0$ $0-2$ ends in $8$ $8-2$ ends in $6$ $6-2$ ends in $4$ , and $4-2$ ends in $\\boxed{2}$\n\n---\n\nSolution 4:\nWe just take the units digit of each and subtract, or you can do it this way by adding an extra ten to the first number (so we don't get a negative number): \\[12-2-(2+2+2+2)=10-8=2\\] Thus, we get the answer $\\boxed{2}$",
+    "area": [
+      "Number Theory"
+    ],
+    "subtopics": [
+      "ones digit",
+      "arithmetic",
+      "digit problems"
+    ],
+    "techniques": [
+      "digit problems"
+    ],
+    "difficulty": "easy",
+    "answer": "2",
+    "summary": "Tests ability to find the ones digit of a multi-term subtraction expression.",
+    "contest": "2024 AMC 8",
+    "round": "Individual Round",
+    "number": 1,
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2024_AMC_8_Problems/Problem_1"
+    ],
+    "candidates": [
+      "222,222-22,222 = 200,000\n200,000 - 2,222 = 197778\n197778 - 222 = 197556\n197556 - 22 = 197534\n197534 - 2 = 1957532\nSo our answer is $\\boxed{2}$",
+      "We only care about the unit's digits.\nThus, $2-2$ ends in $0$ $0-2$ ends in $8$ $8-2$ ends in $6$ $6-2$ ends in $4$ , and $4-2$ ends in $\\boxed{2}$",
+      "We just take the units digit of each and subtract, or you can do it this way by adding an extra ten to the first number (so we don't get a negative number): \\[12-2-(2+2+2+2)=10-8=2\\] Thus, we get the answer $\\boxed{2}$"
+    ]
+  },
+  {
+    "id": "AMC2024-8-INDIVIDUAL-2",
+    "statement": "What is the value of this expression in decimal form? \\[\\frac{44}{11} + \\frac{110}{44} + \\frac{44}{1100}\\] $\\textbf{(A) } 6.4\\qquad\\textbf{(B) } 6.504\\qquad\\textbf{(C) } 6.54\\qquad\\textbf{(D) } 6.9\\qquad\\textbf{(E) } 6.94$",
+    "solution": "Solution 1:\nWe see that $\\frac{44}{11}$ is $4$ $\\frac{110}{44}$ simplifies to $\\frac{5}{2}$ , which is $2.5$\nand $\\frac{44}{1100}$ simplifies to $\\frac{1}{25}$ , which is $0.04$\n$4+2.5+0.04$ reveals \\[\\frac{44}{11} + \\frac{110}{44} + \\frac{44}{1100}\\] is $\\boxed{6.54}$ . \n~ le_petit_chouetteur from TSMV",
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "fraction simplification",
+      "decimal conversion"
+    ],
+    "techniques": [
+      "arithmetic series"
+    ],
+    "difficulty": "easy",
+    "answer": "6.54",
+    "summary": "Tests simplification of fractions and conversion to decimal form.",
+    "contest": "2024 AMC 8",
+    "round": "Individual Round",
+    "number": 2,
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2024_AMC_8_Problems/Problem_2"
+    ]
+  },
+  {
+    "id": "AMC2024-8-INDIVIDUAL-3",
+    "statement": "Four squares of side length $4, 7, 9,$ and $10$ are arranged in increasing size order so that their left edges and bottom edges align. The squares alternate in color white-gray-white-gray, respectively, as shown in the figure. What is the area of the visible gray region in square units? [asy]  size(150); filldraw((0,0)--(10,0)--(10,10)--(0,10)--cycle,gray(0.7),linewidth(1)); filldraw((0,0)--(9,0)--(9,9)--(0,9)--cycle,white,linewidth(1)); filldraw((0,0)--(7,0)--(7,7)--(0,7)--cycle,gray(0.7),linewidth(1)); filldraw((0,0)--(4,0)--(4,4)--(0,4)--cycle,white,linewidth(1)); draw((11,0)--(11,4),linewidth(1)); draw((11,6)--(11,10),linewidth(1)); label(\"$10$\",(11,5),fontsize(14pt)); draw((10.75,0)--(11.25,0),linewidth(1)); draw((10.75,10)--(11.25,10),linewidth(1)); draw((0,11)--(3,11),linewidth(1)); draw((5,11)--(9,11),linewidth(1)); draw((0,11.25)--(0,10.75),linewidth(1)); draw((9,11.25)--(9,10.75),linewidth(1)); label(\"$9$\",(4,11),fontsize(14pt)); draw((-1,0)--(-1,1),linewidth(1)); draw((-1,3)--(-1,7),linewidth(1)); draw((-1.25,0)--(-0.75,0),linewidth(1)); draw((-1.25,7)--(-0.75,7),linewidth(1)); label(\"$7$\",(-1,2),fontsize(14pt)); draw((0,-1)--(1,-1),linewidth(1)); draw((3,-1)--(4,-1),linewidth(1)); draw((0,-1.25)--(0,-.75),linewidth(1)); draw((4,-1.25)--(4,-.75),linewidth(1)); label(\"$4$\",(2,-1),fontsize(14pt)); [/asy] $\\textbf{(A)}\\ 42 \\qquad \\textbf{(B)}\\ 45\\qquad \\textbf{(C)}\\ 49\\qquad \\textbf{(D)}\\ 50\\qquad \\textbf{(E)}\\ 52$",
+    "solution": "Solution 1:\nWe work inwards. The area of the outer shaded square is the area of the whole square minus the area of the second largest square. The area of the inner shaded region is the area of the third largest square minus the area of the smallest square. The sum of these areas is \\[10^2 - 9^2 + 7^2 - 4^2 = 19 + 33 = \\boxed{52}\\]\n\n---\n\nSolution 2:\nWe can calculate it as the sum of the areas of $2$ smaller trapezoids and $2$ larger trapezoids. \\[2\\left(\\cfrac{(7+4)(7-4)}{2}\\right)+2\\left(\\cfrac{(10+9)(10-9)}{2}\\right)=10^2 - 9^2 + 7^2 - 4^2 = 19 + 33 = \\boxed{52}\\]",
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "area of squares",
+      "overlapping regions",
+      "visible area"
+    ],
+    "techniques": [
+      "area ratios"
+    ],
+    "difficulty": "easy",
+    "answer": "52",
+    "summary": "Tests computing visible gray area from overlapping squares by differencing areas of nested squares.",
+    "contest": "2024 AMC 8",
+    "round": "Individual Round",
+    "number": 3,
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2024_AMC_8_Problems/Problem_3"
+    ],
+    "candidates": [
+      "We can calculate it as the sum of the areas of $2$ smaller trapezoids and $2$ larger trapezoids. \\[2\\left(\\cfrac{(7+4)(7-4)}{2}\\right)+2\\left(\\cfrac{(10+9)(10-9)}{2}\\right)=10^2 - 9^2 + 7^2 - 4^2 = 19 + 33 = \\boxed{52}\\]"
+    ]
+  },
+  {
+    "id": "AMC2024-8-INDIVIDUAL-4",
+    "statement": "When Yunji added all the integers from $1$ to $9$ , she mistakenly left out a number. Her incorrect sum turned out to be a square number. What number did Yunji leave out?\n$\\textbf{(A) } 5\\qquad\\textbf{(B) } 6\\qquad\\textbf{(C) } 7\\qquad\\textbf{(D) } 8\\qquad\\textbf{(E) } 9$",
+    "solution": "Solution 1:\nThe sum of the digits from $1-9$ are $1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 = 45$ . Note that one of the answer choices (that is equal to Yunju's digits) subtracted from her sum of $45$ must equal a square.\nNote that $6^2 = 36$ is a very close square to the sum of 45. Checking, we see that $45 - 9 = 36 = 6^2$ works.\nTherefore, the missing number is $\\boxed{9}$",
+    "area": [
+      "Number Theory"
+    ],
+    "subtopics": [
+      "arithmetic series",
+      "perfect squares",
+      "digit problems"
+    ],
+    "techniques": [
+      "arithmetic series",
+      "perfect squares/cubes"
+    ],
+    "difficulty": "easy",
+    "answer": "9",
+    "summary": "Tests recognizing that the total sum minus the missing number must be a perfect square.",
+    "contest": "2024 AMC 8",
+    "round": "Individual Round",
+    "number": 4,
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2024_AMC_8_Problems/Problem_4"
+    ]
+  },
+  {
+    "id": "AMC2024-8-INDIVIDUAL-5",
+    "statement": "Aaliyah rolls two standard 6-sided dice. She notices that the product of the two numbers rolled is a multiple of $6$ . Which of the following integers cannot be the sum of the two numbers?\n$\\textbf{(A) } 5\\qquad\\textbf{(B) } 6\\qquad\\textbf{(C) } 7\\qquad\\textbf{(D) } 8\\qquad\\textbf{(E) } 9$",
+    "solution": "Solution 1:\nFirst, figure out all pairs of numbers whose product is 6. Then, using the process of elimination, we can find the following:\n$\\textbf{(A)}$ is possible: $2\\times 3$\n$\\textbf{(C)}$ is possible: $1\\times 6$\n$\\textbf{(D)}$ is possible: $2\\times 6$\n$\\textbf{(E)}$ is possible: $3\\times 6$\nThe only integer that cannot be the sum is $\\boxed{6}.$",
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "dice probability",
+      "products and sums",
+      "divisibility"
+    ],
+    "techniques": [
+      "casework",
+      "exhaustive case elimination"
+    ],
+    "difficulty": "easy",
+    "answer": "6",
+    "summary": "Tests whether students can find dice pairs whose product is a multiple of 6 and identify impossible sums.",
+    "contest": "2024 AMC 8",
+    "round": "Individual Round",
+    "number": 5,
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2024_AMC_8_Problems/Problem_5"
+    ]
+  },
+  {
+    "id": "AMC2024-8-INDIVIDUAL-7",
+    "statement": "$3 \\times 7$ rectangle is covered without overlap by 3 shapes of tiles: $2 \\times 2$ $1\\times4$ , and $1\\times1$ , shown below. What is the minimum possible number of $1\\times1$ tiles used?\n$\\textbf{(A) } 1\\qquad\\textbf{(B)} 2\\qquad\\textbf{(C) } 3\\qquad\\textbf{(D) } 4\\qquad\\textbf{(E) } 5$",
+    "solution": "Solution 1:\nWe can eliminate B, C, and D, because they are not $21$ subtracted by any multiple of $4$ . Finally, we see that there is no way to have A, so the solution is $\\boxed{5}$\n\n---\n\nSolution 2:\nLet $x$ be the number of $1x1$ tiles. There are $21$ squares and each $2x2$ or $1x4$ tile takes up 4 squares, so $x \\equiv 1 \\pmod{4}$ , so it is either $1$ or $5$ . Color the columns, starting with red, then blue, and alternating colors, ending with a red column. There are $12$ red squares and $9$ blue squares, but each $2x2$ and $1x4$ shape takes up an equal number of blue and red squares, so there must be $3$ more $1x1$ tiles on red squares than on blue squares, which is impossible if there is just one, so the answer is $\\boxed{5}$ , which can easily be confirmed to work.\n\n---\n\nSolution 3:\nSuppose there are $a$ different $2\\times 2$ tiles, $b$ different $4\\times 1$ tiles and $c$ different $1\\times 1$ tiles. Since the areas of these tiles must total up to $21$ (area of the whole grid), we have \\[4a + 4b + c = 21.\\] Reducing modulo $4$ gives $c\\equiv 1\\pmod{4}$ , or $c = 1$ or $c = 5$\nIf $c = 1$ , then $a + b = 5$ . After some testing, there is no valid pair $(a, b)$ that works, so the answer must be $\\boxed{5}$ , which can be constructed in many ways.",
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "tiling",
+      "rectangle covering",
+      "modular arithmetic"
+    ],
+    "techniques": [
+      "modular arithmetic",
+      "coloring argument",
+      "casework"
+    ],
+    "difficulty": "medium",
+    "answer": "5",
+    "summary": "Tests tiling a 3×7 rectangle with 2×2, 1×4, and 1×1 tiles to minimize 1×1 tiles used.",
+    "contest": "2024 AMC 8",
+    "round": "Individual Round",
+    "number": 7,
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2024_AMC_8_Problems/Problem_7"
+    ],
+    "candidates": [
+      "Let $x$ be the number of $1x1$ tiles. There are $21$ squares and each $2x2$ or $1x4$ tile takes up 4 squares, so $x \\equiv 1 \\pmod{4}$ , so it is either $1$ or $5$ . Color the columns, starting with red, then blue, and alternating colors, ending with a red column. There are $12$ red squares and $9$ blue squares, but each $2x2$ and $1x4$ shape takes up an equal number of blue and red squares, so there must be $3$ more $1x1$ tiles on red squares than on blue squares, which is impossible if there is just one, so the answer is $\\boxed{5}$ , which can easily be confirmed to work.",
+      "Suppose there are $a$ different $2\\times 2$ tiles, $b$ different $4\\times 1$ tiles and $c$ different $1\\times 1$ tiles. Since the areas of these tiles must total up to $21$ (area of the whole grid), we have \\[4a + 4b + c = 21.\\] Reducing modulo $4$ gives $c\\equiv 1\\pmod{4}$ , or $c = 1$ or $c = 5$\nIf $c = 1$ , then $a + b = 5$ . After some testing, there is no valid pair $(a, b)$ that works, so the answer must be $\\boxed{5}$ , which can be constructed in many ways."
+    ]
+  },
+  {
+    "id": "AMC2024-8-INDIVIDUAL-8",
+    "statement": "On Monday Taye has $$2$ . Every day, he either gains $$3$ or doubles the amount of money he had on the previous day. How many different dollar amounts could Taye have on Thursday, $3$ days later?\n$\\textbf{(A) } 3\\qquad\\textbf{(B) } 4\\qquad\\textbf{(C) } 5\\qquad\\textbf{(D) } 6\\qquad\\textbf{(E) } 7$",
+    "solution": "Solution 1:\nHow many values could be on the first day? Only $2$ dollars. The second day, you can either add $3$ dollars, or double, so you can have $5$ dollars, or $4$ . For each of these values, you have $2$ values for each. For $5$ dollars, you have $10$ dollars or $8$ , and for $4$ dollars, you have $8$ dollars or $ $7$ . Now, you have $2$ values for each of these. For $10$ dollars, you have $13$ dollars or $20$ , for $8$ dollars, you have $16$ dollars or $11$ , for $8$ dollars, you have $16$ dollars or $11$ , and for $7$ dollars, you have $14$ dollars or $10$\nOn the final day, there are 11, 11, 16, and 16 repeating, leaving you with $8-2 = \\boxed{6}$ different values.\n\n---\n\nSolution 2:\nContinue as in Solution 1 to get $7$ $8$ , or $10$ dollars by the 2nd day. The only way to get the same dollar amount occurring twice by branching (multiply by $2$ or adding $3$ ) from here is if $7+3=10\\cdot 2$ or $7+3=8\\cdot 2$ which both aren't true. Hence our answer is $3\\cdot2=\\boxed{6}$",
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "counting distinct outcomes",
+      "binary decision trees",
+      "arithmetic sequences"
+    ],
+    "techniques": [
+      "casework",
+      "complementary counting"
+    ],
+    "difficulty": "easy",
+    "answer": "6",
+    "summary": "Count distinct dollar amounts after 3 days of repeatedly adding $3 or doubling.",
+    "contest": "2024 AMC 8",
+    "round": "Individual Round",
+    "number": 8,
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2024_AMC_8_Problems/Problem_8"
+    ],
+    "candidates": [
+      "Continue as in Solution 1 to get $7$ $8$ , or $10$ dollars by the 2nd day. The only way to get the same dollar amount occurring twice by branching (multiply by $2$ or adding $3$ ) from here is if $7+3=10\\cdot 2$ or $7+3=8\\cdot 2$ which both aren't true. Hence our answer is $3\\cdot2=\\boxed{6}$"
+    ]
+  },
+  {
+    "id": "AMC2024-8-INDIVIDUAL-9",
+    "statement": "All the marbles in Maria's collection are red, green, or blue. Maria has half as many red marbles as green marbles and twice as many blue marbles as green marbles. Which of the following could be the total number of marbles in Maria's collection?\n$\\textbf{(A) } 24\\qquad\\textbf{(B) } 25\\qquad\\textbf{(C) } 26\\qquad\\textbf{(D) } 27\\qquad\\textbf{(E) } 28$",
+    "solution": "Solution 1:\nSince she has half as many red marbles as green, we can call the number of red marbles $x$ , and the number of green marbles $2x$ .\nSince she has half as many green marbles as blue, we can call the number of blue marbles $4x$ . \nAdding them up, we have $7x$ marbles. The number of marbles therefore must be a multiple of $7$ . The only possible answer is $\\boxed{28}.$\n\n---\n\nSolution 2:\nSuppose Maria has $g$ green marbles and let $t$ be the total number of marbles. She then has $\\frac{g}{2}$ red marbles and $2g$ blue marbles. Altogether, Maria has \\[g + \\frac{g}{2} + 2g = \\frac{7g}{2} = t\\] marbles, implying that $g = \\dfrac{2t}{7},$ so $t$ must be a multiple of $7$ . The only multiple of $7$ is $\\boxed{28}.$",
+    "area": [
+      "Algebra",
+      "Number Theory"
+    ],
+    "subtopics": [
+      "ratio and proportion",
+      "divisibility",
+      "linear equations"
+    ],
+    "techniques": [
+      "divisibility"
+    ],
+    "difficulty": "easy",
+    "answer": "28",
+    "summary": "Tests setting up ratios from word conditions and recognizing the total must be a multiple of 7.",
+    "contest": "2024 AMC 8",
+    "round": "Individual Round",
+    "number": 9,
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2024_AMC_8_Problems/Problem_9"
+    ],
+    "candidates": [
+      "Suppose Maria has $g$ green marbles and let $t$ be the total number of marbles. She then has $\\frac{g}{2}$ red marbles and $2g$ blue marbles. Altogether, Maria has \\[g + \\frac{g}{2} + 2g = \\frac{7g}{2} = t\\] marbles, implying that $g = \\dfrac{2t}{7},$ so $t$ must be a multiple of $7$ . The only multiple of $7$ is $\\boxed{28}.$"
+    ]
+  },
+  {
+    "id": "AMC2024-8-INDIVIDUAL-10",
+    "statement": "In January $1980$ the Mauna Loa Observatory recorded carbon dioxide $(CO2)$ levels of $338$ ppm (parts per million). Over the years the average $CO2$ reading has increased by about $1.515$ ppm each year. What is the expected $CO2$ level in ppm in January $2030$ ? Round your answer to the nearest integer.\n$\\textbf{(A)}\\ 399\\qquad \\textbf{(B)}\\ 414\\qquad \\textbf{(C)}\\ 420\\qquad \\textbf{(D)}\\ 444\\qquad \\textbf{(E)}\\ 459$",
+    "solution": "Solution 1:\nThis is a time period of $50$ years, so we can expect the ppm to increase by $50*1.515=75.75~76$ $76+338=\\boxed{414}$\n\n---\n\nSolution 2:\nFor each year that has passed, the ppm will increase by $1.515$ . In $2030$ , the CO2 would have increased by $50\\cdot 1.515 \\approx. 76,$ so the total ppm of CO2 will be $76 + 338 = \\boxed{414}.$\n\n---\n\nSolution 3:\n2030 - 1980 = 50 years.\n338 + 50 * 1.515 = 338 + 75.75 = 413.75 for 2030 ppm level $=\\boxed{414}$",
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "arithmetic sequences",
+      "linear growth",
+      "rounding"
+    ],
+    "techniques": [
+      "arithmetic series"
+    ],
+    "difficulty": "easy",
+    "answer": "414",
+    "summary": "Tests linear growth over time using a constant annual rate of increase.",
+    "contest": "2024 AMC 8",
+    "round": "Individual Round",
+    "number": 10,
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2024_AMC_8_Problems/Problem_10"
+    ],
+    "candidates": [
+      "For each year that has passed, the ppm will increase by $1.515$ . In $2030$ , the CO2 would have increased by $50\\cdot 1.515 \\approx. 76,$ so the total ppm of CO2 will be $76 + 338 = \\boxed{414}.$",
+      "2030 - 1980 = 50 years.\n338 + 50 * 1.515 = 338 + 75.75 = 413.75 for 2030 ppm level $=\\boxed{414}$"
+    ]
+  },
+  {
+    "id": "AMC2024-8-INDIVIDUAL-11",
+    "statement": "The coordinates of $\\triangle ABC$ are $A(5,7)$ $B(11,7)$ , and $C(3,y)$ , with $y>7$ . The area of $\\triangle ABC$ is 12. What is the value of $y$\n[asy]  draw((3,11)--(11,7)--(5,7)--(3,11));  dot((5,7)); label(\"$A(5,7)$\",(5,7),S);  dot((11,7)); label(\"$B(11,7)$\",(11,7),S);  dot((3,11)); label(\"$C(3,y)$\",(3,11),NW);  [/asy]\n$\\textbf{(A) }8\\qquad\\textbf{(B) }9\\qquad\\textbf{(C) }10\\qquad\\textbf{(D) }11\\qquad \\textbf{(E) }12$",
+    "solution": "Solution 1:\nThe triangle has base $6,$ which means its height satisfies \\[\\dfrac{6h}{2}=3h=12.\\] This means that $h=4,$ so the answer is $7+4=\\boxed{11}$\n\n---\n\nSolution 2:\n[asy] size(10cm); draw((5,7)--(11,7)--(3,11)--cycle); draw((3,11)--(3,7)--(5,7),red); draw((3,7.5)--(3.5,7.5)--(3.5,7)); label(\"$A(5,7)$\", (5,7),S); label(\"$B(11,7)$\", (11,7),S); label(\"$C(3,y)$\", (3,11),W); label(\"$D(3,7)$\", (3,7),SW); [/asy] Label point $D(3,7)$ as the point at which $CD\\perp DA$ . We now have $[\\triangle ABC] = [\\triangle BCD] - [\\triangle ACD]$ , where the brackets denote areas. On the right hand side, both of these triangles are right, so we can just compute the two sides of each triangle. The two side lengths of $\\triangle ACD$ are $y-7$ and $5-3=2$ . The two side lengths of $\\triangle BCD$ are $y-7$ and $11-3 = 8.$ Now,\n\\[[\\triangle ABC] = 12  = \\frac{1}{2}\\cdot (y-7)\\cdot 8 - \\frac{1}{2}\\cdot (y-7)\\cdot 2  = 3(y-7)\\]\nDividing by $3$ gives $y -7 = 4,$ so $y = \\boxed{11}.$\n\n---\n\nSolution 3:\nBy the Shoelace Theorem, $\\triangle ABC$ has area \\[\\frac{1}{2}|(y \\cdot 11 + 7 \\cdot 5 + 7 \\cdot 3) - (3 \\cdot 7 + 11 \\cdot 7 + 5 \\cdot y)| = \\frac{1}{2}|(11y + 56) - (98 + 5y)| = \\frac{1}{2}|6y - 42|\\] . From the problem, this is equal to $12$ . We now solve for y.\n$\\frac{1}{2}|6y - 42| = 12$\n$|6y-42| = 24$\n$6y - 42 = 24$ OR $6y - 42 = -24$\n$6y = 66$ OR $6y = 18$\n$y = 11$ OR $y = 3$\nHowever, since, as stated in the problem, $y > 7$ , our only valid solution is $\\boxed{11}$\n\n---\n\nSolution 4:\nAs in the figure, the triangle is determined by the vectors $\\begin{bmatrix}-2 \\\\ y-7\\end{bmatrix}$ and $\\begin{bmatrix}6\\\\0\\end{bmatrix}$ . Recall that the absolute value of the determinant of these vectors is the area of the parallelogram determined by those vectors; the triangle has half the area of that parallelogram. Then we must have that $\\frac{1}{2}|\\begin{vmatrix}-2 & y-7\\\\6 & 0\\end{vmatrix}| = 12 \\implies \\begin{vmatrix}-2 & y-7\\\\6 & 0\\end{vmatrix} = \\pm 24$ . Expanding the determinants, we find that $-6(y-7) = 24$ or $-6(y-7) = -24$ . Solving each equation individually, we find that $y = 3$ or $y = 11$ . However, the problem states that $y > 7$ , so the only valid solution is $\\boxed{11}$",
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "triangle area",
+      "coordinate geometry"
+    ],
+    "techniques": [
+      "shoelace formula"
+    ],
+    "difficulty": "easy",
+    "answer": "11",
+    "summary": "Find a missing coordinate given the area of a triangle in the coordinate plane.",
+    "contest": "2024 AMC 8",
+    "round": "Individual Round",
+    "number": 11,
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2024_AMC_8_Problems/Problem_11"
+    ],
+    "candidates": [
+      "[asy] size(10cm); draw((5,7)--(11,7)--(3,11)--cycle); draw((3,11)--(3,7)--(5,7),red); draw((3,7.5)--(3.5,7.5)--(3.5,7)); label(\"$A(5,7)$\", (5,7),S); label(\"$B(11,7)$\", (11,7),S); label(\"$C(3,y)$\", (3,11),W); label(\"$D(3,7)$\", (3,7),SW); [/asy] Label point $D(3,7)$ as the point at which $CD\\perp DA$ . We now have $[\\triangle ABC] = [\\triangle BCD] - [\\triangle ACD]$ , where the brackets denote areas. On the right hand side, both of these triangles are right, so we can just compute the two sides of each triangle. The two side lengths of $\\triangle ACD$ are $y-7$ and $5-3=2$ . The two side lengths of $\\triangle BCD$ are $y-7$ and $11-3 = 8.$ Now,\n\\[[\\triangle ABC] = 12  = \\frac{1}{2}\\cdot (y-7)\\cdot 8 - \\frac{1}{2}\\cdot (y-7)\\cdot 2  = 3(y-7)\\]\nDividing by $3$ gives $y -7 = 4,$ so $y = \\boxed{11}.$",
+      "By the Shoelace Theorem, $\\triangle ABC$ has area \\[\\frac{1}{2}|(y \\cdot 11 + 7 \\cdot 5 + 7 \\cdot 3) - (3 \\cdot 7 + 11 \\cdot 7 + 5 \\cdot y)| = \\frac{1}{2}|(11y + 56) - (98 + 5y)| = \\frac{1}{2}|6y - 42|\\] . From the problem, this is equal to $12$ . We now solve for y.\n$\\frac{1}{2}|6y - 42| = 12$\n$|6y-42| = 24$\n$6y - 42 = 24$ OR $6y - 42 = -24$\n$6y = 66$ OR $6y = 18$\n$y = 11$ OR $y = 3$\nHowever, since, as stated in the problem, $y > 7$ , our only valid solution is $\\boxed{11}$",
+      "As in the figure, the triangle is determined by the vectors $\\begin{bmatrix}-2 \\\\ y-7\\end{bmatrix}$ and $\\begin{bmatrix}6\\\\0\\end{bmatrix}$ . Recall that the absolute value of the determinant of these vectors is the area of the parallelogram determined by those vectors; the triangle has half the area of that parallelogram. Then we must have that $\\frac{1}{2}|\\begin{vmatrix}-2 & y-7\\\\6 & 0\\end{vmatrix}| = 12 \\implies \\begin{vmatrix}-2 & y-7\\\\6 & 0\\end{vmatrix} = \\pm 24$ . Expanding the determinants, we find that $-6(y-7) = 24$ or $-6(y-7) = -24$ . Solving each equation individually, we find that $y = 3$ or $y = 11$ . However, the problem states that $y > 7$ , so the only valid solution is $\\boxed{11}$"
+    ]
+  },
+  {
+    "id": "AMC2024-8-INDIVIDUAL-12",
+    "statement": "Rohan keeps a total of 90 guppies in 4 fish tanks.\nHow many guppies are in the 4th tank?\n$\\textbf{(A)}\\ 20 \\qquad \\textbf{(B)}\\ 21 \\qquad \\textbf{(C)}\\ 23 \\qquad \\textbf{(D)}\\ 24 \\qquad \\textbf{(E)}\\ 26$",
+    "solution": "Solution 1:\nLet $x$ denote the number of guppies in the first tank.\nThen, we have the following for the number of guppies in the rest of the tanks:\nThe number of guppies in all of the tanks combined is 90, so we can write the equation\n$x + x + 1 + x + 1 + 2 + x + 1 + 2 + 3 = 90$\nSimplifying the equation gives\n$4x + 10 = 90$\nSolving the resulting equation gives $x = 20$ , so the number of guppies in the fourth tank is $20 + 1 + 2 + 3 = 26$\nTherefore, the correct answer is $\\boxed{26}$\n\n---\n\nSolution 2:\nSuppose there are no guppies in the first tank.\nThen, the number of guppies in the other tanks are $1,3,$ and $6,$ or $10$ guppies in total.\nWe need to add $90 - 10 = 80$ guppies into $4$ tanks or $20$ guppies in each tank.\nSo the number of guppies in the fourth tank is $20 + 6 = \\boxed{26}.$",
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "linear equations",
+      "arithmetic sequences"
+    ],
+    "techniques": [
+      "system of linear equations"
+    ],
+    "difficulty": "easy",
+    "answer": "26",
+    "summary": "Tests setting up and solving a simple linear equation from a word problem.",
+    "contest": "2024 AMC 8",
+    "round": "Individual Round",
+    "number": 12,
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2024_AMC_8_Problems/Problem_12"
+    ],
+    "candidates": [
+      "Suppose there are no guppies in the first tank.\nThen, the number of guppies in the other tanks are $1,3,$ and $6,$ or $10$ guppies in total.\nWe need to add $90 - 10 = 80$ guppies into $4$ tanks or $20$ guppies in each tank.\nSo the number of guppies in the fourth tank is $20 + 6 = \\boxed{26}.$"
+    ]
+  },
+  {
+    "id": "AMC2024-8-INDIVIDUAL-13",
+    "statement": "Buzz Bunny is hopping up and down a set of stairs, one step at a time. In how many ways can Buzz start on the ground, make a sequence of $6$ hops, and end up back on the ground?\n(For example, one sequence of hops is up-up-down-down-up-down.)\n2024-AMC8-q13.png\n$\\textbf{(A)}\\ 4 \\qquad \\textbf{(B)}\\ 5 \\qquad \\textbf{(C)}\\ 6 \\qquad \\textbf{(D)}\\ 8 \\qquad \\textbf{(E)}\\ 12$",
+    "solution": "Solution 1:\nLooking at the answer choices, you see that you can list them out. \nDoing this gets you:\n$UUDDUD$\n$UDUDUD$\n$UUUDDD$\n$UDUUDD$\n$UUDUDD$\nCounting all the paths listed above gets you $\\boxed{5}$\n\n---\n\nSolution 2:\nAny combination can be written as some re-arrangement of $UUUDDD$ . Clearly we must end going down, and start going up, so we need the number of ways to insert 2 $U$ 's and 2 $D$ 's into $U\\, \\_ \\, \\_ \\, \\_ \\, \\_ \\, D$ . There are ${4\\choose 2}=6$ ways, but we have to remove the case $UDDUUD$ , giving us $\\boxed{5}$\n\n---\n\nSolution 3:\nThese numbers are clearly the Catalan numbers. Since we have 6 steps, we need the third Catalan number, which is $\\boxed{5}$ .\n~andliu766\n\n---\n\nSolution 4:\nFirst step is U, last step is D.\nAfter third step we can get only positions 3 or 1.\nIn the first case there is only one way UUUDDD.\nIn the second case we have two way to get this position UDU and UUD.\nSimilarly, we have two way return to position 0 (UDD and DUD).\nTherefore, we have $1 + 2 \\cdot 2 = \\boxed{5}$\n\n---\n\nSolution 5:\nWe can find the total cases then deduct the ones that don't work.\nLet $U$ represent \"Up\" and $D$ represent \"Down\". We know that in order to land back at the bottom of the stairs, we must have an equal number of $U$ 's and $D$ 's, therefore six hops means $3$ of each.\nThe number of ways to arrange $3$ $U$ 's and $3$ $D$ 's is $\\dfrac{6!}{(3!)^2}=\\dfrac{720}{36}=20$\nCase $1$ : Start with $D$\nCase $2$ : Start with $UDD$\nCase $3$ : Start with $UUDDD$\nCase $4$ : Start with $UDUDD$\nCase $1$ is asking us how many ways there are to arrange $3$ $U$ 's and $2$ $D$ 's, which is $\\dfrac{5!}{3!2!}=\\dfrac{120}{12}=10$\nCase $2$ is asking us how many ways there are to arrange $2$ $U$ 's and $1$ $D$ , which is $\\dfrac{3!}{2!1!}=\\dfrac{6}{2}=3$\nCase $3$ is asking us how many ways there are to arrange $1$ $U$ , which is $1$\nCase $4$ is asking us the same thing as Case $3$ , giving us $1$\nTherefore, deducting all cases from $20$ gives $20-10-3-1-1=\\boxed{5}$",
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "lattice paths",
+      "Catalan numbers",
+      "counting sequences"
+    ],
+    "techniques": [
+      "Catalan numbers",
+      "complementary counting",
+      "permutations/combinations"
+    ],
+    "difficulty": "easy",
+    "answer": "5",
+    "summary": "Count 6-step up/down sequences starting and ending at ground, never going below ground.",
+    "contest": "2024 AMC 8",
+    "round": "Individual Round",
+    "number": 13,
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2024_AMC_8_Problems/Problem_13"
+    ],
+    "candidates": [
+      "Any combination can be written as some re-arrangement of $UUUDDD$ . Clearly we must end going down, and start going up, so we need the number of ways to insert 2 $U$ 's and 2 $D$ 's into $U\\, \\_ \\, \\_ \\, \\_ \\, \\_ \\, D$ . There are ${4\\choose 2}=6$ ways, but we have to remove the case $UDDUUD$ , giving us $\\boxed{5}$",
+      "These numbers are clearly the Catalan numbers. Since we have 6 steps, we need the third Catalan number, which is $\\boxed{5}$ .\n~andliu766",
+      "First step is U, last step is D.\nAfter third step we can get only positions 3 or 1.\nIn the first case there is only one way UUUDDD.\nIn the second case we have two way to get this position UDU and UUD.\nSimilarly, we have two way return to position 0 (UDD and DUD).\nTherefore, we have $1 + 2 \\cdot 2 = \\boxed{5}$",
+      "We can find the total cases then deduct the ones that don't work.\nLet $U$ represent \"Up\" and $D$ represent \"Down\". We know that in order to land back at the bottom of the stairs, we must have an equal number of $U$ 's and $D$ 's, therefore six hops means $3$ of each.\nThe number of ways to arrange $3$ $U$ 's and $3$ $D$ 's is $\\dfrac{6!}{(3!)^2}=\\dfrac{720}{36}=20$\nCase $1$ : Start with $D$\nCase $2$ : Start with $UDD$\nCase $3$ : Start with $UUDDD$\nCase $4$ : Start with $UDUDD$\nCase $1$ is asking us how many ways there are to arrange $3$ $U$ 's and $2$ $D$ 's, which is $\\dfrac{5!}{3!2!}=\\dfrac{120}{12}=10$\nCase $2$ is asking us how many ways there are to arrange $2$ $U$ 's and $1$ $D$ , which is $\\dfrac{3!}{2!1!}=\\dfrac{6}{2}=3$\nCase $3$ is asking us how many ways there are to arrange $1$ $U$ , which is $1$\nCase $4$ is asking us the same thing as Case $3$ , giving us $1$\nTherefore, deducting all cases from $20$ gives $20-10-3-1-1=\\boxed{5}$"
+    ]
+  },
+  {
+    "id": "AMC2024-8-INDIVIDUAL-14",
+    "statement": "The one-way routes connecting towns $A,M,C,X,Y,$ and $Z$ are shown in the figure below(not drawn to scale).The distances in kilometers along each route are marked. Traveling along these routes, what is the shortest distance from A to Z in kilometers?\n2024-AMC8-q14.png\n$\\textbf{(A)}\\ 28 \\qquad \\textbf{(B)}\\ 29 \\qquad \\textbf{(C)}\\ 30 \\qquad \\textbf{(D)}\\ 31 \\qquad \\textbf{(E)}\\ 32$",
+    "solution": "Solution 1:\nWe can simply see that path $A \\rightarrow X \\rightarrow M \\rightarrow Y \\rightarrow C \\rightarrow Z$ will give us the smallest value. Adding, $5+2+6+5+10 = \\boxed{28}$ . This is nice as it’s also the smallest value, solidifying our answer.\n\n---\n\nSolution 2:\nWe can execute Dijkstra's algorithm by hand to find the shortest path from $A$ to every other town, including $Z$ . This effectively proves that, assuming we execute the algorithm correctly, that we will have found the shortest distance. The distance estimates for each step of the algorithm (from $A$ to each node) are shown below:\n\\[\\begin{array}{|c|c|c|c|c|c|c|} \\hline \\text{Current node} & A & M & C & X & Y & Z \\\\ \\hline A & 0 & 8 & \\infty & 5 & \\infty & \\infty \\\\ X & 0 & 7 & \\infty & 5 & 15 & \\infty \\\\ M & 0 & 7 & 21 & 5 & 13 & 32 \\\\ Y & 0 & 7 & 18 & 5 & 13 & 30 \\\\ C & 0 & 7 & 18 & 5 & 13 & 28 \\\\ Z & 0 & 7 & 18 & 5 & 13 & \\textbf{28} \\\\ \\hline \\end{array}\\] The steps are as follows: starting with the initial node $A$ , set $d(A)=0$ and $d(v)=\\infty$ for all $v \\in \\{M,C,X,Y,Z\\}$ where $d(v)$ indicates the distance from $A$ to $v$ . Consider the outgoing edges $(A,X)$ and $(A,M)$ and update the distance estimates $d(X)=5$ and $d(M)=8$ , completing the first row of the table.\nThe node $X$ is the unvisited node with the lowest distance estimate, so we will consider $X$ and its outgoing edges $(X,Y)$ and $(X,M)$ . The distance estimate $d(Y)$ equals $d(X)+10=15$ , and the distance estimate $d(M)$ updates to $d(X)+2=7$ , because $7 < 8$ . This completes the second row of the table. Repeating this process for each unvisited node (in order of its distance estimate) yields the correct distance $d(Z) = \\boxed{28}$ once the algorithm is complete.\n\n---\n\nSolution 3:\nFrom $A$ , we want to find the shortest route to $Z$ , so we want to try to find the shortest path through each node (not necessarily all of them). We should follow the arrows, since all of them lead to $Z$ . From $A$ , there are $2$ paths we can take, to $M$ $(8)$ , or to $X$ $(5)$ . We travel to $X$ , since $5 < 8$ . From $X$ , we go to $M$ $(2 < 10)$ , we go to $Y$ $6 < 14 < 25$ , we go to $C$ $(5 < 17)$ and finally go to $Z$ . Adding up gives $5 + 2 + 6 + 5 + 10 = 28 = \\boxed{28}$\n\n---\n\nSolution 4:\nWe can cross off a few routes:\nFinally, we are left with a single path AXMYCZ from A to Z which adding it up gives $28 = \\boxed{28}.$",
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "shortest path",
+      "graph traversal",
+      "weighted graphs"
+    ],
+    "techniques": [
+      "Dijkstra's algorithm",
+      "casework"
+    ],
+    "difficulty": "easy",
+    "answer": "28",
+    "summary": "Tests finding the shortest path through a small weighted directed graph by enumeration or Dijkstra's algorithm.",
+    "contest": "2024 AMC 8",
+    "round": "Individual Round",
+    "number": 14,
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2024_AMC_8_Problems/Problem_14"
+    ],
+    "candidates": [
+      "We can execute Dijkstra's algorithm by hand to find the shortest path from $A$ to every other town, including $Z$ . This effectively proves that, assuming we execute the algorithm correctly, that we will have found the shortest distance. The distance estimates for each step of the algorithm (from $A$ to each node) are shown below:\n\\[\\begin{array}{|c|c|c|c|c|c|c|} \\hline \\text{Current node} & A & M & C & X & Y & Z \\\\ \\hline A & 0 & 8 & \\infty & 5 & \\infty & \\infty \\\\ X & 0 & 7 & \\infty & 5 & 15 & \\infty \\\\ M & 0 & 7 & 21 & 5 & 13 & 32 \\\\ Y & 0 & 7 & 18 & 5 & 13 & 30 \\\\ C & 0 & 7 & 18 & 5 & 13 & 28 \\\\ Z & 0 & 7 & 18 & 5 & 13 & \\textbf{28} \\\\ \\hline \\end{array}\\] The steps are as follows: starting with the initial node $A$ , set $d(A)=0$ and $d(v)=\\infty$ for all $v \\in \\{M,C,X,Y,Z\\}$ where $d(v)$ indicates the distance from $A$ to $v$ . Consider the outgoing edges $(A,X)$ and $(A,M)$ and update the distance estimates $d(X)=5$ and $d(M)=8$ , completing the first row of the table.\nThe node $X$ is the unvisited node with the lowest distance estimate, so we will consider $X$ and its outgoing edges $(X,Y)$ and $(X,M)$ . The distance estimate $d(Y)$ equals $d(X)+10=15$ , and the distance estimate $d(M)$ updates to $d(X)+2=7$ , because $7 < 8$ . This completes the second row of the table. Repeating this process for each unvisited node (in order of its distance estimate) yields the correct distance $d(Z) = \\boxed{28}$ once the algorithm is complete.",
+      "From $A$ , we want to find the shortest route to $Z$ , so we want to try to find the shortest path through each node (not necessarily all of them). We should follow the arrows, since all of them lead to $Z$ . From $A$ , there are $2$ paths we can take, to $M$ $(8)$ , or to $X$ $(5)$ . We travel to $X$ , since $5 < 8$ . From $X$ , we go to $M$ $(2 < 10)$ , we go to $Y$ $6 < 14 < 25$ , we go to $C$ $(5 < 17)$ and finally go to $Z$ . Adding up gives $5 + 2 + 6 + 5 + 10 = 28 = \\boxed{28}$",
+      "We can cross off a few routes:\nFinally, we are left with a single path AXMYCZ from A to Z which adding it up gives $28 = \\boxed{28}.$"
+    ]
+  },
+  {
+    "id": "AMC2024-8-INDIVIDUAL-15",
+    "statement": "Let the letters $F$ $L$ $Y$ $B$ $U$ $G$ represent distinct digits. Suppose $\\underline{F}~\\underline{L}~\\underline{Y}~\\underline{F}~\\underline{L}~\\underline{Y}$ is the greatest number that satisfies the equation\n\\[8\\cdot\\underline{F}~\\underline{L}~\\underline{Y}~\\underline{F}~\\underline{L}~\\underline{Y}=\\underline{B}~\\underline{U}~\\underline{G}~\\underline{B}~\\underline{U}~\\underline{G}.\\]\nWhat is the value of $\\underline{F}~\\underline{L}~\\underline{Y}+\\underline{B}~\\underline{U}~\\underline{G}$\n$\\textbf{(A)}\\ 1089 \\qquad \\textbf{(B)}\\ 1098 \\qquad \\textbf{(C)}\\ 1107 \\qquad \\textbf{(D)}\\ 1116 \\qquad \\textbf{(E)}\\ 1125$",
+    "solution": "Solution 1:\nThe highest that $FLYFLY$ can be would have to be $124124$ , and it cannot be higher than that because then it would exceed the $6$ -digit limit set on $BUGBUG$\nSo, if we start at $124124\\cdot8$ , we get $992992$ , which would be wrong because both $B \\& U$ would be $9$ , and the numbers cannot be repeated between different letters.\nIf we move on to the next highest, $123123$ , and multiply by $8$ , we get $984984$ . All the digits are different, so $FLY+BUG$ would be $123+984$ , which is $1107$ . So, the answer is $\\boxed{1107}$\n\n---\n\nSolution 2:\nNotice that $\\underline{F}~\\underline{L}~\\underline{Y}~\\underline{F}~\\underline{L}~\\underline{Y} = 1000(\\underline{F}~\\underline{L}~\\underline{Y}) + \\underline{F}~\\underline{L}~\\underline{Y}$\nLikewise, $\\underline{B}~\\underline{U}~\\underline{G}~\\underline{B}~\\underline{U}~\\underline{G} = 1000(\\underline{B}~\\underline{U}~\\underline{G}) + \\underline{B}~\\underline{U}~\\underline{G}$\nTherefore, we have the following equation:\n$8 \\times 1001(\\underline{F}~\\underline{L}~\\underline{Y}) = 1001(\\underline{B}~\\underline{U}~\\underline{G})$\nSimplifying the equation gives\n$8(\\underline{F}~\\underline{L}~\\underline{Y}) = (\\underline{B}~\\underline{U}~\\underline{G})$\nWe can now use our equation to test each answer choice.\nWe have that $123123 \\times 8 = 984984$ , so we can find the sum:\n$\\underline{F}~\\underline{L}~\\underline{Y}+\\underline{B}~\\underline{U}~\\underline{G} = 123 + 984 = 1107$\nSo, the correct answer is $\\boxed{1107}$\n\n---\n\nSolution 3:\nNote that $FLY+BUG = 9 \\cdot FLY$ . Thus, we can check the answer choices and find $FLY$ through each of the answer choices, we find the 1107 works, so the answer is $\\boxed{1107}$",
+    "area": [
+      "Number Theory",
+      "Algebra"
+    ],
+    "subtopics": [
+      "cryptarithmetic",
+      "digit problems",
+      "divisibility"
+    ],
+    "techniques": [
+      "digit problems",
+      "divisibility"
+    ],
+    "difficulty": "easy",
+    "answer": "1107",
+    "summary": "Tests recognition that a repeated 3-digit pattern equals 1001 times the 3-digit number, reducing a 6-digit cryptarithmetic equation.",
+    "contest": "2024 AMC 8",
+    "round": "Individual Round",
+    "number": 15,
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2024_AMC_8_Problems/Problem_15"
+    ],
+    "candidates": [
+      "Notice that $\\underline{F}~\\underline{L}~\\underline{Y}~\\underline{F}~\\underline{L}~\\underline{Y} = 1000(\\underline{F}~\\underline{L}~\\underline{Y}) + \\underline{F}~\\underline{L}~\\underline{Y}$\nLikewise, $\\underline{B}~\\underline{U}~\\underline{G}~\\underline{B}~\\underline{U}~\\underline{G} = 1000(\\underline{B}~\\underline{U}~\\underline{G}) + \\underline{B}~\\underline{U}~\\underline{G}$\nTherefore, we have the following equation:\n$8 \\times 1001(\\underline{F}~\\underline{L}~\\underline{Y}) = 1001(\\underline{B}~\\underline{U}~\\underline{G})$\nSimplifying the equation gives\n$8(\\underline{F}~\\underline{L}~\\underline{Y}) = (\\underline{B}~\\underline{U}~\\underline{G})$\nWe can now use our equation to test each answer choice.\nWe have that $123123 \\times 8 = 984984$ , so we can find the sum:\n$\\underline{F}~\\underline{L}~\\underline{Y}+\\underline{B}~\\underline{U}~\\underline{G} = 123 + 984 = 1107$\nSo, the correct answer is $\\boxed{1107}$",
+      "Note that $FLY+BUG = 9 \\cdot FLY$ . Thus, we can check the answer choices and find $FLY$ through each of the answer choices, we find the 1107 works, so the answer is $\\boxed{1107}$"
+    ]
+  },
+  {
+    "id": "AMC2024-8-INDIVIDUAL-16",
+    "statement": "Minh enters the numbers $1$ through $81$ into the cells of a $9 \\times 9$ grid in some order. She calculates the product of the numbers in each row and column. What is the least number of rows and columns that could have a product divisible by $3$\n$\\textbf{(A) } 8\\qquad\\textbf{(B) } 9\\qquad\\textbf{(C) } 10\\qquad\\textbf{(D) } 11\\qquad\\textbf{(E) } 12$",
+    "solution": "Solution 1:\n[asy] unitsize(0.2cm); draw((9,18)--(-9,18)); draw((9,16)--(-9,16)); draw((9,14)--(-9,14)); draw((9,12)--(-9,12)); draw((9,10)--(-9,10)); draw((9,8)--(-9,8)); draw((9,6)--(-9,6)); draw((9,4)--(-9,4)); draw((9,2)--(-9,2)); draw((9,0)--(-9,0));  draw((9,18)--(9,0)); draw((7,18)--(7,0)); draw((5,18)--(5,0)); draw((3,18)--(3,0)); draw((1,18)--(1,0)); draw((-1,18)--(-1,0)); draw((-3,18)--(-3,0)); draw((-5,18)--(-5,0)); draw((-7,18)--(-7,0)); draw((-9,18)--(-9,0));  draw((-9,17)--(9,17), red); draw((-9,15)--(9,15), red); draw((-9,13)--(9,13), red); draw((-8,0)--(-8,18), red); draw((-6,0)--(-6,18), red); draw((-4,0)--(-4,18), red); draw((-2,0)--(-2,18), red); [/asy]\nWe know that if a row/column of numbers has a single multiple of $3$ , that entire row/column will be divisible by $3$ . Since there are $27$ multiples of $3$ from $1$ to $81$ , We need to find a way to place the $54$ non-multiples of $3$ such that they take up as many entire rows and columns as possible.\nIf we naively put in non-multiples of $3$ in $6$ rows from the top, we get $18 - 6 = 12$ rows that are multiples of $3$ . However, we can improve this number by making some rows and columns intersect so that some squares help fill out both rows and columns\nWe see that filling $7$ rows/columns would usually take $7 \\times 9 = 63$ of our non-multiples, but if we do $4$ rows and $3$ columns, $12$ will intersect. With our $54$ being enough as we need only $51$ non-multiples of $3$ $63$ minus the $12$ overlapped). We check to see if we can fill out one more row/column, and when that fails we conclude the final answer to be $18 - 7 = \\boxed{11}$ -IwOwOwl253 ~andliu766(Minor edits) -c29ss1(Diagram)\n\n---\n\nSolution 2:\nNote you can swap/rotate any configuration of rows, such that all the rows and columns that have a product of 3 are in the top left. Hence the points are bounded by a $a \\times b$ rectangle. This has $ab$ area and $a+b$ rows and columns divisible by $3$ . We want $ab\\ge 27$ and $a+b$ minimized.\nIf $ab=27$ , we achieve minimum with $a+b=9+3=12$\nIf $ab=28$ ,our best is $a+b=7+4=11$ . Note if $a+b=10$ , then $ab\\le 25$ , and hence there is no smaller answer, and we get $\\boxed{11}$\n\n---\n\nSolution 3:\nFor a row or column to have a product divisible by $3$ , there must be a multiple of $3$ in the row or column. To create the least amount of rows and columns with multiples of $3$ , we must find a way to keep them all together, to minimize the total number of rows and columns. From $1$ to $81$ , there are $27$ multiples of $3$ $81/3$ ). So we have to fill $27$ cells with numbers that are multiples of $3$ . If we put $25$ of these numbers in a $5 x 5$ grid, there would be $5$ rows and $5$ columns ( $10$ in total), with products divisible by $3$ . However, we have $27$ numbers, so $2$ numbers remain to put in the $9 x 9$ grid. If we put both numbers in the $6$ th column, but one in the first row, and one in the second row, (next to the $5 x 5$ already filled), we would have a total of $6$ columns now, and still $5$ rows with products that are multiples of $3$ . So the answer is $\\boxed{11}$\n\n---\n\nSolution 4:\nIn the numbers $1$ to $81$ , there are 27 multiples of three. In order to minimize the rows and columns, the best way is to make a square. However, the closest square is $25$ , meaning there are two multiples of three remaining. However, you can place these multiples right above the 5x5 square, meaning the answer is $\\boxed{11}$ (Error making remote request. No response to HTTP request) ~ e___",
+    "area": [
+      "Combinatorics",
+      "Number Theory"
+    ],
+    "subtopics": [
+      "grid arrangements",
+      "divisibility by 3",
+      "optimization"
+    ],
+    "techniques": [
+      "divisibility",
+      "pigeonhole",
+      "extremal principle"
+    ],
+    "difficulty": "medium",
+    "answer": "11",
+    "summary": "Minimize rows and columns with product divisible by 3 by optimally placing multiples of 3 in a 9×9 grid.",
+    "contest": "2024 AMC 8",
+    "round": "Individual Round",
+    "number": 16,
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2024_AMC_8_Problems/Problem_16"
+    ],
+    "candidates": [
+      "Note you can swap/rotate any configuration of rows, such that all the rows and columns that have a product of 3 are in the top left. Hence the points are bounded by a $a \\times b$ rectangle. This has $ab$ area and $a+b$ rows and columns divisible by $3$ . We want $ab\\ge 27$ and $a+b$ minimized.\nIf $ab=27$ , we achieve minimum with $a+b=9+3=12$\nIf $ab=28$ ,our best is $a+b=7+4=11$ . Note if $a+b=10$ , then $ab\\le 25$ , and hence there is no smaller answer, and we get $\\boxed{11}$",
+      "For a row or column to have a product divisible by $3$ , there must be a multiple of $3$ in the row or column. To create the least amount of rows and columns with multiples of $3$ , we must find a way to keep them all together, to minimize the total number of rows and columns. From $1$ to $81$ , there are $27$ multiples of $3$ $81/3$ ). So we have to fill $27$ cells with numbers that are multiples of $3$ . If we put $25$ of these numbers in a $5 x 5$ grid, there would be $5$ rows and $5$ columns ( $10$ in total), with products divisible by $3$ . However, we have $27$ numbers, so $2$ numbers remain to put in the $9 x 9$ grid. If we put both numbers in the $6$ th column, but one in the first row, and one in the second row, (next to the $5 x 5$ already filled), we would have a total of $6$ columns now, and still $5$ rows with products that are multiples of $3$ . So the answer is $\\boxed{11}$",
+      "In the numbers $1$ to $81$ , there are 27 multiples of three. In order to minimize the rows and columns, the best way is to make a square. However, the closest square is $25$ , meaning there are two multiples of three remaining. However, you can place these multiples right above the 5x5 square, meaning the answer is $\\boxed{11}$ (Error making remote request. No response to HTTP request) ~ e___"
+    ]
+  },
+  {
+    "id": "AMC2024-8-INDIVIDUAL-17",
+    "statement": "A chess king is said to attack all the squares one step away from it, horizontally, vertically, or diagonally. For instance, a king on the center square of a $3$ $3$ grid attacks all $8$ other squares, as shown below. Suppose a white king and a black king are placed on different squares of a $3$ $3$ grid so that they do not attack each other. In how many ways can this be done?\n[asy] /* AMC8 P17 2024, revised by Teacher David */ unitsize(29pt); import math; add(grid(3,3));  pair [] a = {(0.5,0.5), (0.5, 1.5), (0.5, 2.5), (1.5, 2.5), (2.5,2.5), (2.5,1.5), (2.5,0.5), (1.5,0.5)};  for (int i=0; i<a.length; ++i) {     pair x = (1.5,1.5) + 0.4*dir(225-45*i);     draw(x -- a[i], arrow=EndArrow()); }  label(\"$K$\", (1.5,1.5)); [/asy]\n$\\textbf{(A)}\\ 20 \\qquad \\textbf{(B)}\\ 24 \\qquad \\textbf{(C)}\\ 27 \\qquad \\textbf{(D)}\\ 28 \\qquad \\textbf{(E)}\\ 32$\n~Diagram by Andrei.martynau",
+    "solution": "Solution 1:\nCorners have $5$ spots to go and there are $4$ corners, so $5 \\times 4=20$ .\nEdges have $3$ spots to go and there are $4$ sides so, $3 \\times 4=12$ . \nThat gives us $20+12=32$ spots to go into totally.\nSo $\\boxed{32}$ is the answer.\n~andliu766",
+    "area": [
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "counting arrangements",
+      "grid problems",
+      "non-attacking pieces"
+    ],
+    "techniques": [
+      "casework",
+      "multiplication principle"
+    ],
+    "difficulty": "easy",
+    "answer": "32",
+    "summary": "Count ordered placements of two kings on a 3×3 grid so they don't attack each other.",
+    "contest": "2024 AMC 8",
+    "round": "Individual Round",
+    "number": 17,
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2024_AMC_8_Problems/Problem_17"
+    ]
+  },
+  {
+    "id": "AMC2024-8-INDIVIDUAL-18",
+    "statement": "Three concentric circles centered at $O$ have radii of $1$ $2$ , and $3$ . Points $B$ and $C$ lie on the largest circle. The region between the two smaller circles is shaded, as is the portion of the region between the two larger circles bounded by central angle $BOC$ , as shown in the figure below. Suppose the shaded and unshaded regions are equal in area. What is the measure of $\\angle{BOC}$ in degrees?\n[asy] size(150); import graph;  draw(circle((0,0),3)); real radius = 3; real angleStart = -54;  // starting angle of the sector real angleEnd = 54;  // ending angle of the sector label(\"$O$\",(0,0),W); pair O = (0, 0); filldraw(arc(O, radius, angleStart, angleEnd)--O--cycle, gray); filldraw(circle((0,0),2),gray); filldraw(circle((0,0),1),white); draw((1.763,2.427)--(0,0)--(1.763,-2.427)); label(\"$B$\",(1.763,2.427),NE); label(\"$C$\",(1.763,-2.427),SE);  [/asy] $\\textbf{(A) } 108\\qquad\\textbf{(B) } 120\\qquad\\textbf{(C) } 135\\qquad\\textbf{(D) } 144\\qquad\\textbf{(E) } 150$",
+    "solution": "Solution 1:\nLet $x=\\angle{BOC}$\nWe see that the shaded region is the inner ring plus a sector $x^\\circ$ of the outer ring. The area of this in terms of $x$ is $\\left( 4 \\pi - \\pi \\right)+\\frac{x}{360} \\left( 9 \\pi - 4 \\pi \\right)$ . This simplifies to $3 \\pi + \\frac{x}{360}(5 \\pi)$\nAlso, the unshaded portion is comprised of the smallest circle plus the sector $(360-x)^\\circ$ of the outer ring. The area of this is $\\pi + \\frac{360-x}{360}(5 \\pi)$\nWe are told these are equal, therefore $\\pi + \\frac{x}{360}(5 \\pi) = 3 \\pi + \\frac{360-x}{360}(5 \\pi)$ . Solving for $x$ reveals $x=\\boxed{108}$\n\n---\n\nSolution 2:\nNotice for the 3rd most outer ring of the circle, the ratio of the shaded region to non-shaded region is the ratio of $\\angle{BOC}$ to $360-\\angle{BOC}$ . With that, all we need to do is solve for the shaded region.\nThe inner most circle has radius $1$ , and the second circle has radius 2. Therefore, the first shaded area has $4 \\pi - \\pi = 3 \\pi$ area. The circle has total area $9 \\pi$ , so the other shaded region must have $1.5 \\pi$ area, as the non-shaded and shaded area is equivalent. So for the 3rd outer ring, the total area is $9 \\pi - 4 \\pi = 5 \\pi$ , so the non-shaded part of the outer ring is $5 \\pi - 1.5 \\pi = 3.5 \\pi$\nNow as said before, the ratio of these two areas is the ratio of $\\angle{BOC}$ and $360 - \\angle{BOC}$ . So, $\\frac{3.5}{1.5} = \\frac{7}{3}$ . We have $7x:3x$ where $7x+3x = 360$ $x = 36$ , so our answer is $3x = 108, \\boxed{108}$\n\n---\n\nSolution 3:\nThe AMC 8s allow a ruler tool that you can rotate and drag. You can use the tool to make a straight segment (which we know is $180$ degrees), and we let the angle of desire be $x$ . We can estimate that $180-x$ is just about $30$ degrees short of $x$ itself, so $x-30=180-x$ , solving gives $x=105$ , therefore the closest answer is $\\boxed{108}$\n\n---\n\nSolution 4:\nSuppose the desired angle is some fraction $x$ of the total degree measure of the circle. We now compile a list of the shaded and unshaded areas. The inner circle of radius $1$ is completely unshaded, so it contributes $1$ to the unshaded area. (Everything will be a multiple of $\\pi$ , so we omit it.) The inner annulus has area $2^2 - 1^2 = 3$ , which it contributes to the shaded area. The outer annulus has a total area of $3^2 - 2^2 = 5$ ; the fraction $x$ is shaded, so the shaded portion of the outer annulus contributes $5x$ to the shaded area, while the other $1 - x$ fraction is unshaded, so the unshaded portion contributes $5(1-x)$ to the unshaded area. We now equate and solve. \\[1 + 5(1-x) = 3 + 5x\\] Upon solving, we find that $x = \\frac{3}{10}$ , so the degree measure is $360 \\cdot \\frac{3}{10} = \\boxed{108}$",
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "concentric circles",
+      "sectors and annuli",
+      "area equations"
+    ],
+    "techniques": [
+      "area ratios"
+    ],
+    "difficulty": "easy",
+    "answer": "108",
+    "summary": "Tests setting up and solving an area equation involving annuli and circular sectors.",
+    "contest": "2024 AMC 8",
+    "round": "Individual Round",
+    "number": 18,
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2024_AMC_8_Problems/Problem_18"
+    ],
+    "candidates": [
+      "Notice for the 3rd most outer ring of the circle, the ratio of the shaded region to non-shaded region is the ratio of $\\angle{BOC}$ to $360-\\angle{BOC}$ . With that, all we need to do is solve for the shaded region.\nThe inner most circle has radius $1$ , and the second circle has radius 2. Therefore, the first shaded area has $4 \\pi - \\pi = 3 \\pi$ area. The circle has total area $9 \\pi$ , so the other shaded region must have $1.5 \\pi$ area, as the non-shaded and shaded area is equivalent. So for the 3rd outer ring, the total area is $9 \\pi - 4 \\pi = 5 \\pi$ , so the non-shaded part of the outer ring is $5 \\pi - 1.5 \\pi = 3.5 \\pi$\nNow as said before, the ratio of these two areas is the ratio of $\\angle{BOC}$ and $360 - \\angle{BOC}$ . So, $\\frac{3.5}{1.5} = \\frac{7}{3}$ . We have $7x:3x$ where $7x+3x = 360$ $x = 36$ , so our answer is $3x = 108, \\boxed{108}$",
+      "The AMC 8s allow a ruler tool that you can rotate and drag. You can use the tool to make a straight segment (which we know is $180$ degrees), and we let the angle of desire be $x$ . We can estimate that $180-x$ is just about $30$ degrees short of $x$ itself, so $x-30=180-x$ , solving gives $x=105$ , therefore the closest answer is $\\boxed{108}$",
+      "Suppose the desired angle is some fraction $x$ of the total degree measure of the circle. We now compile a list of the shaded and unshaded areas. The inner circle of radius $1$ is completely unshaded, so it contributes $1$ to the unshaded area. (Everything will be a multiple of $\\pi$ , so we omit it.) The inner annulus has area $2^2 - 1^2 = 3$ , which it contributes to the shaded area. The outer annulus has a total area of $3^2 - 2^2 = 5$ ; the fraction $x$ is shaded, so the shaded portion of the outer annulus contributes $5x$ to the shaded area, while the other $1 - x$ fraction is unshaded, so the unshaded portion contributes $5(1-x)$ to the unshaded area. We now equate and solve. \\[1 + 5(1-x) = 3 + 5x\\] Upon solving, we find that $x = \\frac{3}{10}$ , so the degree measure is $360 \\cdot \\frac{3}{10} = \\boxed{108}$"
+    ]
+  },
+  {
+    "id": "AMC2024-8-INDIVIDUAL-20",
+    "statement": "Any three vertices of the cube $PQRSTUVW$ , shown in the figure below, can be connected to form a triangle. (For example, vertices $P$ $Q$ , and $R$ can be connected to form isosceles $\\triangle PQR$ .) How many of these triangles are equilateral and contain $P$ as a vertex?\n[asy] unitsize(4); pair P,Q,R,S,T,U,V,W; P=(0,30); Q=(30,30); R=(40,40); S=(10,40); T=(10,10); U=(40,10); V=(30,0); W=(0,0); draw(W--V); draw(V--Q); draw(Q--P); draw(P--W); draw(T--U); draw(U--R); draw(R--S); draw(S--T); draw(W--T); draw(P--S); draw(V--U); draw(Q--R); dot(P); dot(Q); dot(R); dot(S); dot(T); dot(U); dot(V); dot(W); label(\"$P$\",P,NW); label(\"$Q$\",Q,NW); label(\"$R$\",R,NE); label(\"$S$\",S,N); label(\"$T$\",T,NE); label(\"$U$\",U,NE); label(\"$V$\",V,SE); label(\"$W$\",W,SW); [/asy]\n$\\textbf{(A)}0 \\qquad \\textbf{(B) }1 \\qquad \\textbf{(C) }2 \\qquad \\textbf{(D) }3 \\qquad \\textbf{(E) }6$",
+    "solution": "Solution 1:\nThe only equilateral triangles that can be formed are through the diagonals of the faces of the square. From P you have $3$ possible vertices that are possible to form a diagonal through one of the faces. Therefore, there are $3$ possible triangles. So the answer is $\\boxed{3}$ ~Math645\n~andliu766\n~e___\n\n---\n\nSolution 2:\nEach other compatible point must be an even number of edges away from P, so the compatible points are R, V, and T. Therefore, we must choose two of the three points, because P must be a point in the triangle. So, the answer is ${3 \\choose 2} = \\boxed{3}$\n\n---\n\nSolution 3:\nList them out- you get $PRV$ $PRT$ , and $PVT$ . Therefore, the answer is $\\boxed{3}$",
+    "area": [
+      "Geometry",
+      "Combinatorics"
+    ],
+    "subtopics": [
+      "3D geometry",
+      "equilateral triangles in a cube",
+      "space diagonals"
+    ],
+    "techniques": [
+      "3D geometry",
+      "permutations/combinations"
+    ],
+    "difficulty": "easy",
+    "answer": "3",
+    "summary": "Count equilateral triangles containing a fixed vertex of a cube using face diagonals.",
+    "contest": "2024 AMC 8",
+    "round": "Individual Round",
+    "number": 20,
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2024_AMC_8_Problems/Problem_20"
+    ],
+    "candidates": [
+      "Each other compatible point must be an even number of edges away from P, so the compatible points are R, V, and T. Therefore, we must choose two of the three points, because P must be a point in the triangle. So, the answer is ${3 \\choose 2} = \\boxed{3}$",
+      "List them out- you get $PRV$ $PRT$ , and $PVT$ . Therefore, the answer is $\\boxed{3}$"
+    ]
+  },
+  {
+    "id": "AMC2024-8-INDIVIDUAL-21",
+    "statement": "A group of frogs (called an army) is living in a tree. A frog turns green when in the shade and turns yellow\nwhen in the sun. Initially, the ratio of green to yellow frogs was $3 : 1$ . Then $3$ green frogs moved to the\nsunny side and $5$ yellow frogs moved to the shady side. Now the ratio is $4 : 1$ . What is the difference\nbetween the number of green frogs and the number of yellow frogs now?\n$\\textbf{(A) } 10\\qquad\\textbf{(B) } 12\\qquad\\textbf{(C) } 16\\qquad\\textbf{(D) } 20\\qquad\\textbf{(E) } 24$",
+    "solution": "Solution 1:\nSince the original ratio is $3:1$ and the new ratio is $4:1$ , the number of frogs must be a multiple of $12$ , the only solutions left are $(B)$ and $(E)$\nLet's start with $12$ frogs:\nWe must have $9$ frogs in the shade and $3$ frogs in the sun. After the change, there would be $11$ frogs in the shade and $1$ frog in the sun, which is not a $4:1$ ratio.\nTherefore the answer is: $\\boxed{24}$",
+    "area": [
+      "Algebra"
+    ],
+    "subtopics": [
+      "ratios",
+      "system of linear equations"
+    ],
+    "techniques": [
+      "casework"
+    ],
+    "difficulty": "easy",
+    "answer": "24",
+    "summary": "Tests setting up and solving ratio conditions before and after frogs switch sides.",
+    "contest": "2024 AMC 8",
+    "round": "Individual Round",
+    "number": 21,
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2024_AMC_8_Problems/Problem_21"
+    ]
+  },
+  {
+    "id": "AMC2024-8-INDIVIDUAL-22",
+    "statement": "A roll of tape is $4$ inches in diameter and is wrapped around a ring that is $2$ inches in diameter. A cross section of the tape is shown in the figure below. The tape is $0.015$ inches thick. If the tape is completely unrolled, approximately how long would it be? Round your answer to the nearest $100$ inches.\n$\\textbf{(A) } 300\\qquad\\textbf{(B) } 600\\qquad\\textbf{(C) } 1200\\qquad\\textbf{(D) } 1500\\qquad\\textbf{(E) } 1800$",
+    "solution": "Solution 1:\nThe roll of tape is $1/0.015=$ 66 layers thick. In order to find the total length, we have to find the average of each concentric circle and multiply it by $66$ . Since the diameter of the small circle is $2$ inches and the diameter of the large one is $4$ inches, the \"middle value\" is $3$ . Therefore, the average circumference is $3\\pi$ . Multiplying $3\\pi \\cdot 66$ gives $(B) \\boxed{600}$\n\n---\n\nSolution 2:\nThere are about $\\dfrac{1}{0.015}=\\dfrac{200}{3}$ \"full circles\" of tape, and with average circumference of $\\dfrac{4+2}{2}\\pi=3\\pi.$ $\\dfrac{200}{3} \\cdot 3\\pi=200\\pi,$ which means the answer is $\\boxed{600}$\n\n---\n\nSolution 3:\nThe volume of the tape is always the same, but we can either calculate it when the tape is unrolled as a really long, thin rectangular prism, or we can calculate it as a cylinder with a hole cut out of it. When we calculate it as a long rectangular prism, we can say that the length is $X$ (this is what the problem wants!) and the width is $Y$ . Then, the volume is, of course, $0.015 \\cdot X \\cdot Y.$ Now, notice that the \"width\" of our rectangular prism is also the \"height\" of our cylinder with a hole cut out of it. Then, we can calculate the volume as base times height, or in this case, $3\\pi \\cdot Y.$ Now, since the volume always stays the same, we know that $3\\pi \\cdot Y = 0.015 \\cdot X \\cdot Y.$ Cancelling the $Y$ 's give us an equation for $X$ , and if we approximate $\\pi$ as $3$ , then $X = \\boxed{600}$ . Yay!\n\n---\n\nSolution 4:\nIf you cannot notice that the average diameter is $3$ , you can still solve this problem by the following method.\nThe same with solution 1, we have $\\frac{1000}{0.015}$ layers of tape. If we consider every layers with the diameter $2$ , the length should be $\\frac{1000}{0.015}2\\pi\\approx 400$ . If the diameter is seem as $4$ , the length should be $800$ . So, the length is between $400$ and $800$ , the only possible answer is $\\boxed{600}$",
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "annular cross-section",
+      "arc length",
+      "geometric approximation"
+    ],
+    "techniques": [
+      "arithmetic series",
+      "area ratios"
+    ],
+    "difficulty": "easy",
+    "answer": "600",
+    "summary": "Tests computing tape length by averaging circumferences of concentric layers using annulus area or arithmetic mean.",
+    "contest": "2024 AMC 8",
+    "round": "Individual Round",
+    "number": 22,
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2024_AMC_8_Problems/Problem_22"
+    ],
+    "candidates": [
+      "There are about $\\dfrac{1}{0.015}=\\dfrac{200}{3}$ \"full circles\" of tape, and with average circumference of $\\dfrac{4+2}{2}\\pi=3\\pi.$ $\\dfrac{200}{3} \\cdot 3\\pi=200\\pi,$ which means the answer is $\\boxed{600}$",
+      "The volume of the tape is always the same, but we can either calculate it when the tape is unrolled as a really long, thin rectangular prism, or we can calculate it as a cylinder with a hole cut out of it. When we calculate it as a long rectangular prism, we can say that the length is $X$ (this is what the problem wants!) and the width is $Y$ . Then, the volume is, of course, $0.015 \\cdot X \\cdot Y.$ Now, notice that the \"width\" of our rectangular prism is also the \"height\" of our cylinder with a hole cut out of it. Then, we can calculate the volume as base times height, or in this case, $3\\pi \\cdot Y.$ Now, since the volume always stays the same, we know that $3\\pi \\cdot Y = 0.015 \\cdot X \\cdot Y.$ Cancelling the $Y$ 's give us an equation for $X$ , and if we approximate $\\pi$ as $3$ , then $X = \\boxed{600}$ . Yay!",
+      "If you cannot notice that the average diameter is $3$ , you can still solve this problem by the following method.\nThe same with solution 1, we have $\\frac{1000}{0.015}$ layers of tape. If we consider every layers with the diameter $2$ , the length should be $\\frac{1000}{0.015}2\\pi\\approx 400$ . If the diameter is seem as $4$ , the length should be $800$ . So, the length is between $400$ and $800$ , the only possible answer is $\\boxed{600}$"
+    ]
+  },
+  {
+    "id": "AMC2024-8-INDIVIDUAL-23",
+    "statement": "Rodrigo has a very large sheet of graph paper. First he draws a line segment connecting point $(0,4)$ to point $(2,0)$ and colors the $4$ cells whose interiors intersect the segment, as shown below. Next Rodrigo draws a line segment connecting point $(2000,3000)$ to point $(5000,8000)$ . How many cells will he color this time?\n[asy]  filldraw((0,4)--(1,4)--(1,3)--(0,3)--cycle, gray(.75), gray(.5)+linewidth(1)); filldraw((0,3)--(1,3)--(1,2)--(0,2)--cycle, gray(.75), gray(.5)+linewidth(1)); filldraw((1,2)--(2,2)--(2,1)--(1,1)--cycle, gray(.75), gray(.5)+linewidth(1)); filldraw((1,1)--(2,1)--(2,0)--(1,0)--cycle, gray(.75), gray(.5)+linewidth(1));  draw((-1,5)--(-1,-1),gray(.9)); draw((0,5)--(0,-1),gray(.9)); draw((1,5)--(1,-1),gray(.9)); draw((2,5)--(2,-1),gray(.9)); draw((3,5)--(3,-1),gray(.9)); draw((4,5)--(4,-1),gray(.9)); draw((5,5)--(5,-1),gray(.9));  draw((-1,5)--(5, 5),gray(.9)); draw((-1,4)--(5,4),gray(.9)); draw((-1,3)--(5,3),gray(.9)); draw((-1,2)--(5,2),gray(.9)); draw((-1,1)--(5,1),gray(.9)); draw((-1,0)--(5,0),gray(.9)); draw((-1,-1)--(5,-1),gray(.9));   dot((0,4)); label(\"$(0,4)$\",(0,4),NW);  dot((2,0)); label(\"$(2,0)$\",(2,0),SE);  draw((0,4)--(2,0));  draw((-1,0) -- (5,0), arrow=Arrow); draw((0,-1) -- (0,5), arrow=Arrow);  [/asy]\n$\\textbf{(A) } 6000\\qquad\\textbf{(B) } 6500\\qquad\\textbf{(C) } 7000\\qquad\\textbf{(D) } 7500\\qquad\\textbf{(E) } 8000$",
+    "solution": "Solution 1:\nLet $f(x, y)$ be the number of cells the line segment from $(0, 0)$ to $(x, y)$ passes through. The problem is then  equivalent to finding \\[f(5000-2000, 8000-3000)=f(3000, 5000).\\] Sometimes the segment passes through lattice points in between the endpoints, which happens $\\text{gcd}(3000, 5000)-1=999$ times. This partitions the segment into $1000$ congruent pieces that each pass through $f(3, 5)$ cells, which means the answer is \\[1000f(3, 5).\\] Note that a new square is entered when the lines pass through one of the lines in the coordinate grid, which for $f(3, 5)$ happens $3-1+5-1=6$ times. Because $3$ and $5$ are relatively prime, no lattice point except for the endpoints intersects the line segment from $(0, 0)$ to $(3, 5).$ This means that including the first cell closest to $(0, 0),$ The segment passes through $f(3, 5)=6+1=7$ cells. Thus, the answer is $\\boxed{7000}.$ Alternatively, $f(3, 5)$ can be found by drawing an accurate diagram, leaving you with the same answer.\n\n---\n\nSolution 2:\nDraw a line in the lattice which from $(2,3)$ to $(5,8)$ , notice that the line crossed 7 blocks in this pattern. Such a pattern is repeated 1000 times between $(2000,3000)$ and $(5000,8000)$ , then the answer is $\\boxed{7000}$",
+    "area": [
+      "Combinatorics",
+      "Number Theory"
+    ],
+    "subtopics": [
+      "lattice paths",
+      "grid cell counting",
+      "line segments on graph paper"
+    ],
+    "techniques": [
+      "gcd/lcm",
+      "inclusion-exclusion"
+    ],
+    "difficulty": "medium",
+    "answer": "7000",
+    "summary": "Count grid cells whose interiors a line segment crosses, using GCD to handle lattice point crossings.",
+    "contest": "2024 AMC 8",
+    "round": "Individual Round",
+    "number": 23,
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2024_AMC_8_Problems/Problem_23"
+    ],
+    "candidates": [
+      "Draw a line in the lattice which from $(2,3)$ to $(5,8)$ , notice that the line crossed 7 blocks in this pattern. Such a pattern is repeated 1000 times between $(2000,3000)$ and $(5000,8000)$ , then the answer is $\\boxed{7000}$"
+    ]
+  },
+  {
+    "id": "AMC2024-8-INDIVIDUAL-24",
+    "statement": "Jean has made a piece of stained glass art in the shape of two mountains, as shown in the figure below. One mountain peak is $8$ feet high while the other peak is $12$ feet high. Each peak forms a $90^\\circ$ angle, and the straight sides form a $45^\\circ$ angle with the ground. The artwork has an area of $183$ square feet. The sides of the mountain meet at an intersection point near the center of the artwork, $h$ feet above the ground. What is the value of $h?$\n[asy] unitsize(.3cm); filldraw((0,0)--(8,8)--(11,5)--(18,12)--(30,0)--cycle,gray(0.7),linewidth(1)); draw((-1,0)--(-1,8),linewidth(.75)); draw((-1.4,0)--(-.6,0),linewidth(.75)); draw((-1.4,8)--(-.6,8),linewidth(.75)); label(\"$8$\",(-1,4),W); label(\"$12$\",(31,6),E); draw((-1,8)--(8,8),dashed); draw((31,0)--(31,12),linewidth(.75)); draw((30.6,0)--(31.4,0),linewidth(.75)); draw((30.6,12)--(31.4,12),linewidth(.75)); draw((31,12)--(18,12),dashed); label(\"$45^{\\circ}$\",(.75,0),NE,fontsize(10pt)); label(\"$45^{\\circ}$\",(29.25,0),NW,fontsize(10pt)); draw((8,8)--(7.5,7.5)--(8,7)--(8.5,7.5)--cycle); draw((18,12)--(17.5,11.5)--(18,11)--(18.5,11.5)--cycle); draw((11,5)--(11,0),dashed); label(\"$h$\",(11,2.5),E); [/asy]\n$\\textbf{(A)}\\ 4 \\qquad \\textbf{(B)}\\ 5 \\qquad \\textbf{(C)}\\ 4\\sqrt{2} \\qquad \\textbf{(D)}\\ 5\\sqrt{2} \\qquad \\textbf{(E)}\\ 6$",
+    "solution": "Solution 1:\nExtend the \"inner part\" of the mountain so that the image is two right triangles that overlap in a third right triangle as shown. [asy] unitsize(.2cm); draw((0,0)--(8,8)--(11,5)--(18,12)--(30,0)--cycle,linewidth(1)); draw((11,5)--(6, 0)--(16, 0)--cycle,linewidth(0.5)); label(\"$8\\sqrt{2}$\",(4,4),NW); label(\"$12\\sqrt{2}$\",(24,6),NE); draw((8,8)--(7.5,7.5)--(8,7)--(8.5,7.5)--cycle); draw((18,12)--(17.5,11.5)--(18,11)--(18.5,11.5)--cycle); draw((11,5)--(11,0),dashed); label(\"$h$\",(11,2.5),E); [/asy] The side length of the largest right triangle is $12\\sqrt{2},$ which means its area is $144.$ Similarly, the area of the second largest right triangle is $64$ (the side length is $8\\sqrt{2}$ ), and the area of the overlap is $h^2$ (the side length is $h\\sqrt{2}$ ). Thus, \\[144+64-h^2=183,\\] which means that the answer is $\\boxed{5}.$\n\n---\n\nSolution 2:\nYou can measure $h$ with a ruler(rulers are allowed on the AMC 8), and see that $h$ is closest to $\\boxed{5}.$",
+    "area": [
+      "Geometry"
+    ],
+    "subtopics": [
+      "area of triangles",
+      "overlapping regions",
+      "isosceles right triangles"
+    ],
+    "techniques": [
+      "special right triangles",
+      "inclusion-exclusion"
+    ],
+    "difficulty": "medium",
+    "answer": "5",
+    "summary": "Find the height of an intersection point using overlapping isosceles right triangle areas and inclusion-exclusion.",
+    "contest": "2024 AMC 8",
+    "round": "Individual Round",
+    "number": 24,
+    "sources": [
+      "https://artofproblemsolving.com/wiki/index.php/2024_AMC_8_Problems/Problem_24"
+    ],
+    "candidates": [
+      "You can measure $h$ with a ruler(rulers are allowed on the AMC 8), and see that $h$ is closest to $\\boxed{5}.$"
+    ]
   }
 ]
