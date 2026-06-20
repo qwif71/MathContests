@@ -530,10 +530,11 @@ async def aimo_unparsed_sample(
     admin_session: str | None = Cookie(default=None),
 ):
     """Diagnostic: shows actual link values that failed to parse, so the
-    LINK_PATTERN regex in amio_import.py can be widened to cover whatever
-    contest formats the CSV actually contains (AIME, AMC 12, etc.) instead
-    of guessing blind. Temporary tool — fine to remove once the pattern is
-    confirmed to cover everything in your dataset."""
+    AMC_LINK_PATTERN/AJHSME_LINK_PATTERN regexes in amio_import.py can be
+    widened to cover whatever contest formats the CSV actually contains
+    (AIME, ARML, etc.) instead of guessing blind. Temporary tool — fine to
+    remove once the patterns are confirmed to cover everything in your
+    dataset."""
     require_admin(admin_session)
     records = _load_amio_csv()
     unparsed = [r["link"] for r in records if not r["contest"]]
