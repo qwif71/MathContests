@@ -25,28 +25,47 @@ from collections import defaultdict
 
 # Matches e.g. ".../2024_AMC_8_Problems/Problem_1" or
 # ".../2023_AMC_10A_Problems/Problem_19"
-LINK_PATTERN = re.compile(
+AMC_LINK_PATTERN = re.compile(
     r"(\d{4})_AMC_(\d+[AB]?)_Problems/Problem_(\d+)", re.IGNORECASE
+)
+
+# AJHSME = American Junior High School Mathematics Examination, the AMC 8's
+# name before it was renamed in 1999. Kept as its own contest label (not
+# folded into "AMC 8") since that's the exam's actual historical name —
+# e.g. ".../1998_AJHSME_Problems/Problem_2" -> "1998 AJHSME".
+AJHSME_LINK_PATTERN = re.compile(
+    r"(\d{4})_AJHSME_Problems/Problem_(\d+)", re.IGNORECASE
 )
 
 
 def _parse_link(link: str):
     """Returns (contest_name, number) or (None, None) if the link doesn't
-    match the expected AoPS AMC URL shape. Other contest types (AIME, etc.)
+    match a known AoPS URL shape. Other contest types (AIME, ARML, etc.)
     would need their own pattern added here later."""
-    m = LINK_PATTERN.search(link or "")
-    if not m:
-        return None, None
-    year, variant, num = m.groups()
-    contest = f"{year} AMC {variant.upper()}"
-    return contest, int(num)
+    link = link or ""
+
+    m = AMC_LINK_PATTERN.search(link)
+    if m:
+        year, variant, num = m.groups()
+        return f"{year} AMC {variant.upper()}", int(num)
+
+    m = AJHSME_LINK_PATTERN.search(link)
+    if m:
+        year, num = m.groups()
+        return f"{year} AJHSME", int(num)
+
+    return None, None
 
 
 def _contest_slug(contest: str) -> str:
-    """Stable id prefix for a contest, e.g. '2024 AMC 8' -> 'AMC2024-8'."""
+    """Stable id prefix for a contest, e.g. '2024 AMC 8' -> 'AMC2024-8',
+    '1998 AJHSME' -> 'AJHSME1998'."""
     parts = contest.split()
     year = parts[0]
-    variant = "".join(parts[2:]) if len(parts) > 2 else parts[1]
+    if len(parts) == 2:
+        # No variant segment, e.g. "1998 AJHSME" -> ["1998", "AJHSME"]
+        return f"{parts[1]}{year}"
+    variant = "".join(parts[2:])
     return f"AMC{year}-{variant}"
 
 
