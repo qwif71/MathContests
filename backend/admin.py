@@ -10,8 +10,8 @@ extract.py's PDF parsers, so the web path and the CLI path share the exact
 same logic — no duplicated regexes or prompts to keep in sync.
 
 Persistence: Render's disk is ephemeral, so every successful import commits
-the updated tagged.json (and embeddings.npy, if present) straight to GitHub
-via the contents API. The in-memory corpus in app.py is updated in place too,
+the updated tagged.json straight to GitHub via the contents API. The in-memory
+corpus in app.py is updated in place and its TF-IDF search index is rebuilt,
 so new problems show up in /practice immediately without a redeploy.
 
 Settings: a small admin-only toggle for whether /practice is allowed to call
