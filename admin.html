@@ -206,6 +206,20 @@
     .contest-list { max-height: 400px; overflow-y: auto; border: 1px solid var(--border-soft); border-radius: 8px; margin-top: 1rem; }
     .contest-row.imported { opacity: 0.55; }
     .contest-row.imported button { background: var(--border); cursor: not-allowed; }
+
+    /* --- Tag review (NEW) --- */
+    .review-new-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .review-new-item:last-child { border-bottom: none; }
+    .review-new-item .tag-name { flex: 1; font-weight: 600; }
+    .review-new-item select { margin-top: 0; width: auto; }
+    .review-new-item .merge-target { display: none; margin-top: 0; width: auto; }
+    .review-new-item .merge-target.visible { display: inline-block; }
   </style>
 </head>
 <body>
@@ -313,6 +327,23 @@ By Power of a Point..."></textarea>
       <label style="margin-top:1.5rem">Contests found in this file</label>
       <div class="contest-list" id="a_contest_list"></div>
     </div>
+  </div>
+
+  <!-- Tag review (NEW: shown after any import that introduces new technique tags) -->
+  <div id="tagReviewPanel" class="card hidden">
+    <h3 style="margin-bottom:0.5rem">Review new technique tags</h3>
+    <div class="help" style="margin-top:0">
+      This batch introduced techniques not yet in the canonical list. Approve to
+      add them, merge into an existing tag if it's a near-duplicate phrasing, or
+      reject to leave them off these records.
+    </div>
+    <div id="reviewKnownSummary" class="help" style="margin-top:0.75rem"></div>
+    <div id="reviewNewList" style="margin-top:0.75rem"></div>
+    <div class="row2" style="display:flex; gap:0.75rem; margin-top:1rem;">
+      <button class="secondary" style="margin-top:0; flex:1" onclick="discardPendingImport()">Discard this import</button>
+      <button id="reviewSubmitBtn" style="margin-top:0; flex:1" onclick="submitTagReview()">Apply &amp; Import</button>
+    </div>
+    <div id="reviewResult" class="result hidden"></div>
   </div>
 
   <!-- Browse / delete -->
@@ -457,6 +488,7 @@ By Power of a Point..."></textarea>
         document.getElementById("loginView").classList.add("hidden");
         document.getElementById("adminView").classList.remove("hidden");
         loadStats();
+        checkPendingReview();   // NEW: recover an in-progress tag review after refresh
       } else {
         document.getElementById("loginView").classList.remove("hidden");
         document.getElementById("adminView").classList.add("hidden");
@@ -581,13 +613,10 @@ By Power of a Point..."></textarea>
       if (!res.ok) {
         setResult("t_result", false, data.detail || "Import failed.");
       } else {
-        const githubMsg = data.github && data.github.committed
-          ? "Committed to GitHub." : `Not committed to GitHub (${data.github ? data.github.reason : "unknown"}).`;
-        setResult("t_result", true,
-          `Imported. Added: ${data.added.join(", ") || "none"}. ` +
-          `Replaced: ${data.replaced.join(", ") || "none"}. ` +
-          `Corpus size: ${data.total_corpus_size}. ${githubMsg}`);
-        loadStats();
+        // CHANGED: backend now returns {status, new_techniques, known_techniques, ...}
+        // instead of finishing the import immediately — route into tag review.
+        document.getElementById("t_result").classList.add("hidden");
+        openTagReview(data, "t_result");
       }
     } catch (e) {
       setResult("t_result", false, "Could not reach the API.");
@@ -623,12 +652,9 @@ By Power of a Point..."></textarea>
       if (!res.ok) {
         setResult("p_result", false, data.detail || "Import failed.");
       } else {
-        const githubMsg = data.github && data.github.committed
-          ? "Committed to GitHub." : `Not committed to GitHub (${data.github ? data.github.reason : "unknown"}).`;
-        setResult("p_result", true,
-          `Imported ${data.added.length + data.replaced.length} problem(s). ` +
-          `Corpus size: ${data.total_corpus_size}. ${githubMsg}`);
-        loadStats();
+        // CHANGED: route into tag review instead of declaring success.
+        document.getElementById("p_result").classList.add("hidden");
+        openTagReview(data, "p_result");
       }
     } catch (e) {
       setResult("p_result", false, "Could not reach the API.");
@@ -723,20 +749,147 @@ By Power of a Point..."></textarea>
         document.getElementById("a_upload_result").classList.remove("hidden");
         return;
       }
+      // CHANGED: route into tag review instead of declaring success immediately.
       row.classList.add("imported");
-      btn.textContent = "Imported ✓";
-      const githubMsg = data.github && data.github.committed ? " (committed)" : " (not committed to GitHub)";
-      setResult("a_upload_result", true,
-        `${contest}: imported ${data.added.length + data.replaced.length} problem(s)${githubMsg}. ` +
-        `Corpus size now ${data.total_corpus_size}.`);
-      document.getElementById("a_upload_result").classList.remove("hidden");
-      loadStats();
+      btn.textContent = "Review tags";
+      document.getElementById("a_upload_result").classList.add("hidden");
+      openTagReview(data, "a_upload_result");
     } catch (e) {
       btn.disabled = false;
       btn.textContent = "Import";
       setResult("a_upload_result", false, `${contest}: could not reach the API.`);
       document.getElementById("a_upload_result").classList.remove("hidden");
     }
+  }
+
+  // --- Tag review (NEW) ---
+  // After any import, the backend tags the batch and diffs its techniques
+  // against the canonical list (see techniques.py) instead of merging
+  // straight into the corpus. This panel shows what's new and lets the
+  // admin approve / merge / reject each one before anything is committed.
+
+  function openTagReview(data, sourceResultId) {
+    const panel = document.getElementById("tagReviewPanel");
+    panel.classList.remove("hidden");
+    panel.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    const known = data.known_techniques || [];
+    document.getElementById("reviewKnownSummary").textContent =
+      `${data.record_count} problem(s) tagged. ` +
+      `${known.length} known technique${known.length === 1 ? "" : "s"} recognized automatically.`;
+
+    const newList = data.new_techniques || [];
+    const listEl = document.getElementById("reviewNewList");
+
+    if (!newList.length) {
+      listEl.innerHTML = `<div class="help" style="margin-top:0">No new techniques in this batch — nothing to review.</div>`;
+      document.getElementById("reviewSubmitBtn").textContent = "Import";
+      return;
+    }
+
+    document.getElementById("reviewSubmitBtn").textContent =
+      `Approve & Import (${newList.length} new tag${newList.length === 1 ? "" : "s"})`;
+
+    listEl.innerHTML = newList.map((item, i) => `
+      <div class="review-new-item" data-input="${escapeHtmlAdmin(item.input)}">
+        <span class="tag-name">${escapeHtmlAdmin(item.input)}</span>
+        <select onchange="onReviewActionChange(this, ${i})">
+          <option value="approve">Approve (new canonical tag)</option>
+          <option value="merge">Merge into existing tag</option>
+          <option value="reject" selected>Reject</option>
+        </select>
+        <select class="merge-target" id="mergeTarget_${i}">
+          ${(item.suggestions || []).map(s =>
+            `<option value="${escapeHtmlAdmin(s)}">${escapeHtmlAdmin(s)}</option>`
+          ).join("")}
+        </select>
+      </div>
+    `).join("");
+  }
+
+  function onReviewActionChange(selectEl, i) {
+    document.getElementById(`mergeTarget_${i}`).classList.toggle("visible", selectEl.value === "merge");
+  }
+
+  async function submitTagReview() {
+    const items = [...document.querySelectorAll(".review-new-item")];
+    const approve = [], reject = [];
+    const merge = {};
+
+    items.forEach((el, i) => {
+      const input = el.dataset.input;
+      const action = el.querySelector("select").value;
+      if (action === "approve") {
+        approve.push(input);
+      } else if (action === "reject") {
+        reject.push(input);
+      } else if (action === "merge") {
+        const targetSelect = document.getElementById(`mergeTarget_${i}`);
+        if (targetSelect.value) merge[input] = targetSelect.value;
+        else reject.push(input); // no suggestions available -> fall back to reject
+      }
+    });
+
+    const btn = document.getElementById("reviewSubmitBtn");
+    btn.disabled = true;
+    setResult("reviewResult", true, "Applying decisions and finishing import...");
+    document.getElementById("reviewResult").classList.remove("hidden");
+
+    try {
+      const res = await fetch(`${API}/admin/import/resolve`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ approve, merge, reject }),
+      });
+      const data = await res.json();
+
+      if (!res.ok || data.status === "blocked") {
+        setResult("reviewResult", false, data.reason || data.detail || "Import could not be completed.");
+      } else {
+        const githubMsg = data.github && data.github.committed
+          ? "Committed to GitHub." : "Not committed to GitHub.";
+        setResult("reviewResult", true,
+          `Imported ${(data.added || []).length + (data.replaced || []).length} problem(s). ` +
+          `Approved: ${approve.join(", ") || "none"}. ` +
+          `Merged: ${Object.keys(merge).join(", ") || "none"}. ` +
+          `Rejected: ${reject.join(", ") || "none"}. ${githubMsg}`);
+        document.getElementById("tagReviewPanel").classList.add("hidden");
+        loadStats();
+      }
+    } catch (e) {
+      setResult("reviewResult", false, "Could not reach the API.");
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  async function discardPendingImport() {
+    if (!confirm("Discard this import? Nothing will be added to the corpus.")) return;
+    try {
+      await fetch(`${API}/admin/import/discard-pending`, { method: "POST", credentials: "include" });
+    } catch (e) {}
+    document.getElementById("tagReviewPanel").classList.add("hidden");
+  }
+
+  async function checkPendingReview() {
+    try {
+      const res = await fetch(`${API}/admin/import/review-pending`, { credentials: "include" });
+      const data = await res.json();
+      if (data.pending) {
+        openTagReview({
+          record_count: data.record_count,
+          known_techniques: data.known_techniques,
+          new_techniques: data.new_techniques,
+        }, null);
+      }
+    } catch (e) {}
+  }
+
+  function escapeHtmlAdmin(s) {
+    const d = document.createElement("div");
+    d.textContent = s;
+    return d.innerHTML;
   }
 
   // --- Browse / delete / edit ---
