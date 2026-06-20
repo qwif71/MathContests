@@ -1,5 +1,5 @@
 """
-aimo_import.py — Import problems from the AIMO-style CSV (AoPS-scraped).
+amio_import.py — Import problems from the AIMO-style CSV (AoPS-scraped).
 
 CSV columns: problem_id, link, problem, solution, letter, answer
 Each problem_id appears on MULTIPLE rows — one per community-submitted
