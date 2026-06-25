@@ -1,0 +1,310 @@
+{
+  "taxonomy": {
+    "Algebra": {
+      "Polynomials": [
+        "Vieta's formulas",
+        "Newton's sums",
+        "symmetric functions",
+        "polynomial roots",
+        "factor theorem",
+        "remainder theorem",
+        "rational root theorem",
+        "Descartes' rule of signs",
+        "Lagrange interpolation",
+        "roots of unity",
+        "conjugate roots",
+        "partial fractions",
+        "polynomial factorization",
+        "difference of squares",
+        "difference of cubes",
+        "Simon's Favorite Factoring Trick (SFFT)",
+        "characteristic equation",
+        "quadratic equations",
+        "quadratic formula",
+        "discriminant",
+        "completing the square",
+        "system of linear equations",
+        "linear independence"
+      ],
+      "Inequalities": [
+        "AM-GM",
+        "weighted AM-GM",
+        "Cauchy-Schwarz",
+        "triangle inequality (algebra)",
+        "power mean inequality",
+        "power mean (QM-AM)",
+        "AM-HM",
+        "rearrangement inequality",
+        "SOS (sum of squares)",
+        "Jensen",
+        "Holder",
+        "Minkowski",
+        "Schur's inequality",
+        "trivial inequality",
+        "inequalities",
+        "optimization",
+        "Lagrange multipliers"
+      ],
+      "Algebraic Manipulation": [
+        "telescoping",
+        "substitution",
+        "functional equation",
+        "Cauchy functional equation",
+        "absolute value",
+        "floor/ceiling",
+        "floor/ceiling functions",
+        "logarithms",
+        "logarithm properties",
+        "exponentials",
+        "exponent rules",
+        "change of base formula",
+        "Abel summation",
+        "parametrization",
+        "order of operations"
+      ],
+      "Sequences and Series": [
+        "arithmetic sequences",
+        "geometric sequences",
+        "arithmetic series",
+        "geometric series",
+        "summation formulas",
+        "product formulas",
+        "telescoping product",
+        "recursion",
+        "recurrence relation",
+        "linear recurrence",
+        "generating functions",
+        "matrix exponentiation",
+        "Fibonacci/Lucas"
+      ],
+      "Complex Numbers": [
+        "complex numbers",
+        "DeMoivre's theorem",
+        "roots of unity"
+      ],
+      "Applied Algebra": [
+        "distance-rate-time",
+        "work-rate",
+        "weighted average",
+        "weighted averages",
+        "mixture problems",
+        "unit conversion",
+        "Intermediate Value Theorem"
+      ]
+    },
+    "Combinatorics": {
+      "Counting Techniques": [
+        "bijection",
+        "pigeonhole principle",
+        "pigeonhole",
+        "stars and bars",
+        "inclusion-exclusion",
+        "complementary counting",
+        "permutations",
+        "combinations",
+        "permutations/combinations",
+        "multinomial theorem",
+        "multinomial counting",
+        "binomial theorem",
+        "double counting",
+        "circular arrangements",
+        "distinguishable vs indistinguishable",
+        "paths on a grid",
+        "multiplication principle",
+        "casework",
+        "symmetry"
+      ],
+      "Combinatorial Identities": [
+        "Vandermonde's identity",
+        "Hockey Stick identity",
+        "Pascal's triangle",
+        "Pascal's identity",
+        "Catalan numbers",
+        "Stirling numbers",
+        "derangements"
+      ],
+      "Symmetry and Enumeration": [
+        "Burnside's lemma",
+        "Polya enumeration",
+        "symmetry"
+      ],
+      "Graph Theory": [
+        "graph theory",
+        "coloring",
+        "coloring argument",
+        "handshake lemma",
+        "Dijkstra's algorithm"
+      ],
+      "Probability and Expected Value": [
+        "linearity of expectation",
+        "conditional probability",
+        "Bayes' theorem",
+        "geometric probability",
+        "expected value",
+        "variance",
+        "random walks",
+        "Markov chains",
+        "indicator variables",
+        "geometric distribution",
+        "binomial distribution",
+        "probabilistic method",
+        "geometric series"
+      ],
+      "Combinatorial Arguments": [
+        "extremal principle",
+        "invariants",
+        "monovariant",
+        "monovariants",
+        "principle of reflection",
+        "game theory",
+        "strategy stealing",
+        "induction",
+        "strong induction",
+        "logical deduction",
+        "block/period identification",
+        "pairing argument",
+        "exhaustive case elimination",
+        "greedy algorithm",
+        "recursion",
+        "generating functions"
+      ]
+    },
+    "Geometry": {
+      "Triangle Geometry": [
+        "Law of Cosines",
+        "Law of Sines",
+        "extended Law of Sines",
+        "Stewart's theorem",
+        "angle bisector theorem",
+        "similar triangles",
+        "congruent triangles",
+        "isosceles triangles",
+        "Pythagorean theorem",
+        "special right triangles",
+        "triangle inequality",
+        "mass points",
+        "area ratios",
+        "Heron's formula",
+        "inradius/circumradius formulas",
+        "Routh's theorem",
+        "British Flag theorem"
+      ],
+      "Circle Geometry": [
+        "Power of a Point",
+        "Ptolemy",
+        "radical axis",
+        "cyclic quadrilateral",
+        "tangent-secant",
+        "intersecting chords",
+        "arcs and inscribed angles",
+        "Euler line",
+        "nine-point circle",
+        "Simson line",
+        "Descartes' Circle Theorem",
+        "perpendicular bisector"
+      ],
+      "Angle and Line Theorems": [
+        "Menelaus",
+        "Ceva",
+        "trig Ceva",
+        "angle chasing",
+        "directed angles"
+      ],
+      "Transformations": [
+        "homothety",
+        "spiral similarity",
+        "inversion",
+        "rotation",
+        "reflection",
+        "symmetry",
+        "complex numbers",
+        "vectors"
+      ],
+      "Coordinate and Vector Methods": [
+        "coordinate geometry",
+        "distance formula",
+        "vectors",
+        "shoelace formula",
+        "Pick's theorem",
+        "Brahmagupta's formula",
+        "tangent addition formula",
+        "parametrization"
+      ],
+      "Trigonometry": [
+        "trigonometric identities",
+        "double-angle",
+        "half-angle",
+        "product-to-sum",
+        "sum-to-product",
+        "Law of Sines",
+        "Law of Cosines",
+        "tangent addition formula"
+      ],
+      "Solid Geometry": [
+        "3D geometry",
+        "cross-section"
+      ]
+    },
+    "Number Theory": {
+      "Divisibility and Primes": [
+        "divisibility",
+        "GCD/LCM",
+        "prime factorization",
+        "Euclidean algorithm",
+        "Bezout's identity",
+        "Chicken McNugget theorem",
+        "Frobenius (Chicken McNugget)",
+        "number of divisors",
+        "sum of divisors",
+        "divisor function",
+        "multiplicative functions",
+        "perfect squares/cubes",
+        "pairing argument"
+      ],
+      "Modular Arithmetic": [
+        "modular arithmetic",
+        "Chinese Remainder Theorem",
+        "Fermat's little theorem",
+        "Euler's theorem",
+        "Wilson's theorem",
+        "quadratic residues",
+        "Legendre symbol",
+        "order of an element",
+        "primitive roots",
+        "modular inverse",
+        "Euler's totient function"
+      ],
+      "Valuations and Lifting": [
+        "lifting the exponent (LTE)",
+        "p-adic valuation",
+        "Legendre's formula"
+      ],
+      "Diophantine Equations": [
+        "Diophantine equations",
+        "Diophantine equation",
+        "Pell equation",
+        "Vieta jumping",
+        "infinite descent",
+        "well-ordering principle",
+        "induction",
+        "strong induction",
+        "Simon's Favorite Factoring Trick (SFFT)"
+      ],
+      "Number Representations": [
+        "floor sums",
+        "digit problems",
+        "base conversion",
+        "base representation",
+        "Fibonacci/Lucas"
+      ],
+      "Number Theory Arguments": [
+        "monovariant",
+        "monovariants",
+        "invariants",
+        "pigeonhole principle",
+        "pigeonhole",
+        "extremal principle"
+      ]
+    }
+  }
+}
